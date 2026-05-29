@@ -106,7 +106,7 @@ export default function RegisterPage() {
                                     <div className="flex-1">
                                         <blockquote className="text-gray-700 mb-4 italic">
                                             "We take immense satisfaction in our ability to achieve a 5-minute end-to-end target TAT for
-                                            security assessments, and Digital Rakshak continues to be a pivotal partner in this endeavour."
+                                            security assessments, and DigitalRakshak continues to be a pivotal partner in this endeavour."
                                         </blockquote>
                                         <div className="flex items-center space-x-3">
                                             <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
@@ -207,7 +207,7 @@ export default function RegisterPage() {
                                             onChange={handleInputChange}
                                             rows={3}
                                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm resize-none"
-                                            placeholder="Tell us how you discovered Digital Rakshak"
+                                            placeholder="Tell us how you discovered DigitalRakshak"
                                             required
                                         />
                                     </div>
@@ -216,7 +216,7 @@ export default function RegisterPage() {
                                         <div className="text-xs text-gray-600 leading-relaxed">
                                             By clicking Submit, you agree that you:
                                             <br />
-                                            1. Consent to Digital Rakshak to process your data as per the{" "}
+                                            1. Consent to DigitalRakshak to process your data as per the{" "}
                                             <Link href="/privacy-policy" className="text-blue-600 hover:underline">
                                                 Privacy Policy
                                             </Link>{" "}
@@ -226,7 +226,7 @@ export default function RegisterPage() {
                                             </Link>
                                             , and
                                             <br />
-                                            2. Agree to receive marketing communications from Digital Rakshak and acknowledge that you can opt
+                                            2. Agree to receive marketing communications from DigitalRakshak and acknowledge that you can opt
                                             out at any time by writing to us at{" "}
                                             <Link href="mailto:privacy@digitalrakshak.co" className="text-blue-600 hover:underline">
                                                 privacy@digitalrakshak.co

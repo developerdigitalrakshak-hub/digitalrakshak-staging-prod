@@ -125,7 +125,7 @@ export default function CommunityPage() {
             <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
                 <div className="container mx-auto px-4">
                     <div className="text-center max-w-4xl mx-auto">
-                        <h1 className="text-4xl lg:text-5xl font-bold mb-4">Digital Rakshak Community</h1>
+                        <h1 className="text-4xl lg:text-5xl font-bold mb-4">DigitalRakshak Community</h1>
                         <p className="text-xl mb-8 text-blue-100">
                             Connect with security experts, ask questions, and share knowledge about cybersecurity, compliance, and
                             verification services.

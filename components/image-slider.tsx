@@ -26,7 +26,7 @@ const slides: Slide[] = [
         title: "Your Digital Guardian",
         subtitle: "for Cybersecurity & Compliance",
         description:
-            "Digital Rakshak provides comprehensive cybersecurity and compliance solutions. Your trusted partner for GDPR implementation, data protection, and security consulting.",
+            "DigitalRakshak provides comprehensive cybersecurity and compliance solutions. Your trusted partner for GDPR implementation, data protection, and security consulting.",
         image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop",
         imageAlt: "Cybersecurity professionals working on security assessment and monitoring",
         ctaText: "Get Free Security Assessment",

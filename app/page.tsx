@@ -139,7 +139,7 @@ export default function HomePage() {
             icon: Clock,
             title: "Fast Turnaround Time",
             description:
-                "Digital Rakshak's robust processes ensure more than 90% of assessments completed in less than 5 days",
+                "DigitalRakshak's robust processes ensure more than 90% of assessments completed in less than 5 days",
             color: "from-blue-500 to-indigo-500",
         },
         {
@@ -205,7 +205,7 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                     <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                                        DIGITAL RAKSHAK ONE
+                                        DIGITALRAKSHAK ONE
                                     </h3>
                                     <p className="text-gray-600">Complete Security Platform</p>
                                 </div> */}
@@ -290,7 +290,7 @@ export default function HomePage() {
                     <div className="max-w-5xl mx-auto">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                                Security implementation success rate with Digital Rakshak
+                                Security implementation success rate with DigitalRakshak
                             </h2>
                         </div>
                         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
@@ -300,7 +300,7 @@ export default function HomePage() {
                                         <div className="flex items-center justify-between mb-4">
                                             <div className="flex items-center space-x-3">
                                                 <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                                                <span className="font-semibold text-blue-600 text-lg">Digital Rakshak</span>
+                                                <span className="font-semibold text-blue-600 text-lg">DigitalRakshak</span>
                                             </div>
                                             <span className="font-bold text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                                 96%
@@ -382,12 +382,12 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Digital Rakshak ONE Platform */}
+            {/* DigitalRakshak ONE Platform */}
             <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
                         <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 text-lg px-6 py-3 font-semibold">
-                            🚀 DIGITAL RAKSHAK
+                            🚀 DIGITALRAKSHAK
                         </Badge>
                         <h2 className="text-4xl font-bold text-gray-900 mb-4">ONE platform for all your cybersecurity needs</h2>
                     </div>
@@ -622,11 +622,11 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Why Choose Digital Rakshak Section */}
+            {/* Why Choose DigitalRakshak Section */}
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Digital Rakshak?</h2>
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Why DigitalRakshak?</h2>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                             Trusted security partner delivering reliable, accurate, and compliant solutions
                         </p>
@@ -756,7 +756,7 @@ export default function HomePage() {
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <div className="max-w-4xl mx-auto">
                         <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 text-lg px-6 py-3 font-semibold">
-                            🤝 DIGITAL RAKSHAK'S PROMISE
+                            🤝 DIGITALRAKSHAK'S PROMISE
                         </Badge>
                         <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                             We will not give up till you see{" "}
@@ -775,7 +775,7 @@ export default function HomePage() {
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Customers love Digital Rakshak!</h2>
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">Customers love DigitalRakshak!</h2>
                         <p className="text-xl text-gray-600">See what our clients say about our security solutions</p>
                     </div>
                     <div className="max-w-5xl mx-auto">
@@ -791,7 +791,7 @@ export default function HomePage() {
                                             className="mb-8"
                                         />
                                         <blockquote className="text-2xl text-gray-700 mb-8 italic leading-relaxed">
-                                            "Digital Rakshak delivered way more than what was expected. Couldn't have asked for more
+                                            "DigitalRakshak delivered way more than what was expected. Couldn't have asked for more
                                             comprehensive security solutions."
                                         </blockquote>
                                         <div className="border-l-4 border-blue-600 pl-6">
@@ -805,7 +805,7 @@ export default function HomePage() {
                                                 <Shield className="h-10 w-10 text-white" />
                                             </div>
                                             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                                                TCS partners with Digital Rakshak for Swift Security Implementation
+                                                TCS partners with DigitalRakshak for Swift Security Implementation
                                             </h3>
                                             <div className="flex justify-center items-center gap-1 mb-4">
                                                 {[...Array(5)].map((_, i) => (
