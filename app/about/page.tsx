@@ -10,7 +10,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-r from-slate-900 to-orange-900 text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">About Digital Rakshak</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6">About DigitalRakshak</h1>
             <p className="text-xl text-gray-300 mb-8">
               With over 10 years of experience, we are dedicated to providing exceptional cybersecurity and VAPT
               services that protect and empower businesses worldwide.

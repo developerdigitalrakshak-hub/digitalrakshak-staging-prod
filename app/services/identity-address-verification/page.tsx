@@ -14,7 +14,7 @@ export default function IdentityAddressVerificationPage() {
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
                             <Badge className="bg-blue-500/20 text-blue-200 border-blue-400/30 mb-4">
-                                DIGITAL RAKSHAK IDENTITY VERIFICATION
+                                DIGITALRAKSHAK IDENTITY VERIFICATION
                             </Badge>
                             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                                 Simplify Your Digital
@@ -25,7 +25,7 @@ export default function IdentityAddressVerificationPage() {
                                 Process
                             </h1>
                             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                                Reduce user drop-offs with Digital Rakshak: 50M+ verified identities across 195+ countries for unmatched
+                                Reduce user drop-offs with DigitalRakshak: 50M+ verified identities across 195+ countries for unmatched
                                 security and convenience.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -109,11 +109,11 @@ export default function IdentityAddressVerificationPage() {
                 </div>
             </section> */}
 
-            {/* Why Digital Rakshak Section */}
+            {/* Why DigitalRakshak Section */}
             <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <Badge className="bg-blue-100 text-blue-800 mb-4">WHY DIGITAL RAKSHAK</Badge>
+                        <Badge className="bg-blue-100 text-blue-800 mb-4">WHY DIGITALRAKSHAK</Badge>
                         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                             Seamless Identity Verification for Better Customer Onboarding
                         </h2>
@@ -348,7 +348,7 @@ export default function IdentityAddressVerificationPage() {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-gray-600 mb-4">
-                                    "In 1 year, Paytm has been able to onboard 10M+ customers using Digital Rakshak's identity
+                                    "In 1 year, Paytm has been able to onboard 10M+ customers using DigitalRakshak's identity
                                     verification."
                                 </p>
                                 <div className="flex items-center gap-1">
@@ -373,7 +373,7 @@ export default function IdentityAddressVerificationPage() {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-gray-600 mb-4">
-                                    "Reduced cost of onboarding by 90% using Digital Rakshak's advanced verification technology."
+                                    "Reduced cost of onboarding by 90% using DigitalRakshak's advanced verification technology."
                                 </p>
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, i) => (

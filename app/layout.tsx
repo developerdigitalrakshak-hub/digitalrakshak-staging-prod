@@ -8,9 +8,9 @@ import ClientLayout from "./client-layout"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-    title: "Digital Rakshak - Your Digital Guardian for Cybersecurity & Compliance",
+    title: "DigitalRakshak - Your Digital Guardian for Cybersecurity & Compliance",
     description:
-        "Digital Rakshak provides comprehensive cybersecurity services, VAPT testing, and compliance solutions. Protecting your digital assets with expert security guidance.",
+        "DigitalRakshak provides comprehensive cybersecurity services, VAPT testing, and compliance solutions. Protecting your digital assets with expert security guidance.",
     icons: {
         icon: "/icon.svg",
     },

@@ -11,6 +11,7 @@ interface ServiceItem {
   name: string
   description: string
   href?: string
+  isNew?: boolean
 }
 
 interface SubService {
@@ -18,12 +19,14 @@ interface SubService {
   description: string
   services: ServiceItem[]
   href?: string
+  isNew?: boolean
 }
 
 interface MainService {
   name: string
   description: string
   icon: string
+  isNew?: boolean
   subservices: SubService[]
 }
 
@@ -31,6 +34,8 @@ interface InHouseService {
   name: string
   description: string
   icon: string
+  isNew?: boolean
+  isDisplay?: boolean
   subservices: SubService[]
 }
 
@@ -111,6 +116,7 @@ export default function Bar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string>("ID & e-KYC Data Stack")
   const [selectedInhouseCategory, setSelectedInhouseCategory] = useState<string>("HR Excellence Suite")
+  const [selectedDigitalTransformationCategory, setSelectedDigitalTransformationCategory] = useState<string>("Digital Transformation")
   const [selectedLang, setSelectedLang] = useState<string>(() => {
     if (typeof window === "undefined") return "English"
     return detectLanguageFromBrowser()
@@ -245,8 +251,8 @@ export default function Bar() {
           services: [
             { name: 'Face Match', description: 'Biometric face matching' },
             { name: 'Liveness Check', description: 'Anti-spoofing liveness verification' },
-            { name: 'KYC - OCR', href: '/kyc-ocr', description: 'Optical character recognition for KYC' },
-            { name: 'Email / Mobile Verification', href: '/email-and-mobile-verification', description: 'Channel verification' },
+            { name: 'KYC - OCR', href: '/kyc-ocr', description: 'Optical character recognition for KYC', isNew: true },
+            { name: 'Email / Mobile Verification', href: '/email-and-mobile-verification', description: 'Channel verification', isNew: true },
             { name: 'Email Fraud Check', description: 'Detect email fraud' },
             { name: 'Mobile No. Revocation List (MNRL)', description: 'Check mobile revocation' }
           ]
@@ -275,6 +281,7 @@ export default function Bar() {
           name: 'Business Verification',
           description: 'Comprehensive business entity verification',
           href: '/business-verification',
+          isNew: true,
           services: [
             { name: 'Company & LLP Check', description: 'Company and LLP verification' },
             { name: 'PAN Verify', description: 'Business PAN verification' },
@@ -282,7 +289,7 @@ export default function Bar() {
             { name: 'TIN Verify', description: 'TIN verification' },
             { name: 'GSTIN Verify', description: 'GST registration verification' },
             { name: 'Import / Export Certificate', description: 'Import/export verification' },
-            { name: 'Shop & Establishment', description: 'Shop registration verification' },
+            { name: 'Shop & Establishment', href: '/shop-establishment', description: 'Shop registration verification', isNew: true },
             { name: 'MSME / Udyam', description: 'MSME registration check' },
             { name: 'EPFO Establishment Search', description: 'EPFO verification' }
           ]
@@ -301,8 +308,8 @@ export default function Bar() {
             { name: 'Name Match', description: 'Verify name consistency' },
             { name: 'Address Match', description: 'Address verification' },
             { name: 'Address Split', description: 'Parse address components' },
-            { name: 'Geo Fencing', description: 'Geographic boundary verification' },
-            { name: 'Reverse GeoCodes', description: 'Reverse geocoding services' },
+            { name: 'Geo Fencing', href: '/geo-fencing', description: 'Geographic boundary verification', isNew: true },
+            { name: 'Reverse GeoCodes', href: '/reverse-geocodes', description: 'Reverse geocoding services', isNew: true },
             { name: 'Property Tax Verification', description: 'Property tax records check' },
             { name: 'Driving Licence (DL)', description: 'DL verification' },
             { name: 'Vehicle RC Verification', description: 'RC verification' },
@@ -340,7 +347,7 @@ export default function Bar() {
           description: 'Employment background verification',
           services: [
             { name: 'EPF Employee Name Search', description: 'Search EPF records' },
-            { name: 'EPF UAN Validation', description: 'Validate UAN number' },
+            { name: 'EPF UAN Validation', href: '/uan-validation', description: 'Validate UAN number', isNew: true },
             { name: 'EPF Records Check', description: 'Check EPF history' },
             { name: 'Single Record - Last Comp', description: 'Last company record' }
           ]
@@ -387,6 +394,7 @@ export default function Bar() {
   const inHouseServicesData: InHouseService[] = [
     {
       name: 'HR Excellence Suite',
+      isDisplay: false,
       description: 'Complete HR and employee management solutions',
       icon: '👥',
       subservices: [
@@ -424,6 +432,9 @@ export default function Bar() {
         }
       ]
     },
+  ]
+
+  const digitalTransformationData: InHouseService[] = [
     {
       name: 'Digital Transformation',
       description: 'Modern tech solutions and security services',
@@ -508,8 +519,9 @@ export default function Bar() {
   ]
 
   const displayServicesName: { [key: string]: string } = {
-    "Services": 'Discover Services',
-    "inhouseServices": 'Inhouse Services',
+    "Services": 'Explore API',
+    "inhouseServices": 'HR Excellence Suite',
+    digitalTransformation: 'Digital Transformation (Dx)',
     Industries: 'Industries',
     Pricing: 'Pricing',
     Resources: 'Resources'
@@ -533,6 +545,14 @@ export default function Bar() {
       description: "Comprehensive verification and background screening services",
     },
     {
+      name: "digitalTransformation",
+      href: "/services",
+      hasDropdown: true,
+      dropDownMenu: servicesCategories,
+      icon: Users,
+      description: "Comprehensive verification and background screening services",
+    },
+    {
       name: "Industries",
       href: "/industries",
       hasDropdown: true,
@@ -541,47 +561,50 @@ export default function Bar() {
       description: "Tailored solutions for various industries and sectors",
     },
     {
-        name: "Pricing",
-        href: "/pricing",
-        hasDropdown: false,
-        icon: null,
-        description: null,
-        dropDownMenu: []
+      name: "Pricing",
+      href: "/pricing",
+      hasDropdown: false,
+      icon: null,
+      description: null,
+      dropDownMenu: []
     },
     {
-        name: "Resources",
-        href: "/resources",
-        hasDropdown: true,
-        dropDownMenu: [
-            {
-                name: "Academy",
-                href: "/resources/academy",
-                icon: BookOpen,
-                description: "Learn about background verification and compliance",
-            },
-            {
-                name: "Blog",
-                href: "/resources/blog",
-                icon: BookOpen,
-                description: "Stay up-to-date with the latest industry news",
-            },
-            {
-                name: "Glossary",
-                href: "/resources/glossary",
-                icon: MessageSquare,
-                description: "Understand key terms and concepts in background verification",
-            },
-            {
-                name: "About Us",
-                href: "/resources/about-us",
-                icon: FileText,
-                description: "Learn more about our company and our mission",
-            },
-        ],
-        icon: null,
-        description: null
+      name: "Resources",
+      href: "/resources",
+      hasDropdown: true,
+      dropDownMenu: [
+        {
+          name: "Academy",
+          href: "/resources/academy",
+          icon: BookOpen,
+          description: "Learn about background verification and compliance",
+        },
+        {
+          name: "Blog",
+          href: "/resources/blog",
+          icon: BookOpen,
+          description: "Stay up-to-date with the latest industry news",
+        },
+        {
+          name: "Glossary",
+          href: "/resources/glossary",
+          icon: MessageSquare,
+          description: "Understand key terms and concepts in background verification",
+        },
+        {
+          name: "About Us",
+          href: "/resources/about-us",
+          icon: FileText,
+          description: "Learn more about our company and our mission",
+        },
+      ],
+      icon: null,
+      description: null
     },
   ]
+
+  const isDisplayMainServices = inHouseServicesData?.find(service => service?.isDisplay == true)
+  const isDisplayDigitalTransformationDataServices = digitalTransformationData?.find(service => service?.isDisplay == true)
 
   const toggleCard = (cardName: string) => {
     setExpandedCards((prev) =>
@@ -798,13 +821,13 @@ export default function Bar() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-gray-900">Digital Rakshak</span>
+                <span className="text-xl font-bold text-gray-900">DigitalRakshak</span>
                 <span className="text-xs text-blue-600 font-medium">SECURE FOR SURE</span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden xl:flex items-center space-x-3">
               {navigation.map((item) => (
                 <div
                   key={item.name}
@@ -831,7 +854,7 @@ export default function Bar() {
                           style={{
                             boxShadow:
                               "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                            left: item.name === "Resources" ? "0" : "-200px",
+                            left: item.name === "Resources" ? "0" : "-400px",
                           }}
                         >
                           <div className="flex">
@@ -922,9 +945,17 @@ export default function Bar() {
                                                         </div>
                                                       </div>
                                                       <div className="flex-1 min-w-0">
-                                                        <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors leading-tight">
-                                                          {service.name}
-                                                        </h4>
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                          <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors leading-tight">
+                                                            {service.name}
+                                                          </h4>
+                                                          {/* New Tag for main service */}
+                                                          {service.isNew && (
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                              New
+                                                            </span>
+                                                          )}
+                                                        </div>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -948,11 +979,17 @@ export default function Bar() {
                                                                 router.push(`${subItem.href}`)
                                                               }
                                                             }}
-                                                            className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600"
+                                                            className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600 group/subitem"
                                                           >
                                                             <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
-                                                            <span className="line-clamp-1">
+                                                            <span className="line-clamp-1 flex items-center gap-1.5">
                                                               {subItem.name}
+                                                              {/* New Tag for sub-service */}
+                                                              {subItem.isNew && (
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 text-[10px]">
+                                                                  New
+                                                                </span>
+                                                              )}
                                                             </span>
                                                           </div>
                                                         ))}
@@ -995,26 +1032,29 @@ export default function Bar() {
                                 </div>
                               ) : item.name === "inhouseServices" ? (
                                 <div className="flex">
-                                  <div className="w-56 border-r border-gray-200 py-4">
-                                    <div className="px-4 pb-4">
-                                      <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Inhouse Services</h3>
-                                      <div className="space-y-1">
-                                        {inHouseServicesData.map((category) => (
-                                          <button
-                                            key={category.name}
-                                            onClick={() => setSelectedInhouseCategory(category.name)}
-                                            className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${selectedInhouseCategory === category.name
-                                              ? "bg-blue-50 text-blue-700 border-l-2 border-blue-600"
-                                              : "text-gray-700 hover:bg-gray-50"
-                                              }`}
-                                          >
-                                            {category.name}
-                                          </button>
-                                        ))}
+                                  {
+                                    isDisplayMainServices?.name && (
+                                      <div className="w-56 border-r border-gray-200 py-4">
+                                        <div className="px-4 pb-4">
+                                          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Inhouse Services</h3>
+                                          <div className="space-y-1">
+                                            {inHouseServicesData.map((category) => (
+                                              <button
+                                                key={category.name}
+                                                onClick={() => setSelectedInhouseCategory(category.name)}
+                                                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${selectedInhouseCategory === category.name
+                                                  ? "bg-blue-50 text-blue-700 border-l-2 border-blue-600"
+                                                  : "text-gray-700 hover:bg-gray-50"
+                                                  }`}
+                                              >
+                                                {category.name}
+                                              </button>
+                                            ))}
+                                          </div>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </div>
-
+                                    )
+                                  }
                                   <div className="flex-1 p-6">
                                     <div className="grid grid-cols-3 gap-4">
                                       {inHouseServicesData.map((mainService) => {
@@ -1035,9 +1075,17 @@ export default function Bar() {
                                                         </div>
                                                       </div>
                                                       <div className="flex-1 min-w-0">
-                                                        <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors leading-tight">
-                                                          {service.name}
-                                                        </h4>
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                          <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors leading-tight">
+                                                            {service.name}
+                                                          </h4>
+                                                          {/* New Tag for main service */}
+                                                          {service.isNew && (
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                              New
+                                                            </span>
+                                                          )}
+                                                        </div>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -1061,11 +1109,147 @@ export default function Bar() {
                                                                 router.push(`${subItem.href}`)
                                                               }
                                                             }}
-                                                            className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600"
+                                                            className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600 group/subitem"
                                                           >
                                                             <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
-                                                            <span className="line-clamp-1">
+                                                            <span className="line-clamp-1 flex items-center gap-1.5">
                                                               {subItem.name}
+                                                              {/* New Tag for sub-service */}
+                                                              {subItem.isNew && (
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 text-[10px]">
+                                                                  New
+                                                                </span>
+                                                              )}
+                                                            </span>
+                                                          </div>
+                                                        ))}
+
+                                                        {service.services.length > 4 && (
+                                                          <button
+                                                            onClick={(e) => {
+                                                              e.preventDefault()
+                                                              e.stopPropagation()
+                                                              toggleCard(service.name)
+                                                            }}
+                                                            className="pl-3 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                                                          >
+                                                            {expandedCards.includes(service.name)
+                                                              ? "Show Less"
+                                                              : `+${service.services.length - 4} more services`}
+                                                          </button>
+                                                        )}
+                                                      </div>
+                                                    )}
+                                                  </div>
+
+                                                  <div className="flex items-center justify-between pt-3 border-t border-gray-100 group-hover:border-blue-200 transition-colors">
+                                                    <span className="text-xs font-medium text-blue-600 group-hover:text-blue-700">Learn more</span>
+                                                    <div className="text-blue-600 group-hover:translate-x-0.5 transition-transform">
+                                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                      </svg>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </Link>
+                                            )
+                                          })
+                                        }
+                                        return null
+                                      })}
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : item.name === "digitalTransformation" ? (
+                                <div className="flex">
+                                  {
+                                    isDisplayDigitalTransformationDataServices?.name && (
+                                      <div className="w-56 border-r border-gray-200 py-4">
+                                        <div className="px-4 pb-4">
+                                          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Inhouse Services</h3>
+                                          <div className="space-y-1">
+                                            {digitalTransformationData.map((category) => (
+                                              <button
+                                                key={category.name}
+                                                onClick={() => setSelectedDigitalTransformationCategory(category.name)}
+                                                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${selectedDigitalTransformationCategory === category.name
+                                                  ? "bg-blue-50 text-blue-700 border-l-2 border-blue-600"
+                                                  : "text-gray-700 hover:bg-gray-50"
+                                                  }`}
+                                              >
+                                                {category.name}
+                                              </button>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )
+                                  }
+                                  <div className="flex-1 p-6">
+                                    <div className="grid grid-cols-3 gap-4">
+                                      {digitalTransformationData.map((mainService) => {
+                                        if (mainService.name === selectedDigitalTransformationCategory) {
+                                          return mainService.subservices.map((service, i) => {
+                                            return (
+                                              <Link
+                                                key={service.name}
+                                                href={service.href ?? '#'}
+                                                className="cursor-pointer group relative p-4 rounded-lg border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-transparent min-h-[260px] flex flex-col"
+                                              >
+                                                <div className="flex flex-col h-full" key={i}>
+                                                  <div className="mb-3">
+                                                    <div className="flex items-start gap-3 mb-2">
+                                                      <div className="flex-shrink-0">
+                                                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-blue-50 group-hover:from-blue-200 group-hover:to-blue-100 transition-colors">
+                                                          <Shield className="h-4 w-4 text-blue-600" />
+                                                        </div>
+                                                      </div>
+                                                      <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                          <h4 className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors leading-tight">
+                                                            {service.name}
+                                                          </h4>
+                                                          {/* New Tag for main service */}
+                                                          {service.isNew && (
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                              New
+                                                            </span>
+                                                          )}
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+                                                  <div className="flex-grow">
+                                                    <p className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors mb-4">
+                                                      {service.description}
+                                                    </p>
+
+                                                    {service.services && service.services.length > 0 && (
+                                                      <div className="space-y-2 mb-4">
+                                                        {(expandedCards.includes(service.name)
+                                                          ? service.services
+                                                          : service.services.slice(0, 4)
+                                                        ).map((subItem, idx) => (
+                                                          <div
+                                                            key={idx}
+                                                            onClick={(e) => {
+                                                              e.preventDefault()
+                                                              if (subItem.href) {
+                                                                router.push(`${subItem.href}`)
+                                                              }
+                                                            }}
+                                                            className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600 group/subitem"
+                                                          >
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
+                                                            <span className="line-clamp-1 flex items-center gap-1.5">
+                                                              {subItem.name}
+                                                              {/* New Tag for sub-service */}
+                                                              {subItem.isNew && (
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 text-[10px]">
+                                                                  New
+                                                                </span>
+                                                              )}
                                                             </span>
                                                           </div>
                                                         ))}
@@ -1155,7 +1339,7 @@ export default function Bar() {
             </div>
 
             {/* Mobile menu button */}
-            <div className="lg:hidden">
+            <div className="xl:hidden">
               <button onClick={() => setIsOpen(!isOpen)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -1164,52 +1348,57 @@ export default function Bar() {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="lg:hidden">
+            <div className="xl:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
                 {navigation.map((item) => (
-                  <div key={item.name}>
-                    {item.hasDropdown ? (
-                      <div>
-                        <button
-                          className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                          onClick={() => handleDropdownToggle(item.name)}
-                        >
-                          <span>{item.name}</span>
-                          <ChevronDown
-                            className={`h-4 w-4 transition-transform ${activeDropdown === item.name ? "rotate-180" : ""}`}
-                          />
-                        </button>
-                        {activeDropdown === item.name && (
-                          <div className="pl-6 space-y-1">
-                            {(item.name === "Industries"
-                              ? industriesList
-                              : item.name === "Resources"
-                                ? (item.dropDownMenu as ResourceItem[])
-                                : servicesCategories
-                            ).map((link: any) => (
-                              <Link
-                                key={link?.name || link}
-                                href={link.href || `#`}
-                                className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 transition-colors"
-                                onClick={() => setIsOpen(false)}
-                              >
-                                {link.name || link}
-                              </Link>
-                            ))}
+                    item?.name != 'inhouseServices' && item?.name != 'digitalTransformation' && (
+                      <div key={item.name}>
+                        {item.hasDropdown  ? (
+                          <div>
+                            <button
+                              className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                              onClick={() => handleDropdownToggle(item.name)}
+                            >
+                              <span>{item.name}</span>
+                              <ChevronDown
+                                className={`h-4 w-4 transition-transform ${activeDropdown === item.name ? "rotate-180" : ""}`}
+                              />
+                            </button>
+                          
+                            {activeDropdown === item.name && (item?.name != 'inhouseServices' && item?.name != 'digitalTransformation') && (
+                              <div className="pl-6 space-y-1">
+                                {(item.name === "Industries"
+                                  ? industriesList
+                                  : item.name === "Resources"
+                                    ? (item.dropDownMenu as ResourceItem[])
+                                    : item?.name == 'Services' || item?.name == 'inhouseServices' || item?.name == 'digitalTransformation'
+                                      ? servicesCategories
+                                      : []
+                                ).map((link: any) => (
+                                  <Link
+                                    key={link?.name || link}
+                                    href={link.href || `#`}
+                                    className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    {link.name || link}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
                           </div>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className={`block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors ${pathname === item.href ? "text-blue-600" : ""
+                              }`}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
                         )}
                       </div>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className={`block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors ${pathname === item.href ? "text-blue-600" : ""
-                          }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </div>
+                    )
                 ))}
                 <div className="px-3 py-2 space-y-2">
                   <Link href="/login" className="block w-full text-center px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsOpen(false)}>

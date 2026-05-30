@@ -14,7 +14,7 @@ export default function EducationVerificationPage() {
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
                             <Badge className="bg-emerald-500/20 text-emerald-200 border-emerald-400/30 mb-4">
-                                DIGITAL RAKSHAK EDUCATION VERIFICATION
+                                DIGITALRAKSHAK EDUCATION VERIFICATION
                             </Badge>
                             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                                 Verify Academic
@@ -108,11 +108,11 @@ export default function EducationVerificationPage() {
                 </div>
             </section>
 
-            {/* Why Digital Rakshak Section */}
+            {/* Why DigitalRakshak Section */}
             <section className="py-20 bg-gradient-to-br from-gray-50 to-emerald-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <Badge className="bg-emerald-100 text-emerald-800 mb-4">WHY DIGITAL RAKSHAK</Badge>
+                        <Badge className="bg-emerald-100 text-emerald-800 mb-4">WHY DIGITALRAKSHAK</Badge>
                         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                             Comprehensive Education Verification for Better Hiring Decisions
                         </h2>
@@ -312,7 +312,7 @@ export default function EducationVerificationPage() {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-gray-600 mb-4">
-                                    "Reduced hiring fraud by 85% and improved candidate quality significantly with Digital Rakshak's
+                                    "Reduced hiring fraud by 85% and improved candidate quality significantly with DigitalRakshak's
                                     education verification."
                                 </p>
                                 <div className="flex items-center gap-1">
