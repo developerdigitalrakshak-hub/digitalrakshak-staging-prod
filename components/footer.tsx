@@ -9,6 +9,7 @@ import {
     ArrowUpRight,
     Shield
 } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const servicesData = [
@@ -211,7 +212,6 @@ export default function Footer() {
                     display: flex;
                     align-items: center;
                     gap: 0.75rem;
-                    margin-bottom: 1.25rem;
                 }
                 .brand-logo-icon {
                     position: relative;
@@ -476,14 +476,15 @@ export default function Footer() {
                                 <div>
                                     <div className="brand-logo">
                                         <div className="brand-logo-icon">
-                                            <Shield size={38} color="#6366f1" />
+                                            {/* <Shield size={38} color="#6366f1" /> */}
+                                            <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={80} height={80} />
                                         </div>
                                         <span className="brand-name">DigitalRakshak</span>
                                     </div>
                                     <p className="brand-legal">DigitalRakshak InfoTech Pvt. Ltd</p>
                                     <p className="brand-cin">CIN: U78300GJ2025PTC171397</p>
                                     <p className="brand-desc">
-                                        Your trusted partner for comprehensive verification and
+                                        Your trusted partner for comprehensive API, BGV and
                                         compliance solutions. Secure, reliable, and compliant
                                         services for your business.
                                     </p>
@@ -540,7 +541,7 @@ export default function Footer() {
                                         { icon: <Mail size={15} />, href: 'mailto:info@digitalrakshak.com', text: 'info@digitalrakshak.com' },
                                         { icon: <Mail size={15} />, href: 'mailto:sales@digitalrakshak.com', text: 'sales@digitalrakshak.com' },
                                         { icon: <MapPin size={15} />, text: 'Gandhinagar, Gujarat, India' },
-                                        { icon: <Phone size={15} />, href: 'tel:+917387022442', text: '+91 73870 22442' }
+                                        { icon: <Phone size={15} />, href: 'tel:+917387022442', text: '+91 88666 11427' }
                                     ].map(({ icon, href, text }, i) => (
                                         <div className="contact-row" key={i}>
                                             <div className="contact-icon">{icon}</div>

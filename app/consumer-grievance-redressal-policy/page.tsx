@@ -77,8 +77,8 @@ const ConsumerGrievanceRedressalPage = () => {
         <div className="absolute inset-0 bg-black/20 z-0"></div>
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-500 rounded-full opacity-20 blur-3xl"></div>
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="flex items-center gap-3 mb-6">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-7">
+          <div className="flex items-center gap-3 mb-2">
             <Headphones className="w-10 h-10 text-blue-300" />
             <span className="text-blue-200 font-semibold tracking-wide">Consumer Rights & Redressal</span>
           </div>

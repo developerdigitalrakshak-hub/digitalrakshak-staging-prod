@@ -801,8 +801,9 @@ export default function HomePage() {
                                     </div>
                                     <div className="p-12 bg-white flex flex-col justify-center">
                                         <div className="text-center">
-                                            <div className="bg-gradient-to-r from-blue-500 to-purple-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                                <Shield className="h-10 w-10 text-white" />
+                                            <div className="from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                                {/* <Shield className="h-10 w-10 text-white" /> */}
+                                                <Image src="/images/logo.png" alt="DigitalRakshak Logo" width={250} height={250} />
                                             </div>
                                             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
                                                 TCS partners with DigitalRakshak for Swift Security Implementation

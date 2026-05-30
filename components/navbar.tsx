@@ -2,6 +2,7 @@
 "use client"
 
 import { ChevronDown, Menu, Shield, X, Users, Scale, Video, FileText, Award, MessageSquare, BookOpen, Search, Star, TrendingUp, Database, Cloud, Eye, UserCheck, GraduationCap, Briefcase, MapPin, ShieldCheck, AlertTriangle, FileCheck, Settings, Globe, Phone, HelpCircle, User } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useState, useRef, useEffect } from "react"
@@ -267,32 +268,6 @@ export default function Bar() {
             { name: 'Voter ID', description: 'Voter ID verification' },
             { name: 'Ration Card Details', description: 'Ration card verification' }
           ]
-        },
-        {
-          name: 'Membership Verification',
-          description: 'Professional membership verification',
-          services: [
-            { name: 'CA - Chartered Accountant', description: 'Verify CA membership' },
-            { name: 'ICSI - Institute of Company Secretaries', description: 'Verify ICSI membership' },
-            { name: 'ICWAI - Institute of Cost Accountants', description: 'Verify ICWAI membership' }
-          ]
-        },
-        {
-          name: 'Business Verification',
-          description: 'Comprehensive business entity verification',
-          href: '/business-verification',
-          isNew: true,
-          services: [
-            { name: 'Company & LLP Check', description: 'Company and LLP verification' },
-            { name: 'PAN Verify', description: 'Business PAN verification' },
-            { name: 'TAN Verify', description: 'TAN verification' },
-            { name: 'TIN Verify', description: 'TIN verification' },
-            { name: 'GSTIN Verify', description: 'GST registration verification' },
-            { name: 'Import / Export Certificate', description: 'Import/export verification' },
-            { name: 'Shop & Establishment', href: '/shop-establishment', description: 'Shop registration verification', isNew: true },
-            { name: 'MSME / Udyam', description: 'MSME registration check' },
-            { name: 'EPFO Establishment Search', description: 'EPFO verification' }
-          ]
         }
       ]
     },
@@ -311,30 +286,16 @@ export default function Bar() {
             { name: 'Geo Fencing', href: '/geo-fencing', description: 'Geographic boundary verification', isNew: true },
             { name: 'Reverse GeoCodes', href: '/reverse-geocodes', description: 'Reverse geocoding services', isNew: true },
             { name: 'Property Tax Verification', description: 'Property tax records check' },
-            { name: 'Driving Licence (DL)', description: 'DL verification' },
-            { name: 'Vehicle RC Verification', description: 'RC verification' },
-            { name: 'Fast Tag Verification', description: 'FASTag verification' },
-            { name: 'FASTTAG Last Location', description: 'FASTag location tracking' },
+            // { name: 'Driving Licence (DL)', description: 'DL verification' },
+            // { name: 'Vehicle RC Verification', description: 'RC verification' },
+            // { name: 'Fast Tag Verification', description: 'FASTag verification' },
+            // { name: 'FASTTAG Last Location', description: 'FASTag location tracking' },
             { name: 'Electricity Bill Verify', description: 'Electricity bill verification' },
             { name: 'LPG ID Verification', description: 'LPG ID check' },
             { name: 'PNG Verification', description: 'PNG verification' }
           ]
         },
-        {
-          name: 'Financial Verification',
-          description: 'Financial records and history verification',
-          services: [
-            { name: 'Bank Account Verification', description: 'Bank account validation' },
-            { name: 'Compensation Verification', description: 'Verify via bank statement' },
-            { name: 'IFSC Check', description: 'IFSC code verification' },
-            { name: 'Income Tax Return - ITR', description: 'ITR verification' },
-            { name: 'Credit / CIBIL History', description: 'Credit history check' },
-            { name: 'Digital Media Forensic', description: 'Digital forensics' },
-            { name: 'Social Media & Reputation', description: 'Social media screening' },
-            { name: 'Cheque Verify', description: 'Cheque verification' },
-            { name: 'OCR - Intelligent Doc Processing', description: 'Document OCR' }
-          ]
-        }
+
       ]
     },
     {
@@ -342,25 +303,7 @@ export default function Bar() {
       description: 'Comprehensive background and criminal record checks',
       icon: '🛡️',
       subservices: [
-        {
-          name: 'Employment BGV',
-          description: 'Employment background verification',
-          services: [
-            { name: 'EPF Employee Name Search', description: 'Search EPF records' },
-            { name: 'EPF UAN Validation', href: '/uan-validation', description: 'Validate UAN number', isNew: true },
-            { name: 'EPF Records Check', description: 'Check EPF history' },
-            { name: 'Single Record - Last Comp', description: 'Last company record' }
-          ]
-        },
-        {
-          name: 'Education BGV',
-          description: 'Education verification',
-          services: [
-            { name: 'Graduate', description: 'Verify graduation' },
-            { name: 'Post Graduate', description: 'Verify post-graduation' },
-            { name: 'PhD', description: 'Verify doctoral degree' }
-          ]
-        },
+
         {
           name: 'Crime / Court Records Check',
           description: 'Criminal and court record verification',
@@ -389,6 +332,126 @@ export default function Bar() {
         }
       ]
     },
+    {
+      name: 'Business & ID Stack',
+      description: '',
+      icon: '🛡️',
+      subservices: [
+        {
+          name: 'Membership Verification',
+          description: 'Professional membership verification',
+          services: [
+            { name: 'CA - Chartered Accountant', description: 'Verify CA membership' },
+            { name: 'ICSI - Institute of Company Secretaries', description: 'Verify ICSI membership' },
+            { name: 'ICWAI - Institute of Cost Accountants', description: 'Verify ICWAI membership' }
+          ]
+        },
+        {
+          name: 'Business Verification',
+          description: 'Comprehensive business entity verification',
+          href: '/business-verification',
+          isNew: true,
+          services: [
+            { name: 'Company & LLP Check', description: 'Company and LLP verification' },
+            { name: 'PAN Verify', description: 'Business PAN verification' },
+            { name: 'TAN Verify', description: 'TAN verification' },
+            { name: 'TIN Verify', description: 'TIN verification' },
+            { name: 'GSTIN Verify', description: 'GST registration verification' },
+            { name: 'Import / Export Certificate', description: 'Import/export verification' },
+            { name: 'Shop & Establishment', href: '/shop-establishment', description: 'Shop registration verification', isNew: true },
+            { name: 'MSME / Udyam', description: 'MSME registration check' },
+            { name: 'EPFO Establishment Search', description: 'EPFO verification' }
+          ]
+        },
+        {
+          name: 'GST Verification',
+          description: 'KPI for GST online verification',
+          services: [
+            { name: 'Prevent Fraudulent Invoices', description: 'Company and LLP verification' },
+            { name: 'Ensure Input Tax Credit (ITC) Compliance', description: 'Business PAN verification' },
+            { name: 'Enhance Audit Preparedness', description: 'TAN verification' },
+            { name: 'Reduce Administrative Errors', description: 'TIN verification' },
+            { name: 'Build Vendor Transparency and Business Trust', description: 'GST registration verification' },
+          ]
+        }
+      ]
+    },
+    {
+      name: 'Employment Check',
+      description: '',
+      icon: '🛡️',
+      subservices: [
+        {
+          name: 'Employment BGV',
+          description: 'Employment background verification',
+          services: [
+            { name: 'EPF Employee Name Search', description: 'Search EPF records' },
+            { name: 'EPF UAN Validation', href: '/uan-validation', description: 'Validate UAN number', isNew: true },
+            { name: 'EPF Records Check', description: 'Check EPF history' },
+            { name: 'Single Record - Last Comp', description: 'Last company record' }
+          ]
+        },
+
+      ]
+    },
+    {
+      name: 'Education Check',
+      description: '',
+      icon: '🛡️',
+      subservices: [
+        {
+          name: 'Education BGV',
+          description: 'Education verification',
+          services: [
+            { name: 'SSC', description: 'Verify SSC' },
+            { name: 'HSC', description: 'Verify HSC' },
+            { name: 'Graduate', description: 'Verify graduation' },
+            { name: 'Post Graduate', description: 'Verify post-graduation' },
+            { name: 'PhD', description: 'Verify doctoral degree' }
+          ]
+        },
+
+      ]
+    },
+    {
+      name: 'Banking Due Diligence',
+      description: '',
+      icon: '🛡️',
+      subservices: [
+        {
+          name: 'Financial Verification',
+          description: 'Financial records and history verification',
+          services: [
+            { name: 'Bank Account Verification', description: 'Bank account validation' },
+            { name: 'Compensation Verification', description: 'Verify via bank statement' },
+            { name: 'IFSC Check', description: 'IFSC code verification' },
+            { name: 'Income Tax Return - ITR', description: 'ITR verification' },
+            { name: 'Credit / CIBIL History', description: 'Credit history check' },
+            { name: 'Digital Media Forensic', description: 'Digital forensics' },
+            { name: 'Social Media & Reputation', description: 'Social media screening' },
+            { name: 'Cheque Verify', description: 'Cheque verification' },
+            { name: 'OCR - Intelligent Doc Processing', description: 'Document OCR' }
+          ]
+        }
+      ]
+    },
+    {
+      name: 'Trace Automobile',
+      description: '',
+      icon: '🛡️',
+      subservices: [
+        {
+          name: 'Vehicle & Transportation',
+          description: 'Automobile verification and Tracking',
+          services: [
+            { name: 'Driving Licence (DL)', description: 'DL verification' },
+            { name: 'Vehicle RC Verification', description: 'RC verification' },
+            { name: 'Fast Tag Verification', description: 'FASTag verification' },
+            { name: 'FASTTAG Last Location', description: 'FASTag location tracking' },
+          ]
+        }
+      ]
+    },
   ]
 
   const inHouseServicesData: InHouseService[] = [
@@ -413,7 +476,11 @@ export default function Bar() {
           name: 'Employee BGV',
           description: 'Employee background verification',
           services: [
-            { name: 'Employee Verification', description: 'Complete employee screening' }
+            { name: 'Employee Verification', description: 'Complete employee screening' },
+            { name: 'ID & BGV', description: 'ID and background verification' },
+            { name: 'Education', description: 'Educational Qualifications' },
+            { name: 'Employment', description: 'Employment History' },
+            { name: 'Physical Address', description: 'Physical Address Verification' }
           ]
         },
         {
@@ -445,6 +512,17 @@ export default function Bar() {
           description: 'Artificial intelligence solutions',
           services: [
             { name: 'Agents as a Service', description: 'AI agent deployment' }
+          ]
+        },
+        {
+          name: 'Web Application Development',
+          description: 'Web application development services',
+          services: [
+            { name: 'FrontEnd', description: 'Frontend development' },
+            { name: 'Backend', description: 'Backend development' },
+            { name: 'Integration', description: 'System integration' },
+            { name: 'Database', description: 'Database management' },
+            { name: 'Cloud', description: 'Cloud services' }
           ]
         },
         {
@@ -552,22 +630,22 @@ export default function Bar() {
       icon: Users,
       description: "Comprehensive verification and background screening services",
     },
-    {
-      name: "Industries",
-      href: "/industries",
-      hasDropdown: true,
-      dropDownMenu: [],
-      icon: Briefcase,
-      description: "Tailored solutions for various industries and sectors",
-    },
-    {
-      name: "Pricing",
-      href: "/pricing",
-      hasDropdown: false,
-      icon: null,
-      description: null,
-      dropDownMenu: []
-    },
+    // {
+    //   name: "Industries",
+    //   href: "/industries",
+    //   hasDropdown: true,
+    //   dropDownMenu: [],
+    //   icon: Briefcase,
+    //   description: "Tailored solutions for various industries and sectors",
+    // },
+    // {
+    //   name: "Pricing",
+    //   href: "/pricing",
+    //   hasDropdown: false,
+    //   icon: null,
+    //   description: null,
+    //   dropDownMenu: []
+    // },
     {
       name: "Resources",
       href: "/resources",
@@ -815,10 +893,11 @@ export default function Bar() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3">
               <div className="relative">
-                <Shield className="h-10 w-10 text-blue-600" />
+                {/* <Shield className="h-10 w-10 text-blue-600" />
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-white rounded-full"></div>
-                </div>
+                </div> */}
+                <Image src="/images/logo.png" alt="DigitalRakshak Logo" width={80} height={80} />
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-gray-900">DigitalRakshak</span>
@@ -866,6 +945,7 @@ export default function Bar() {
                                     <Link
                                       key={ind.name}
                                       href={ind.href}
+                                      onClick={() => handleMouseLeave()}
                                       className="flex items-start gap-3 rounded-lg p-2 hover:bg-gray-50 transition-colors"
                                     >
                                       <div className="flex-shrink-0 rounded-full bg-blue-100 p-2">
@@ -889,6 +969,7 @@ export default function Bar() {
                                       key={res.name}
                                       href={res.href}
                                       className="flex items-center gap-3 w-full rounded-md px-3 py-2 hover:bg-gray-50 transition-colors"
+                                      onClick={() => handleMouseLeave()}
                                     >
                                       {res.icon && (
                                         <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-100">
@@ -920,6 +1001,15 @@ export default function Bar() {
                                             {category.name}
                                           </button>
                                         ))}
+                                        <button
+                                          onClick={() => {
+                                            router.push(`/pricing`)
+                                            handleMouseLeave()
+                                          }}
+                                          className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all bg-[#FEE2E2] text-[#DC2626] border-l-2 border-[#DC2626]`}
+                                        >
+                                          Pricing
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
@@ -935,6 +1025,7 @@ export default function Bar() {
                                                 key={service.name}
                                                 href={service.href ?? '#'}
                                                 className="cursor-pointer group relative p-4 rounded-lg border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-transparent min-h-[260px] flex flex-col"
+                                                onClick={() => handleMouseLeave()}
                                               >
                                                 <div className="flex flex-col h-full" key={i}>
                                                   <div className="mb-3">
@@ -977,6 +1068,7 @@ export default function Bar() {
                                                               e.preventDefault()
                                                               if (subItem.href) {
                                                                 router.push(`${subItem.href}`)
+                                                                handleMouseLeave()
                                                               }
                                                             }}
                                                             className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600 group/subitem"
@@ -1062,8 +1154,9 @@ export default function Bar() {
                                           return mainService.subservices.map((service, i) => {
                                             return (
                                               <Link
-                                                key={service.name}
-                                                href={service.href ?? '#'}
+                                                key={service?.name}
+                                                href={service?.href ?? '#'}
+                                                onClick={() => handleMouseLeave()}
                                                 className="cursor-pointer group relative p-4 rounded-lg border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-transparent min-h-[260px] flex flex-col"
                                               >
                                                 <div className="flex flex-col h-full" key={i}>
@@ -1107,6 +1200,7 @@ export default function Bar() {
                                                               e.preventDefault()
                                                               if (subItem.href) {
                                                                 router.push(`${subItem.href}`)
+                                                                handleMouseLeave()
                                                               }
                                                             }}
                                                             className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600 group/subitem"
@@ -1186,7 +1280,7 @@ export default function Bar() {
                                     )
                                   }
                                   <div className="flex-1 p-6">
-                                    <div className="grid grid-cols-3 gap-4">
+                                    <div className="grid grid-cols-4 gap-4">
                                       {digitalTransformationData.map((mainService) => {
                                         if (mainService.name === selectedDigitalTransformationCategory) {
                                           return mainService.subservices.map((service, i) => {
@@ -1194,6 +1288,7 @@ export default function Bar() {
                                               <Link
                                                 key={service.name}
                                                 href={service.href ?? '#'}
+                                                onClick={() => handleMouseLeave()}
                                                 className="cursor-pointer group relative p-4 rounded-lg border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-transparent min-h-[260px] flex flex-col"
                                               >
                                                 <div className="flex flex-col h-full" key={i}>
@@ -1237,6 +1332,7 @@ export default function Bar() {
                                                               e.preventDefault()
                                                               if (subItem.href) {
                                                                 router.push(`${subItem.href}`)
+                                                                handleMouseLeave()
                                                               }
                                                             }}
                                                             className="flex items-start gap-2 text-xs text-gray-700 cursor-pointer hover:text-blue-600 group/subitem"
@@ -1314,6 +1410,7 @@ export default function Bar() {
                   ) : (
                     <Link
                       href={item.href}
+                      onClick={() => handleMouseLeave()}
                       className={`text-gray-700 hover:text-blue-600 font-medium transition-colors px-3 py-2 ${pathname === item.href
                         ? "text-blue-600 border-b-2 border-blue-600"
                         : ""
@@ -1351,54 +1448,54 @@ export default function Bar() {
             <div className="xl:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
                 {navigation.map((item) => (
-                    item?.name != 'inhouseServices' && item?.name != 'digitalTransformation' && (
-                      <div key={item.name}>
-                        {item.hasDropdown  ? (
-                          <div>
-                            <button
-                              className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                              onClick={() => handleDropdownToggle(item.name)}
-                            >
-                              <span>{item.name}</span>
-                              <ChevronDown
-                                className={`h-4 w-4 transition-transform ${activeDropdown === item.name ? "rotate-180" : ""}`}
-                              />
-                            </button>
-                          
-                            {activeDropdown === item.name && (item?.name != 'inhouseServices' && item?.name != 'digitalTransformation') && (
-                              <div className="pl-6 space-y-1">
-                                {(item.name === "Industries"
-                                  ? industriesList
-                                  : item.name === "Resources"
-                                    ? (item.dropDownMenu as ResourceItem[])
-                                    : item?.name == 'Services' || item?.name == 'inhouseServices' || item?.name == 'digitalTransformation'
-                                      ? servicesCategories
-                                      : []
-                                ).map((link: any) => (
-                                  <Link
-                                    key={link?.name || link}
-                                    href={link.href || `#`}
-                                    className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 transition-colors"
-                                    onClick={() => setIsOpen(false)}
-                                  >
-                                    {link.name || link}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ) : (
-                          <Link
-                            href={item.href}
-                            className={`block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors ${pathname === item.href ? "text-blue-600" : ""
-                              }`}
-                            onClick={() => setIsOpen(false)}
+                  item?.name != 'inhouseServices' && item?.name != 'digitalTransformation' && (
+                    <div key={item.name}>
+                      {item.hasDropdown ? (
+                        <div>
+                          <button
+                            className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => handleDropdownToggle(item.name)}
                           >
-                            {item.name}
-                          </Link>
-                        )}
-                      </div>
-                    )
+                            <span>{item.name}</span>
+                            <ChevronDown
+                              className={`h-4 w-4 transition-transform ${activeDropdown === item.name ? "rotate-180" : ""}`}
+                            />
+                          </button>
+
+                          {activeDropdown === item.name && (item?.name != 'inhouseServices' && item?.name != 'digitalTransformation') && (
+                            <div className="pl-6 space-y-1">
+                              {(item.name === "Industries"
+                                ? industriesList
+                                : item.name === "Resources"
+                                  ? (item.dropDownMenu as ResourceItem[])
+                                  : item?.name == 'Services' || item?.name == 'inhouseServices' || item?.name == 'digitalTransformation'
+                                    ? servicesCategories
+                                    : []
+                              ).map((link: any) => (
+                                <Link
+                                  key={link?.name || link}
+                                  href={link.href || `#`}
+                                  className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {link.name || link}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className={`block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors ${pathname === item.href ? "text-blue-600" : ""
+                            }`}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </div>
+                  )
                 ))}
                 <div className="px-3 py-2 space-y-2">
                   <Link href="/login" className="block w-full text-center px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors" onClick={() => setIsOpen(false)}>
