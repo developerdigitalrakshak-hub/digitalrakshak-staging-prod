@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description:
         "DigitalRakshak provides comprehensive cybersecurity services, VAPT testing, and compliance solutions. Protecting your digital assets with expert security guidance.",
     icons: {
-        icon: "/icon.svg",
+        icon: "/images/logo.png",
     },
     generator: 'v0.app'
 }

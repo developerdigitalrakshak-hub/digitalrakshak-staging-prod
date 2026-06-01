@@ -24,7 +24,7 @@ export default function PricingPage() {
         {
             name: "Grow",
             description: "For Mid-size companies",
-            price: "$49/month",
+            price: "",
             features: [
                 "End-to-end ID verification suite",
                 "Central Database Checks",
@@ -138,7 +138,7 @@ export default function PricingPage() {
                                     ) : (
                                         <>
                                             <span>{plan.price}</span>
-                                            {plan.price !== "Free" && <span className="text-lg font-medium text-gray-500">/month</span>}
+                                            {plan.price !== "Free" && <span >On Request</span>}
                                         </>
                                     )}
                                 </div>

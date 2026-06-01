@@ -54,6 +54,7 @@ import {
     Building,
     Cloud
 } from 'lucide-react';
+import Image from 'next/image';
 
 const ResponsibleDisclosurePage = () => {
     return (
@@ -63,9 +64,10 @@ const ResponsibleDisclosurePage = () => {
                 <div className="absolute inset-0 bg-black/20 z-0"></div>
                 <div className="absolute -top-24 -right-24 w-96 h-96 bg-green-500 rounded-full opacity-20 blur-3xl"></div>
                 <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-emerald-500 rounded-full opacity-20 blur-3xl"></div>
-                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-                    <div className="flex items-center gap-3 mb-6">
-                        <Shield className="w-10 h-10 text-green-300" />
+                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-7">
+                    <div className="flex items-center gap-3 mb-2">
+                        {/* <Shield className="w-10 h-10 text-green-300" /> */}
+                         <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={100} height={100} />
                         <span className="text-green-200 font-semibold tracking-wide">Security & Ethics</span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">

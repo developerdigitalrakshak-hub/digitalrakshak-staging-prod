@@ -34,6 +34,7 @@ import {
   Layers,
   Zap
 } from 'lucide-react';
+import Image from 'next/image';
 
 const PrivacyPolicy = () => {
   return (
@@ -43,9 +44,10 @@ const PrivacyPolicy = () => {
         <div className="absolute inset-0 bg-black/20 z-0"></div>
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="flex items-center gap-3 mb-6">
-            <Shield className="w-10 h-10 text-blue-300" />
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-7">
+          <div className="flex items-center gap-1">
+            {/* <Shield className="w-10 h-10 text-blue-300" /> */}
+            <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={100} height={100} />
             <span className="text-blue-200 font-semibold tracking-wide">Privacy & Security</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
@@ -293,10 +295,10 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900">12. Grievance Officer And Contact Information</h2>
             </div>
             <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-              <p className="font-semibold">Mr. Vivek Varma</p>
+              <p className="font-semibold">Mr. Sujeet Verma</p>
               <div className="mt-2 text-gray-700 space-y-1">
                 <p className="flex items-start gap-2"><MapPin className="w-4 h-4 mt-1" /> DigitalRakshak InfoTech Pvt. Ltd.<br />1st Floor, Plot No. 1195/1, Sector 2A, Sector 2, Kasturba Vidyalaya, Gandhinagar, Gujarat - 382007</p>
-                <p className="flex items-center gap-2"><Mail className="w-4 h-4" /> support@DigitalRakshak.Com</p>
+                <p className="flex items-center gap-2"><Mail className="w-4 h-4" /> support@DigitalRakshak.com</p>
               </div>
             </div>
           </section>

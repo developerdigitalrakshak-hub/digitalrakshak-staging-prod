@@ -171,7 +171,7 @@ export default function ContactPage() {
                                         <Phone className="h-6 w-6 text-blue-600 mt-1" />
                                         <div>
                                             <h4 className="font-semibold">Phone</h4>
-                                            <p className="text-gray-600">+91 73870 22442</p>
+                                            <p className="text-gray-600">+91 88666 11427</p>
                                             <p className="text-sm text-gray-500">Mon-Fri 9AM-6PM EST</p>
                                         </div>
                                     </div>
