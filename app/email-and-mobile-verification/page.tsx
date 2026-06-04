@@ -7,9 +7,11 @@ import { CheckCircle, Mail, Smartphone, Key, AlertTriangle, MessageSquare, Zap, 
 // import { Header, type HeaderRef } from '@/components/header'
 // import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function EmailMobileVerification() {
   // const headerRef = useRef<HeaderRef>(null)
+  const router = useRouter()
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -29,7 +31,11 @@ export default function EmailMobileVerification() {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto">
             Real-Time User Validation to empower your business with trust, instant fraud reduction, and improved communication reliability.
           </p>
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all">
+          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
+            onClick={() => {
+              router.push(`/register`)
+            }}
+          >
             Get Started Securely
           </Button>
         </div>
@@ -58,9 +64,9 @@ export default function EmailMobileVerification() {
                 </li>
               ))}
             </ul>
-             <p className="text-lg text-muted-foreground border-l-4 border-blue-600 pl-4 py-1 italic bg-blue-600/5 rounded-r-lg">
-               This is typically done through OTP authentication, validation checks, and intelligent filtering mechanisms to ensure every user entering your platform is genuine.
-             </p>
+            <p className="text-lg text-muted-foreground border-l-4 border-blue-600 pl-4 py-1 italic bg-blue-600/5 rounded-r-lg">
+              This is typically done through OTP authentication, validation checks, and intelligent filtering mechanisms to ensure every user entering your platform is genuine.
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
             {[
@@ -106,8 +112,8 @@ export default function EmailMobileVerification() {
                   "SMTP check (Verifying mailbox)"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -130,8 +136,8 @@ export default function EmailMobileVerification() {
                   "Fraud detection (virtual/VoIP)"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -154,8 +160,8 @@ export default function EmailMobileVerification() {
                   "Detailed logs and reports"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -192,23 +198,23 @@ export default function EmailMobileVerification() {
           </div>
 
           <div>
-             <div className="inline-block mb-4 px-3 py-1 bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-widest rounded-full">Advantages</div>
-             <h2 className="text-3xl md:text-4xl font-bold mb-10 text-foreground">Why Choose DigitalRakshak?</h2>
-             <div className="grid sm:grid-cols-2 gap-6">
-                {[
-                  { title: "API-First & Developer-Friendly", desc: "Integrate our verification tools into your workflow in minutes with clear documentation and SDKs.", icon: Zap },
-                  { title: "Real-Time Processing", desc: "Instant validation and OTP delivery for seamless onboarding without dropping users.", icon: BarChart },
-                  { title: "Secure & Scalable", desc: "Built to handle high volumes with enterprise-grade security and reliability.", icon: ShieldCheck },
-                  { title: "High Deliverability", desc: "Optimized global infrastructure ensures maximum email and SMS success rates.", icon: Globe },
-                  { title: "Actionable Insights", desc: "Get detailed logs, reports, and real-time analytics for better decision-making.", icon: BarChart }
-                ].map((reason, i) => (
-                  <Card key={i} className="p-6 border-border/50 bg-secondary/10 hover:bg-secondary/20 transition-colors duration-300">
-                    <reason.icon className="w-8 h-8 text-blue-600 mb-4" />
-                    <h4 className="font-bold mb-2 text-foreground text-lg">{reason.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
-                  </Card>
-                ))}
-             </div>
+            <div className="inline-block mb-4 px-3 py-1 bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-widest rounded-full">Advantages</div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-foreground">Why Choose DigitalRakshak?</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {[
+                { title: "API-First & Developer-Friendly", desc: "Integrate our verification tools into your workflow in minutes with clear documentation and SDKs.", icon: Zap },
+                { title: "Real-Time Processing", desc: "Instant validation and OTP delivery for seamless onboarding without dropping users.", icon: BarChart },
+                { title: "Secure & Scalable", desc: "Built to handle high volumes with enterprise-grade security and reliability.", icon: ShieldCheck },
+                { title: "High Deliverability", desc: "Optimized global infrastructure ensures maximum email and SMS success rates.", icon: Globe },
+                { title: "Actionable Insights", desc: "Get detailed logs, reports, and real-time analytics for better decision-making.", icon: BarChart }
+              ].map((reason, i) => (
+                <Card key={i} className="p-6 border-border/50 bg-secondary/10 hover:bg-secondary/20 transition-colors duration-300">
+                  <reason.icon className="w-8 h-8 text-blue-600 mb-4" />
+                  <h4 className="font-bold mb-2 text-foreground text-lg">{reason.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -244,14 +250,14 @@ export default function EmailMobileVerification() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-16 bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 text-center max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-4 shadow-2xl">
-             <span className="font-semibold text-lg text-slate-200">Key Benefits summary:</span>
-             <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-300">
-                <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Reduce duplicate accounts</span>
-                <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Improve database quality</span>
-                <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Smooth onboarding</span>
-             </div>
+            <span className="font-semibold text-lg text-slate-200">Key Benefits summary:</span>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-300">
+              <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Reduce duplicate accounts</span>
+              <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Improve database quality</span>
+              <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Smooth onboarding</span>
+            </div>
           </div>
         </div>
       </section>
@@ -299,7 +305,11 @@ export default function EmailMobileVerification() {
               <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
                 Don't let fake accounts and fraud undermine your growth. Secure your platform with real-time Email & Mobile Verification from DigitalRakshak and build a user base you can trust.
               </p>
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1">
+              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1"
+                onClick={() => {
+                  router.push(`/register`)
+                }}
+              >
                 Contact Us Today
               </Button>
             </div>

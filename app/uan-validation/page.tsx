@@ -3,21 +3,21 @@
 import { useRef } from 'react'
 import { Card } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { 
+import {
   BrainCircuit,
-  CheckCircle, 
-  ShieldCheck, 
-  Zap, 
-  FileText, 
-  Target, 
-  Briefcase, 
-  Gamepad2, 
-  ShoppingCart, 
-  Users, 
-  TrendingUp, 
-  Globe, 
-  Building2, 
-  UserCheck, 
+  CheckCircle,
+  ShieldCheck,
+  Zap,
+  FileText,
+  Target,
+  Briefcase,
+  Gamepad2,
+  ShoppingCart,
+  Users,
+  TrendingUp,
+  Globe,
+  Building2,
+  UserCheck,
   AlertTriangle,
   Search,
   ArrowRight,
@@ -33,8 +33,11 @@ import {
   FingerprintIcon
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function UANVerificationPage() {
+
+  const router = useRouter()
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -50,10 +53,14 @@ export default function UANVerificationPage() {
             UAN Verification Services
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto">
-            Seamless, instant, and tamper-proof employment history verification. 
+            Seamless, instant, and tamper-proof employment history verification.
             Verify candidate employment directly from the source with DigitalRakshak.
           </p>
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all">
+          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
+            onClick={() => {
+              router.push(`/register`)
+            }}
+          >
             Book a Free Demo
           </Button>
         </div>
@@ -160,8 +167,8 @@ export default function UANVerificationPage() {
                   { feature: "Data Accuracy", traditional: "Subject to fake reference bias", digital: "100% Tamper-proof government source data", digitalHighlight: true },
                   { feature: "Candidate Experience", traditional: "Chasing ex-bosses for emails", digital: "1-click secure authorization", digitalHighlight: true },
                   { feature: "Risk Mitigation", traditional: "High chance of missing moonlighting", digital: "Complete view of overlapping employment", digitalHighlight: true },
-                //   { feature: "Cost per Verification", traditional: "High operational costs", digital: "Cost-effective automated solution", digitalHighlight: false },
-                //   { feature: "Scalability", traditional: "Limited by manual processes", digital: "Handle thousands of verifications seamlessly", digitalHighlight: false }
+                  //   { feature: "Cost per Verification", traditional: "High operational costs", digital: "Cost-effective automated solution", digitalHighlight: false },
+                  //   { feature: "Scalability", traditional: "Limited by manual processes", digital: "Handle thousands of verifications seamlessly", digitalHighlight: false }
                 ].map((row, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
                     <td className="px-6 py-4 font-semibold text-foreground">{row.feature}</td>
@@ -226,7 +233,7 @@ export default function UANVerificationPage() {
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-foreground">What UAN Verification Does NOT Reveal</h2>
           <Card className="p-8 border-green-500/20 bg-green-500/5 shadow-lg">
             <p className="text-lg text-muted-foreground mb-4">
-              The UAN verification process only pulls data related to your employment timeline. 
+              The UAN verification process only pulls data related to your employment timeline.
               It does NOT give employers access to:
             </p>
             <div className="grid md:grid-cols-3 gap-4 mt-6">
@@ -280,9 +287,9 @@ export default function UANVerificationPage() {
           </div>
           
           <div className="mt-16 bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 text-center max-w-4xl mx-auto">
-             <p className="text-slate-200 text-lg">
-               Stop relying on easily forged PDF experience letters. Protect your company from bad hires today.
-             </p>
+            <p className="text-slate-200 text-lg">
+              Stop relying on easily forged PDF experience letters. Protect your company from bad hires today.
+            </p>
           </div>
         </div>
       </section>
@@ -340,10 +347,18 @@ export default function UANVerificationPage() {
                 Stop relying on easily forged PDF experience letters. Protect your company from bad hires with instant, tamper-proof UAN verification.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1">
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1"
+                  onClick={() => {
+                    router.push(`/register`)
+                  }}
+                >
                   Book a Free Demo
                 </Button>
-                <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-10 h-14 rounded-full text-lg transition-all">
+                <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-10 h-14 rounded-full text-lg transition-all"
+                  onClick={() => {
+                    router.push(`/register`)
+                  }}
+                >
                   Speak to an Expert
                 </Button>
               </div>

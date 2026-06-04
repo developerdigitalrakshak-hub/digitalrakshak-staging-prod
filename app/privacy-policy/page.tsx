@@ -57,7 +57,7 @@ const PrivacyPolicy = () => {
             Your trust is our priority. Learn how we collect, use, and protect your personal information.
           </p>
           <div className="mt-6 text-sm text-blue-200 flex items-center gap-4 flex-wrap">
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Last Updated: March 2025</span>
+            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Last Updated: 15th June 2026</span>
             <span className="flex items-center gap-1"><Globe className="w-4 h-4" /> Applicable globally with Indian jurisdiction</span>
           </div>
         </div>

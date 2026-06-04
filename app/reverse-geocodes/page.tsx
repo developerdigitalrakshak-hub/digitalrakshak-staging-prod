@@ -3,21 +3,21 @@
 import { useRef } from 'react'
 import { Card } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { 
+import {
   BrainCircuit,
-  CheckCircle, 
-  ShieldCheck, 
-  Zap, 
-  FileText, 
-  Target, 
-  Briefcase, 
-  Gamepad2, 
-  ShoppingCart, 
-  Users, 
-  TrendingUp, 
-  Globe, 
-  Building2, 
-  UserCheck, 
+  CheckCircle,
+  ShieldCheck,
+  Zap,
+  FileText,
+  Target,
+  Briefcase,
+  Gamepad2,
+  ShoppingCart,
+  Users,
+  TrendingUp,
+  Globe,
+  Building2,
+  UserCheck,
   AlertTriangle,
   Search,
   ArrowRight,
@@ -38,8 +38,10 @@ import {
   Compass
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function ReverseGeoCodePage() {
+  const router = useRouter()
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -58,10 +60,18 @@ export default function ReverseGeoCodePage() {
             Convert messy address strings into precise, verified physical coordinates instantly.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all">
+            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
+              onClick={() => {
+                router.push(`/register`)
+              }}
+            >
               Request an API Key
             </Button>
-            <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-8 h-14 rounded-full text-lg transition-all">
+            <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-8 h-14 rounded-full text-lg transition-all"
+              onClick={() => {
+                router.push(`/register`)
+              }}
+            >
               Speak with an Integration Engineer
             </Button>
           </div>
@@ -91,7 +101,7 @@ export default function ReverseGeoCodePage() {
                 <li key={i} className="flex items-start gap-3 text-foreground font-medium text-lg">
                   <CheckCircle className="text-blue-500 w-6 h-6 flex-shrink-0 mt-0.5" />
                   {item}
-                 </li>
+                </li>
               ))}
             </ul>
           </div>
@@ -148,7 +158,7 @@ export default function ReverseGeoCodePage() {
             <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">The DigitalRakshak's Advantage</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">See how we compare to traditional physical address verification</p>
           </div>
-          
+
           <div className="overflow-x-auto rounded-2xl border border-border shadow-lg">
             <table className="w-full text-left">
               <thead>
@@ -247,10 +257,18 @@ export default function ReverseGeoCodePage() {
                 Stop wasting time on un-mappable, unverified addresses. Switch to automated data integrity with DigitalRakshak's Reverse Geo-Code verification.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1">
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1"
+                  onClick={() => {
+                    router.push(`/register`)
+                  }}
+                >
                   Request an API Key
                 </Button>
-                <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-10 h-14 rounded-full text-lg transition-all">
+                <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-10 h-14 rounded-full text-lg transition-all"
+                  onClick={() => {
+                    router.push(`/register`)
+                  }}
+                >
                   Speak with an Integration Engineer
                 </Button>
               </div>
