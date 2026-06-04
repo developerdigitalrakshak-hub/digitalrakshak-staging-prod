@@ -3,21 +3,21 @@
 import { useRef } from 'react'
 import { Card } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { 
+import {
   BrainCircuit,
-  CheckCircle, 
-  ShieldCheck, 
-  Zap, 
-  FileText, 
-  Target, 
-  Briefcase, 
-  Gamepad2, 
-  ShoppingCart, 
-  Users, 
-  TrendingUp, 
-  Globe, 
-  Building2, 
-  UserCheck, 
+  CheckCircle,
+  ShieldCheck,
+  Zap,
+  FileText,
+  Target,
+  Briefcase,
+  Gamepad2,
+  ShoppingCart,
+  Users,
+  TrendingUp,
+  Globe,
+  Building2,
+  UserCheck,
   AlertTriangle,
   Search,
   ArrowRight
@@ -25,9 +25,11 @@ import {
 // import { Header, type HeaderRef } from '@/components/header'
 // import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function BusinessVerificationPage() {
   // const headerRef = useRef<HeaderRef>(null)
+  const router = useRouter()
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -47,7 +49,11 @@ export default function BusinessVerificationPage() {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto">
             Verify Businesses with Confidence, Reduce Risk, and Enable Secure Onboarding. Validate business identities in real-time with DigitalRakshak.
           </p>
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all">
+          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
+            onClick={() => {
+              router.push(`/register`)
+            }}
+          >
             Request a Demo
           </Button>
         </div>
@@ -77,9 +83,9 @@ export default function BusinessVerificationPage() {
                 </li>
               ))}
             </ul>
-             <p className="text-lg text-muted-foreground border-l-4 border-blue-500 pl-4 py-1 italic bg-blue-500/10 rounded-r-lg mt-8">
-               KYB is essential for industries dealing with financial transactions, partnerships, and marketplace ecosystems.
-             </p>
+            <p className="text-lg text-muted-foreground border-l-4 border-blue-500 pl-4 py-1 italic bg-blue-500/10 rounded-r-lg mt-8">
+              KYB is essential for industries dealing with financial transactions, partnerships, and marketplace ecosystems.
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
             {[
@@ -123,8 +129,8 @@ export default function BusinessVerificationPage() {
                   "Cross-verify official records"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -145,8 +151,8 @@ export default function BusinessVerificationPage() {
                   "Ideal for SMB onboarding"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -167,8 +173,8 @@ export default function BusinessVerificationPage() {
                   "Supporting legal documents"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -189,8 +195,8 @@ export default function BusinessVerificationPage() {
                   "Link business with real individuals"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -211,8 +217,8 @@ export default function BusinessVerificationPage() {
                   "Reduce exposure to financial crime"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                     <CheckCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                     {feature}
+                    <CheckCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -249,23 +255,23 @@ export default function BusinessVerificationPage() {
           </div>
 
           <div>
-             <div className="inline-block mb-4 px-3 py-1 bg-blue-600/10 text-secondary-foreground text-xs font-bold uppercase tracking-widest rounded-full">Advantages</div>
-             <h2 className="text-3xl md:text-4xl font-bold mb-10 text-foreground">Why Choose DigitalRakshak?</h2>
-             <div className="grid sm:grid-cols-2 gap-6">
-                {[
-                  { title: "Deep Verification", desc: "Data validation, document checks, and risk analysis in one suite.", icon: BrainCircuit },
-                  { title: "API-First Infrastructure", desc: "Seamlessly integrate into your onboarding workflows with ease.", icon: Globe },
-                  { title: "Real-Time Results", desc: "Instant outcomes to accelerate your business decision-making.", icon: Zap },
-                  { title: "Compliance-Ready", desc: "Designed to support regulatory requirements across all industries.", icon: ShieldCheck },
-                  { title: "Scalable Solutions", desc: "Handle thousands of verifications without operational bottlenecks.", icon: TrendingUp }
-                ].map((reason, i) => (
-                  <Card key={i} className="p-6 border-border/50 bg-secondary/10 hover:bg-secondary/20 transition-colors duration-300">
-                    <reason.icon className="w-8 h-8 text-blue-600 mb-4" />
-                    <h4 className="font-bold mb-2 text-foreground text-lg">{reason.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
-                  </Card>
-                ))}
-             </div>
+            <div className="inline-block mb-4 px-3 py-1 bg-blue-600/10 text-secondary-foreground text-xs font-bold uppercase tracking-widest rounded-full">Advantages</div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-foreground">Why Choose DigitalRakshak?</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {[
+                { title: "Deep Verification", desc: "Data validation, document checks, and risk analysis in one suite.", icon: BrainCircuit },
+                { title: "API-First Infrastructure", desc: "Seamlessly integrate into your onboarding workflows with ease.", icon: Globe },
+                { title: "Real-Time Results", desc: "Instant outcomes to accelerate your business decision-making.", icon: Zap },
+                { title: "Compliance-Ready", desc: "Designed to support regulatory requirements across all industries.", icon: ShieldCheck },
+                { title: "Scalable Solutions", desc: "Handle thousands of verifications without operational bottlenecks.", icon: TrendingUp }
+              ].map((reason, i) => (
+                <Card key={i} className="p-6 border-border/50 bg-secondary/10 hover:bg-secondary/20 transition-colors duration-300">
+                  <reason.icon className="w-8 h-8 text-blue-600 mb-4" />
+                  <h4 className="font-bold mb-2 text-foreground text-lg">{reason.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -300,14 +306,14 @@ export default function BusinessVerificationPage() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-16 bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 text-center max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-4 shadow-2xl">
-             <span className="font-semibold text-lg text-slate-200">Key Benefits summary:</span>
-             <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-300">
-                <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Reduce fraud & financial risk</span>
-                <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Ensure regulatory compliance</span>
-                <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Accelerate onboarding</span>
-             </div>
+            <span className="font-semibold text-lg text-slate-200">Key Benefits summary:</span>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-300">
+              <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Reduce fraud & financial risk</span>
+              <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Ensure regulatory compliance</span>
+              <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-400" /> Accelerate onboarding</span>
+            </div>
           </div>
         </div>
       </section>
@@ -363,7 +369,11 @@ export default function BusinessVerificationPage() {
               <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
                 Don’t let unverified businesses compromise your platform. Integrate DigitalRakshak’s Business Verification (KYB) solutions today.
               </p>
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1">
+              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1"
+                onClick={() => {
+                  router.push(`/register`)
+                }}
+              >
                 Request a Demo Today
               </Button>
             </div>

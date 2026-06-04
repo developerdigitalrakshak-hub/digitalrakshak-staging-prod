@@ -90,7 +90,7 @@ const ConsumerGrievanceRedressalPage = () => {
           </p>
           <div className="mt-6 text-sm text-blue-200 flex items-center gap-4 flex-wrap">
             <span className="flex items-center gap-1"><CalendarDays className="w-4 h-4" /> Effective: Immediately</span>
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Resolution Timeline: 30 calendar days</span>
+            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Last Updated: 15th June 2026</span>
             <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> Grievance Email: grievance@DigitalRakshak.com</span>
           </div>
         </div>

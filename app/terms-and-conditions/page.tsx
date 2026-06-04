@@ -60,7 +60,7 @@ const TermsAndConditionsPage = () => {
             Please read these terms carefully before using our services. By accessing our platform, you agree to be bound by these terms.
           </p>
           <div className="mt-6 text-sm text-indigo-200 flex items-center gap-4 flex-wrap">
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Last Updated: March 2025</span>
+            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Last Updated: 15th June 2026</span>
             <span className="flex items-center gap-1"><Globe className="w-4 h-4" /> Governing Law: India</span>
             <span className="flex items-center gap-1"><Gavel className="w-4 h-4" /> Jurisdiction: Gandhinagar, Gujarat</span>
           </div>

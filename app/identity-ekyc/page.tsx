@@ -27,9 +27,11 @@ import {
 // import { Header, type HeaderRef } from '@/components/header'
 // import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function IdentityEkycPage() {
   // const headerRef = useRef<HeaderRef>(null)
+  const router = useRouter()
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -49,7 +51,11 @@ export default function IdentityEkycPage() {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto">
             Secure, Scalable & Real-Time Digital Identity Verification for Modern Businesses. Build trust with a frictionless onboarding experience.
           </p>
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all">
+          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
+          onClick={() => {
+                router.push(`/register`)
+              }}
+          >
             Get Started Now
           </Button>
         </div>
@@ -319,10 +325,18 @@ export default function IdentityEkycPage() {
                 Ready to transform your verification ecosystem? Contact our experts today and start your journey with DigitalRakshak.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1">
+                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-10 h-14 rounded-full text-lg shadow-xl hover:shadow-primary/30 transition-all hover:-translate-y-1"
+                onClick={() => {
+                router.push(`/register`)
+              }}
+                >
                   Request a Demo
                 </Button>
-                <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600/10 font-bold px-10 h-14 rounded-full text-lg transition-all">
+                <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600/10 font-bold px-10 h-14 rounded-full text-lg transition-all"
+                onClick={() => {
+                router.push(`/register`)
+              }}
+                >
                   Contact Sales
                 </Button>
               </div>

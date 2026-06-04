@@ -127,7 +127,7 @@ export default function Footer() {
                     font-weight: 700;
                     line-height: 1.15;
                     letter-spacing: -0.02em;
-                    max-width: 680px;
+                    max-width: calc(100% - 150px);
                     margin: 0 0 1.75rem;
                 }
                 .cta-btn {
@@ -479,7 +479,7 @@ export default function Footer() {
                                             {/* <Shield size={38} color="#6366f1" /> */}
                                             <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={80} height={80} />
                                         </div>
-                                        <span className="brand-name">DigitalRakshak</span>
+                                        <span className="brand-name">DigitalRakshak <br/> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
                                     </div>
                                     <p className="brand-legal">DigitalRakshak InfoTech Pvt. Ltd</p>
                                     <p className="brand-cin">CIN: U78300GJ2025PTC171397</p>

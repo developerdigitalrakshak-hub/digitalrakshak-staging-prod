@@ -77,7 +77,7 @@ const ResponsibleDisclosurePage = () => {
                         Together we keep DigitalRakshak secure. Report vulnerabilities responsibly and help us protect our ecosystem.
                     </p>
                     <div className="mt-6 text-sm text-green-200 flex items-center gap-4 flex-wrap">
-                        <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Version: 2.0 | Last Updated: 15th March 2025</span>
+                        <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Version: 2.0 | Last Updated: 15th June 2026</span>
                         <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> Report to: support@DigitalRakshak.com</span>
                     </div>
                 </div>
