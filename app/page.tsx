@@ -254,7 +254,7 @@ export default function HomePage() {
                             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">1000+</span>{" "}
                             Customers Secured
                         </h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 max-w-6xl mx-auto">
                             Proven at scale, our security ensures protection across diverse industries and environments
                         </p>
                     </div>
@@ -588,7 +588,7 @@ export default function HomePage() {
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-gray-900 mb-4">Tailored for every industry's unique needs</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 max-w-6xl mx-auto">
                             Comprehensive security solutions designed specifically for your industry requirements
                         </p>
                     </div>
@@ -668,7 +668,7 @@ export default function HomePage() {
                                 Customer's Journey
                             </span>
                         </h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 max-w-6xl mx-auto">
                             Comprehensive security services covering all touchpoints of your business operations
                         </p>
                     </div>
@@ -764,7 +764,7 @@ export default function HomePage() {
                                 business impact.
                             </span>
                         </h2>
-                        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                        <p className="text-xl text-gray-300 max-w-4xl mx-auto">
                             Your success is our commitment. We work tirelessly until your security goals are achieved.
                         </p>
                     </div>
@@ -828,7 +828,7 @@ export default function HomePage() {
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-gray-900 mb-4">We are compliant and secure at our core</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 max-w-6xl mx-auto">
                             Built with enterprise-grade security and compliance standards from the ground up
                         </p>
                     </div>
@@ -904,7 +904,7 @@ export default function HomePage() {
                     <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                         Ready to supercharge your <span className="text-blue-200">business security?</span>
                     </h2>
-                    <p className="text-xl mb-8 max-w-3xl mx-auto text-blue-100 leading-relaxed">
+                    <p className="text-xl mb-8 max-w-6xl mx-auto text-blue-100 leading-relaxed">
                         🚀 Go-live in 4 hours • 🛠️ No-code Workflows • 🔧 24/7 Support • 📊 Real-time Analytics
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">

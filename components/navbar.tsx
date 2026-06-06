@@ -2048,6 +2048,7 @@ export default function Bar() {
           name: 'Web Application Development',
           href: '/web-application-development',
           description: 'Web application development services',
+          isNew: true,
           services: [
             { name: 'FrontEnd', description: 'Frontend development' },
             { name: 'Backend', description: 'Backend development' },
@@ -2173,13 +2174,13 @@ export default function Bar() {
           description: "Learn about background verification and compliance",
         },
         {
-          name: "Blog",
+          name: "Blogs, Research & Publication",
           href: "/resources/blog",
           icon: BookOpen,
           description: "Stay up-to-date with the latest industry news",
         },
         {
-          name: "Glossary",
+          name: "Career",
           href: "/resources/glossary",
           icon: MessageSquare,
           description: "Understand key terms and concepts in background verification",
@@ -2216,13 +2217,13 @@ export default function Bar() {
       description: "Learn about background verification and compliance",
     },
     {
-      name: "Blog",
+      name: "Blogs, Research & Publication",
       href: "/resources/blog",
       icon: BookOpen,
       description: "Stay up-to-date with the latest industry news",
     },
     {
-      name: "Glossary",
+      name: "Career",
       href: "/resources/glossary",
       icon: MessageCircle,
       description: "Understand key terms and concepts",
@@ -2504,7 +2505,7 @@ export default function Bar() {
                 className="hover:text-blue-300 transition-colors flex items-center space-x-1"
               >
                 <Phone className="h-4 w-4" />
-                <span>Contact us</span>
+                <span className="hidden sm:block">Contact us</span>
               </Link>
 
               {/* Support Dropdown */}
@@ -2517,7 +2518,7 @@ export default function Bar() {
                   onClick={() => toggleUtilityDropdown('support')}
                 >
                   <HelpCircle className="h-4 w-4" />
-                  <span>Support</span>
+                  <span className="hidden sm:block">Support</span>
                   <ChevronDown className="h-3 w-3" />
                 </div>
 
@@ -2550,7 +2551,7 @@ export default function Bar() {
                   onClick={() => toggleUtilityDropdown('account')}
                 >
                   <User className="h-4 w-4" />
-                  <span>My account</span>
+                  <span className="hidden sm:block">My account</span>
                   <ChevronDown className="h-3 w-3" />
                 </div>
 
@@ -3203,7 +3204,7 @@ export default function Bar() {
                         <span className="text-xs sm:text-sm">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "HR" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span>
                       </div>
                       <div className="text-[10px] sm:text-xs truncate max-w-full px-1">
-                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "HR Excellence Suite" : tab.id === "Digital Transformation" ? "Digital Transformation" : "Resources"}
+                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "HR Excellence Suite" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources" }
                       </div>
                       {mobileSelectedMainTab === tab.id && (
                         <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${tab.color} rounded-full`}></div>
