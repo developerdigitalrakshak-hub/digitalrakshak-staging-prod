@@ -52,7 +52,8 @@ import {
     LockKeyhole,
     Key,
     Building,
-    Cloud
+    Cloud,
+    CalendarDays
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -60,25 +61,34 @@ const ResponsibleDisclosurePage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50">
             {/* Hero Section */}
+
             <div className="relative bg-gradient-to-r from-green-900 via-emerald-800 to-teal-900 text-white overflow-hidden">
                 <div className="absolute inset-0 bg-black/20 z-0"></div>
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-green-500 rounded-full opacity-20 blur-3xl"></div>
-                <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-emerald-500 rounded-full opacity-20 blur-3xl"></div>
-                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-7">
-                    <div className="flex items-center gap-3 mb-2">
-                        {/* <Shield className="w-10 h-10 text-green-300" /> */}
-                         <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={100} height={100} />
-                        <span className="text-green-200 font-semibold tracking-wide">Security & Ethics</span>
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">
-                        Responsible Disclosure Policy
-                    </h1>
-                    <p className="text-lg md:text-xl text-green-100 max-w-3xl leading-relaxed">
-                        Together we keep DigitalRakshak secure. Report vulnerabilities responsibly and help us protect our ecosystem.
-                    </p>
-                    <div className="mt-6 text-sm text-green-200 flex items-center gap-4 flex-wrap">
-                        <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Version: 2.0 | Last Updated: 15th June 2026</span>
-                        <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> Report to: support@DigitalRakshak.com</span>
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
+                <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
+                <div className="relative z-10 max-w-8xl mx-auto px-2 sm:px-4 lg:px-6 py-4 md:py-7">
+                    <div className="flex items-stretch gap-6">
+                        {/* Logo — 25%, right-aligned */}
+                        <div className="w-[20%] flex items-center justify-end pr-6">
+                            <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={200} height={200} />
+                        </div>
+
+                        {/* Right content — 75% */}
+                        <div className="w-[80%] flex flex-col justify-center">
+                            {/* <span className="text-blue-200 font-semibold tracking-wide mb-1">Privacy & Security</span> */}
+                            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                               Responsible Disclosure Policy
+                            </h1>
+                            <p className="text-lg md:text-xl text-blue-100 max-w-7xl leading-relaxed">
+                                Together we keep DigitalRakshak secure. Report vulnerabilities responsibly and help us protect our ecosystem.
+                            </p>
+                            <div className="mt-6 text-sm text-blue-200 flex items-center gap-4 flex-wrap">
+                                <span className="flex items-center gap-1"><CalendarDays className="w-4 h-4" /> Effective: Immediately</span>
+                                <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Version: 1.0 | Last Updated: 15th June 2026</span>
+                                <span className="flex items-center gap-1"><Gavel className="w-4 h-4" /> Jurisdiction: Gandhinagar, Gujarat, India</span>
+                                <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> Grievance Email: grievance@DigitalRakshak.com</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,7 +228,7 @@ const ResponsibleDisclosurePage = () => {
                                     <li>Attempts to intentionally physically damage any DigitalRakshak hardware or service</li>
                                 </ul>
                                 <ul className="space-y-2 text-gray-700 list-disc pl-5">
-                                <p className="mb-4 font-semibold">Out of Scope Exploits:</p>
+                                    <p className="mb-4 font-semibold">Out of Scope Exploits:</p>
                                     <li>Rate limiting</li>
                                     <li>RTL ambiguity</li>
                                     <li>Content injection</li>

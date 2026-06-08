@@ -68,30 +68,40 @@ import {
   Briefcase,
   HeartHandshake
 } from 'lucide-react';
+import Image from 'next/image';
 
 const ConsumerGrievanceRedressalPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
       {/* Hero Section */}
+
       <div className="relative bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/20 z-0"></div>
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-500 rounded-full opacity-20 blur-3xl"></div>
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-7">
-          <div className="flex items-center gap-3 mb-2">
-            <Headphones className="w-10 h-10 text-blue-300" />
-            <span className="text-blue-200 font-semibold tracking-wide">Consumer Rights & Redressal</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-            Consumer Grievance Redressal Policy
-          </h1>
-          <p className="text-lg md:text-xl text-blue-100 max-w-3xl leading-relaxed">
-            Your voice matters. We are committed to resolving your grievances with transparency, efficiency, and care.
-          </p>
-          <div className="mt-6 text-sm text-blue-200 flex items-center gap-4 flex-wrap">
-            <span className="flex items-center gap-1"><CalendarDays className="w-4 h-4" /> Effective: Immediately</span>
-            <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Last Updated: 15th June 2026</span>
-            <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> Grievance Email: grievance@DigitalRakshak.com</span>
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
+        <div className="relative z-10 max-w-8xl mx-auto px-2 sm:px-4 lg:px-6 py-4 md:py-7">
+          <div className="flex items-stretch gap-6">
+            {/* Logo — 25%, right-aligned */}
+            <div className="w-[20%] flex items-center justify-end pr-6">
+              <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={200} height={200} />
+            </div>
+
+            {/* Right content — 75% */}
+            <div className="w-[80%] flex flex-col justify-center">
+              {/* <span className="text-blue-200 font-semibold tracking-wide mb-1">Privacy & Security</span> */}
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                Consumer Grievance Redressal Policy
+              </h1>
+              <p className="text-lg md:text-xl text-blue-100 max-w-7xl leading-relaxed">
+                Your voice matters. We are committed to resolving your grievances with transparency, efficiency, and care.
+              </p>
+              <div className="mt-6 text-sm text-blue-200 flex items-center gap-4 flex-wrap">
+                <span className="flex items-center gap-1"><CalendarDays className="w-4 h-4" /> Effective: Immediately</span>
+                <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Version: 1.0 | Last Updated: 15th June 2026</span>
+                <span className="flex items-center gap-1"><Gavel className="w-4 h-4" /> Jurisdiction: Gandhinagar, Gujarat, India</span>
+                <span className="flex items-center gap-1"><Mail className="w-4 h-4" /> Grievance Email: grievance@DigitalRakshak.com</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -244,7 +254,7 @@ const ConsumerGrievanceRedressalPage = () => {
             <div className="space-y-5">
               <div className="bg-pink-50 rounded-xl p-6 border border-pink-100">
                 <p className="mb-4">DigitalRakshak provides the following channels through which Consumers can raise queries, requests, or complaints. These are designed to be easily accessible and consumer-friendly.</p>
-                
+
                 <div className="space-y-4 mt-4">
                   <div className="bg-white rounded-lg p-4 border border-pink-200">
                     <div className="flex items-center gap-3 mb-2">
@@ -253,7 +263,7 @@ const ConsumerGrievanceRedressalPage = () => {
                     </div>
                     <p className="text-gray-700">Complaints may be addressed to <span className="font-mono font-semibold text-pink-700">grievance@DigitalRakshak.com</span></p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg p-4 border border-pink-200">
                     <div className="flex items-center gap-3 mb-2">
                       <MapPin className="w-5 h-5 text-pink-600" />
@@ -261,7 +271,7 @@ const ConsumerGrievanceRedressalPage = () => {
                     </div>
                     <p className="text-gray-700">Written complaints may be sent to 1st Floor, Plot No. 1195/1, Sector 2A, Sector 2, Kasturba Vidyalaya, Gandhinagar, Gujarat - 382007.</p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg p-4 border border-pink-200">
                     <div className="flex items-center gap-3 mb-2">
                       <UserCog className="w-5 h-5 text-pink-600" />
@@ -269,7 +279,7 @@ const ConsumerGrievanceRedressalPage = () => {
                     </div>
                     <p className="text-gray-700">Consumers may escalate complaints to the Data Protection Officer at DigitalRakshak, at <span className="font-mono font-semibold text-pink-700">dpo@DigitalRakshak.com</span></p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg p-4 border border-pink-200">
                     <div className="flex items-center gap-3 mb-2">
                       <Clock className="w-5 h-5 text-pink-600" />

@@ -202,13 +202,14 @@ export default function Footer() {
                 /* ── GRID ── */
                 .footer-grid {
                     display: grid;
-                    grid-template-columns: 1.8fr 1fr 1fr 1fr 1.2fr 1fr;
+                    grid-template-columns: 2fr 1.6fr 1.6fr 2.2fr 1.7fr 1.8fr;
                     gap: 2.5rem 2rem;
                     padding-bottom: 3rem;
                 }
 
                 /* ── BRAND ── */
                 .brand-logo {
+                min-width: 260px;
                     display: flex;
                     align-items: center;
                     gap: 0.75rem;
@@ -224,23 +225,25 @@ export default function Footer() {
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
+                    color: #fff;
                 }
                 .brand-legal {
-                    font-size: 0.8rem;
-                    color: #94a3b8;
+                    font-size: 1rem;
+                    color: #fff;
                     margin-bottom: 0.25rem;
+                    margin-top: 0.25rem;
                 }
                 .brand-cin {
-                    font-size: 0.7rem;
-                    color: #475569;
+                    font-size: 0.9rem;
+                    color: #ccc;
                     margin-bottom: 1.25rem;
                     font-family: monospace;
                     letter-spacing: 0.04em;
                 }
                 .brand-desc {
-                    font-size: 0.85rem;
+                    font-size: 0.9rem;
                     line-height: 1.75;
-                    color: #64748b;
+                    color: #c7c7c7;
                     margin-bottom: 1.5rem;
                 }
                 .socials {
@@ -255,7 +258,7 @@ export default function Footer() {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: #64748b;
+                    color: #c7c7c7;
                     transition: all 0.2s;
                     text-decoration: none;
                 }
@@ -268,7 +271,7 @@ export default function Footer() {
 
                 /* ── SERVICE COLUMNS ── */
                 .col-label {
-                    font-size: 0.7rem;
+                    font-size: 1rem;
                     font-weight: 700;
                     letter-spacing: 0.12em;
                     text-transform: uppercase;
@@ -281,13 +284,14 @@ export default function Footer() {
                     list-style: none;
                     padding: 0;
                     margin: 0;
+                    color: #c7c7c7;
                     display: flex;
                     flex-direction: column;
                     gap: 0.6rem;
                 }
                 .service-list a {
-                    font-size: 0.82rem;
-                    color: #64748b;
+                    font-size: 1rem;
+                    color: #c7c7c7;
                     text-decoration: none;
                     display: flex;
                     align-items: center;
@@ -333,8 +337,8 @@ export default function Footer() {
                     color: #6366f1;
                 }
                 .contact-text {
-                    font-size: 0.82rem;
-                    color: #64748b;
+                    font-size: 1rem;
+                    color: #c7c7c7;
                     text-decoration: none;
                     line-height: 1.5;
                     padding-top: 0.35rem;
@@ -375,9 +379,24 @@ export default function Footer() {
                 /* ── RESPONSIVE ── */
 
                 /* Laptop / large tablet: 2-col service area */
-                @media (max-width: 1100px) {
+                @media (max-width: 1800px) {
+                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
+                }
+                /* Laptop / large tablet: 2-col service area */
+                @media (max-width: 1700px) {
                     .footer-grid {
-                        grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+                        grid-template-columns: 2fr 2fr 2fr;
+                        grid-template-rows: auto auto;
+                    }
+                }
+                /* Laptop / large tablet: 2-col service area */
+                @media (max-width: 1600px) {
+                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
+                }
+                /* Laptop / large tablet: 2-col service area */
+                @media (max-width: 1300px) {
+                    .footer-grid {
+                        grid-template-columns: 2fr 2fr 2fr;
                         grid-template-rows: auto auto;
                     }
                     .brand-col {
@@ -387,7 +406,22 @@ export default function Footer() {
                         gap: 2rem;
                         align-items: start;
                     }
-                    .brand-col .brand-desc { margin-bottom: 0; }
+                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
+                }
+                /* Laptop / large tablet: 2-col service area */
+                @media (max-width: 1100px) {
+                    .footer-grid {
+                        grid-template-columns: 2fr 2fr 2fr;
+                        grid-template-rows: auto auto;
+                    }
+                    .brand-col {
+                        grid-column: 1 / -1;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 2rem;
+                        align-items: start;
+                    }
+                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
                 }
 
                 /* Tablet */
@@ -403,7 +437,7 @@ export default function Footer() {
                         grid-column: 1 / -1;
                         grid-template-columns: 1fr 1fr;
                     }
-                    .footer-inner { padding: 0 1.5rem 2rem; }
+                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
                 }
 
                 /* Mobile */
@@ -416,7 +450,7 @@ export default function Footer() {
                     .cta-wrapper { padding: 0 1rem; }
                     .cta-card { border-radius: 20px; padding: 2rem 1.5rem; }
                     .footer-grid {
-                        grid-template-columns: 1fr 1fr;
+                        grid-template-columns: 1fr;
                         gap: 1.75rem 1.25rem;
                     }
                     .brand-col {
@@ -426,7 +460,7 @@ export default function Footer() {
                         gap: 0;
                     }
                     .contact-col { grid-column: 1 / -1; }
-                    .footer-inner { padding: 0 1.25rem 1.5rem; }
+                    .footer-inner { max-width: 1000%; padding: 0 1.25rem 1.5rem; }
                     .footer-bottom {
                         flex-direction: column;
                         align-items: flex-start;
@@ -488,7 +522,6 @@ export default function Footer() {
                                         compliance solutions. Secure, reliable, and compliant
                                         services for your business.
                                     </p>
-                                </div>
                                 <div>
                                     <div className="socials">
                                         {socialLinks.map(({ Icon, href, label }) => (
@@ -504,6 +537,7 @@ export default function Footer() {
                                             </a>
                                         ))}
                                     </div>
+                                </div>
                                 </div>
                             </div>
 
@@ -562,7 +596,7 @@ export default function Footer() {
                                         { href: '/privacy-policy', text: 'Privacy Policy' },
                                         { href: '/terms-and-conditions', text: 'T&C of Services' },
                                         { href: '/responsible-disclosure', text: 'Responsible Disclosure Policy' },
-                                        { href: '/consumer-grievance-redressal-policy', text: 'Consumer Grievance Redressal Policy' }
+                                        { href: '/consumer-grievance-redressal-policy', text: 'Grievance Redressal Policy' }
                                     ].map(service => (
                                         <li key={service.text}>
                                             <Link href={service.href}>{service.text}</Link>
