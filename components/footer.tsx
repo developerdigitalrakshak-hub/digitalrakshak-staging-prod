@@ -194,7 +194,7 @@ export default function Footer() {
                     border-radius: 40px 40px 0 0;
                 }
                 .footer-inner {
-                    max-width: 80%;
+                    max-width: 85%;
                     margin: 0 auto;
                     padding: 0 2rem 2.5rem;
                 }
@@ -202,7 +202,7 @@ export default function Footer() {
                 /* ── GRID ── */
                 .footer-grid {
                     display: grid;
-                    grid-template-columns: 2fr 1.6fr 1.6fr 2.2fr 1.7fr 1.8fr;
+                    grid-template-columns: 2.2fr 1.6fr 1.6fr 2fr 1.7fr 2fr;
                     gap: 2.5rem 2rem;
                     padding-bottom: 3rem;
                 }
@@ -226,6 +226,7 @@ export default function Footer() {
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
                     color: #fff;
+                    min-width: 175px;
                 }
                 .brand-legal {
                     font-size: 1rem;
