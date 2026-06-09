@@ -2038,10 +2038,17 @@ export default function Bar() {
       icon: '🚀',
       subservices: [
         {
-          name: 'AI / ML',
-          description: 'Artificial intelligence solutions',
+          name: 'AI',
+          description: 'Custom AI solutions',
           services: [
-            { name: 'Agents as a Service', description: 'AI agent deployment' }
+            { name: 'Al Strategy & Roadmap Consulting', description: 'Define Al roadmap, accelerate adoption' },
+            { name: 'AI Integration & Implementation', description: 'Integrate AI across apps, data, and workflows' },
+            { name: 'Intelligent Agent Development', description: 'Deploy autonomous agents for task execution' },
+            { name: 'On-Demand AI Experts', description: 'Extend teams with certified AI specialists' },
+            { name: 'Generative AI Solutions', description: 'Enable content automation with GenAI models' },
+            { name: 'AI App Development', description: 'Build secure, production-ready AI applications' },
+            { name: 'LLM Development', description: 'Train and fine-tune large language models' },
+            { name: 'Conversational AI & Chatbot', description: 'Automate support with NLP-powered chat systems' }
           ]
         },
         {
@@ -2264,15 +2271,14 @@ export default function Bar() {
         {/* Category Selection - Beautiful Grid */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4">
           <div className="grid grid-cols-2 gap-2">
-            {currentData?.length > 1 &&currentData.map((category) => (
+            {currentData?.length > 1 && currentData.map((category) => (
               <button
                 key={category.name}
                 onClick={() => setMobileSelectedCategory(category.name)}
-                className={`p-3 rounded-xl text-left transition-all duration-200 ${
-                  activeCategory === category.name
+                className={`p-3 rounded-xl text-left transition-all duration-200 ${activeCategory === category.name
                     ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02]"
                     : "bg-white text-gray-700 border border-gray-200 hover:shadow-md"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   {/* <span className="text-xl">{category.icon}</span> */}
@@ -2288,7 +2294,7 @@ export default function Bar() {
               </button>
             ))}
           </div>
-          
+
           {/* Pricing Button */}
           <button
             onClick={() => {
@@ -2316,13 +2322,13 @@ export default function Bar() {
                     <div className="w-1 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full"></div>
                     <h3 className="text-lg font-bold text-gray-800">{mainService.name}</h3>
                   </div>
-                  
+
                   {mainService.subservices.map((subService) => {
                     // Check if this subservice is expanded (default is false/collapsed)
                     const isExpanded = mobileExpandedSubServices.has(subService.name)
                     // Only show services if expanded
                     const displayServices = isExpanded ? subService.services : []
-                    
+
                     return (
                       <div key={subService.name} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         {/* Subservice Header - Click to expand/collapse */}
@@ -2334,7 +2340,7 @@ export default function Bar() {
                             <div className="flex items-center gap-2 flex-wrap">
                               <h4 className="font-semibold text-gray-900">{subService.name}</h4>
                               {subService.isNew && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                   <Sparkles className="h-3 w-3 mr-1" />
                                   New
                                 </span>
@@ -2364,7 +2370,7 @@ export default function Bar() {
                                       {item.name}
                                     </span>
                                     {item.isNew && (
-                                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-800">
+                                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-red-100 text-red-800">
                                         New
                                       </span>
                                     )}
@@ -2376,7 +2382,7 @@ export default function Bar() {
                             ))}
                           </div>
                         )}
-                        
+
                         {/* Hint text when collapsed - shows how many services are available */}
                         {!isExpanded && subService.services.length > 0 && (
                           <div className="px-4 pb-3 text-xs text-gray-400 border-t border-gray-50 pt-2">
@@ -2408,7 +2414,7 @@ export default function Bar() {
           </div>
           <p className="text-purple-100 text-sm">Explore our knowledge base and stay informed</p>
         </div>
-        
+
         {/* Resources Cards */}
         {resourcesData.map((resource) => (
           <Link
@@ -2634,8 +2640,9 @@ export default function Bar() {
               <div className="relative">
                 <Image src="/images/logo-without-tagline.jpg" alt="DigitalRakshak Logo" width={65} height={65} />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col relative">
                 <span className="text-xl font-bold text-gray-900">DigitalRakshak</span>
+                <span className="absolute top-0 right-3 text-[30px] font-bold text-gray-700 leading-none">™</span>
                 <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span>
               </div>
             </Link>
@@ -2777,7 +2784,7 @@ export default function Bar() {
                                                           </h4>
                                                           {/* New Tag for main service */}
                                                           {service.isNew && (
-                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
                                                               New
                                                             </span>
                                                           )}
@@ -2813,7 +2820,7 @@ export default function Bar() {
                                                               {subItem.name}
                                                               {/* New Tag for sub-service */}
                                                               {subItem.isNew && (
-                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 text-[10px]">
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200 text-[10px]">
                                                                   New
                                                                 </span>
                                                               )}
@@ -2909,7 +2916,7 @@ export default function Bar() {
                                                           </h4>
                                                           {/* New Tag for main service */}
                                                           {service.isNew && (
-                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
                                                               New
                                                             </span>
                                                           )}
@@ -2945,7 +2952,7 @@ export default function Bar() {
                                                               {subItem.name}
                                                               {/* New Tag for sub-service */}
                                                               {subItem.isNew && (
-                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 text-[10px]">
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200 text-[10px]">
                                                                   New
                                                                 </span>
                                                               )}
@@ -3041,7 +3048,7 @@ export default function Bar() {
                                                           </h4>
                                                           {/* New Tag for main service */}
                                                           {service.isNew && (
-                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
                                                               New
                                                             </span>
                                                           )}
@@ -3077,7 +3084,7 @@ export default function Bar() {
                                                               {subItem.name}
                                                               {/* New Tag for sub-service */}
                                                               {subItem.isNew && (
-                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200 text-[10px]">
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200 text-[10px]">
                                                                   New
                                                                 </span>
                                                               )}
@@ -3193,18 +3200,17 @@ export default function Bar() {
                     <button
                       key={tab.id}
                       onClick={() => setMobileSelectedMainTab(tab.id)}
-                      className={`flex-1 py-4 px-2 text-center font-medium transition-all relative flex flex-col items-center gap-1 ${
-                        mobileSelectedMainTab === tab.id
+                      className={`flex-1 py-4 px-2 text-center font-medium transition-all relative flex flex-col items-center gap-1 ${mobileSelectedMainTab === tab.id
                           ? `text-transparent bg-clip-text bg-gradient-to-r ${tab.color}`
                           : "text-gray-500 hover:text-gray-700"
-                      }`}
+                        }`}
                     >
                       <div className={`flex items-center gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
                         {tab.icon}
                         <span className="text-xs sm:text-sm">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "HR" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span>
                       </div>
                       <div className="text-[10px] sm:text-xs truncate max-w-full px-1">
-                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "HR Excellence Suite" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources" }
+                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "HR Excellence Suite" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources"}
                       </div>
                       {mobileSelectedMainTab === tab.id && (
                         <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${tab.color} rounded-full`}></div>

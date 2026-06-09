@@ -194,7 +194,7 @@ export default function Footer() {
                     border-radius: 40px 40px 0 0;
                 }
                 .footer-inner {
-                    max-width: 80%;
+                    max-width: 85%;
                     margin: 0 auto;
                     padding: 0 2rem 2.5rem;
                 }
@@ -202,7 +202,7 @@ export default function Footer() {
                 /* ── GRID ── */
                 .footer-grid {
                     display: grid;
-                    grid-template-columns: 2fr 1.6fr 1.6fr 2.2fr 1.7fr 1.8fr;
+                    grid-template-columns: 2.2fr 1.6fr 1.6fr 2fr 1.7fr 2fr;
                     gap: 2.5rem 2rem;
                     padding-bottom: 3rem;
                 }
@@ -226,6 +226,7 @@ export default function Footer() {
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
                     color: #fff;
+                    min-width: 175px;
                 }
                 .brand-legal {
                     font-size: 1rem;
@@ -513,7 +514,7 @@ export default function Footer() {
                                             {/* <Shield size={38} color="#6366f1" /> */}
                                             <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={80} height={80} />
                                         </div>
-                                        <span className="brand-name">DigitalRakshak <br/> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
+                                        <span className="brand-name">DigitalRakshak  <span className="text-[30px] font-bold leading-none">™</span><br/> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
                                     </div>
                                     <p className="brand-legal">DigitalRakshak InfoTech Pvt. Ltd</p>
                                     <p className="brand-cin">CIN: U78300GJ2025PTC171397</p>
