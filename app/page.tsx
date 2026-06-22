@@ -1,9 +1,18 @@
+'use client';
+
 import { ArrowRight, CheckCircle, Globe, Shield, Users, FileCheck, Search, Building, CreditCard, MapPin, Play, Star, TrendingUp, Zap, Lock, Database, Smartphone, Award, Eye, Clock, Target } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import dynamic from "next/dynamic"
+
+
+const HeroAnimation = dynamic(() => import("@/components/home/HeroAnimation"), {
+  ssr: false,
+  loading: () => <div style={{ width: "100%", height: "400px" }} />, // placeholder while loading
+});
 
 export default function HomePage() {
     const trustedCompanies = [
@@ -162,6 +171,11 @@ export default function HomePage() {
                     </Link>
                 </div>
             </div> */}
+
+            {/* Hero Animation */}
+            {/* <div className="w-full max-w-7.2xl p-28 mx-auto"> */}
+                <HeroAnimation />
+            {/* </div> */}
 
             {/* Hero Section */}
             <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 relative overflow-hidden">
@@ -476,7 +490,7 @@ export default function HomePage() {
                         </Card>
 
                         <Card className="hover:shadow-2xl transition-all duration-300 border-0 shadow-lg group overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0"></div>
                             <CardHeader className="relative z-10">
                                 <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl w-fit mb-4 shadow-lg">
                                     <Users className="h-8 w-8 text-white" />
