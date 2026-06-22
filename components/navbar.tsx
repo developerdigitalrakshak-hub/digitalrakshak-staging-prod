@@ -1991,17 +1991,17 @@ export default function Bar() {
       description: 'Complete HR and employee management solutions',
       icon: '👥',
       subservices: [
-        {
-          name: 'Employment 360',
-          description: 'End-to-end recruitment and onboarding',
-          services: [
-            { name: 'Technical Recruitment', description: 'Technical talent recruitment' },
-            { name: 'ATS Ready Resume/CV', description: 'Resume parsing' },
-            { name: 'On-boarding', description: 'Employee onboarding' },
-            { name: 'Off-boarding / FnF', description: 'Employee exit management' },
-            { name: 'Training / Webinars / Seminars', description: 'Training programs' }
-          ]
-        },
+        // {
+        //   name: 'Employment 360',
+        //   description: 'End-to-end recruitment and onboarding',
+        //   services: [
+        //     { name: 'Technical Recruitment', description: 'Technical talent recruitment' },
+        //     { name: 'ATS Ready Resume/CV', description: 'Resume parsing' },
+        //     { name: 'On-boarding', description: 'Employee onboarding' },
+        //     { name: 'Off-boarding / FnF', description: 'Employee exit management' },
+        //     { name: 'Training / Webinars / Seminars', description: 'Training programs' }
+        //   ]
+        // },
         {
           name: 'Employee BGV',
           description: 'Employee background verification',
@@ -2013,20 +2013,20 @@ export default function Bar() {
             { name: 'Physical Address', description: 'Physical Address Verification' }
           ]
         },
-        {
-          name: 'Managed Services',
-          description: 'Outsourced HR and compliance services',
-          services: [
-            { name: 'EPFO', description: 'Employee provident fund' },
-            { name: 'ESIC', description: 'Employee state insurance' },
-            { name: 'TDS', description: 'Tax deducted at source' },
-            { name: 'Professional Tax (PT)', description: 'Professional tax management' },
-            { name: 'Employment & Labour Dept', description: 'Government assistance' },
-            { name: 'ITR-1 (Sahaj) Assistance', description: 'ITR filing assistance' },
-            { name: 'Cloud HR Tools', description: 'HR software solutions' },
-            { name: 'Biometric Device / Data', description: 'Biometric solutions' }
-          ]
-        }
+        // {
+        //   name: 'Managed Services',
+        //   description: 'Outsourced HR and compliance services',
+        //   services: [
+        //     { name: 'EPFO', description: 'Employee provident fund' },
+        //     { name: 'ESIC', description: 'Employee state insurance' },
+        //     { name: 'TDS', description: 'Tax deducted at source' },
+        //     { name: 'Professional Tax (PT)', description: 'Professional tax management' },
+        //     { name: 'Employment & Labour Dept', description: 'Government assistance' },
+        //     { name: 'ITR-1 (Sahaj) Assistance', description: 'ITR filing assistance' },
+        //     { name: 'Cloud HR Tools', description: 'HR software solutions' },
+        //     { name: 'Biometric Device / Data', description: 'Biometric solutions' }
+        //   ]
+        // }
       ]
     },
   ]
@@ -2040,6 +2040,8 @@ export default function Bar() {
         {
           name: 'AI',
           description: 'Custom AI solutions',
+          // href: '/ai-services',
+          // isNew: true,
           services: [
             { name: 'Al Strategy & Roadmap Consulting', description: 'Define Al roadmap, accelerate adoption' },
             { name: 'AI Integration & Implementation', description: 'Integrate AI across apps, data, and workflows' },
@@ -2137,7 +2139,7 @@ export default function Bar() {
 
   const displayServicesName: { [key: string]: string } = {
     "Services": 'Explore API',
-    "inhouseServices": 'HR Excellence Suite',
+    "inhouseServices": 'Background Verification',
     digitalTransformation: 'Digital Transformation (Dx)',
     Industries: 'Industries',
     Pricing: 'Pricing',
@@ -2276,8 +2278,8 @@ export default function Bar() {
                 key={category.name}
                 onClick={() => setMobileSelectedCategory(category.name)}
                 className={`p-3 rounded-xl text-left transition-all duration-200 ${activeCategory === category.name
-                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02]"
-                    : "bg-white text-gray-700 border border-gray-200 hover:shadow-md"
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-[1.02]"
+                  : "bg-white text-gray-700 border border-gray-200 hover:shadow-md"
                   }`}
               >
                 <div className="flex items-center gap-2">
@@ -3201,8 +3203,8 @@ export default function Bar() {
                       key={tab.id}
                       onClick={() => setMobileSelectedMainTab(tab.id)}
                       className={`flex-1 py-4 px-2 text-center font-medium transition-all relative flex flex-col items-center gap-1 ${mobileSelectedMainTab === tab.id
-                          ? `text-transparent bg-clip-text bg-gradient-to-r ${tab.color}`
-                          : "text-gray-500 hover:text-gray-700"
+                        ? `text-transparent bg-clip-text bg-gradient-to-r ${tab.color}`
+                        : "text-gray-500 hover:text-gray-700"
                         }`}
                     >
                       <div className={`flex items-center gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
