@@ -515,9 +515,9 @@
 //           ]
 //         },
 //         {
-//           name: 'Web Application Development',
+//           name: 'Secure Web Development',
 //           href: '/web-application-development',
-//           description: 'Web application development services',
+//           description: 'Secure Web Development services',
 //           services: [
 //             { name: 'FrontEnd', description: 'Frontend development' },
 //             { name: 'Backend', description: 'Backend development' },
@@ -2054,9 +2054,9 @@ export default function Bar() {
         //   ]
         // },
         {
-          name: 'Web Application Development',
+          name: 'Secure Web Development',
           href: '/web-application-development',
-          description: 'Web application development services',
+          description: 'Secure Web Development services',
           isNew: true,
           services: [
             { name: 'FrontEnd', description: 'Frontend development' },

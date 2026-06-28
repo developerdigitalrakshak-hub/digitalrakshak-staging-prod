@@ -117,18 +117,18 @@ export default function HomePage() {
     ]
 
     const securityServices = [
-        { name: "VAPT Testing", icon: Eye },
-        { name: "ID Validation & Verification", icon: FileCheck },
-        { name: "Know Your Customer (KYC)", icon: Users },
-        { name: "Financial Data & BGV", icon: Database },
-        { name: "Fraud Detection", icon: Shield },
-        { name: "Compliance Auditing", icon: Award },
-        { name: "Video KYC", icon: Play },
-        { name: "Digital Identity Verification", icon: Smartphone },
-        { name: "GDPR Compliance", icon: Lock },
-        { name: "ISO Certifications", icon: Award },
-        { name: "Security Assessments", icon: Search },
-        { name: "Risk Management", icon: Target },
+        { name: "VAPT Testing", icon: Eye, bgImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80" },
+        { name: "ID Validation & Verification", icon: FileCheck, bgImage: "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=400&q=80" },
+        { name: "Know Your Customer (KYC)", icon: Users, bgImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80" },
+        { name: "Financial Data & BGV", icon: Database, bgImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80" },
+        { name: "Fraud Detection", icon: Shield, bgImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80" },
+        { name: "Compliance Auditing", icon: Award, bgImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80" },
+        { name: "Video KYC", icon: Play, bgImage: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&q=80" },
+        { name: "Digital Identity Verification", icon: Smartphone, bgImage: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&q=80" },
+        { name: "GDPR Compliance", icon: Lock, bgImage: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=400&q=80" },
+        { name: "ISO Certifications", icon: Award, bgImage: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80" },
+        { name: "Security Assessments", icon: Search, bgImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=80" },
+        { name: "Risk Management", icon: Target, bgImage: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&q=80" },
     ]
 
     const whyChooseUsFeatures = [
@@ -692,14 +692,25 @@ export default function HomePage() {
                             return (
                                 <div
                                     key={index}
-                                    className="bg-white/80 backdrop-blur-sm hover:bg-white transition-all duration-300 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl group border border-white/20"
+                                    className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl group border border-white/30 transition-all duration-300 hover:-translate-y-1"
+                                    style={{ minHeight: '160px' }}
                                 >
-                                    <div className="bg-gradient-to-r from-blue-500 to-purple-500 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                                        <IconComponent className="h-6 w-6 text-white" />
+                                    {/* Background image */}
+                                    <div
+                                        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                                        style={{ backgroundImage: `url('${service.bgImage}')` }}
+                                    />
+                                    {/* Dark gradient overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-blue-900/50 group-hover:from-black/60 group-hover:via-black/30 transition-all duration-300" />
+                                    {/* Content */}
+                                    <div className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center" style={{ minHeight: '160px' }}>
+                                        <div className="bg-white/20 backdrop-blur-sm border border-white/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300 shadow-lg">
+                                            <IconComponent className="h-6 w-6 text-white drop-shadow" />
+                                        </div>
+                                        <span className="text-white font-semibold text-sm leading-tight drop-shadow-md">
+                                            {service.name}
+                                        </span>
                                     </div>
-                                    <span className="text-gray-700 font-medium group-hover:text-blue-600 transition-colors">
-                                        {service.name}
-                                    </span>
                                 </div>
                             )
                         })}
@@ -708,58 +719,140 @@ export default function HomePage() {
             </section>
 
             {/* Implementation Process */}
-            <section className="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-600 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-black opacity-10"></div>
+            <section className="py-24 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white relative overflow-hidden">
+                {/* Background ambient orbs */}
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+
+                <style dangerouslySetInnerHTML={{__html: `
+                    @keyframes icon-pulse {
+                        0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4), 0 0 20px rgba(99,102,241,0.15); }
+                        50%      { box-shadow: 0 0 0 8px rgba(99,102,241,0), 0 0 30px rgba(99,102,241,0.35); }
+                    }
+                    @keyframes beam-sweep {
+                        0%   { x: -100%; }
+                        100% { x: 100%; }
+                    }
+                    .step-icon-ring { animation: icon-pulse 2.5s ease-in-out infinite; }
+                `}} />
+
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold mb-4">Increase security compliance in 90 days</h2>
-                        <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
+                            Increase security compliance in 90 days
+                        </h2>
+                        <p className="text-lg text-blue-200/70 max-w-2xl mx-auto">
                             Our proven methodology ensures rapid deployment and measurable results
                         </p>
                     </div>
-                    <div className="grid md:grid-cols-4 gap-8">
+
+                    {/* Steps + Connectors row */}
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-0">
                         {[
-                            {
-                                step: "1",
-                                title: "Analyze your current security posture",
-                                description: "Comprehensive assessment with our experts",
-                                icon: Search,
-                            },
-                            {
-                                step: "2",
-                                title: "Start with an optimized framework",
-                                description: "Tailored security journey for your industry",
-                                icon: Target,
-                            },
-                            {
-                                step: "3",
-                                title: "Personalize the security measures",
-                                description: "Based on your users and business requirements",
-                                icon: Users,
-                            },
-                            {
-                                step: "4",
-                                title: "Test and optimize performance",
-                                description: "Continuous improvement and monitoring",
-                                icon: TrendingUp,
-                            },
-                        ].map((item, index) => {
+                            { title: "Analyze security posture",      description: "Comprehensive assessment with our experts",        icon: Search    },
+                            { title: "Optimized framework",           description: "Tailored security journey for your industry",      icon: Target    },
+                            { title: "Personalize measures",          description: "Based on your users and business requirements",   icon: Users     },
+                            { title: "Test & optimize performance",   description: "Continuous improvement and monitoring",           icon: TrendingUp },
+                        ].reduce<React.ReactNode[]>((acc, item, index, arr) => {
                             const IconComponent = item.icon
-                            return (
-                                <div key={index} className="text-center group">
-                                    <div className="bg-white/20 backdrop-blur-sm rounded-2xl w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all">
-                                        <span className="text-3xl font-bold">{item.step}</span>
+
+                            // Step node
+                            acc.push(
+                                <div key={`step-${index}`} className="flex flex-col items-center text-center group w-44">
+                                    {/* Icon ring */}
+                                    <div className="step-icon-ring relative w-20 h-20 rounded-full bg-gradient-to-br from-indigo-600/60 to-purple-700/60 backdrop-blur-md border border-white/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20" />
+                                        <IconComponent className="h-8 w-8 text-white relative z-10 drop-shadow-[0_0_6px_rgba(139,92,246,0.8)]" />
                                     </div>
-                                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-2 w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-all">
-                                        <IconComponent className="h-8 w-8" />
-                                    </div>
-                                    <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-200 transition-colors">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-blue-100 leading-relaxed">{item.description}</p>
+                                    <h3 className="text-base font-semibold leading-snug mb-1 group-hover:text-purple-300 transition-colors">{item.title}</h3>
+                                    <p className="text-blue-200/50 text-xs leading-relaxed">{item.description}</p>
                                 </div>
                             )
-                        })}
+
+                            // Animated connector between steps
+                            if (index < arr.length - 1) {
+                                acc.push(
+                                    <div key={`conn-${index}`} className="hidden md:flex items-center justify-center flex-1 relative" style={{ minWidth: '48px', height: '80px' }}>
+                                        <svg className="w-full" style={{ height: '20px', overflow: 'visible' }} viewBox="0 0 100 20" preserveAspectRatio="none">
+                                            <defs>
+                                                {/* Base track gradient — fades at both ends */}
+                                                <linearGradient id={`base-g-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%"   stopColor="#6366f1" stopOpacity="0.1" />
+                                                    <stop offset="30%"  stopColor="#818cf8" stopOpacity="0.6" />
+                                                    <stop offset="70%"  stopColor="#818cf8" stopOpacity="0.6" />
+                                                    <stop offset="100%" stopColor="#6366f1" stopOpacity="0.1" />
+                                                </linearGradient>
+                                                {/* Animated sweep — bright moving highlight */}
+                                                <linearGradient id={`sweep-g-${index}`} x1="0%" y1="0%" x2="100%" y2="0%" gradientUnits="userSpaceOnUse">
+                                                    <stop offset="0%"   stopColor="#a78bfa" stopOpacity="0" />
+                                                    <stop offset="40%"  stopColor="#c4b5fd" stopOpacity="0.9" />
+                                                    <stop offset="60%"  stopColor="#c4b5fd" stopOpacity="0.9" />
+                                                    <stop offset="100%" stopColor="#a78bfa" stopOpacity="0" />
+                                                    <animateTransform
+                                                        attributeName="gradientTransform"
+                                                        type="translate"
+                                                        from="-100 0"
+                                                        to="200 0"
+                                                        dur={`${1.6 + index * 0.3}s`}
+                                                        repeatCount="indefinite"
+                                                    />
+                                                </linearGradient>
+                                                {/* Glow filter for arrowhead */}
+                                                <filter id={`tip-glow-${index}`} x="-80%" y="-80%" width="260%" height="260%">
+                                                    <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+                                                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                                </filter>
+                                            </defs>
+
+                                            {/* Outer glow track */}
+                                            <line x1="0" y1="10" x2="88" y2="10"
+                                                stroke="rgba(99,102,241,0.12)"
+                                                strokeWidth="6"
+                                                strokeLinecap="round"
+                                            />
+
+                                            {/* Base track line */}
+                                            <line x1="0" y1="10" x2="88" y2="10"
+                                                stroke={`url(#base-g-${index})`}
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                            />
+
+                                            {/* Animated bright sweep overlay */}
+                                            <line x1="0" y1="10" x2="88" y2="10"
+                                                stroke={`url(#sweep-g-${index})`}
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                            />
+
+                                            {/* Solid filled arrowhead polygon */}
+                                            <polygon
+                                                points="88,4 100,10 88,16"
+                                                fill="#818cf8"
+                                                filter={`url(#tip-glow-${index})`}
+                                            />
+                                        </svg>
+
+                                        {/* Mobile connector */}
+                                        <div className="md:hidden flex justify-center mt-4 mb-4">
+                                            <svg width="20" height="48" viewBox="0 0 20 48">
+                                                <defs>
+                                                    <linearGradient id={`mv-g-${index}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                                                        <stop offset="0%"   stopColor="#818cf8" stopOpacity="0.1" />
+                                                        <stop offset="50%"  stopColor="#818cf8" stopOpacity="0.7" />
+                                                        <stop offset="100%" stopColor="#818cf8" stopOpacity="0.1" />
+                                                    </linearGradient>
+                                                </defs>
+                                                <line x1="10" y1="0" x2="10" y2="34" stroke={`url(#mv-g-${index})`} strokeWidth="2" strokeLinecap="round" />
+                                                <polygon points="4,34 10,44 16,34" fill="#818cf8" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+                            return acc
+                        }, [])}
                     </div>
                 </div>
             </section>
