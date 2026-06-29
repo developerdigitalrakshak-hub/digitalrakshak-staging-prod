@@ -515,9 +515,9 @@
 //           ]
 //         },
 //         {
-//           name: 'Web Application Development',
+//           name: 'Secure Web Development',
 //           href: '/web-application-development',
-//           description: 'Web application development services',
+//           description: 'Secure Web Development services',
 //           services: [
 //             { name: 'FrontEnd', description: 'Frontend development' },
 //             { name: 'Backend', description: 'Backend development' },
@@ -2037,26 +2037,26 @@ export default function Bar() {
       description: 'Modern tech solutions and security services',
       icon: '🚀',
       subservices: [
+        // {
+        //   name: 'AI',
+        //   description: 'Custom AI solutions',
+        //   // href: '/ai-services',
+        //   // isNew: true,
+        //   services: [
+        //     { name: 'Al Strategy & Roadmap Consulting', description: 'Define Al roadmap, accelerate adoption' },
+        //     { name: 'AI Integration & Implementation', description: 'Integrate AI across apps, data, and workflows' },
+        //     { name: 'Intelligent Agent Development', description: 'Deploy autonomous agents for task execution' },
+        //     { name: 'On-Demand AI Experts', description: 'Extend teams with certified AI specialists' },
+        //     { name: 'Generative AI Solutions', description: 'Enable content automation with GenAI models' },
+        //     { name: 'AI App Development', description: 'Build secure, production-ready AI applications' },
+        //     { name: 'LLM Development', description: 'Train and fine-tune large language models' },
+        //     { name: 'Conversational AI & Chatbot', description: 'Automate support with NLP-powered chat systems' }
+        //   ]
+        // },
         {
-          name: 'AI',
-          description: 'Custom AI solutions',
-          // href: '/ai-services',
-          // isNew: true,
-          services: [
-            { name: 'Al Strategy & Roadmap Consulting', description: 'Define Al roadmap, accelerate adoption' },
-            { name: 'AI Integration & Implementation', description: 'Integrate AI across apps, data, and workflows' },
-            { name: 'Intelligent Agent Development', description: 'Deploy autonomous agents for task execution' },
-            { name: 'On-Demand AI Experts', description: 'Extend teams with certified AI specialists' },
-            { name: 'Generative AI Solutions', description: 'Enable content automation with GenAI models' },
-            { name: 'AI App Development', description: 'Build secure, production-ready AI applications' },
-            { name: 'LLM Development', description: 'Train and fine-tune large language models' },
-            { name: 'Conversational AI & Chatbot', description: 'Automate support with NLP-powered chat systems' }
-          ]
-        },
-        {
-          name: 'Web Application Development',
+          name: 'Secure Web Development',
           href: '/web-application-development',
-          description: 'Web application development services',
+          description: 'Secure Web Development services',
           isNew: true,
           services: [
             { name: 'FrontEnd', description: 'Frontend development' },
@@ -2322,7 +2322,9 @@ export default function Bar() {
                   {/* Category Header */}
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-1 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full"></div>
-                    <h3 className="text-lg font-bold text-gray-800">{mainService.name}</h3>
+                    <h3 className="text-lg font-bold text-gray-800">
+                      {mainService.name === "HR Excellence Suite" ? "Background Verification" : mainService.name}
+                    </h3>
                   </div>
 
                   {mainService.subservices.map((subService) => {
@@ -3209,10 +3211,10 @@ export default function Bar() {
                     >
                       <div className={`flex items-center gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
                         {tab.icon}
-                        <span className="text-xs sm:text-sm">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "HR" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span>
+                        <span className="text-xs sm:text-sm">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span>
                       </div>
                       <div className="text-[10px] sm:text-xs truncate max-w-full px-1">
-                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "HR Excellence Suite" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources"}
+                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources"}
                       </div>
                       {mobileSelectedMainTab === tab.id && (
                         <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${tab.color} rounded-full`}></div>

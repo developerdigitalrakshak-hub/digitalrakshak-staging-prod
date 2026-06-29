@@ -2,8 +2,10 @@
 'use client';
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
+import { useRouter } from "next/navigation";
 
 export default function HeroAnimation() {
+    const router = useRouter()
     const [animationData, setAnimationData] = useState<any>(null);
 
     useEffect(() => {
@@ -24,7 +26,9 @@ export default function HeroAnimation() {
             <div className="w-full bg-[url('/bg-hero.svg')] bg-cover bg-center bg-no-repeat">
                 <div className="relative w-full max-w-[70%] mx-auto overflow-hidden" style={{ aspectRatio: '1920/650' }}>
                     <div className="absolute w-full" style={{ top: '-25%' }}>
-                        <button className="absolute w-[13%] top-[59.6%] left-[44.5%] bg-gradient-to-r from-blue-600/60 to-purple-600/60 hover:from-blue-600/80 hover:to-purple-600/80 border border-white/20 text-white px-4 py-2.5 rounded-lg hover:shadow-xl z-10 transition-all flex items-center justify-center gap-2 group whitespace-nowrap text-sm font-semibold tracking-wider">
+                        <button className="absolute w-[13%] top-[59.6%] left-[44.5%] bg-gradient-to-r from-blue-600/60 to-purple-600/60 hover:from-blue-600/80 hover:to-purple-600/80 border border-white/20 text-white px-4 py-2.5 rounded-lg hover:shadow-xl z-10 transition-all flex items-center justify-center gap-2 group whitespace-nowrap text-sm font-semibold tracking-wider"
+                            onClick={() => router.push('/register')}
+                        >
                             <span>BOOK A DEMO</span>
                             <svg
                                 className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200"

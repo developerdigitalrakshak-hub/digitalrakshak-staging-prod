@@ -12,54 +12,36 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-const servicesData = [
+const footerServicesData = [
     {
-        name: 'ID & e-KYC Data Stack',
-        description: 'Complete digital identity and KYC solutions',
-        icon: '🔐',
+        name: 'Explore API',
         subservices: [
-            { name: 'e-KYC Onboarding' },
-            { name: 'Security/Auth' },
-            { name: 'Identity Verification' },
-            { name: 'Membership Verification' },
-            { name: 'Business Verification' }
+            { name: 'ID & e-KYC Data Stack', href: '/identity-ekyc' },
+            { name: 'Document Intelligence', href: '#' },
+            { name: 'Crime & Background Verification', href: '#' },
+            { name: 'Business & ID Stack', href: '/business-verification' },
+            { name: 'Employment Check', href: '#' },
+            { name: 'Education Check', href: '#' },
+            { name: 'Banking Due Diligence', href: '#' },
+            { name: 'Trace Automobile', href: '#' }
         ]
     },
     {
-        name: 'Document Intelligence',
-        description: 'Advanced document verification and validation',
-        icon: '📄',
+        name: 'Background Verification',
         subservices: [
-            { name: 'Due Diligence' },
-            { name: 'Financial Verification' }
+            { name: 'Employee Verification', href: '/services/employment-verification' },
+            { name: 'ID & BGV', href: '#' },
+            { name: 'Education', href: '/services/education-verification' },
+            { name: 'Employment', href: '/services/employment-history-check' },
+            { name: 'Physical Address', href: '#' }
         ]
     },
     {
-        name: 'Crime & Background Verification',
-        icon: '🛡️',
+        name: 'Digital Transformation (Dx)',
         subservices: [
-            { name: 'Employment BGV' },
-            { name: 'Education BGV' },
-            { name: 'Crime / Court Records Check' },
-            { name: 'Forgery Detection' }
-        ]
-    },
-    {
-        name: 'HR Excellence Suite',
-        icon: '👥',
-        subservices: [
-            { name: 'Employment 360' },
-            { name: 'Employee BGV' },
-            { name: 'Managed Services' }
-        ]
-    },
-    {
-        name: 'Digital Transformation',
-        icon: '🚀',
-        subservices: [
-            { name: 'AI / ML' },
-            { name: 'Cybersecurity' },
-            { name: 'License / Certification' }
+            { name: 'Secure Web Development', href: '/web-application-development' },
+            { name: 'Cybersecurity', href: '#' },
+            { name: 'License / Certification', href: '#' }
         ]
     }
 ]
@@ -542,31 +524,19 @@ export default function Footer() {
                                 </div>
                             </div>
 
-                            {/* Service cols — first two full */}
-                            {servicesData.slice(0, 2).map(service => (
+                            {/* Service columns */}
+                            {footerServicesData.map(service => (
                                 <div key={service.name}>
                                     <h4 className="col-label">{service.name}</h4>
                                     <ul className="service-list">
                                         {service.subservices.map(sub => (
                                             <li key={sub.name}>
-                                                <a href="#">{sub.name}</a>
+                                                <Link href={sub.href}>{sub.name}</Link>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
                             ))}
-
-                            {/* More services */}
-                            <div>
-                                <h4 className="col-label">More Services</h4>
-                                <ul className="service-list">
-                                    {servicesData.slice(2).map(service => (
-                                        <li key={service.name}>
-                                            <a href="#">{service.icon}&nbsp; {service.name}</a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
 
                             {/* Contact */}
                             <div className="contact-col">

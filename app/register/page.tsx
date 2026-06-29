@@ -221,15 +221,15 @@ export default function RegisterPage() {
                                                 Privacy Policy
                                             </Link>{" "}
                                             and{" "}
-                                            <Link href="/privacy-notice" className="text-blue-600 hover:underline">
-                                                Privacy Notice
+                                            <Link href="/terms-and-conditions" className="text-blue-600 hover:underline">
+                                                Terms & Conditions
                                             </Link>
                                             , and
                                             <br />
                                             2. Agree to receive marketing communications from DigitalRakshak and acknowledge that you can opt
                                             out at any time by writing to us at{" "}
-                                            <Link href="mailto:privacy@digitalrakshak.co" className="text-blue-600 hover:underline">
-                                                privacy@digitalrakshak.co
+                                            <Link href="mailto:privacy@digitalrakshak.com" className="text-blue-600 hover:underline">
+                                                privacy@digitalrakshak.com
                                             </Link>
                                         </div>
 
