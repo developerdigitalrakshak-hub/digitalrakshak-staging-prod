@@ -1,45 +1,22 @@
-import ResourcePage from "@/components/resource-page"
+import Banner from "@/components/academy/Banner"
+import OverviewSection from "@/components/academy/OverviewSection"
+import Services from "@/components/academy/Services"
+import BenefitsSection from "@/components/academy/BenefitsSection"
+import CTASection from "@/components/academy/CTASection"
+
+export const metadata = {
+    title: "Digital Rakshak Academy - Identity Verification, Compliance & Digital Trust",
+    description: "Build practical expertise in KYC, workforce screening, fraud prevention, and changing compliance laws with blueprints and guides designed by industry practitioners.",
+}
 
 export default function Page() {
     return (
-        <ResourcePage
-            title="Academy"
-            intro={[
-                "Learn compliance, KYC, AML, and risk workflows through expert-led micro-courses designed for fast-moving teams.",
-                "Build job-ready skills with templates, checklists, and practical exercises aligned to real regulatory scenarios.",
-            ]}
-            features={[
-                {
-                    title: "Expert-led tracks",
-                    description: "Short, focused modules curated by practitioners with years of industry experience.",
-                },
-                {
-                    title: "Certificates & badges",
-                    description: "Showcase your progress with shareable certificates and completion badges.",
-                },
-                {
-                    title: "Hands-on templates",
-                    description: "Download-ready SOPs, playbooks, and audit-ready checklists you can use immediately.",
-                },
-                {
-                    title: "Role-based paths",
-                    description: "Tailored learning for compliance officers, analysts, operations, and leadership.",
-                },
-                {
-                    title: "Always up-to-date",
-                    description: "Content updated as regulations, risks, and best practices evolve.",
-                },
-                {
-                    title: "Team analytics",
-                    description: "Track team adoption and completion to ensure organization-wide baseline compliance.",
-                },
-            ]}
-            whyChoose={[
-                "Industry-first training engineered for high-growth companies",
-                "Actionable templates that reduce time-to-value",
-                "Guided learning paths for every role and maturity level",
-            ]}
-            cta={{ label: "Browse courses", href: "/contact" }}
-        />
+        <>
+            <Banner />
+            <OverviewSection />
+            <Services />
+            <BenefitsSection />
+            <CTASection />
+        </>
     )
 }
