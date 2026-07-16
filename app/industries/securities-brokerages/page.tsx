@@ -18,7 +18,7 @@ export default function Page() {
                 "Low-latency hosted and API options.",
                 "Battle-tested with high transaction volumes.",
             ]}
-            cta={{ label: "Book a Demo", href: "/contact" }}
+            cta={{ label: "Contact US", href: "/contact" }}
         />
     )
 }

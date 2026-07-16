@@ -10,21 +10,21 @@ export default function Banner() {
         <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-3xl opacity-60" />
       </div>
 
-      <div className="relative z-10 max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[92%] md:max-w-[88%] lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
+
           {/* Left Content */}
           <div className="space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 font-semibold text-xs uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Careers at Digital Rakshak
+              Careers at DigitalRakshak
             </div>
 
-            <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-[1.1] tracking-tight">
+            <h1 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-6xl text-gray-900 leading-[1.1] tracking-tight text-balance">
               Build the Future <br />of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Digital Trust</span>
             </h1>
 
-            <p className="text-gray-600 text-lg leading-relaxed max-w-xl">
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl text-balance">
               Join a team building the secure, scalable verification infrastructure that helps modern businesses across India operate with confidence.
             </p>
 
@@ -45,9 +45,9 @@ export default function Banner() {
           <div className="relative">
             {/* Soft decorative blur border */}
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-3xl blur-xl opacity-10 pointer-events-none" />
-            
+
             {/* Visual Container */}
-            <div className="relative bg-slate-50/50 backdrop-blur-sm rounded-3xl border border-slate-100 p-8 max-w-lg mx-auto lg:ml-auto space-y-6">
+            <div className="relative bg-slate-50/50 backdrop-blur-sm rounded-3xl border border-slate-100 p-5 sm:p-8 max-w-lg mx-auto lg:ml-auto space-y-5 sm:space-y-6">
               <div className="flex justify-between items-center pb-4 border-b border-slate-100">
                 <div>
                   <h3 className="text-slate-900 font-bold text-sm">Engineering Culture</h3>
@@ -59,7 +59,7 @@ export default function Banner() {
               </div>
 
               {/* Grid of highlights */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {[
                   { icon: <Terminal className="w-4 h-4 text-blue-600" />, label: "Go/Python Stack" },
                   { icon: <Cpu className="w-4 h-4 text-emerald-600" />, label: "High-scale APIs" },
@@ -70,17 +70,17 @@ export default function Banner() {
                     <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center flex-shrink-0">
                       {item.icon}
                     </div>
-                    <span className="text-slate-700 font-bold text-xs">{item.label}</span>
+                    <span className="text-slate-700 font-bold text-xs sm:text-sm tracking-tight whitespace-nowrap">{item.label}</span>
                   </div>
                 ))}
               </div>
 
               {/* Banner badge */}
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 flex items-start gap-3">
-                <Star className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-3.5 sm:p-4 flex items-start gap-2.5 sm:gap-3">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-slate-900 font-bold text-xs mb-0.5">High Impact Team</h4>
-                  <p className="text-slate-600 text-[11px] leading-relaxed">
+                  <p className="text-slate-600 text-[10px] sm:text-[11px] leading-relaxed">
                     Build products that verify millions of identities daily, setting digital trust standards across financial platforms.
                   </p>
                 </div>

@@ -36,7 +36,7 @@ export default function KycOcrPage() {
               router.push(`/register`)
             }}
           >
-            Request a Demo
+            Contact US
           </Button>
         </div>
       </section>
@@ -313,7 +313,7 @@ export default function KycOcrPage() {
                   router.push(`/register`)
                 }}
               >
-                Request a Demo Today
+                Contact US Today
               </Button>
             </div>
           </Card>

@@ -61,7 +61,7 @@ export default function GeoFencingBGVPage() {
                 router.push(`/register`)
               }}
             >
-              Request a Live Demo
+              Contact US
             </Button>
             <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-8 h-14 rounded-full text-lg transition-all"
               onClick={() => {
@@ -261,7 +261,7 @@ export default function GeoFencingBGVPage() {
                     router.push(`/register`)
                   }}
                 >
-                  Request a Live Demo
+                  Contact US
                 </Button>
                 <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-10 h-14 rounded-full text-lg transition-all"
                   onClick={() => {

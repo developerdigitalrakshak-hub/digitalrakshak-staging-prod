@@ -74,7 +74,7 @@ export default function ContactUsSection() {
                   className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg font-bold py-7 px-12 h-auto rounded-2xl shadow-xl shadow-blue-500/25 transition-all duration-300 hover:shadow-blue-500/40 hover:-translate-y-1"
                 >
                   <span className="relative z-10 flex items-center">
-                    Get a Free Demo
+                    Contact US
                     <ArrowRight className="w-6 h-6 ml-3 transform group-hover:translate-x-1 transition-transform" />
                   </span>
                   {/* Button shine effect */}

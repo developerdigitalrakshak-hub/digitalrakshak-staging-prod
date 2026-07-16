@@ -7,8 +7,8 @@ import WhyTrustUs from "@/components/about-us/WhyTrustUs"
 import CTASection from "@/components/about-us/CTASection"
 
 export const metadata = {
-    title: "About Us - Digital Rakshak | Building Digital Trust Infrastructure",
-    description: "Digital Rakshak builds the backend infrastructure that powers secure hiring, verification, and compliance.",
+    title: "About Us - DigitalRakshak | Building Digital Trust Infrastructure",
+    description: "DigitalRakshak builds the backend infrastructure that powers secure hiring, verification, and compliance.",
 }
 
 export default function Page() {

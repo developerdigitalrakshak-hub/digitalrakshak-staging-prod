@@ -15,11 +15,11 @@ export default function OverviewSection() {
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               Interactive Learning
             </div>
-            
+
             <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight">
-              Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Digital Rakshak Academy?</span>
+              Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">DigitalRakshak Academy?</span>
             </h2>
-            
+
             <div className="space-y-5 text-lg text-gray-600 leading-relaxed">
               <p>
                 Digital trust isn't just a legal checkmark anymore. Whether you are running a fintech, an online marketplace, or a logistics platform, knowing how to verify your users safely is a core business requirement.
@@ -27,7 +27,7 @@ export default function OverviewSection() {
               <p>
                 We built the Academy to take the guesswork out of compliance. Instead of dense legal text, we provide startups, developers, and compliance teams with straightforward guides on how verification tech works, what regulators expect from you, and how to build secure onboarding flows without killing your user experience.
               </p>
-              
+
               <ul className="grid sm:grid-cols-2 gap-4 pt-4">
                 {[
                   { text: 'Plain-English Laws', desc: 'No dense legalese. Clean, simple guides.', icon: ShieldCheck },
@@ -46,11 +46,11 @@ export default function OverviewSection() {
               </ul>
             </div>
           </div>
-          
+
           <div className="relative group perspective">
             {/* Image Glow/Shadow */}
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-[2.5rem] blur-2xl opacity-20 group-hover:opacity-30 transition duration-700 pointer-events-none" />
-            
+
             <div className="relative transform transition duration-700 group-hover:-translate-y-2 group-hover:scale-[1.02] bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] p-8 shadow-2xl border border-white/10 text-white min-h-[420px] flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-start mb-6">
@@ -59,7 +59,7 @@ export default function OverviewSection() {
                   </div>
                   <span className="text-xs text-gray-400 font-mono">DR-ACADEMY-01</span>
                 </div>
-                
+
                 <h3 className="text-2xl font-bold font-display mb-4">Building Digital Trust Frameworks</h3>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6">
                   Understand how to deploy e-KYC, face match, and multi-factor validation flows seamlessly. Build systems that satisfy regulators while providing your real users with zero-friction signups.
@@ -71,7 +71,7 @@ export default function OverviewSection() {
                   <span>CURRICULUM MODULE</span>
                   <span>EST. TIME: 45 MINS</span>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                   <div className="h-2 flex-1 bg-white/10 rounded-full overflow-hidden">
                     <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-full w-3/4 rounded-full" />
