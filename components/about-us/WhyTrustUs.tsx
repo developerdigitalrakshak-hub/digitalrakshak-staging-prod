@@ -4,14 +4,14 @@ export default function WhyTrustUs() {
   return (
     <section className="py-20 lg:py-24 bg-white border-b border-slate-100">
       <div className="container mx-auto px-4 max-w-[80%]">
-        
+
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest bg-slate-50 border border-slate-200 px-3.5 py-1 rounded-full shadow-sm">
             Enterprise Value
           </span>
           <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mt-5">
-            Why Enterprises Trust Digital Rakshak
+            Why Enterprises Trust DigitalRakshak
           </h2>
         </div>
 

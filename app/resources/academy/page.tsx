@@ -5,7 +5,7 @@ import BenefitsSection from "@/components/academy/BenefitsSection"
 import CTASection from "@/components/academy/CTASection"
 
 export const metadata = {
-    title: "Digital Rakshak Academy - Identity Verification, Compliance & Digital Trust",
+    title: "DigitalRakshak Academy - Identity Verification, Compliance & Digital Trust",
     description: "Build practical expertise in KYC, workforce screening, fraud prevention, and changing compliance laws with blueprints and guides designed by industry practitioners.",
 }
 

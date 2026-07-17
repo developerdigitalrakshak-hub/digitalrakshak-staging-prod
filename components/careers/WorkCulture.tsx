@@ -32,10 +32,10 @@ export default function WorkCulture() {
           <div className="inline-flex items-center gap-2 bg-white border border-slate-300 rounded-full px-4 py-1.5 mb-4 shadow-sm">
             <span className="text-slate-600 text-xs font-semibold uppercase tracking-wider">Our Environment</span>
           </div>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-4 text-balance">
             What It's Like to Work Here
           </h2>
-          <p className="text-slate-500 text-lg leading-relaxed">
+          <p className="text-slate-500 text-base sm:text-lg leading-relaxed text-balance">
             We value excellence, fast execution, and a supportive atmosphere that rewards curiosity.
           </p>
         </div>
@@ -45,7 +45,7 @@ export default function WorkCulture() {
           {culturePoints.map((point, i) => (
             <div
               key={i}
-              className="group bg-white rounded-2xl p-8 border border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
+              className="group bg-white rounded-2xl p-6 sm:p-8 border border-slate-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-blue-50 group-hover:bg-blue-600 text-blue-600 group-hover:text-white rounded-xl flex items-center justify-center mb-6 transition-all duration-300">
                 {point.icon}

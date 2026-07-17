@@ -12,12 +12,12 @@ export default function Banner() {
 
       <div className="relative z-10 max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
+
           {/* Left Content */}
           <div className="space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 font-semibold text-xs uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Digital Rakshak Platform
+              DigitalRakshak Platform
             </div>
 
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-[1.1] tracking-tight">
@@ -25,7 +25,7 @@ export default function Banner() {
             </h1>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl">
-              Digital Rakshak builds the backend infrastructure that powers secure hiring, verification, and compliance. We combine real-time verification tech, compliance automation, and secure software development to give businesses a single, accountable partner for high-stakes operations.
+              DigitalRakshak builds the backend infrastructure that powers secure hiring, verification, and compliance. We combine real-time verification tech, compliance automation, and secure software development to give businesses a single, accountable partner for high-stakes operations.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -48,7 +48,7 @@ export default function Banner() {
           <div className="relative">
             {/* Soft decorative blur border */}
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-3xl blur-xl opacity-10 pointer-events-none" />
-            
+
             {/* Visual Container */}
             <div className="relative bg-slate-50/50 backdrop-blur-sm rounded-3xl border border-slate-100 p-8 max-w-lg mx-auto lg:ml-auto space-y-6">
               <div className="flex justify-between items-center pb-4 border-b border-slate-100">

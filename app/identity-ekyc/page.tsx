@@ -330,7 +330,7 @@ export default function IdentityEkycPage() {
                 router.push(`/register`)
               }}
                 >
-                  Request a Demo
+                  Contact US
                 </Button>
                 <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600/10 font-bold px-10 h-14 rounded-full text-lg transition-all"
                 onClick={() => {

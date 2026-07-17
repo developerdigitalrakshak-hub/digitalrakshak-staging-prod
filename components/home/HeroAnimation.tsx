@@ -29,7 +29,7 @@ export default function HeroAnimation() {
                         <button className="absolute w-[13%] top-[59.6%] left-[44.5%] bg-gradient-to-r from-blue-600/60 to-purple-600/60 hover:from-blue-600/80 hover:to-purple-600/80 border border-white/20 text-white px-4 py-2.5 rounded-lg hover:shadow-xl z-10 transition-all flex items-center justify-center gap-2 group whitespace-nowrap text-sm font-semibold tracking-wider"
                             onClick={() => router.push('/register')}
                         >
-                            <span>BOOK A DEMO</span>
+                            <span>CONTACT US</span>
                             <svg
                                 className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200"
                                 fill="none"

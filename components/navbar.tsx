@@ -1431,7 +1431,7 @@
 //               </button>
 //               <Link href={"/register"}>
 //                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-lg hover:shadow-xl transition-all">
-//                   Book Demo
+//                   Contact US
 //                 </button>
 //               </Link>
 //             </div>
@@ -2164,12 +2164,18 @@ export default function Bar() {
       description: "Comprehensive verification and background screening services",
     },
     {
-      name: "digitalTransformation",
-      href: "/services",
-      hasDropdown: true,
-      dropDownMenu: servicesCategories,
-      icon: Users,
-      description: "Comprehensive verification and background screening services",
+      name: "Pricing",
+      href: "/pricing",
+      hasDropdown: false,
+      dropDownMenu: [],
+      icon: null,
+      description: null,
+      //   name: "digitalTransformation",
+      // href: "/services",
+      // hasDropdown: true,
+      // dropDownMenu: servicesCategories,
+      // icon: Users,
+      // description: "Comprehensive verification and background screening services",
     },
     {
       name: "Resources",
@@ -2177,16 +2183,10 @@ export default function Bar() {
       hasDropdown: true,
       dropDownMenu: [
         {
-          name: "Academy",
-          href: "/resources/academy",
-          icon: BookOpen,
-          description: "Learn about background verification and compliance",
-        },
-        {
-          name: "Blogs, Research & Publication",
-          href: "/resources/blog",
-          icon: BookOpen,
-          description: "Stay up-to-date with the latest industry news",
+          name: "About Us",
+          href: "/resources/about-us",
+          icon: FileText,
+          description: "Learn more about our company and our mission",
         },
         {
           name: "Career",
@@ -2194,11 +2194,17 @@ export default function Bar() {
           icon: MessageSquare,
           description: "Understand key terms and concepts in background verification",
         },
+        // {
+        //   name: "Academy",
+        //   href: "/resources/academy",
+        //   icon: BookOpen,
+        //   description: "Learn about background verification and compliance",
+        // },
         {
-          name: "About Us",
-          href: "/resources/about-us",
-          icon: FileText,
-          description: "Learn more about our company and our mission",
+          name: "Blogs, Research & Publication",
+          href: "/resources/blog",
+          icon: BookOpen,
+          description: "Stay up-to-date with the latest industry news",
         },
       ],
       icon: null,
@@ -2219,17 +2225,17 @@ export default function Bar() {
 
   // Resources data for mobile
   const resourcesData: ResourceItem[] = [
+    // {
+    //   name: "Academy",
+    //   href: "/resources/academy",
+    //   icon: GraduationCapIcon,
+    //   description: "Learn about background verification and compliance",
+    // },
     {
-      name: "Academy",
-      href: "/resources/academy",
-      icon: GraduationCapIcon,
-      description: "Learn about background verification and compliance",
-    },
-    {
-      name: "Blogs, Research & Publication",
-      href: "/resources/blog",
-      icon: BookOpen,
-      description: "Stay up-to-date with the latest industry news",
+      name: "About Us",
+      href: "/resources/about-us",
+      icon: Heart,
+      description: "Learn more about our company and mission",
     },
     {
       name: "Career",
@@ -2238,10 +2244,10 @@ export default function Bar() {
       description: "Understand key terms and concepts",
     },
     {
-      name: "About Us",
-      href: "/resources/about-us",
-      icon: Heart,
-      description: "Learn more about our company and mission",
+      name: "Blogs, Research & Publication",
+      href: "/resources/blog",
+      icon: BookOpen,
+      description: "Stay up-to-date with the latest industry news",
     },
   ]
 
@@ -2251,7 +2257,7 @@ export default function Bar() {
     const getCurrentData = () => {
       if (mobileSelectedMainTab === "Explore API") return servicesData
       if (mobileSelectedMainTab === "HR Excellence Suite") return inHouseServicesData
-      if (mobileSelectedMainTab === "Digital Transformation") return digitalTransformationData
+      // if (mobileSelectedMainTab === "Digital Transformation") return digitalTransformationData
       return []
     }
 
@@ -2298,19 +2304,21 @@ export default function Bar() {
           </div>
 
           {/* Pricing Button */}
-          <button
-            onClick={() => {
-              router.push(`/pricing`)
-              setIsOpen(false)
-            }}
-            className="w-full mt-3 p-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-md flex items-center justify-between"
-          >
-            <div className="flex items-center gap-2">
-              <Crown className="h-5 w-5" />
-              <span className="font-semibold">Pricing Plans</span>
-            </div>
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          {mobileSelectedMainTab !== "Explore API" && (
+            <button
+              onClick={() => {
+                router.push(`/pricing`)
+                setIsOpen(false)
+              }}
+              className="w-full mt-3 p-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-md flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <Crown className="h-5 w-5" />
+                <span className="font-semibold">Pricing Plans</span>
+              </div>
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
         {/* Services Content - Beautiful Cards (All collapsed by default) */}
@@ -2444,11 +2452,10 @@ export default function Bar() {
   return (
     <div className="bg-white shadow-lg sticky top-0 z-50">
       {/* Top Utility Bar */}
-      <div className="bg-gray-800 text-white text-sm">
+      {/* <div className="bg-gray-800 text-white text-sm">
         <div className="container mx-auto px-4">
           <div className="flex justify-end items-center h-10">
             <div className="flex items-center space-x-6">
-              {/* Language Dropdown */}
               <div
                 className="relative"
                 ref={(el) => { utilityDropdownRefs.current['language'] = el }}
@@ -2509,7 +2516,6 @@ export default function Bar() {
                 )}
               </div>
 
-              {/* Contact */}
               <Link
                 href="/contact"
                 className="hover:text-blue-300 transition-colors flex items-center space-x-1"
@@ -2518,7 +2524,6 @@ export default function Bar() {
                 <span className="hidden sm:block">Contact us</span>
               </Link>
 
-              {/* Support Dropdown */}
               <div
                 className="relative"
                 ref={(el) => { utilityDropdownRefs.current['support'] = el }}
@@ -2551,7 +2556,6 @@ export default function Bar() {
                 )}
               </div>
 
-              {/* My Account Dropdown */}
               <div
                 className="relative"
                 ref={(el) => { utilityDropdownRefs.current['account'] = el }}
@@ -2584,7 +2588,6 @@ export default function Bar() {
                 )}
               </div>
 
-              {/* Avatar Profile Popup */}
               <div
                 className="relative"
                 ref={(el) => { utilityDropdownRefs.current['profile'] = el }}
@@ -2598,7 +2601,6 @@ export default function Bar() {
 
                 {activeUtilityDropdown === 'profile' && (
                   <div className="absolute right-0 mt-2 w-80 bg-white text-black rounded shadow-lg p-4 z-50">
-                    {/* Header */}
                     <div className="flex justify-between items-center mb-2">
                       <h3 className="font-semibold">Profile</h3>
                       <button onClick={() => setActiveUtilityDropdown(null)}>
@@ -2608,9 +2610,8 @@ export default function Bar() {
                     <p className="text-sm text-gray-600 mb-4">
                       Your profile helps improve your interactions with select experiences.
                     </p>
-                    {/* Buttons */}
                     <div className="flex space-x-3">
-                      <Link href="/login">
+                      <Link href="/#">
                         <button
                           className="px-4 py-2 border rounded-full hover:bg-gray-100"
                           onClick={() => setActiveUtilityDropdown(null)}
@@ -2633,7 +2634,7 @@ export default function Bar() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Navigation */}
       <nav className="bg-white border-b">
@@ -2747,15 +2748,7 @@ export default function Bar() {
                                             {category.name}
                                           </button>
                                         ))}
-                                        <button
-                                          onClick={() => {
-                                            router.push(`/pricing`)
-                                            handleMouseLeave()
-                                          }}
-                                          className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all bg-[#FEE2E2] text-[#DC2626] border-l-2 border-[#DC2626]`}
-                                        >
-                                          Pricing
-                                        </button>
+
                                       </div>
                                     </div>
                                   </div>
@@ -3176,7 +3169,7 @@ export default function Bar() {
               </button>
               <Link href={"/register"}>
                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-lg hover:shadow-xl transition-all">
-                  Book Demo
+                  Contact US
                 </button>
               </Link>
             </div>
@@ -3191,30 +3184,40 @@ export default function Bar() {
 
           {/* Mobile Navigation - Beautiful 4 Tabs Design (All subservices collapsed by default) */}
           {isOpen && (
-            <div className="xl:hidden fixed inset-x-0 top-[calc(72px+40px)] bottom-0 bg-white z-40 overflow-y-auto">
+            <div className="xl:hidden fixed inset-x-0 top-[calc(72px+0px)] bottom-0 bg-white z-40 overflow-y-auto overflow-x-hidden">
               {/* 4 Main Tabs - Beautiful Gradient Design */}
               <div className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
-                <div className="flex">
+                <div className="flex w-full overflow-hidden">
                   {[
-                    { id: "Explore API", icon: <Zap className="h-4 w-4" />, color: "from-blue-500 to-cyan-500" },
-                    { id: "HR Excellence Suite", icon: <Users className="h-4 w-4" />, color: "from-emerald-500 to-teal-500" },
-                    { id: "Digital Transformation", icon: <Rocket className="h-4 w-4" />, color: "from-purple-500 to-pink-500" },
-                    { id: "Resources", icon: <Library className="h-4 w-4" />, color: "from-orange-500 to-red-500" }
+                    { id: "Explore API", icon: <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-blue-500 to-cyan-500" },
+                    { id: "HR Excellence Suite", icon: <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-emerald-500 to-teal-500" },
+                    //  { id: "Digital Transformation", icon: <Rocket className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-purple-500 to-pink-500" },
+                    { id: "Pricing", icon: <Crown className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-red-500 to-orange-500" },
+                    { id: "Resources", icon: <Library className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-orange-500 to-red-500" }
                   ].map((tab) => (
                     <button
                       key={tab.id}
-                      onClick={() => setMobileSelectedMainTab(tab.id)}
-                      className={`flex-1 py-4 px-2 text-center font-medium transition-all relative flex flex-col items-center gap-1 ${mobileSelectedMainTab === tab.id
+                      onClick={() => {
+                        if (tab.id === "Pricing") {
+                          router.push('/pricing')
+                          setIsOpen(false)
+                        } else {
+                          setMobileSelectedMainTab(tab.id)
+                        }
+                      }}
+                      className={`flex-1 py-2 px-1 text-center font-medium transition-all relative flex flex-col items-center justify-center gap-0.5 min-w-0 ${mobileSelectedMainTab === tab.id
                         ? `text-transparent bg-clip-text bg-gradient-to-r ${tab.color}`
-                        : "text-gray-500 hover:text-gray-700"
+                        : "text-gray-700 hover:text-blue-600"
                         }`}
                     >
-                      <div className={`flex items-center gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
+                      <div className={`flex items-center gap-0.5 sm:gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
                         {tab.icon}
-                        <span className="text-xs sm:text-sm">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span>
+                        {/* <span className="text-[10px] sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span> */}
+                        <span className="text-[10px] sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Pricing" ? "Pricing" : "Resources"}</span>
                       </div>
-                      <div className="text-[10px] sm:text-xs truncate max-w-full px-1">
-                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources"}
+                      <div className="text-[8px] sm:text-xs text-center leading-tight whitespace-normal break-words max-w-full px-0.5 font-normal">
+                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Pricing" ? "Pricing Plans" : tab.id === "Resources" && "Explore Resources"}
+                        {/* {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources"} */}
                       </div>
                       {mobileSelectedMainTab === tab.id && (
                         <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${tab.color} rounded-full`}></div>
@@ -3242,12 +3245,12 @@ export default function Bar() {
                   </button>
                   <Link href="/register" className="flex-1" onClick={() => setIsOpen(false)}>
                     <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all">
-                      Book Demo
+                      Contact US
                     </button>
                   </Link>
                 </div>
                 <div className="flex gap-3 mt-3">
-                  <Link href="/login" className="flex-1" onClick={() => setIsOpen(false)}>
+                  <Link href="/#" className="flex-1" onClick={() => setIsOpen(false)}>
                     <button className="w-full px-4 py-2 border border-gray-200 rounded-xl text-gray-600 text-sm hover:bg-gray-50 transition-colors">
                       Sign in to console
                     </button>

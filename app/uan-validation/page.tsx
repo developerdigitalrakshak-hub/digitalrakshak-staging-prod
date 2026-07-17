@@ -61,7 +61,7 @@ export default function UANVerificationPage() {
               router.push(`/register`)
             }}
           >
-            Book a Free Demo
+            Contact US
           </Button>
         </div>
       </section>
@@ -352,7 +352,7 @@ export default function UANVerificationPage() {
                     router.push(`/register`)
                   }}
                 >
-                  Book a Free Demo
+                  Contact US
                 </Button>
                 <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-10 h-14 rounded-full text-lg transition-all"
                   onClick={() => {

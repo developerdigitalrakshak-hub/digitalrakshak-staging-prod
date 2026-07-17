@@ -467,7 +467,7 @@ export default function Footer() {
                                 Ready to Improve Conversions and Reduce Risk?
                             </h2>
                             <Link href="/register" className="cta-btn">
-                                Book a demo
+                                Contact US
                                 <span className="cta-btn-icon">
                                     <ArrowUpRight size={16} />
                                 </span>

@@ -4,7 +4,7 @@ export default function EcosystemStack() {
   return (
     <section id="stack" className="py-20 lg:py-24 bg-white border-b border-slate-100">
       <div className="container mx-auto px-4 max-w-[80%]">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest bg-slate-50 border border-slate-200 px-3.5 py-1 rounded-full shadow-sm">
@@ -14,7 +14,7 @@ export default function EcosystemStack() {
             Our Integrated Ecosystem Stack
           </h2>
           <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
-            Instead of juggling a messy mix of point solutions, software vendors, and legal consultants, Digital Rakshak unifies your operations across three core, integrated layers:
+            Instead of juggling a messy mix of point solutions, software vendors, and legal consultants, DigitalRakshak unifies your operations across three core, integrated layers:
           </p>
         </div>
 
