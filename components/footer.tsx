@@ -30,18 +30,19 @@ const footerServicesData = [
         name: 'Background Verification',
         subservices: [
             { name: 'Employee Verification', href: '/services/employment-verification' },
-            { name: 'ID & BGV', href: '#' },
-            { name: 'Education', href: '/services/education-verification' },
-            { name: 'Employment', href: '/services/employment-history-check' },
-            { name: 'Physical Address', href: '#' }
+            { name: 'ID & BGV', href: '/services' },
+            { name: 'Education Verification', href: '/services/education-verification' },
+            { name: 'Employment History', href: '/services/employment-history-check' },
+            { name: 'Physical Address Check', href: '/services' }
         ]
     },
     {
-        name: 'Digital Transformation (Dx)',
+        name: 'Digital Trust',
         subservices: [
-            { name: 'Secure Web Development', href: '/web-application-development' },
-            { name: 'Cybersecurity', href: '#' },
-            { name: 'License / Certification', href: '#' }
+            { name: 'e-Sign', href: '/e-stamp-and-e-sign' },
+            { name: 'e-Stamping', href: '/e-stamp-and-e-sign' },
+            // { name: 'Digital Stamping', href: '/e-stamp-and-e-sign' },
+            // { name: 'Legal Document Signing', href: '/e-stamp-and-e-sign' }
         ]
     }
 ]
@@ -184,7 +185,7 @@ export default function Footer() {
                 /* ── GRID ── */
                 .footer-grid {
                     display: grid;
-                    grid-template-columns: 2.2fr 1.6fr 1.6fr 2fr 1.7fr 2fr;
+                    grid-template-columns: 2.2fr 1.5fr 1.8fr 1.8fr 1.5fr 1.5fr;
                     gap: 2.5rem 2rem;
                     padding-bottom: 3rem;
                 }
@@ -412,6 +413,7 @@ export default function Footer() {
                     .footer-main { border-radius: 28px 28px 0 0; }
                     .cta-card { border-radius: 24px; padding: 2.75rem 2rem; }
                     .cta-illustration { display: none; }
+                    .cta-heading { max-width: 100%; }
                     .footer-grid {
                         grid-template-columns: 1fr 1fr;
                         gap: 2rem 1.5rem;
@@ -443,7 +445,7 @@ export default function Footer() {
                         gap: 0;
                     }
                     .contact-col { grid-column: 1 / -1; }
-                    .footer-inner { max-width: 1000%; padding: 0 1.25rem 1.5rem; }
+                    .footer-inner { max-width: 100%; padding: 0 1.25rem 1.5rem; }
                     .footer-bottom {
                         flex-direction: column;
                         align-items: flex-start;
@@ -496,7 +498,7 @@ export default function Footer() {
                                             {/* <Shield size={38} color="#6366f1" /> */}
                                             <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={80} height={80} />
                                         </div>
-                                        <span className="brand-name">DigitalRakshak  <span className="text-[30px] font-bold leading-none">™</span><br/> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
+                                        <span className="brand-name">DigitalRakshak  <span className="text-[30px] font-bold leading-none">™</span><br /> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
                                     </div>
                                     <p className="brand-legal">DigitalRakshak InfoTech Pvt. Ltd</p>
                                     <p className="brand-cin">CIN: U78300GJ2025PTC171397</p>
@@ -505,22 +507,22 @@ export default function Footer() {
                                         compliance solutions. Secure, reliable, and compliant
                                         services for your business.
                                     </p>
-                                <div>
-                                    <div className="socials">
-                                        {socialLinks.map(({ Icon, href, label }) => (
-                                            <a
-                                                key={label}
-                                                href={href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="social-link"
-                                                aria-label={label}
-                                            >
-                                                <Icon size={16} />
-                                            </a>
-                                        ))}
+                                    <div>
+                                        <div className="socials">
+                                            {socialLinks.map(({ Icon, href, label }) => (
+                                                <a
+                                                    key={label}
+                                                    href={href}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="social-link"
+                                                    aria-label={label}
+                                                >
+                                                    <Icon size={16} />
+                                                </a>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
 
@@ -563,7 +565,7 @@ export default function Footer() {
                             <div className="contact-col">
                                 <h4 className="col-label">Policies</h4>
                                 <ul className="service-list">
-                                      {[
+                                    {[
                                         { href: '/privacy-policy', text: 'Privacy Policy' },
                                         { href: '/terms-and-conditions', text: 'T&C of Services' },
                                         { href: '/responsible-disclosure', text: 'Responsible Disclosure Policy' },
@@ -573,7 +575,7 @@ export default function Footer() {
                                             <Link href={service.href}>{service.text}</Link>
                                         </li>
                                     ))}
-                                 </ul>
+                                </ul>
                             </div>
                         </div>
 
