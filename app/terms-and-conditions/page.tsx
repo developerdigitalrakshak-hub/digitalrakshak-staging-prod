@@ -47,24 +47,29 @@ const TermsAndConditionsPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
       {/* Hero Section */}
 
-      <div className="relative bg-gradient-to-r from-slate-900 via-gray-800 to-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20 z-0"></div>
+      <div className="relative bg-gradient-to-r from-slate-900 via-gray-800 to-slate-900 text-white overflow-hidden py-6 md:py-16">
+        <div className="absolute inset-0 bg-black/10 z-0"></div>
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
-        <div className="relative z-10 max-w-8xl mx-auto px-2 sm:px-4 lg:px-6 py-4 md:py-7">
-          <div className="flex items-stretch gap-6">
-            {/* Logo — 25%, right-aligned */}
+        
+        {/* Subtle grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-[0.03] z-0" />
+
+        <div className="relative z-10 max-w-8xl mx-auto px-6 sm:px-8 md:px-[10%]">
+          
+          {/* 1. DESKTOP LAYOUT (Original layout with logo on left, text on right) */}
+          <div className="hidden md:flex items-stretch gap-8">
+            {/* Logo — 20%, right-aligned */}
             <div className="w-[20%] flex items-center justify-end pr-6">
-              <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={200} height={200} />
+              <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={180} height={180} />
             </div>
 
-            {/* Right content — 75% */}
+            {/* Right content — 80% */}
             <div className="w-[80%] flex flex-col justify-center">
-              {/* <span className="text-blue-200 font-semibold tracking-wide mb-1">Privacy & Security</span> */}
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
                 Terms & Conditions
               </h1>
-              <p className="text-lg md:text-xl text-blue-100 max-w-7xl leading-relaxed">
+              <p className="text-lg md:text-xl text-blue-100 max-w-5xl leading-relaxed">
                 Please read these terms carefully before using our services. By accessing our platform, you agree to be bound by these terms.
               </p>
               <div className="mt-6 text-sm text-blue-200 flex items-center gap-4 flex-wrap">
@@ -75,6 +80,74 @@ const TermsAndConditionsPage = () => {
               </div>
             </div>
           </div>
+
+          {/* 2. MOBILE LAYOUT (Our new beautiful card stack layout) */}
+          <div className="md:hidden flex flex-col items-start">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-[10px] font-semibold tracking-wide text-indigo-300">
+              <Shield className="w-3 h-3" />
+              <span>Official Agreement Document</span>
+            </div>
+
+            <h1 className="text-2xl font-extrabold tracking-tight leading-none mt-2">
+              Terms & Conditions
+            </h1>
+
+            <p className="text-xs text-slate-200 leading-normal max-w-xl mt-1.5">
+              Please read these terms carefully before using our services. By accessing our platform, you agree to be bound by these terms.
+            </p>
+
+            <div className="w-full grid grid-cols-1 xs:grid-cols-2 gap-1.5 mt-3">
+              
+              {/* Card 1: Effective */}
+              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md shadow-sm">
+                <div className="p-1 rounded bg-indigo-500/20 text-indigo-300 flex-shrink-0">
+                  <CalendarDays className="w-3.5 h-3.5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[8px] font-medium text-indigo-300/70 uppercase tracking-wider leading-none">Effective</p>
+                  <p className="text-[11px] font-semibold text-white mt-0.5 truncate leading-none">Immediately</p>
+                </div>
+              </div>
+
+              {/* Card 2: Version */}
+              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md shadow-sm">
+                <div className="p-1 rounded bg-indigo-500/20 text-indigo-300 flex-shrink-0">
+                  <Clock className="w-3.5 h-3.5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[8px] font-medium text-indigo-300/70 uppercase tracking-wider leading-none">Version</p>
+                  <p className="text-[11px] font-semibold text-white mt-0.5 truncate leading-none">1.0</p>
+                </div>
+              </div>
+
+              {/* Card 3: Jurisdiction */}
+              <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md shadow-sm">
+                <div className="p-1 rounded bg-blue-500/20 text-blue-300 flex-shrink-0">
+                  <Gavel className="w-3.5 h-3.5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[8px] font-medium text-blue-300/70 uppercase tracking-wider leading-none">Jurisdiction</p>
+                  <p className="text-[11px] font-semibold text-white mt-0.5 truncate leading-none">Gandhinagar, IN</p>
+                </div>
+              </div>
+
+              {/* Card 4: Grievance Email */}
+              <a
+                href="mailto:grievance@DigitalRakshak.com"
+                className="flex items-center gap-2.5 p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 hover:bg-indigo-500/20 transition-colors backdrop-blur-md shadow-sm cursor-pointer min-w-0"
+              >
+                <div className="p-1 rounded bg-indigo-500/20 text-indigo-300 flex-shrink-0">
+                  <Mail className="w-3.5 h-3.5" />
+                </div>
+                <div className="min-w-0 font-normal">
+                  <p className="text-[8px] font-medium text-indigo-300/70 uppercase tracking-wider leading-none">Grievance Email</p>
+                  <p className="text-[11px] font-semibold text-white mt-0.5 truncate leading-none" title="grievance@DigitalRakshak.com">grievance@DigitalRakshak.com</p>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
         </div>
       </div>
 

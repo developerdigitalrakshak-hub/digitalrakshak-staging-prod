@@ -59,6 +59,7 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -99,7 +100,193 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* High Contrast Mode - Complete Site Overrides */
+html.acc-high-contrast {
+  --background: 0 0% 0% !important;
+  --foreground: 0 0% 100% !important;
+  --card: 0 0% 0% !important;
+  --card-foreground: 0 0% 100% !important;
+  --popover: 0 0% 0% !important;
+  --popover-foreground: 0 0% 100% !important;
+  --primary: 60 100% 50% !important;
+  --primary-foreground: 0 0% 0% !important;
+  --secondary: 0 0% 10% !important;
+  --secondary-foreground: 0 0% 100% !important;
+  --muted: 0 0% 15% !important;
+  --muted-foreground: 0 0% 90% !important;
+  --accent: 60 100% 50% !important;
+  --accent-foreground: 0 0% 0% !important;
+  --border: 0 0% 100% !important;
+  --input: 0 0% 100% !important;
+  --ring: 60 100% 50% !important;
+}
+
+html.acc-high-contrast,
+html.acc-high-contrast body,
+html.acc-high-contrast main,
+html.acc-high-contrast header,
+html.acc-high-contrast footer,
+html.acc-high-contrast nav,
+html.acc-high-contrast section,
+html.acc-high-contrast article,
+html.acc-high-contrast aside,
+html.acc-high-contrast div,
+html.acc-high-contrast p,
+html.acc-high-contrast span,
+html.acc-high-contrast h1,
+html.acc-high-contrast h2,
+html.acc-high-contrast h3,
+html.acc-high-contrast h4,
+html.acc-high-contrast h5,
+html.acc-high-contrast h6,
+html.acc-high-contrast li,
+html.acc-high-contrast ul,
+html.acc-high-contrast ol,
+html.acc-high-contrast table,
+html.acc-high-contrast tr,
+html.acc-high-contrast td,
+html.acc-high-contrast th {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Links, Buttons, and Interactive elements in High Contrast */
+html.acc-high-contrast a,
+html.acc-high-contrast button,
+html.acc-high-contrast [role="button"],
+html.acc-high-contrast input[type="submit"],
+html.acc-high-contrast input[type="button"],
+html.acc-high-contrast input[type="reset"] {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffff00 !important;
+  -webkit-text-fill-color: #ffff00 !important;
+  border: 1px solid #ffff00 !important;
+  outline-color: #ffff00 !important;
+}
+
+html.acc-high-contrast a *,
+html.acc-high-contrast button *,
+html.acc-high-contrast [role="button"] * {
+  color: #ffff00 !important;
+  -webkit-text-fill-color: #ffff00 !important;
+  fill: #ffff00 !important;
+  stroke: #ffff00 !important;
+}
+
+/* SVG icons & vector graphics in High Contrast */
+html.acc-high-contrast svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+html.acc-high-contrast svg path,
+html.acc-high-contrast svg circle,
+html.acc-high-contrast svg rect,
+html.acc-high-contrast svg line,
+html.acc-high-contrast svg polyline,
+html.acc-high-contrast svg polygon {
+  stroke: currentColor !important;
+}
+
+/* Inputs, Textareas, Selects */
+html.acc-high-contrast input,
+html.acc-high-contrast textarea,
+html.acc-high-contrast select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+
+/* Modals & Popups in High Contrast */
+html.acc-high-contrast [role="dialog"],
+html.acc-high-contrast [role="dialog"] * {
+  border-color: #ffffff !important;
+}
+
+
+/* Invert mode */
+html.acc-invert {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+html.acc-invert img,
+html.acc-invert video,
+html.acc-invert svg:not(.acc-icon),
+html.acc-invert canvas {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+/* Monochrome / Saturation mode */
+html.acc-monochrome {
+  filter: grayscale(100%) !important;
+}
+
+/* Highlight links */
+body.acc-highlight-links a:not(.acc-no-highlight) {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  text-decoration: underline !important;
+  font-weight: 700 !important;
+  outline: 2px solid #000000 !important;
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+
+body.acc-highlight-links a:has(img) {
+  background-color: transparent !important;
+  outline: none !important;
+}
+
+/* Text spacing */
+body.acc-text-spacing,
+body.acc-text-spacing * {
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+}
+
+/* Line height */
+body.acc-line-height,
+body.acc-line-height p,
+body.acc-line-height span,
+body.acc-line-height h1,
+body.acc-line-height h2,
+body.acc-line-height h3,
+body.acc-line-height h4,
+body.acc-line-height h5,
+body.acc-line-height h6,
+body.acc-line-height li,
+body.acc-line-height a {
+  line-height: 2 !important;
+}
+
+/* Hide images */
+body.acc-hide-images img:not(.acc-no-hide),
+body.acc-hide-images video,
+body.acc-hide-images picture,
+body.acc-hide-images figure {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Big cursor */
+body.acc-big-cursor,
+body.acc-big-cursor *,
+body.acc-big-cursor a,
+body.acc-big-cursor button,
+body.acc-big-cursor [role="button"] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='%23000000' stroke='%23ffffff' stroke-width='2'%3E%3Cpath d='M3 3l7 18 3-7 7-3L3 3z'/%3E%3C/svg%3E") 0 0, auto !important;
 }

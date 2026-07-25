@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { ArrowRight, CheckCircle, Shield, Users, ChevronDown, AlertCircle, Sparkles, Mail, Phone, ExternalLink } from "lucide-react"
+import { ArrowRight, CheckCircle, Shield, Users, ChevronDown, AlertCircle, Sparkles, Mail, Phone, ExternalLink, User, Building2, FileText } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -13,20 +13,29 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 
 // Zod validation schema for the registration form
+const forbiddenDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "yandex.com", "protonmail.com", "zoho.com", "mail.com", "gmx.com"]
+
 const registerSchema = z.object({
-    corporateEmail: z
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z
         .string()
         .min(1, { message: "Email is required" })
-        .email({ message: "Please enter a valid email address" }),
+        .email({ message: "Please enter a valid email address" })
+        .refine(
+            (val) => {
+                const domain = val.split("@")[1]?.toLowerCase()
+                return domain ? !forbiddenDomains.includes(domain) : true
+            },
+            { message: "Please use your corporate/business email address. Personal email domains are not allowed." }
+        ),
+    companyName: z.string().min(1, { message: "Company name is required" }),
     countryCode: z.string().min(1, { message: "Country code is required" }),
     phoneNumber: z
         .string()
         .min(1, { message: "Phone number is required" })
         .regex(/^\d{8,12}$/, { message: "Phone number must be between 8 and 12 digits (numbers only)" }),
-    hearAboutUs: z
-        .string()
-        .min(10, { message: "Please tell us how you heard about us (minimum 10 characters)" })
-        .max(500, { message: "Maximum limit is 500 characters" }),
+    gstNo: z.string().optional(),
+    dropdownValue: z.string().min(1, { message: "Please select an option" }),
     agreeToTerms: z
         .boolean()
         .refine((val) => val === true, { message: "You must consent to the privacy policy and terms to proceed" }),
@@ -55,10 +64,13 @@ export default function RegisterPage() {
         resolver: zodResolver(registerSchema),
         mode: "onTouched",
         defaultValues: {
-            corporateEmail: "",
+            name: "",
+            email: "",
+            companyName: "",
             countryCode: "+91",
             phoneNumber: "",
-            hearAboutUs: "",
+            gstNo: "",
+            dropdownValue: "",
             agreeToTerms: false,
             agreeToMarketing: false,
             selectAll: false,
@@ -87,11 +99,11 @@ export default function RegisterPage() {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1500))
         console.log("Registered successfully:", data)
-        setRegisteredEmail(data.corporateEmail)
+        setRegisteredEmail(data.email)
         setIsSubmittedSuccessfully(true)
         toast({
             title: "Verification Email Sent",
-            description: `We have sent an activation link to ${data.corporateEmail}.`,
+            description: `We have sent an activation link to ${data.email}.`,
         })
     }
 
@@ -210,115 +222,209 @@ export default function RegisterPage() {
                                         </div>
 
                                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                                            {/* Corporate Email */}
-                                            <div className="space-y-2">
-                                                <label htmlFor="corporateEmail" className="block text-sm font-semibold text-gray-800">
-                                                    Email*
-                                                </label>
-                                                <div className="relative">
-                                                    <input
-                                                        type="email"
-                                                        id="corporateEmail"
-                                                        placeholder="you@example.com"
-                                                        {...register("corporateEmail")}
-                                                        className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.corporateEmail
-                                                            ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                            : touchedFields.corporateEmail
-                                                                ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                                : "border-gray-300 focus:ring-blue-500/10"
-                                                            }`}
-                                                    />
-                                                    <Mail className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                    {touchedFields.corporateEmail && !errors.corporateEmail && (
-                                                        <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
-                                                    )}
-                                                    {errors.corporateEmail && (
-                                                        <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
-                                                    )}
-                                                </div>
-                                                {errors.corporateEmail && (
-                                                    <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                        <AlertCircle className="h-3.5 w-3.5" />
-                                                        {errors.corporateEmail.message}
-                                                    </p>
-                                                )}
-                                            </div>
-
-                                            {/* Phone number */}
-                                            <div className="space-y-2">
-                                                <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-800">
-                                                    Phone number (With Country Code)*
-                                                </label>
-                                                <div className="flex gap-2">
-                                                    {/* Custom dropdown resolving the arrow overlapping issue */}
-                                                    <div className="relative flex-shrink-0">
-                                                        <select
-                                                            id="countryCode"
-                                                            {...register("countryCode")}
-                                                            className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
-                                                        >
-                                                            <option value="+91">🇮🇳 (+91)</option>
-                                                            <option value="+1">🇺🇸 (+1)</option>
-                                                            <option value="+44">🇬🇧 (+44)</option>
-                                                            <option value="+61">🇦🇺 (+61)</option>
-                                                        </select>
-                                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-                                                            <ChevronDown className="h-4 w-4" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="relative flex-grow">
+                                            <div className="space-y-6">
+                                                {/* Name */}
+                                                <div className="space-y-2">
+                                                    <label htmlFor="name" className="block text-sm font-semibold text-gray-800">
+                                                        Name*
+                                                    </label>
+                                                    <div className="relative">
                                                         <input
-                                                            type="tel"
-                                                            id="phoneNumber"
-                                                            placeholder="98765 43210"
-                                                            {...register("phoneNumber")}
-                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
+                                                            type="text"
+                                                            id="name"
+                                                            placeholder="John Doe"
+                                                            {...register("name")}
+                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.name
                                                                 ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                                : touchedFields.phoneNumber
+                                                                : touchedFields.name
                                                                     ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
                                                                     : "border-gray-300 focus:ring-blue-500/10"
                                                                 }`}
                                                         />
-                                                        <Phone className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                        {touchedFields.phoneNumber && !errors.phoneNumber && (
+                                                        <User className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                                                        {touchedFields.name && !errors.name && (
                                                             <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
                                                         )}
-                                                        {errors.phoneNumber && (
+                                                        {errors.name && (
                                                             <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
                                                         )}
                                                     </div>
+                                                    {errors.name && (
+                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                                                            <AlertCircle className="h-3.5 w-3.5" />
+                                                            {errors.name.message}
+                                                        </p>
+                                                    )}
                                                 </div>
-                                                {errors.phoneNumber && (
-                                                    <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                        <AlertCircle className="h-3.5 w-3.5" />
-                                                        {errors.phoneNumber.message}
-                                                    </p>
-                                                )}
-                                            </div>
 
-                                            {/* Where did you hear about us */}
-                                            <div className="space-y-2">
-                                                <label htmlFor="hearAboutUs" className="block text-sm font-semibold text-gray-800">
-                                                    Where did you hear about us?*
-                                                </label>
-                                                <textarea
-                                                    id="hearAboutUs"
-                                                    rows={3}
-                                                    placeholder="Let us know how you discovered DigitalRakshak (LinkedIn, Search, Friend...)"
-                                                    {...register("hearAboutUs")}
-                                                    className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white shadow-sm resize-none transition-all ${errors.hearAboutUs
-                                                        ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                        : touchedFields.hearAboutUs
-                                                            ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                            : "border-gray-300 focus:ring-blue-500/10"
-                                                        }`}
-                                                />
-                                                {errors.hearAboutUs && (
-                                                    <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                        <AlertCircle className="h-3.5 w-3.5" />
-                                                        {errors.hearAboutUs.message}
-                                                    </p>
-                                                )}
+                                                {/* Email */}
+                                                <div className="space-y-2">
+                                                    <label htmlFor="email" className="block text-sm font-semibold text-gray-800">
+                                                        Email*
+                                                    </label>
+                                                    <div className="relative">
+                                                        <input
+                                                            type="email"
+                                                            id="email"
+                                                            placeholder="you@example.com"
+                                                            {...register("email")}
+                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.email
+                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                                                : touchedFields.email
+                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                                                    : "border-gray-300 focus:ring-blue-500/10"
+                                                                }`}
+                                                        />
+                                                        <Mail className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                                                        {touchedFields.email && !errors.email && (
+                                                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                                                        )}
+                                                        {errors.email && (
+                                                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                                                        )}
+                                                    </div>
+                                                    {errors.email && (
+                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                                                            <AlertCircle className="h-3.5 w-3.5" />
+                                                            {errors.email.message}
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                {/* Company Name */}
+                                                <div className="space-y-2">
+                                                    <label htmlFor="companyName" className="block text-sm font-semibold text-gray-800">
+                                                        Company Name*
+                                                    </label>
+                                                    <div className="relative">
+                                                        <input
+                                                            type="text"
+                                                            id="companyName"
+                                                            placeholder="Acme Corp"
+                                                            {...register("companyName")}
+                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.companyName
+                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                                                : touchedFields.companyName
+                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                                                    : "border-gray-300 focus:ring-blue-500/10"
+                                                                }`}
+                                                        />
+                                                        <Building2 className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                                                        {touchedFields.companyName && !errors.companyName && (
+                                                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                                                        )}
+                                                        {errors.companyName && (
+                                                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                                                        )}
+                                                    </div>
+                                                    {errors.companyName && (
+                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                                                            <AlertCircle className="h-3.5 w-3.5" />
+                                                            {errors.companyName.message}
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                {/* GST No */}
+                                                <div className="space-y-2">
+                                                    <label htmlFor="gstNo" className="block text-sm font-semibold text-gray-800">
+                                                        GST Number (Optional)
+                                                    </label>
+                                                    <div className="relative">
+                                                        <input
+                                                            type="text"
+                                                            id="gstNo"
+                                                            placeholder="22AAAAA0000A1Z5"
+                                                            {...register("gstNo")}
+                                                            className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all"
+                                                        />
+                                                        <FileText className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                                                    </div>
+                                                </div>
+
+                                                {/* Mobile Number */}
+                                                <div className="space-y-2">
+                                                    <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-800">
+                                                        Mobile Number*
+                                                    </label>
+                                                    <div className="flex gap-2">
+                                                        <div className="relative flex-shrink-0">
+                                                            <select
+                                                                id="countryCode"
+                                                                {...register("countryCode")}
+                                                                className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
+                                                            >
+                                                                <option value="+91">🇮🇳 (+91)</option>
+                                                                <option value="+1">🇺🇸 (+1)</option>
+                                                                <option value="+44">🇬🇧 (+44)</option>
+                                                                <option value="+61">🇦🇺 (+61)</option>
+                                                            </select>
+                                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                                                <ChevronDown className="h-4 w-4" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="relative flex-grow">
+                                                            <input
+                                                                type="tel"
+                                                                id="phoneNumber"
+                                                                placeholder="98765 43210"
+                                                                {...register("phoneNumber")}
+                                                                className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
+                                                                    ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                                                    : touchedFields.phoneNumber
+                                                                        ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                                                        : "border-gray-300 focus:ring-blue-500/10"
+                                                                    }`}
+                                                            />
+                                                            <Phone className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                                                            {touchedFields.phoneNumber && !errors.phoneNumber && (
+                                                                <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                                                            )}
+                                                            {errors.phoneNumber && (
+                                                                <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    {errors.phoneNumber && (
+                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                                                            <AlertCircle className="h-3.5 w-3.5" />
+                                                            {errors.phoneNumber.message}
+                                                        </p>
+                                                    )}
+                                                </div>
+
+                                                {/* Dropdown Field */}
+                                                <div className="space-y-2">
+                                                    <label htmlFor="dropdownValue" className="block text-sm font-semibold text-gray-800">
+                                                        Select Option*
+                                                    </label>
+                                                    <div className="relative">
+                                                        <select
+                                                            id="dropdownValue"
+                                                            {...register("dropdownValue")}
+                                                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.dropdownValue
+                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                                                : touchedFields.dropdownValue
+                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                                                    : "border-gray-300 focus:ring-blue-500/10"
+                                                                }`}
+                                                        >
+                                                            <option value="" disabled hidden>Choose an option</option>
+                                                            <option value="value1">Option 1</option>
+                                                            <option value="value2">Option 2</option>
+                                                            <option value="value3">Option 3</option>
+                                                        </select>
+                                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400">
+                                                            <ChevronDown className="h-5 w-5" />
+                                                        </div>
+                                                    </div>
+                                                    {errors.dropdownValue && (
+                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                                                            <AlertCircle className="h-3.5 w-3.5" />
+                                                            {errors.dropdownValue.message}
+                                                        </p>
+                                                    )}
+                                                </div>
                                             </div>
 
                                             {/* Terms & Conditions consent checkboxes */}

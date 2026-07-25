@@ -1518,11 +1518,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { ChevronDown, Menu, Shield, X, Users, Scale, Video, FileText, Award, MessageSquare, BookOpen, Search, Star, TrendingUp, Database, Cloud, Eye, UserCheck, GraduationCap, Briefcase, MapPin, ShieldCheck, AlertTriangle, FileCheck, Settings, Globe, Phone, HelpCircle, User, ChevronRight, Sparkles, CheckCircle, ArrowRight, Layers, Building2, Library, Grid3X3, Heart, Zap, Crown, Rocket, BriefcaseIcon, GraduationCapIcon, FileTextIcon, MessageCircle } from "lucide-react"
+import { ChevronDown, Menu, Shield, X, Users, Scale, Video, FileText, Award, MessageSquare, BookOpen, Search, Star, TrendingUp, Database, Cloud, Eye, UserCheck, GraduationCap, Briefcase, MapPin, ShieldCheck, AlertTriangle, FileCheck, Settings, Globe, Phone, HelpCircle, User, ChevronRight, Sparkles, CheckCircle, ArrowRight, Layers, Building2, Library, Grid3X3, Heart, Zap, Crown, Rocket, BriefcaseIcon, GraduationCapIcon, FileTextIcon, MessageCircle, FileSignature, PersonStanding } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useState, useRef, useEffect } from "react"
+import { useAccessibility } from "@/components/accessibility/accessibility-provider"
+import TopUtilityBar from "@/components/top-utility-bar"
+
 
 // Type definitions
 interface ServiceItem {
@@ -1629,6 +1632,7 @@ export default function Bar() {
   }
 
   const router = useRouter()
+  const { openModal } = useAccessibility()
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -2003,15 +2007,34 @@ export default function Bar() {
         //   ]
         // },
         {
-          name: 'Employee BGV',
-          description: 'Employee background verification',
-          services: [
-            { name: 'Employee Verification', description: 'Complete employee screening' },
-            { name: 'ID & BGV', description: 'ID and background verification' },
-            { name: 'Education', description: 'Educational Qualifications' },
-            { name: 'Employment', description: 'Employment History' },
-            { name: 'Physical Address', description: 'Physical Address Verification' }
-          ]
+          name: 'Employee Verification',
+          description: 'Comprehensive candidate screening and employee background verification.',
+          href: '/services/employment-verification',
+          services: []
+        },
+        {
+          name: 'ID & BGV',
+          description: 'Instant government ID validation, identity verification & criminal background checks.',
+          href: '/services',
+          services: []
+        },
+        {
+          name: 'Education Verification',
+          description: 'Authenticating educational qualifications, university degrees & academic certificates.',
+          href: '/services/education-verification',
+          services: []
+        },
+        {
+          name: 'Employment History',
+          description: 'Validating prior work experience, employment tenure, and company designations.',
+          href: '/services/employment-history-check',
+          services: []
+        },
+        {
+          name: 'Physical Address Check',
+          description: 'On-ground physical and digital verification of residential addresses.',
+          href: '/services',
+          services: []
         },
         // {
         //   name: 'Managed Services',
@@ -2140,6 +2163,7 @@ export default function Bar() {
   const displayServicesName: { [key: string]: string } = {
     "Services": 'Explore API',
     "inhouseServices": 'Background Verification',
+    "eSign": 'Digital Trust',
     digitalTransformation: 'Digital Transformation (Dx)',
     Industries: 'Industries',
     Pricing: 'Pricing',
@@ -2162,6 +2186,27 @@ export default function Bar() {
       dropDownMenu: servicesCategories,
       icon: Users,
       description: "Comprehensive verification and background screening services",
+    },
+    {
+      name: "Digital Trust",
+      href: "/e-stamp-and-e-sign",
+      hasDropdown: false,
+      dropDownMenu: [
+        {
+          name: "e-Sign",
+          href: "/e-stamp-and-e-sign",
+          icon: FileText,
+          description: "",
+        },
+        {
+          name: "e-Stamping",
+          href: "/e-stamp-and-e-sign",
+          icon: MessageSquare,
+          description: "",
+        },
+      ],
+      icon: FileSignature,
+      description: "E-Stamp & E-Sign Solutions",
     },
     {
       name: "Pricing",
@@ -2343,9 +2388,16 @@ export default function Bar() {
 
                     return (
                       <div key={subService.name} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        {/* Subservice Header - Click to expand/collapse */}
+                        {/* Subservice Header - Click to expand/collapse or navigate */}
                         <button
-                          onClick={() => toggleMobileSubServiceExpansion(subService.name)}
+                          onClick={() => {
+                            if (subService.services && subService.services.length > 0) {
+                              toggleMobileSubServiceExpansion(subService.name)
+                            } else {
+                              router.push(subService.href || '/services')
+                              setIsOpen(false)
+                            }
+                          }}
                           className="w-full p-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
                         >
                           <div className="flex-1">
@@ -2361,7 +2413,11 @@ export default function Bar() {
                             <p className="text-xs text-gray-500 mt-1">{subService.description}</p>
                           </div>
                           <div className={`p-1 rounded-full transition-colors ${isExpanded ? "bg-blue-100" : "bg-gray-100"}`}>
-                            <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                            {subService.services && subService.services.length > 0 ? (
+                              <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                            ) : (
+                              <ChevronRight className="h-4 w-4 text-gray-500" />
+                            )}
                           </div>
                         </button>
 
@@ -2452,189 +2508,8 @@ export default function Bar() {
   return (
     <div className="bg-white shadow-lg sticky top-0 z-50">
       {/* Top Utility Bar */}
-      {/* <div className="bg-gray-800 text-white text-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-end items-center h-10">
-            <div className="flex items-center space-x-6">
-              <div
-                className="relative"
-                ref={(el) => { utilityDropdownRefs.current['language'] = el }}
-              >
-                <div
-                  className="flex items-center space-x-1 cursor-pointer hover:text-blue-300 transition-colors"
-                  onClick={() => toggleUtilityDropdown('language')}
-                >
-                  <span className="text-base leading-none" aria-label={selectedLang}>
-                    {languageConfig[selectedLang]?.flag ?? "🌐"}
-                  </span>
-                  <span>{selectedLang}</span>
-                  <ChevronDown className="h-3 w-3" />
-                </div>
+      <TopUtilityBar />
 
-                {activeUtilityDropdown === 'language' && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white text-black rounded shadow-lg z-50">
-                    <ul className="max-h-64 overflow-y-auto">
-                      {languages.map((lang) => (
-                        <li
-                          key={lang}
-                          className={`px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center gap-2 ${lang === selectedLang ? "bg-gray-100 font-semibold" : ""
-                            }`}
-                          onClick={() => {
-                            setSelectedLang(lang)
-                            setActiveUtilityDropdown(null)
-                          }}
-                        >
-                          <span>{languageConfig[lang]?.flag}</span>
-                          <span className="flex-1">{lang}</span>
-                          {lang === selectedLang && (
-                            <span className="text-blue-500 text-xs">✓</span>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="border-t px-4 py-3 space-y-2">
-                      <button
-                        className="w-full text-sm text-center bg-blue-600 text-white rounded-md py-1.5 hover:bg-blue-700 transition-colors"
-                        onClick={() => {
-                          localStorage.setItem("preferred-language", selectedLang)
-                          setActiveUtilityDropdown(null)
-                        }}
-                      >
-                        Set as default language
-                      </button>
-                      <button
-                        className="w-full text-xs text-center text-gray-500 hover:text-red-500 transition-colors"
-                        onClick={() => {
-                          localStorage.removeItem("preferred-language")
-                          setActiveUtilityDropdown(null)
-                        }}
-                      >
-                        Clear saved preference
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <Link
-                href="/contact"
-                className="hover:text-blue-300 transition-colors flex items-center space-x-1"
-              >
-                <Phone className="h-4 w-4" />
-                <span className="hidden sm:block">Contact us</span>
-              </Link>
-
-              <div
-                className="relative"
-                ref={(el) => { utilityDropdownRefs.current['support'] = el }}
-              >
-                <div
-                  className="flex items-center space-x-1 cursor-pointer hover:text-blue-300 transition-colors"
-                  onClick={() => toggleUtilityDropdown('support')}
-                >
-                  <HelpCircle className="h-4 w-4" />
-                  <span className="hidden sm:block">Support</span>
-                  <ChevronDown className="h-3 w-3" />
-                </div>
-
-                {activeUtilityDropdown === 'support' && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white text-black rounded shadow-lg z-50">
-                    <ul>
-                      {supportLinks.map((item) => (
-                        <li key={item.label}>
-                          <Link
-                            href={item.href}
-                            className="block px-4 py-2 hover:bg-gray-100"
-                            onClick={() => setActiveUtilityDropdown(null)}
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              <div
-                className="relative"
-                ref={(el) => { utilityDropdownRefs.current['account'] = el }}
-              >
-                <div
-                  className="flex items-center space-x-1 cursor-pointer hover:text-blue-300 transition-colors"
-                  onClick={() => toggleUtilityDropdown('account')}
-                >
-                  <User className="h-4 w-4" />
-                  <span className="hidden sm:block">My account</span>
-                  <ChevronDown className="h-3 w-3" />
-                </div>
-
-                {activeUtilityDropdown === 'account' && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white text-black rounded shadow-lg z-50">
-                    <ul>
-                      {accountLinks.map((item) => (
-                        <li key={item.label}>
-                          <Link
-                            href={item.href}
-                            className="block px-4 py-2 hover:bg-gray-100"
-                            onClick={() => setActiveUtilityDropdown(null)}
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              <div
-                className="relative"
-                ref={(el) => { utilityDropdownRefs.current['profile'] = el }}
-              >
-                <div
-                  className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center ml-4 cursor-pointer"
-                  onClick={() => toggleUtilityDropdown('profile')}
-                >
-                  <User className="h-4 w-4" />
-                </div>
-
-                {activeUtilityDropdown === 'profile' && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white text-black rounded shadow-lg p-4 z-50">
-                    <div className="flex justify-between items-center mb-2">
-                      <h3 className="font-semibold">Profile</h3>
-                      <button onClick={() => setActiveUtilityDropdown(null)}>
-                        <X className="h-4 w-4 text-gray-500 hover:text-black" />
-                      </button>
-                    </div>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Your profile helps improve your interactions with select experiences.
-                    </p>
-                    <div className="flex space-x-3">
-                      <Link href="/#">
-                        <button
-                          className="px-4 py-2 border rounded-full hover:bg-gray-100"
-                          onClick={() => setActiveUtilityDropdown(null)}
-                        >
-                          Log in
-                        </button>
-                      </Link>
-                      <Link href="/contact">
-                        <button
-                          className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800"
-                          onClick={() => setActiveUtilityDropdown(null)}
-                        >
-                          Create profile
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       {/* Main Navigation */}
       <nav className="bg-white border-b">
@@ -3155,7 +3030,7 @@ export default function Bar() {
                         : ""
                         }`}
                     >
-                      {item.name}
+                      {displayServicesName[item.name] || item.name}
                     </Link>
                   )}
                 </div>
@@ -3164,9 +3039,6 @@ export default function Bar() {
 
             {/* Right Side Actions */}
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <Search className="h-5 w-5 text-gray-600" />
-              </button>
               <Link href={"/register"}>
                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-lg hover:shadow-xl transition-all">
                   Contact US
@@ -3174,12 +3046,15 @@ export default function Bar() {
               </Link>
             </div>
 
+
             {/* Mobile menu button */}
-            <div className="xl:hidden">
+            <div className="xl:hidden flex items-center gap-1">
+
               <button onClick={() => setIsOpen(!isOpen)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
+
           </div>
 
           {/* Mobile Navigation - Beautiful 4 Tabs Design (All subservices collapsed by default) */}
@@ -3191,6 +3066,7 @@ export default function Bar() {
                   {[
                     { id: "Explore API", icon: <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-blue-500 to-cyan-500" },
                     { id: "HR Excellence Suite", icon: <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-emerald-500 to-teal-500" },
+                    { id: "Digital Trust", icon: <FileSignature className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-purple-500 to-pink-500" },
                     //  { id: "Digital Transformation", icon: <Rocket className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-purple-500 to-pink-500" },
                     { id: "Pricing", icon: <Crown className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-red-500 to-orange-500" },
                     { id: "Resources", icon: <Library className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-orange-500 to-red-500" }
@@ -3200,6 +3076,9 @@ export default function Bar() {
                       onClick={() => {
                         if (tab.id === "Pricing") {
                           router.push('/pricing')
+                          setIsOpen(false)
+                        } else if (tab.id === "Digital Trust") {
+                          router.push('/e-stamp-and-e-sign')
                           setIsOpen(false)
                         } else {
                           setMobileSelectedMainTab(tab.id)
@@ -3212,12 +3091,10 @@ export default function Bar() {
                     >
                       <div className={`flex items-center gap-0.5 sm:gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
                         {tab.icon}
-                        {/* <span className="text-[10px] sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Transformation" ? "DX" : "Resources"}</span> */}
-                        <span className="text-[10px] sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Pricing" ? "Pricing" : "Resources"}</span>
+                        <span className="text-[10px] sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Trust" ? "Digital Trust" : tab.id === "Pricing" ? "Pricing" : "Resources"}</span>
                       </div>
                       <div className="text-[8px] sm:text-xs text-center leading-tight whitespace-normal break-words max-w-full px-0.5 font-normal">
-                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Pricing" ? "Pricing Plans" : tab.id === "Resources" && "Explore Resources"}
-                        {/* {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Digital Transformation" ? "Digital Transformation" : tab.id === "Resources" && "Explore Resources"} */}
+                        {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Digital Trust" ? "Digital Trust" : tab.id === "Pricing" ? "Pricing Plans" : tab.id === "Resources" && "Explore Resources"}
                       </div>
                       {mobileSelectedMainTab === tab.id && (
                         <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${tab.color} rounded-full`}></div>
