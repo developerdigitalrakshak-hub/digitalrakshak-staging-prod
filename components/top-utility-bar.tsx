@@ -30,7 +30,7 @@ export default function TopUtilityBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [activeUtilityDropdown, setActiveUtilityDropdown] = useState<string | null>(null)
-  
+
   const searchRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const utilityDropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
@@ -83,7 +83,7 @@ export default function TopUtilityBar() {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsSearchOpen(false)
       }
-      
+
       if (activeUtilityDropdown) {
         const currentRef = utilityDropdownRefs.current[activeUtilityDropdown]
         if (currentRef && !currentRef.contains(event.target as Node)) {
@@ -124,15 +124,15 @@ export default function TopUtilityBar() {
     <div className="bg-gray-800 text-white text-sm relative z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between sm:justify-end items-center h-10">
-          
+
           {/* Mobile title fallback */}
-          <div className="sm:hidden text-xs text-gray-300 font-semibold">
+          <div className="sm:hidden text-[11px] text-gray-300 font-semibold truncate max-w-[100px] xs:max-w-none">
             DigitalRakshak™
           </div>
 
           {/* Right side utility icons & dropdowns */}
           <div className="flex items-center space-x-3 sm:space-x-4 md:space-x-6">
-            
+
             {/* 1. Language Dropdown */}
             {/* <div
               className="relative"
@@ -155,9 +155,8 @@ export default function TopUtilityBar() {
                     {languages.map((lang) => (
                       <li
                         key={lang}
-                        className={`px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center gap-2 ${
-                          lang === selectedLang ? "bg-gray-100 font-semibold" : ""
-                        }`}
+                        className={`px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center gap-2 ${lang === selectedLang ? "bg-gray-100 font-semibold" : ""
+                          }`}
                         onClick={() => {
                           setSelectedLang(lang)
                           setActiveUtilityDropdown(null)
@@ -197,23 +196,22 @@ export default function TopUtilityBar() {
 
             {/* 2. Interactive Search Popover Button */}
             <div className="relative" ref={searchRef}>
-              {/* <button
+              <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 title="Search Website"
                 aria-label="Search Website"
-                className={`p-1 rounded hover:text-blue-300 transition-colors flex items-center justify-center ${
-                  isSearchOpen ? "text-amber-400" : "text-gray-200"
-                }`}
+                className={`p-1 rounded hover:text-blue-300 transition-colors flex items-center justify-center ${isSearchOpen ? "text-blue-400" : "text-gray-200"
+                  }`}
               >
                 <Search className="h-4 w-4 stroke-[2.25]" />
-              </button> */}
+              </button>
 
-              {/* Floating Search Input Popover (Matching image 2) */}
+              {/* Floating Search Input Popover */}
               {isSearchOpen && (
-                <div className="absolute left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 sm:translate-x-0 top-full mt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute -right-8 sm:right-0 top-full mt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <form
                     onSubmit={handleSearchSubmit}
-                    className="bg-white rounded-full shadow-2xl border border-stone-300 p-1 flex items-center w-72 sm:w-80 ring-2 ring-black/10"
+                    className="bg-white rounded-full shadow-2xl border border-stone-300 p-1 flex items-center w-72 sm:w-80 ring-2 ring-blue-500/20"
                   >
                     <input
                       ref={searchInputRef}
@@ -226,9 +224,9 @@ export default function TopUtilityBar() {
                     <button
                       type="submit"
                       title="Execute Search"
-                      className="bg-[#f39c12] hover:bg-[#e67e22] text-gray-900 font-bold px-4 py-2 rounded-full transition-colors flex items-center justify-center shadow-sm"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-4 py-2 rounded-full transition-all flex items-center justify-center shadow-sm"
                     >
-                      <Search className="w-4 h-4 text-black stroke-[2.5]" />
+                      <Search className="w-4 h-4 text-white stroke-[2.5]" />
                     </button>
                   </form>
                 </div>

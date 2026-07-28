@@ -58,7 +58,7 @@ export default function OpeningsSection() {
 
               <div className="mt-4 sm:mt-0 flex-shrink-0">
                 <a
-                  href={`mailto:carrer@digitalrakshak.com?subject=Application: ${encodeURIComponent(role.title)}`}
+                  href={`mailto:career@digitalrakshak.com?subject=Application: ${encodeURIComponent(role.title)}`}
                   className="inline-flex items-center justify-center gap-2 bg-white hover:bg-blue-600 text-slate-800 hover:text-white font-bold text-sm px-6 py-3 rounded-xl border border-slate-200 hover:border-blue-600 transition-all active:scale-95 shadow-sm"
                 >
                   Apply Now
@@ -79,16 +79,16 @@ export default function OpeningsSection() {
             <p className="text-blue-100 text-sm md:text-base leading-relaxed">
               If you are passionate about security, identity tech, or building great APIs, drop us a line anyway at{' '}
               <a
-                href="mailto:carrer@digitalrakshak.com"
+                href="mailto:career@digitalrakshak.com"
                 className="font-bold underline hover:text-white transition-colors"
               >
-                carrer@digitalrakshak.com
+                career@digitalrakshak.com
               </a>
             </p>
 
             <div className="pt-2">
               <a
-                href="mailto:carrer@digitalrakshak.com?subject=General Inquiry / Open Stack Application"
+                href="mailto:career@digitalrakshak.com?subject=General Inquiry / Open Stack Application"
                 className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 font-bold px-8 py-3.5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg active:scale-95"
               >
                 Get In Touch

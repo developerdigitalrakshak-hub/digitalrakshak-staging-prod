@@ -41,8 +41,6 @@ const footerServicesData = [
         subservices: [
             { name: 'e-Sign', href: '/e-stamp-and-e-sign' },
             { name: 'e-Stamping', href: '/e-stamp-and-e-sign' },
-            // { name: 'Digital Stamping', href: '/e-stamp-and-e-sign' },
-            // { name: 'Legal Document Signing', href: '/e-stamp-and-e-sign' }
         ]
     }
 ]
