@@ -1772,7 +1772,7 @@ export default function Bar() {
   const servicesData: MainService[] = [
     {
       name: 'ID & e-KYC Data Stack',
-      description: 'Complete digital identity and KYC solutions',
+      description: '',
       icon: '🔐',
       subservices: [
         {
@@ -1811,7 +1811,7 @@ export default function Bar() {
     },
     {
       name: 'Document Intelligence',
-      description: 'Advanced document verification and validation',
+      description: '',
       icon: '📄',
       subservices: [
         {
@@ -1834,7 +1834,7 @@ export default function Bar() {
     },
     {
       name: 'Crime & Background Verification',
-      description: 'Comprehensive background and criminal record checks',
+      description: '',
       icon: '🛡️',
       subservices: [
 
@@ -2009,31 +2009,31 @@ export default function Bar() {
         {
           name: 'Employee Verification',
           description: 'Comprehensive candidate screening and employee background verification.',
-          href: '/services/employment-verification',
+          // href: '/services/employment-verification',
           services: []
         },
         {
           name: 'ID & BGV',
           description: 'Instant government ID validation, identity verification & criminal background checks.',
-          href: '/services',
+          // href: '/services',
           services: []
         },
         {
           name: 'Education Verification',
           description: 'Authenticating educational qualifications, university degrees & academic certificates.',
-          href: '/services/education-verification',
+          // href: '/services/education-verification',
           services: []
         },
         {
           name: 'Employment History',
           description: 'Validating prior work experience, employment tenure, and company designations.',
-          href: '/services/employment-history-check',
+          // href: '/services/employment-history-check',
           services: []
         },
         {
           name: 'Physical Address Check',
           description: 'On-ground physical and digital verification of residential addresses.',
-          href: '/services',
+          // href: '/services',
           services: []
         },
         // {
@@ -2163,7 +2163,7 @@ export default function Bar() {
   const displayServicesName: { [key: string]: string } = {
     "Services": 'Explore API',
     "inhouseServices": 'Background Verification',
-    "eSign": 'Digital Trust',
+    "Digital Trust": 'Digital Trust',
     digitalTransformation: 'Digital Transformation (Dx)',
     Industries: 'Industries',
     Pricing: 'Pricing',
@@ -2191,20 +2191,7 @@ export default function Bar() {
       name: "Digital Trust",
       href: "/e-stamp-and-e-sign",
       hasDropdown: false,
-      dropDownMenu: [
-        {
-          name: "e-Sign",
-          href: "/e-stamp-and-e-sign",
-          icon: FileText,
-          description: "",
-        },
-        {
-          name: "e-Stamping",
-          href: "/e-stamp-and-e-sign",
-          icon: MessageSquare,
-          description: "",
-        },
-      ],
+      dropDownMenu: [],
       icon: FileSignature,
       description: "E-Stamp & E-Sign Solutions",
     },
@@ -2394,8 +2381,10 @@ export default function Bar() {
                             if (subService.services && subService.services.length > 0) {
                               toggleMobileSubServiceExpansion(subService.name)
                             } else {
-                              router.push(subService.href || '/services')
-                              setIsOpen(false)
+                              if (subService.href) {
+                                router.push(subService.href)
+                                setIsOpen(false)
+                              }
                             }
                           }}
                           className="w-full p-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
@@ -2516,14 +2505,28 @@ export default function Bar() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="relative">
-                <Image src="/images/logo-without-tagline.jpg" alt="DigitalRakshak Logo" width={65} height={65} />
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink min-w-0">
+              <div className="relative flex-shrink-0">
+                <Image
+                  src="/images/logo-without-tagline.jpg"
+                  alt="DigitalRakshak Logo"
+                  width={65}
+                  height={65}
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-[65px] md:h-[65px] object-contain"
+                />
               </div>
-              <div className="flex flex-col relative">
-                <span className="text-xl font-bold text-gray-900">DigitalRakshak</span>
-                <span className="absolute top-0 right-3 text-[30px] font-bold text-gray-700 leading-none">™</span>
-                <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span>
+              <div className="flex flex-col justify-center min-w-0">
+                <div className="flex items-start">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">
+                    DigitalRakshak
+                  </span>
+                  <span className="text-xs sm:text-sm md:text-base font-bold text-gray-700 leading-none ml-0.5 -mt-0.5">
+                    ™
+                  </span>
+                </div>
+                <span className="text-[9px] sm:text-[11px] md:text-xs text-blue-600 font-medium tracking-tight sm:tracking-normal whitespace-nowrap">
+                  SECURE | SWIFT | COMPLIANT
+                </span>
               </div>
             </Link>
 
@@ -3059,10 +3062,10 @@ export default function Bar() {
 
           {/* Mobile Navigation - Beautiful 4 Tabs Design (All subservices collapsed by default) */}
           {isOpen && (
-            <div className="xl:hidden fixed inset-x-0 top-[calc(72px+0px)] bottom-0 bg-white z-40 overflow-y-auto overflow-x-hidden">
+            <div className="xl:hidden fixed inset-x-0 top-[104px] bottom-0 bg-white z-40 overflow-y-auto overflow-x-hidden">
               {/* 4 Main Tabs - Beautiful Gradient Design */}
               <div className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
-                <div className="flex w-full overflow-hidden">
+                <div className="flex w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth">
                   {[
                     { id: "Explore API", icon: <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-blue-500 to-cyan-500" },
                     { id: "HR Excellence Suite", icon: <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4" />, color: "from-emerald-500 to-teal-500" },
@@ -3084,16 +3087,16 @@ export default function Bar() {
                           setMobileSelectedMainTab(tab.id)
                         }
                       }}
-                      className={`flex-1 py-2 px-1 text-center font-medium transition-all relative flex flex-col items-center justify-center gap-0.5 min-w-0 ${mobileSelectedMainTab === tab.id
+                      className={`flex-shrink-0 sm:flex-1 min-w-[85px] py-2 px-2 text-center font-medium transition-all relative flex flex-col items-center justify-center gap-0.5 ${mobileSelectedMainTab === tab.id
                         ? `text-transparent bg-clip-text bg-gradient-to-r ${tab.color}`
                         : "text-gray-700 hover:text-blue-600"
                         }`}
                     >
-                      <div className={`flex items-center gap-0.5 sm:gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
+                      <div className={`flex items-center gap-1 ${mobileSelectedMainTab === tab.id ? `bg-gradient-to-r ${tab.color} bg-clip-text text-transparent` : ""}`}>
                         {tab.icon}
-                        <span className="text-[10px] sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Trust" ? "Digital Trust" : tab.id === "Pricing" ? "Pricing" : "Resources"}</span>
+                        <span className="text-xs sm:text-sm font-semibold">{tab.id === "Explore API" ? "API" : tab.id === "HR Excellence Suite" ? "BGV" : tab.id === "Digital Trust" ? "Digital Trust" : tab.id === "Pricing" ? "Pricing" : "Resources"}</span>
                       </div>
-                      <div className="text-[8px] sm:text-xs text-center leading-tight whitespace-normal break-words max-w-full px-0.5 font-normal">
+                      <div className="text-[9px] sm:text-xs text-center leading-tight whitespace-nowrap font-normal opacity-90">
                         {tab.id === "Explore API" ? "Explore API" : tab.id === "HR Excellence Suite" ? "Background Verification" : tab.id === "Digital Trust" ? "Digital Trust" : tab.id === "Pricing" ? "Pricing Plans" : tab.id === "Resources" && "Explore Resources"}
                       </div>
                       {mobileSelectedMainTab === tab.id && (

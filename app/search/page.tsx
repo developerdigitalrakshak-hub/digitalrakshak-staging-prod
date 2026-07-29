@@ -38,7 +38,7 @@ function SearchResultsContent() {
         {/* Breadcrumb Navigation & Social Share */}
         <div className="flex flex-wrap items-center justify-between gap-4 py-2 mb-6 border-b border-gray-100 text-sm">
           <div className="flex items-center gap-1.5 text-gray-600 flex-wrap">
-            <Link href="/" className="text-amber-700 hover:underline font-medium">
+            <Link href="/" className="text-blue-600 hover:underline font-medium">
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
@@ -60,25 +60,25 @@ function SearchResultsContent() {
           </div>
         </div>
 
-        {/* Main Heading Matching Image 3 */}
+        {/* Main Heading Matching Theme */}
         <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
-          Search Results For : <span className="font-semibold text-gray-800">{initialQuery || ""}</span>
+          Search Results For : <span className="font-semibold text-blue-600">{initialQuery || ""}</span>
         </h1>
 
-        {/* Central Gray Search Box Container (Matching Image 3) */}
-        <div className="bg-[#e9e6e1] rounded-md p-6 md:p-8 mb-8 border border-stone-300 shadow-sm">
+        {/* Central Search Box Container */}
+        <div className="bg-slate-50 rounded-xl p-6 md:p-8 mb-8 border border-slate-200/80 shadow-sm">
           <form onSubmit={handleSearchSubmit} className="flex items-center justify-center max-w-2xl mx-auto">
-            <div className="flex w-full rounded-md shadow-sm">
+            <div className="flex w-full rounded-lg shadow-sm overflow-hidden border border-slate-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
               <input
                 type="text"
                 value={inputQuery}
                 onChange={(e) => setInputQuery(e.target.value)}
                 placeholder="Search whole website..."
-                className="w-full px-4 py-2.5 text-base text-gray-900 bg-white border border-stone-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="w-full px-4 py-2.5 text-base text-gray-900 bg-white focus:outline-none"
               />
               <button
                 type="submit"
-                className="bg-[#f39c12] hover:bg-[#e67e22] text-gray-900 font-bold px-6 py-2.5 rounded-r-md transition-colors flex items-center gap-1.5 shrink-0 shadow-sm"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold px-6 py-2.5 transition-all flex items-center gap-1.5 shrink-0 shadow-sm"
               >
                 <Search className="w-4 h-4 stroke-[2.5]" />
                 <span>Search</span>
@@ -87,7 +87,7 @@ function SearchResultsContent() {
           </form>
         </div>
 
-        {/* Count Summary Indicator (Matching Image 3) */}
+        {/* Count Summary Indicator */}
         <div className="text-xs sm:text-sm text-gray-600 font-medium mb-6">
           {results.length > 0 ? (
             <span>
@@ -98,23 +98,23 @@ function SearchResultsContent() {
           )}
         </div>
 
-        {/* Results List (Matching Image 3 design) */}
+        {/* Results List */}
         {results.length > 0 ? (
           <div className="divide-y divide-gray-200 border-t border-b border-gray-200">
             {results.map((item) => (
-              <div key={item.id} className="py-5 hover:bg-stone-50/60 transition-colors px-2 rounded-sm group">
+              <div key={item.id} className="py-5 hover:bg-slate-50/70 transition-colors px-3 rounded-lg group">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="inline-block px-2 py-0.5 text-[11px] font-semibold tracking-wide uppercase bg-amber-100 text-amber-900 rounded border border-amber-200">
+                  <span className="inline-block px-2.5 py-0.5 text-[11px] font-semibold tracking-wide uppercase bg-blue-50 text-blue-700 rounded-md border border-blue-200/70">
                     {item.category}
                   </span>
                   <span className="text-xs text-gray-400 font-mono">{item.href}</span>
                 </div>
 
                 <Link href={item.href} className="block group-hover:translate-x-0.5 transition-transform">
-                  {/* Orange Title Hyperlink matching Image 3 */}
-                  <h2 className="text-lg sm:text-xl font-medium text-[#d97706] hover:text-[#b45309] hover:underline flex items-center gap-1.5 leading-snug">
+                  {/* Theme Styled Title Hyperlink */}
+                  <h2 className="text-lg sm:text-xl font-semibold text-blue-600 hover:text-purple-700 hover:underline flex items-center gap-1.5 leading-snug">
                     {item.title}
-                    <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity inline" />
+                    <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity inline text-purple-600" />
                   </h2>
                 </Link>
 
@@ -126,23 +126,23 @@ function SearchResultsContent() {
           </div>
         ) : (
           /* Empty state when query has no matches */
-          <div className="bg-stone-50 border border-stone-200 rounded-lg p-10 text-center">
-            <FileText className="w-12 h-12 text-stone-400 mx-auto mb-3 stroke-1" />
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-10 text-center">
+            <FileText className="w-12 h-12 text-slate-400 mx-auto mb-3 stroke-1" />
             <h3 className="text-lg font-semibold text-gray-800 mb-1">
               No matching content found for &quot;{initialQuery}&quot;
             </h3>
             <p className="text-sm text-gray-500 max-w-md mx-auto mb-6">
-              Try checking for typos or searching for broader terms such as <span className="font-semibold text-amber-700">&quot;kyc&quot;, &quot;esign&quot;, &quot;aadhaar&quot;, &quot;court&quot;, &quot;verification&quot;</span>.
+              Try checking for typos or searching for broader terms such as <span className="font-semibold text-blue-600">&quot;kyc&quot;, &quot;esign&quot;, &quot;aadhaar&quot;, &quot;court&quot;, &quot;verification&quot;</span>.
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               {["e-Sign", "e-KYC", "Crime Check", "Geo Fencing", "OCR", "API Pricing"].map((term) => (
                 <button
                   key={term}
                   onClick={() => router.push(`/search?q=${encodeURIComponent(term)}`)}
-                  className="px-3 py-1 text-xs font-medium bg-white hover:bg-amber-50 text-gray-700 hover:text-amber-800 border border-gray-300 rounded-full transition-colors flex items-center gap-1"
+                  className="px-3 py-1 text-xs font-medium bg-white hover:bg-blue-50 text-gray-700 hover:text-blue-700 border border-gray-300 rounded-full transition-colors flex items-center gap-1"
                 >
                   <span>{term}</span>
-                  <ArrowRight className="w-3 h-3 text-amber-600" />
+                  <ArrowRight className="w-3 h-3 text-blue-600" />
                 </button>
               ))}
             </div>
