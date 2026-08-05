@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import {
@@ -17,13 +18,76 @@ import {
   Briefcase,
   ArrowRight,
   FileCheck,
-  Scale
+  Scale,
+  Check,
+  Sparkles,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 
 export default function EStampAndESignPage() {
   const router = useRouter()
+  const [isTableExpanded, setIsTableExpanded] = useState(false)
+
+  const documentTypes = [
+    "Rent / Lease Agreement",
+    "Affidavit",
+    "NOC",
+    "Undertaking",
+    "Loan Agreement",
+    "MOU",
+    "Partnership Deed",
+    "Gift Deed",
+    "Power of Attorney",
+    "Declaration"
+  ]
+
+  const articleCodes = [
+    {
+      art: "Art. 5",
+      docType: "Agreement / MoU",
+      useCase: "Loan agreements, vendor contracts, service agreements",
+      basis: "Fixed / ad valorem (state-specific)"
+    },
+    {
+      art: "Art. 15",
+      docType: "Bond",
+      useCase: "Performance bonds, surety bonds, employment bonds",
+      basis: "% of bond value"
+    },
+    {
+      art: "Art. 23",
+      docType: "Conveyance (Sale Deed)",
+      useCase: "Property purchase, transfer of immovable assets",
+      basis: "% of market / consideration value"
+    },
+    {
+      art: "Art. 35",
+      docType: "Lease Deed",
+      useCase: "Residential & commercial rentals, long-term leases",
+      basis: "% of annual rent / premium"
+    },
+    {
+      art: "Art. 40",
+      docType: "Mortgage Deed",
+      useCase: "Home loans, LAP, secured lending",
+      basis: "% of loan / mortgage amount"
+    },
+    {
+      art: "Art. 48",
+      docType: "Power of Attorney",
+      useCase: "General & specific PoA for property, legal matters",
+      basis: "Fixed (general) / ad valorem (with consideration)"
+    },
+    {
+      art: "Art. 3",
+      docType: "Affidavit",
+      useCase: "Statutory declarations, court submissions",
+      basis: "Fixed amount"
+    }
+  ]
 
   const features = [
     {
@@ -184,6 +248,158 @@ export default function EStampAndESignPage() {
                 <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Document Types Supported Section */}
+      <section className="px-6 py-16 md:py-24 bg-gradient-to-b from-background via-slate-50/50 to-background dark:via-slate-950/40 border-b border-border/40">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-card/70 backdrop-blur-md border border-border/70 dark:border-border/50 rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+            {/* Subtle background glow */}
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 space-y-8">
+              {/* Category Pill Tag */}
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-blue-600/10 to-purple-600/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-purple-500/20 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-purple-600 dark:bg-purple-400 animate-pulse" />
+                  Document Types
+                </div>
+              </div>
+
+              {/* Title */}
+              <div>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight max-w-3xl">
+                  What you can print on <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">e-Stamp Paper</span>
+                </h2>
+                <div className="w-16 h-1 bg-amber-500 rounded-full mt-4" />
+              </div>
+
+              {/* Document Pills Grid */}
+              <div className="flex flex-wrap gap-3 md:gap-4 pt-2">
+                {documentTypes.map((doc, idx) => (
+                  <div
+                    key={idx}
+                    className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-background/90 dark:bg-slate-900/80 border border-border/80 shadow-sm hover:border-blue-500/60 dark:hover:border-purple-500/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-default"
+                  >
+                    <Check className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform stroke-[2.5]" />
+                    <span className="text-sm md:text-base font-semibold text-foreground">{doc}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* AI & Verification Note */}
+              <div className="pt-6 border-t border-border/50 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-sm text-muted-foreground">
+                <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 shrink-0">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <p className="leading-relaxed">
+                  <span className="font-semibold text-foreground">Don&apos;t see yours?</span> Just upload it — the AI handles most Document types, and our team flags anything that needs a second look.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stamp Duty Reference - Common Article Codes Section */}
+      <section className="px-6 py-16 md:py-24 bg-background border-b border-border/40">
+        <div className="max-w-6xl mx-auto space-y-12">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-amber-600/10 border border-blue-500/20 dark:border-purple-500/20 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">
+              Stamp Duty Reference
+            </div>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight text-balance">
+              Common Article Codes — <span className="bg-gradient-to-r from-amber-500 via-purple-600 to-blue-600 bg-clip-text text-transparent">Schedule I, Indian Stamp Act 1899</span>
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed text-pretty">
+              The Indian Stamp Act defines ~65 article codes in Schedule I. Rates vary by state — the table below shows the most frequently stamped document types. For the full schedule or state-specific rates, use the official references linked below.
+            </p>
+          </div>
+
+          {/* Toggle Button */}
+          <div className="flex justify-center pt-2">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setIsTableExpanded(!isTableExpanded)}
+              className="relative group overflow-hidden border-blue-500/20 hover:border-blue-500/50 dark:border-purple-500/20 dark:hover:border-purple-500/50 bg-card hover:bg-muted text-foreground transition-all duration-300 rounded-full px-8 h-12 shadow-sm hover:shadow-md flex items-center gap-2.5 font-bold"
+            >
+              {/* Subtle hover background highlight */}
+              <span className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <span className="relative flex items-center gap-2">
+                {isTableExpanded ? (
+                  <>
+                    Hide Common Article Codes Table
+                    <ChevronUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 text-amber-500 dark:text-amber-400" />
+                  </>
+                ) : (
+                  <>
+                    View Common Article Codes Table
+                    <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5 text-blue-500 dark:text-blue-400" />
+                  </>
+                )}
+              </span>
+            </Button>
+          </div>
+
+          {/* Collapsible Table Section */}
+          <div className={`grid transition-[grid-template-rows,opacity,margin-top] duration-500 ease-in-out ${isTableExpanded ? 'grid-rows-[1fr] opacity-100 mt-8' : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none'}`}>
+            <div className="overflow-hidden space-y-8">
+              {/* Table Container */}
+              <div className="relative rounded-2xl md:rounded-3xl border border-border/80 bg-card shadow-xl overflow-hidden">
+                {/* Scroll Indicator for Mobile */}
+                <div className="sm:hidden px-4 py-2 bg-muted/60 border-b border-border/50 text-[11px] text-muted-foreground text-center font-medium flex items-center justify-center gap-1.5">
+                  <span>Scroll horizontally to view full table</span>
+                  <span className="animate-pulse">→</span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-amber-600 via-purple-600 to-indigo-600 text-white text-xs md:text-sm uppercase tracking-wider font-semibold">
+                        <th className="py-4 px-6 w-36">Article No.</th>
+                        <th className="py-4 px-6 w-52">Document Type</th>
+                        <th className="py-4 px-6">Common Use Case</th>
+                        <th className="py-4 px-6 w-64">Typical Basis</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/60 text-sm">
+                      {articleCodes.map((item, idx) => (
+                        <tr
+                          key={idx}
+                          className="hover:bg-muted/40 transition-colors duration-150 group"
+                        >
+                          <td className="py-4 px-6 font-bold">
+                            <span className="inline-block px-3 py-1 rounded-lg bg-amber-500/10 dark:bg-amber-400/10 text-amber-600 dark:text-amber-400 text-xs md:text-sm font-black border border-amber-500/20">
+                              {item.art}
+                            </span>
+                          </td>
+                          <td className="py-4 px-6 font-bold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            {item.docType}
+                          </td>
+                          <td className="py-4 px-6 text-muted-foreground leading-relaxed">
+                            {item.useCase}
+                          </td>
+                          <td className="py-4 px-6 font-medium text-foreground/90">
+                            {item.basis}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Footer Note */}
+              <p className="text-xs md:text-sm text-muted-foreground text-center max-w-4xl mx-auto leading-relaxed">
+                <span className="font-semibold text-foreground">Note:</span> Article codes and rates are amended periodically by state legislatures. Always verify the current rate with your state&apos;s stamp duty authority before executing documents.
+              </p>
+            </div>
           </div>
         </div>
       </section>

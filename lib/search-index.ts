@@ -99,96 +99,96 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
   },
 
   // Specialized Background Verification Services
-  {
-    id: 'criminal-record-check',
-    title: 'National Criminal & Court Record Check',
-    description: 'Screening against e-Courts, criminal databases, police records, magistrate courts, and litigation data.',
-    href: '/services/criminal-record-check',
-    category: 'Services',
-    keywords: ['criminal', 'court', 'litigation', 'police', 'efir', 'law', 'background', 'check', 'record', 'net']
-  },
-  {
-    id: 'efir-check',
-    title: 'e-FIR & Police Record Verification',
-    description: 'Instant verification of police FIR status, active warrants, and state criminal database matches.',
-    href: '/services/efir-check',
-    category: 'Services',
-    keywords: ['efir', 'fir', 'police', 'crime', 'warrant', 'investigation', 'legal']
-  },
-  {
-    id: 'global-database-check',
-    title: 'Global Database & Negative Media Screening',
-    description: 'Screening against international sanctions, Interpol lists, PEP (Politically Exposed Persons), and negative media.',
-    href: '/services/global-database-check',
-    category: 'Services',
-    keywords: ['global', 'sanctions', 'pep', 'interpol', 'negative media', 'compliance', 'aml']
-  },
-  {
-    id: 'employment-verification',
-    title: 'Employment & Work History Verification',
-    description: 'Past employer background check, designation, tenure, HR verification, and salary slip validation.',
-    href: '/services/employment-verification',
-    category: 'Services',
-    keywords: ['employment', 'work', 'job', 'hr', 'history', 'experience', 'verification']
-  },
-  {
-    id: 'education-verification',
-    title: 'Educational Qualification Verification',
-    description: 'Verification of university degrees, college diplomas, marksheets, and board certificates.',
-    href: '/services/education-verification',
-    category: 'Services',
-    keywords: ['education', 'degree', 'university', 'college', 'certificate', 'student', 'qualification']
-  },
+  // {
+  //   id: 'criminal-record-check',
+  //   title: 'National Criminal & Court Record Check',
+  //   description: 'Screening against e-Courts, criminal databases, police records, magistrate courts, and litigation data.',
+  //   href: '/services/criminal-record-check',
+  //   category: 'Services',
+  //   keywords: ['criminal', 'court', 'litigation', 'police', 'efir', 'law', 'background', 'check', 'record', 'net']
+  // },
+  // {
+  //   id: 'efir-check',
+  //   title: 'e-FIR & Police Record Verification',
+  //   description: 'Instant verification of police FIR status, active warrants, and state criminal database matches.',
+  //   href: '/services/efir-check',
+  //   category: 'Services',
+  //   keywords: ['efir', 'fir', 'police', 'crime', 'warrant', 'investigation', 'legal']
+  // },
+  // {
+  //   id: 'global-database-check',
+  //   title: 'Global Database & Negative Media Screening',
+  //   description: 'Screening against international sanctions, Interpol lists, PEP (Politically Exposed Persons), and negative media.',
+  //   href: '/services/global-database-check',
+  //   category: 'Services',
+  //   keywords: ['global', 'sanctions', 'pep', 'interpol', 'negative media', 'compliance', 'aml']
+  // },
+  // {
+  //   id: 'employment-verification',
+  //   title: 'Employment & Work History Verification',
+  //   description: 'Past employer background check, designation, tenure, HR verification, and salary slip validation.',
+  //   href: '/services/employment-verification',
+  //   category: 'Services',
+  //   keywords: ['employment', 'work', 'job', 'hr', 'history', 'experience', 'verification']
+  // },
+  // {
+  //   id: 'education-verification',
+  //   title: 'Educational Qualification Verification',
+  //   description: 'Verification of university degrees, college diplomas, marksheets, and board certificates.',
+  //   href: '/services/education-verification',
+  //   category: 'Services',
+  //   keywords: ['education', 'degree', 'university', 'college', 'certificate', 'student', 'qualification']
+  // },
 
   // Industries
-  {
-    id: 'ind-banks',
-    title: 'Banking & Financial Institutions',
-    description: 'KYC, AML, loan onboarding, account opening, and regulatory compliance for banks.',
-    href: '/industries/banks',
-    category: 'Industries',
-    keywords: ['bank', 'banking', 'finance', 'financial', 'loans', 'credit', 'compliance', 'rbi']
-  },
-  {
-    id: 'ind-nbfcs',
-    title: 'NBFCs & Microfinance',
-    description: 'Digital lending onboarding, instant identity verification, and credit risk assessment.',
-    href: '/industries/nbfcs',
-    category: 'Industries',
-    keywords: ['nbfc', 'lending', 'microfinance', 'loans', 'credit', 'fintech']
-  },
-  {
-    id: 'ind-insurance',
-    title: 'Insurance Industry Solutions',
-    description: 'Claims verification, policyholder KYC, agent onboarding, and fraud mitigation.',
-    href: '/industries/insurance',
-    category: 'Industries',
-    keywords: ['insurance', 'policy', 'claims', 'underwriting', 'agent', 'health insurance']
-  },
-  {
-    id: 'ind-crypto',
-    title: 'Crypto & Digital Assets Compliance',
-    description: 'Travel rule compliance, FIU-IND reporting, crypto exchange KYC, and wallet risk screening.',
-    href: '/industries/crypto',
-    category: 'Industries',
-    keywords: ['crypto', 'bitcoin', 'web3', 'exchange', 'fiu', 'travel rule', 'digital asset']
-  },
-  {
-    id: 'ind-gaming',
-    title: 'Online Gaming & Real Money Play',
-    description: 'Age verification, PAN validation, TDS compliance, and player identity checks.',
-    href: '/industries/gaming',
-    category: 'Industries',
-    keywords: ['gaming', 'real money', 'game', 'age verification', 'tds', 'player', 'esports']
-  },
-  {
-    id: 'ind-logistics',
-    title: 'Logistics & E-Commerce Delivery',
-    description: 'Delivery partner onboarding, driver RC/DL check, and location tracking.',
-    href: '/industries/logistics-ecommerce',
-    category: 'Industries',
-    keywords: ['logistics', 'ecommerce', 'delivery', 'driver', 'vehicle', 'rc', 'dl']
-  },
+  // {
+  //   id: 'ind-banks',
+  //   title: 'Banking & Financial Institutions',
+  //   description: 'KYC, AML, loan onboarding, account opening, and regulatory compliance for banks.',
+  //   href: '/industries/banks',
+  //   category: 'Industries',
+  //   keywords: ['bank', 'banking', 'finance', 'financial', 'loans', 'credit', 'compliance', 'rbi']
+  // },
+  // {
+  //   id: 'ind-nbfcs',
+  //   title: 'NBFCs & Microfinance',
+  //   description: 'Digital lending onboarding, instant identity verification, and credit risk assessment.',
+  //   href: '/industries/nbfcs',
+  //   category: 'Industries',
+  //   keywords: ['nbfc', 'lending', 'microfinance', 'loans', 'credit', 'fintech']
+  // },
+  // {
+  //   id: 'ind-insurance',
+  //   title: 'Insurance Industry Solutions',
+  //   description: 'Claims verification, policyholder KYC, agent onboarding, and fraud mitigation.',
+  //   href: '/industries/insurance',
+  //   category: 'Industries',
+  //   keywords: ['insurance', 'policy', 'claims', 'underwriting', 'agent', 'health insurance']
+  // },
+  // {
+  //   id: 'ind-crypto',
+  //   title: 'Crypto & Digital Assets Compliance',
+  //   description: 'Travel rule compliance, FIU-IND reporting, crypto exchange KYC, and wallet risk screening.',
+  //   href: '/industries/crypto',
+  //   category: 'Industries',
+  //   keywords: ['crypto', 'bitcoin', 'web3', 'exchange', 'fiu', 'travel rule', 'digital asset']
+  // },
+  // {
+  //   id: 'ind-gaming',
+  //   title: 'Online Gaming & Real Money Play',
+  //   description: 'Age verification, PAN validation, TDS compliance, and player identity checks.',
+  //   href: '/industries/gaming',
+  //   category: 'Industries',
+  //   keywords: ['gaming', 'real money', 'game', 'age verification', 'tds', 'player', 'esports']
+  // },
+  // {
+  //   id: 'ind-logistics',
+  //   title: 'Logistics & E-Commerce Delivery',
+  //   description: 'Delivery partner onboarding, driver RC/DL check, and location tracking.',
+  //   href: '/industries/logistics-ecommerce',
+  //   category: 'Industries',
+  //   keywords: ['logistics', 'ecommerce', 'delivery', 'driver', 'vehicle', 'rc', 'dl']
+  // },
 
   // Company & Resources
   {
