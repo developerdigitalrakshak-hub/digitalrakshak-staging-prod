@@ -5,17 +5,18 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { ArrowRight, CheckCircle, Shield, Users, ChevronDown, AlertCircle, Sparkles, Mail, Phone, ExternalLink, User, Building2, FileText } from "lucide-react"
+import { ArrowRight, CheckCircle, Shield, Users, ChevronDown, AlertCircle, Sparkles, Mail, Phone, ExternalLink, User, Building2, FileText, Briefcase } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 
-// Zod validation schema for the registration form
+// Forbidden personal email domains for Business Entity validation
 const forbiddenDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "yandex.com", "protonmail.com", "zoho.com", "mail.com", "gmx.com"]
 
-const registerSchema = z.object({
+// Zod validation schema for Business Entity
+const businessSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     email: z
         .string()
@@ -45,23 +46,48 @@ const registerSchema = z.object({
     selectAll: z.boolean().optional(),
 })
 
-type RegisterFormValues = z.infer<typeof registerSchema>
+// Zod validation schema for Professionals (Personal email allowed, company name & GST omitted)
+const professionalSchema = z.object({
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z
+        .string()
+        .min(1, { message: "Email is required" })
+        .email({ message: "Please enter a valid email address" }),
+    countryCode: z.string().min(1, { message: "Country code is required" }),
+    phoneNumber: z
+        .string()
+        .min(1, { message: "Phone number is required" })
+        .regex(/^\d{8,12}$/, { message: "Phone number must be between 8 and 12 digits (numbers only)" }),
+    dropdownValue: z.string().min(1, { message: "Please select an option" }),
+    agreeToTerms: z
+        .boolean()
+        .refine((val) => val === true, { message: "You must consent to the privacy policy and terms to proceed" }),
+    agreeToMarketing: z
+        .boolean()
+        .refine((val) => val === true, { message: "You must agree to the marketing and opt-out terms to proceed" }),
+    selectAll: z.boolean().optional(),
+})
 
-export default function RegisterPage() {
+type BusinessFormValues = z.infer<typeof businessSchema>
+type ProfessionalFormValues = z.infer<typeof professionalSchema>
+
+interface FormProps {
+    onSuccess: (email: string) => void
+}
+
+// ----------------------------------------------------
+// 1st Tab: Business Entity Form
+// ----------------------------------------------------
+function BusinessEntityForm({ onSuccess }: FormProps) {
     const { toast } = useToast()
-    const [isMounted, setIsMounted] = useState(false)
-    const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false)
-    const [registeredEmail, setRegisteredEmail] = useState("")
-
-    // Initialize React Hook Form with Zod resolver
     const {
         register,
         handleSubmit,
         watch,
         setValue,
         formState: { errors, isSubmitting, touchedFields, isValid },
-    } = useForm<RegisterFormValues>({
-        resolver: zodResolver(registerSchema),
+    } = useForm<BusinessFormValues>({
+        resolver: zodResolver(businessSchema),
         mode: "onTouched",
         defaultValues: {
             name: "",
@@ -81,7 +107,6 @@ export default function RegisterPage() {
     const agreeToMarketing = watch("agreeToMarketing")
     const selectAll = watch("selectAll")
 
-    // Synchronize selectAll checkbox with agreeToTerms and agreeToMarketing
     useEffect(() => {
         if (agreeToTerms && agreeToMarketing && !selectAll) {
             setValue("selectAll", true, { shouldValidate: true })
@@ -90,21 +115,626 @@ export default function RegisterPage() {
         }
     }, [agreeToTerms, agreeToMarketing, selectAll, setValue])
 
+    const onSubmit = async (data: BusinessFormValues) => {
+        await new Promise((resolve) => setTimeout(resolve, 1500))
+        console.log("Business Entity Registered:", data)
+        toast({
+            title: "Verification Email Sent",
+            description: `We have sent an activation link to ${data.email}.`,
+        })
+        onSuccess(data.email)
+    }
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="space-y-6">
+                {/* Name */}
+                <div className="space-y-2">
+                    <label htmlFor="bus-name" className="block text-sm font-semibold text-gray-800">
+                        Name*
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="bus-name"
+                            placeholder="John Doe"
+                            {...register("name")}
+                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.name
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.name
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        />
+                        <User className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                        {touchedFields.name && !errors.name && (
+                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                        )}
+                        {errors.name && (
+                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                        )}
+                    </div>
+                    {errors.name && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.name.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* Email (With Corporate Email Validation) */}
+                <div className="space-y-2">
+                    <label htmlFor="bus-email" className="block text-sm font-semibold text-gray-800">
+                        Business Email*
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="email"
+                            id="bus-email"
+                            placeholder="alex@company.com"
+                            {...register("email")}
+                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.email
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.email
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        />
+                        <Mail className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                        {touchedFields.email && !errors.email && (
+                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                        )}
+                        {errors.email && (
+                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                        )}
+                    </div>
+                    {errors.email && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.email.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* Company Name */}
+                <div className="space-y-2">
+                    <label htmlFor="bus-companyName" className="block text-sm font-semibold text-gray-800">
+                        Company Name*
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="bus-companyName"
+                            placeholder="Acme Corp"
+                            {...register("companyName")}
+                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.companyName
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.companyName
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        />
+                        <Building2 className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                        {touchedFields.companyName && !errors.companyName && (
+                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                        )}
+                        {errors.companyName && (
+                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                        )}
+                    </div>
+                    {errors.companyName && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.companyName.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* GST No */}
+                <div className="space-y-2">
+                    <label htmlFor="bus-gstNo" className="block text-sm font-semibold text-gray-800">
+                        GST Number (Optional)
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="bus-gstNo"
+                            placeholder="22AAAAA0000A1Z5"
+                            {...register("gstNo")}
+                            className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all"
+                        />
+                        <FileText className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                    </div>
+                </div>
+
+                {/* Mobile Number */}
+                <div className="space-y-2">
+                    <label htmlFor="bus-phoneNumber" className="block text-sm font-semibold text-gray-800">
+                        Mobile Number*
+                    </label>
+                    <div className="flex gap-2">
+                        <div className="relative flex-shrink-0">
+                            <select
+                                id="bus-countryCode"
+                                {...register("countryCode")}
+                                className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
+                            >
+                                <option value="+91">🇮🇳 (+91)</option>
+                                <option value="+1">🇺🇸 (+1)</option>
+                                <option value="+44">🇬🇧 (+44)</option>
+                                <option value="+61">🇦🇺 (+61)</option>
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                <ChevronDown className="h-4 w-4" />
+                            </div>
+                        </div>
+                        <div className="relative flex-grow">
+                            <input
+                                type="tel"
+                                id="bus-phoneNumber"
+                                placeholder="98765 43210"
+                                {...register("phoneNumber")}
+                                className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
+                                    ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                    : touchedFields.phoneNumber
+                                        ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                        : "border-gray-300 focus:ring-blue-500/10"
+                                    }`}
+                            />
+                            <Phone className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                            {touchedFields.phoneNumber && !errors.phoneNumber && (
+                                <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                            )}
+                            {errors.phoneNumber && (
+                                <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                            )}
+                        </div>
+                    </div>
+                    {errors.phoneNumber && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.phoneNumber.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* Dropdown Field */}
+                <div className="space-y-2">
+                    <label htmlFor="bus-dropdownValue" className="block text-sm font-semibold text-gray-800">
+                        Select Option*
+                    </label>
+                    <div className="relative">
+                        <select
+                            id="bus-dropdownValue"
+                            {...register("dropdownValue")}
+                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.dropdownValue
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.dropdownValue
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        >
+                            <option value="" disabled hidden>Choose an option</option>
+                            <option value="value1">Option 1</option>
+                            <option value="value2">Option 2</option>
+                            <option value="value3">Option 3</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400">
+                            <ChevronDown className="h-5 w-5" />
+                        </div>
+                    </div>
+                    {errors.dropdownValue && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.dropdownValue.message}
+                        </p>
+                    )}
+                </div>
+            </div>
+
+            {/* Terms & Conditions consent checkboxes */}
+            <div className="space-y-4 pt-2">
+                <div className="space-y-2">
+                    <div className="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="bus-agreeToTerms"
+                            checked={agreeToTerms || false}
+                            onChange={(e) => {
+                                setValue("agreeToTerms", e.target.checked, { shouldValidate: true, shouldTouch: true })
+                            }}
+                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label htmlFor="bus-agreeToTerms" className="text-sm font-medium text-gray-700 cursor-pointer select-none leading-relaxed">
+                            I consent to DigitalRakshak to process my data as per the{" "}
+                            <Link href="/privacy-policy" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5 font-semibold">
+                                Privacy Policy <ExternalLink className="h-2.5 w-2.5" />
+                            </Link>{" "}
+                            and{" "}
+                            <Link href="/terms-and-conditions" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5 font-semibold">
+                                Terms & Services <ExternalLink className="h-2.5 w-2.5" />
+                            </Link>. *
+                        </label>
+                    </div>
+                    {errors.agreeToTerms && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.agreeToTerms.message}
+                        </p>
+                    )}
+                </div>
+
+                <div className="space-y-2">
+                    <div className="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="bus-agreeToMarketing"
+                            checked={agreeToMarketing || false}
+                            onChange={(e) => {
+                                setValue("agreeToMarketing", e.target.checked, { shouldValidate: true, shouldTouch: true })
+                            }}
+                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label htmlFor="bus-agreeToMarketing" className="text-sm font-medium text-gray-700 cursor-pointer select-none leading-relaxed">
+                            I agree to receive marketing communications and acknowledge that I can opt out at any time by writing to{" "}
+                            <Link href="mailto:privacy@digitalrakshak.com" className="text-blue-600 hover:underline font-semibold">
+                                privacy@digitalrakshak.com
+                            </Link>. *
+                        </label>
+                    </div>
+                    {errors.agreeToMarketing && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.agreeToMarketing.message}
+                        </p>
+                    )}
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-gray-100">
+                    <div className="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="bus-selectAll"
+                            checked={selectAll || false}
+                            onChange={(e) => {
+                                const checked = e.target.checked
+                                setValue("selectAll", checked, { shouldValidate: true })
+                                setValue("agreeToTerms", checked, { shouldValidate: true, shouldTouch: true })
+                                setValue("agreeToMarketing", checked, { shouldValidate: true, shouldTouch: true })
+                            }}
+                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label htmlFor="bus-selectAll" className="text-sm font-semibold text-gray-800 cursor-pointer select-none leading-relaxed">
+                            Select all
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3.5 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                disabled={isSubmitting || !isValid}
+            >
+                {isSubmitting ? "Creating Business Account..." : "Submit"}
+                {!isSubmitting && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
+            </Button>
+        </form>
+    )
+}
+
+// ----------------------------------------------------
+// 2nd Tab: Professional Form
+// ----------------------------------------------------
+function ProfessionalForm({ onSuccess }: FormProps) {
+    const { toast } = useToast()
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors, isSubmitting, touchedFields, isValid },
+    } = useForm<ProfessionalFormValues>({
+        resolver: zodResolver(professionalSchema),
+        mode: "onTouched",
+        defaultValues: {
+            name: "",
+            email: "",
+            countryCode: "+91",
+            phoneNumber: "",
+            dropdownValue: "",
+            agreeToTerms: false,
+            agreeToMarketing: false,
+            selectAll: false,
+        },
+    })
+
+    const agreeToTerms = watch("agreeToTerms")
+    const agreeToMarketing = watch("agreeToMarketing")
+    const selectAll = watch("selectAll")
+
+    useEffect(() => {
+        if (agreeToTerms && agreeToMarketing && !selectAll) {
+            setValue("selectAll", true, { shouldValidate: true })
+        } else if ((!agreeToTerms || !agreeToMarketing) && selectAll) {
+            setValue("selectAll", false, { shouldValidate: true })
+        }
+    }, [agreeToTerms, agreeToMarketing, selectAll, setValue])
+
+    const onSubmit = async (data: ProfessionalFormValues) => {
+        await new Promise((resolve) => setTimeout(resolve, 1500))
+        console.log("Professional Registered:", data)
+        toast({
+            title: "Verification Email Sent",
+            description: `We have sent an activation link to ${data.email}.`,
+        })
+        onSuccess(data.email)
+    }
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="space-y-6">
+                {/* Name */}
+                <div className="space-y-2">
+                    <label htmlFor="prof-name" className="block text-sm font-semibold text-gray-800">
+                        Name*
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="prof-name"
+                            placeholder="John Doe"
+                            {...register("name")}
+                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.name
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.name
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        />
+                        <User className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                        {touchedFields.name && !errors.name && (
+                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                        )}
+                        {errors.name && (
+                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                        )}
+                    </div>
+                    {errors.name && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.name.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* Email (Without Business Email Restriction) */}
+                <div className="space-y-2">
+                    <label htmlFor="prof-email" className="block text-sm font-semibold text-gray-800">
+                        Email*
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="email"
+                            id="prof-email"
+                            placeholder="you@example.com"
+                            {...register("email")}
+                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.email
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.email
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        />
+                        <Mail className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                        {touchedFields.email && !errors.email && (
+                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                        )}
+                        {errors.email && (
+                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                        )}
+                    </div>
+                    {errors.email && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.email.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* Mobile Number */}
+                <div className="space-y-2">
+                    <label htmlFor="prof-phoneNumber" className="block text-sm font-semibold text-gray-800">
+                        Mobile Number*
+                    </label>
+                    <div className="flex gap-2">
+                        <div className="relative flex-shrink-0">
+                            <select
+                                id="prof-countryCode"
+                                {...register("countryCode")}
+                                className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
+                            >
+                                <option value="+91">🇮🇳 (+91)</option>
+                                <option value="+1">🇺🇸 (+1)</option>
+                                <option value="+44">🇬🇧 (+44)</option>
+                                <option value="+61">🇦🇺 (+61)</option>
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                <ChevronDown className="h-4 w-4" />
+                            </div>
+                        </div>
+                        <div className="relative flex-grow">
+                            <input
+                                type="tel"
+                                id="prof-phoneNumber"
+                                placeholder="98765 43210"
+                                {...register("phoneNumber")}
+                                className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
+                                    ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                    : touchedFields.phoneNumber
+                                        ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                        : "border-gray-300 focus:ring-blue-500/10"
+                                    }`}
+                            />
+                            <Phone className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                            {touchedFields.phoneNumber && !errors.phoneNumber && (
+                                <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
+                            )}
+                            {errors.phoneNumber && (
+                                <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
+                            )}
+                        </div>
+                    </div>
+                    {errors.phoneNumber && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.phoneNumber.message}
+                        </p>
+                    )}
+                </div>
+
+                {/* Dropdown Field */}
+                <div className="space-y-2">
+                    <label htmlFor="prof-dropdownValue" className="block text-sm font-semibold text-gray-800">
+                        Select Option*
+                    </label>
+                    <div className="relative">
+                        <select
+                            id="prof-dropdownValue"
+                            {...register("dropdownValue")}
+                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.dropdownValue
+                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
+                                : touchedFields.dropdownValue
+                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
+                                    : "border-gray-300 focus:ring-blue-500/10"
+                                }`}
+                        >
+                            <option value="" disabled hidden>Choose an option</option>
+                            <option value="value1">Option 1</option>
+                            <option value="value2">Option 2</option>
+                            <option value="value3">Option 3</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400">
+                            <ChevronDown className="h-5 w-5" />
+                        </div>
+                    </div>
+                    {errors.dropdownValue && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.dropdownValue.message}
+                        </p>
+                    )}
+                </div>
+            </div>
+
+            {/* Terms & Conditions consent checkboxes */}
+            <div className="space-y-4 pt-2">
+                <div className="space-y-2">
+                    <div className="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="prof-agreeToTerms"
+                            checked={agreeToTerms || false}
+                            onChange={(e) => {
+                                setValue("agreeToTerms", e.target.checked, { shouldValidate: true, shouldTouch: true })
+                            }}
+                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label htmlFor="prof-agreeToTerms" className="text-sm font-medium text-gray-700 cursor-pointer select-none leading-relaxed">
+                            I consent to DigitalRakshak to process my data as per the{" "}
+                            <Link href="/privacy-policy" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5 font-semibold">
+                                Privacy Policy <ExternalLink className="h-2.5 w-2.5" />
+                            </Link>{" "}
+                            and{" "}
+                            <Link href="/terms-and-conditions" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5 font-semibold">
+                                Terms & Services <ExternalLink className="h-2.5 w-2.5" />
+                            </Link>. *
+                        </label>
+                    </div>
+                    {errors.agreeToTerms && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.agreeToTerms.message}
+                        </p>
+                    )}
+                </div>
+
+                <div className="space-y-2">
+                    <div className="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="prof-agreeToMarketing"
+                            checked={agreeToMarketing || false}
+                            onChange={(e) => {
+                                setValue("agreeToMarketing", e.target.checked, { shouldValidate: true, shouldTouch: true })
+                            }}
+                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label htmlFor="prof-agreeToMarketing" className="text-sm font-medium text-gray-700 cursor-pointer select-none leading-relaxed">
+                            I agree to receive marketing communications and acknowledge that I can opt out at any time by writing to{" "}
+                            <Link href="mailto:privacy@digitalrakshak.com" className="text-blue-600 hover:underline font-semibold">
+                                privacy@digitalrakshak.com
+                            </Link>. *
+                        </label>
+                    </div>
+                    {errors.agreeToMarketing && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.agreeToMarketing.message}
+                        </p>
+                    )}
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-gray-100">
+                    <div className="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="prof-selectAll"
+                            checked={selectAll || false}
+                            onChange={(e) => {
+                                const checked = e.target.checked
+                                setValue("selectAll", checked, { shouldValidate: true })
+                                setValue("agreeToTerms", checked, { shouldValidate: true, shouldTouch: true })
+                                setValue("agreeToMarketing", checked, { shouldValidate: true, shouldTouch: true })
+                            }}
+                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label htmlFor="prof-selectAll" className="text-sm font-semibold text-gray-800 cursor-pointer select-none leading-relaxed">
+                            Select all
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3.5 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                disabled={isSubmitting || !isValid}
+            >
+                {isSubmitting ? "Creating Professional Account..." : "Submit"}
+                {!isSubmitting && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
+            </Button>
+        </form>
+    )
+}
+
+// ----------------------------------------------------
+// Main Register Page Component
+// ----------------------------------------------------
+export default function RegisterPage() {
+    const [isMounted, setIsMounted] = useState(false)
+    const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false)
+    const [registeredEmail, setRegisteredEmail] = useState("")
+    const [accountType, setAccountType] = useState<"business" | "professional">("business")
+
     // Mount animation trigger
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
-    const onSubmit = async (data: RegisterFormValues) => {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-        console.log("Registered successfully:", data)
-        setRegisteredEmail(data.email)
+    const handleSuccess = (email: string) => {
+        setRegisteredEmail(email)
         setIsSubmittedSuccessfully(true)
-        toast({
-            title: "Verification Email Sent",
-            description: `We have sent an activation link to ${data.email}.`,
-        })
     }
 
     const benefits = [
@@ -131,27 +761,9 @@ export default function RegisterPage() {
                 className={`container mx-auto max-w-7xl transition-all duration-1000 ease-out transform ${isMounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                     }`}
             >
-                {/* Logo and Home Navigation */}
-                <div className="mb-12 flex justify-start">
-                    <Link href="/" className="flex items-center space-x-3 group bg-white/40 hover:bg-white/80 backdrop-blur-sm px-4 py-2 rounded-2xl border border-white/40 shadow-sm transition-all duration-300">
-                        <div className="relative">
-                            <Image
-                                src="/images/logo-without-tagline.jpg"
-                                alt="DigitalRakshak Logo"
-                                width={50}
-                                height={50}
-                                className="rounded-xl group-hover:scale-105 transition-transform"
-                            />
-                        </div>
-                        <div className="flex flex-col relative pr-4">
-                            <span className="text-lg font-bold text-gray-900 leading-tight">DigitalRakshak</span>
-                            <span className="absolute top-0 right-0 text-[20px] font-bold text-gray-700 leading-none">™</span>
-                            <span className="text-[10px] text-blue-600 font-semibold tracking-wider">SECURE | SWIFT | COMPLIANT</span>
-                        </div>
-                    </Link>
-                </div>
 
-                <div className="grid lg:grid-cols-12 gap-12 items-center">
+
+                <div className="grid lg:grid-cols-12 gap-12 items-start">
                     {/* Left Column - Benefits and Information (5 cols) */}
                     <div className="lg:col-span-5 space-y-8">
                         <div className="space-y-6">
@@ -213,7 +825,7 @@ export default function RegisterPage() {
                             <CardContent className="p-6 sm:p-10 relative">
                                 {!isSubmittedSuccessfully ? (
                                     <>
-                                        <div className="text-center mb-8">
+                                        <div className="text-center mb-6">
                                             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 mb-3 border border-blue-100 shadow-sm animate-pulse">
                                                 <Sparkles className="h-3 w-3" /> Start Your Trial
                                             </span>
@@ -221,312 +833,40 @@ export default function RegisterPage() {
                                             <p className="text-sm text-gray-600 mt-2">Get access to your 7-day free trial setup.</p>
                                         </div>
 
-                                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                                            <div className="space-y-6">
-                                                {/* Name */}
-                                                <div className="space-y-2">
-                                                    <label htmlFor="name" className="block text-sm font-semibold text-gray-800">
-                                                        Name*
-                                                    </label>
-                                                    <div className="relative">
-                                                        <input
-                                                            type="text"
-                                                            id="name"
-                                                            placeholder="John Doe"
-                                                            {...register("name")}
-                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.name
-                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                                : touchedFields.name
-                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                                    : "border-gray-300 focus:ring-blue-500/10"
-                                                                }`}
-                                                        />
-                                                        <User className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                        {touchedFields.name && !errors.name && (
-                                                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
-                                                        )}
-                                                        {errors.name && (
-                                                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
-                                                        )}
-                                                    </div>
-                                                    {errors.name && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.name.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                {/* Email */}
-                                                <div className="space-y-2">
-                                                    <label htmlFor="email" className="block text-sm font-semibold text-gray-800">
-                                                        Email*
-                                                    </label>
-                                                    <div className="relative">
-                                                        <input
-                                                            type="email"
-                                                            id="email"
-                                                            placeholder="you@example.com"
-                                                            {...register("email")}
-                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all ${errors.email
-                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                                : touchedFields.email
-                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                                    : "border-gray-300 focus:ring-blue-500/10"
-                                                                }`}
-                                                        />
-                                                        <Mail className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                        {touchedFields.email && !errors.email && (
-                                                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
-                                                        )}
-                                                        {errors.email && (
-                                                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
-                                                        )}
-                                                    </div>
-                                                    {errors.email && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.email.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                {/* Company Name */}
-                                                <div className="space-y-2">
-                                                    <label htmlFor="companyName" className="block text-sm font-semibold text-gray-800">
-                                                        Company Name*
-                                                    </label>
-                                                    <div className="relative">
-                                                        <input
-                                                            type="text"
-                                                            id="companyName"
-                                                            placeholder="Acme Corp"
-                                                            {...register("companyName")}
-                                                            className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.companyName
-                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                                : touchedFields.companyName
-                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                                    : "border-gray-300 focus:ring-blue-500/10"
-                                                                }`}
-                                                        />
-                                                        <Building2 className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                        {touchedFields.companyName && !errors.companyName && (
-                                                            <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
-                                                        )}
-                                                        {errors.companyName && (
-                                                            <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
-                                                        )}
-                                                    </div>
-                                                    {errors.companyName && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.companyName.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                {/* GST No */}
-                                                <div className="space-y-2">
-                                                    <label htmlFor="gstNo" className="block text-sm font-semibold text-gray-800">
-                                                        GST Number (Optional)
-                                                    </label>
-                                                    <div className="relative">
-                                                        <input
-                                                            type="text"
-                                                            id="gstNo"
-                                                            placeholder="22AAAAA0000A1Z5"
-                                                            {...register("gstNo")}
-                                                            className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all"
-                                                        />
-                                                        <FileText className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                    </div>
-                                                </div>
-
-                                                {/* Mobile Number */}
-                                                <div className="space-y-2">
-                                                    <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-800">
-                                                        Mobile Number*
-                                                    </label>
-                                                    <div className="flex gap-2">
-                                                        <div className="relative flex-shrink-0">
-                                                            <select
-                                                                id="countryCode"
-                                                                {...register("countryCode")}
-                                                                className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
-                                                            >
-                                                                <option value="+91">🇮🇳 (+91)</option>
-                                                                <option value="+1">🇺🇸 (+1)</option>
-                                                                <option value="+44">🇬🇧 (+44)</option>
-                                                                <option value="+61">🇦🇺 (+61)</option>
-                                                            </select>
-                                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-                                                                <ChevronDown className="h-4 w-4" />
-                                                            </div>
-                                                        </div>
-                                                        <div className="relative flex-grow">
-                                                            <input
-                                                                type="tel"
-                                                                id="phoneNumber"
-                                                                placeholder="98765 43210"
-                                                                {...register("phoneNumber")}
-                                                                className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
-                                                                    ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                                    : touchedFields.phoneNumber
-                                                                        ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                                        : "border-gray-300 focus:ring-blue-500/10"
-                                                                    }`}
-                                                            />
-                                                            <Phone className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
-                                                            {touchedFields.phoneNumber && !errors.phoneNumber && (
-                                                                <CheckCircle className="absolute right-4 top-3.5 h-5 w-5 text-green-500" />
-                                                            )}
-                                                            {errors.phoneNumber && (
-                                                                <AlertCircle className="absolute right-4 top-3.5 h-5 w-5 text-red-500" />
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    {errors.phoneNumber && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.phoneNumber.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                {/* Dropdown Field */}
-                                                <div className="space-y-2">
-                                                    <label htmlFor="dropdownValue" className="block text-sm font-semibold text-gray-800">
-                                                        Select Option*
-                                                    </label>
-                                                    <div className="relative">
-                                                        <select
-                                                            id="dropdownValue"
-                                                            {...register("dropdownValue")}
-                                                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.dropdownValue
-                                                                ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                                                : touchedFields.dropdownValue
-                                                                    ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
-                                                                    : "border-gray-300 focus:ring-blue-500/10"
-                                                                }`}
-                                                        >
-                                                            <option value="" disabled hidden>Choose an option</option>
-                                                            <option value="value1">Option 1</option>
-                                                            <option value="value2">Option 2</option>
-                                                            <option value="value3">Option 3</option>
-                                                        </select>
-                                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400">
-                                                            <ChevronDown className="h-5 w-5" />
-                                                        </div>
-                                                    </div>
-                                                    {errors.dropdownValue && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.dropdownValue.message}
-                                                        </p>
-                                                    )}
-                                                </div>
+                                        {/* Toggle Slider for Account Type */}
+                                        <div className="mb-8">
+                                            <div className="bg-slate-200/70 p-1.5 rounded-2xl flex items-center relative border border-slate-300/60 shadow-inner">
+                                                <div
+                                                    className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md transition-all duration-300 ease-out ${accountType === "business" ? "left-1.5" : "left-[calc(50%+3px)]"
+                                                        }`}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setAccountType("business")}
+                                                    className={`flex-1 py-3 text-sm font-bold rounded-xl relative z-10 transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer select-none ${accountType === "business" ? "text-white" : "text-gray-600 hover:text-gray-900"
+                                                        }`}
+                                                >
+                                                    <Building2 className="h-4 w-4" />
+                                                    Business Entity
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setAccountType("professional")}
+                                                    className={`flex-1 py-3 text-sm font-bold rounded-xl relative z-10 transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer select-none ${accountType === "professional" ? "text-white" : "text-gray-600 hover:text-gray-900"
+                                                        }`}
+                                                >
+                                                    <Briefcase className="h-4 w-4" />
+                                                    Professionals
+                                                </button>
                                             </div>
+                                        </div>
 
-                                            {/* Terms & Conditions consent checkboxes */}
-                                            <div className="space-y-4 pt-2">
-                                                {/* Consent to Terms Checkbox */}
-                                                <div className="space-y-2">
-                                                    <div className="flex items-start space-x-3">
-                                                        <input
-                                                            type="checkbox"
-                                                            id="agreeToTerms"
-                                                            checked={agreeToTerms || false}
-                                                            onChange={(e) => {
-                                                                setValue("agreeToTerms", e.target.checked, { shouldValidate: true, shouldTouch: true })
-                                                            }}
-                                                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                                                        />
-                                                        <label htmlFor="agreeToTerms" className="text-sm font-medium text-gray-700 cursor-pointer select-none leading-relaxed">
-                                                            I consent to DigitalRakshak to process my data as per the{" "}
-                                                            <Link href="/privacy-policy" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5 font-semibold">
-                                                                Privacy Policy <ExternalLink className="h-2.5 w-2.5" />
-                                                            </Link>{" "}
-                                                            and{" "}
-                                                            <Link href="/terms-and-conditions" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5 font-semibold">
-                                                                Terms & Services <ExternalLink className="h-2.5 w-2.5" />
-                                                            </Link>. *
-                                                        </label>
-                                                    </div>
-                                                    {errors.agreeToTerms && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.agreeToTerms.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                {/* Consent to Marketing Checkbox */}
-                                                <div className="space-y-2">
-                                                    <div className="flex items-start space-x-3">
-                                                        <input
-                                                            type="checkbox"
-                                                            id="agreeToMarketing"
-                                                            checked={agreeToMarketing || false}
-                                                            onChange={(e) => {
-                                                                setValue("agreeToMarketing", e.target.checked, { shouldValidate: true, shouldTouch: true })
-                                                            }}
-                                                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                                                        />
-                                                        <label htmlFor="agreeToMarketing" className="text-sm font-medium text-gray-700 cursor-pointer select-none leading-relaxed">
-                                                            I agree to receive marketing communications and acknowledge that I can opt out at any time by writing to{" "}
-                                                            <Link href="mailto:privacy@digitalrakshak.com" className="text-blue-600 hover:underline font-semibold">
-                                                                privacy@digitalrakshak.com
-                                                            </Link>. *
-                                                        </label>
-                                                    </div>
-                                                    {errors.agreeToMarketing && (
-                                                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
-                                                            <AlertCircle className="h-3.5 w-3.5" />
-                                                            {errors.agreeToMarketing.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-
-                                                {/* Select All Checkbox */}
-                                                <div className="space-y-2 pt-2 border-t border-gray-100">
-                                                    <div className="flex items-start space-x-3">
-                                                        <input
-                                                            type="checkbox"
-                                                            id="selectAll"
-                                                            checked={selectAll || false}
-                                                            onChange={(e) => {
-                                                                const checked = e.target.checked
-                                                                setValue("selectAll", checked, { shouldValidate: true })
-                                                                setValue("agreeToTerms", checked, { shouldValidate: true, shouldTouch: true })
-                                                                setValue("agreeToMarketing", checked, { shouldValidate: true, shouldTouch: true })
-                                                            }}
-                                                            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                                                        />
-                                                        <label htmlFor="selectAll" className="text-sm font-semibold text-gray-800 cursor-pointer select-none leading-relaxed">
-                                                            Select all
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <Button
-                                                type="submit"
-                                                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3.5 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
-                                                disabled={isSubmitting || !isValid}
-                                            >
-                                                {isSubmitting ? "Creating Account..." : "Submit"}
-                                                {!isSubmitting && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
-                                            </Button>
-                                        </form>
-
-                                        {/* <div className="mt-6 text-center">
-                                            <p className="text-sm text-gray-600">
-                                                Already have an account?{" "}
-                                                <Link href="/#" className="text-blue-600 hover:underline font-semibold">
-                                                    Sign in here
-                                                </Link>
-                                            </p>
-                                        </div> */}
+                                        {/* Render Separate Form for each tab */}
+                                        {accountType === "business" ? (
+                                            <BusinessEntityForm onSuccess={handleSuccess} />
+                                        ) : (
+                                            <ProfessionalForm onSuccess={handleSuccess} />
+                                        )}
                                     </>
                                 ) : (
                                     /* Success State View - Animated */
