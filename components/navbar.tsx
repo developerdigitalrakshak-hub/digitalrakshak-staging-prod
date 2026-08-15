@@ -1793,7 +1793,7 @@ export default function Bar() {
             { name: 'KYC - OCR', href: '/kyc-ocr', description: 'Optical character recognition for KYC', isNew: true },
             { name: 'Email / Mobile Verification', href: '/email-and-mobile-verification', description: 'Channel verification', isNew: true },
             { name: 'Email Fraud Check', description: 'Detect email fraud' },
-            { name: 'Mobile No. Revocation List (MNRL)', description: 'Check mobile revocation' }
+            { name: 'Mobile No. Revocation List (MNRL)', href: '/mnrl-verification', description: 'Check mobile revocation', isNew: true }
           ]
         },
         {
@@ -1802,8 +1802,8 @@ export default function Bar() {
           services: [
             { name: 'Aadhar Card', description: 'Aadhar verification' },
             { name: 'PAN Card', description: 'PAN verification' },
-            { name: 'Passport', description: 'Passport verification' },
-            { name: 'Voter ID', description: 'Voter ID verification' },
+            { name: 'Passport', href: '/passport-verification', description: 'Passport verification', isNew: true },
+            { name: 'Voter ID', href: '/voter-id-verification', description: 'Voter ID verification', isNew: true },
             { name: 'Ration Card Details', description: 'Ration card verification' }
           ]
         }
@@ -1859,9 +1859,9 @@ export default function Bar() {
           name: 'Forgery Detection',
           description: 'Advanced forgery and fraud detection',
           services: [
-            { name: 'Global DB - Negative Media Check', description: 'Global database screening' },
-            { name: 'Advance Forgery Check', description: 'Advanced forgery detection' },
-            { name: 'IP Quality Check', description: 'IP reputation check' }
+            { name: 'Global DB - Negative Media Check', href: '/negative-due-diligence', description: 'Global database screening' },
+            { name: 'Advance Forgery Check', href: '/document-forgery-detection', description: 'Advanced forgery detection' },
+            { name: 'IP Quality Check', href: '/ip-quality-check', description: 'IP reputation check'}
           ]
         }
       ]
@@ -1887,25 +1887,28 @@ export default function Bar() {
           isNew: true,
           services: [
             { name: 'Company & LLP Check', description: 'Company and LLP verification' },
+            { name: 'ROC Director Search', href: '/roc-director-search', description: 'Director DIN & MCA records search'},
             { name: 'PAN Verify', description: 'Business PAN verification' },
-            { name: 'TAN Verify', description: 'TAN verification' },
+            { name: 'TAN Verify', href: '/tan-verification', description: 'TAN verification', isNew: true },
             { name: 'TIN Verify', description: 'TIN verification' },
-            { name: 'GSTIN Verify', description: 'GST registration verification' },
+            { name: 'GSTIN Verify', href: '/gstin-verify', description: 'GST registration verification', isNew: true },
             { name: 'Import / Export Certificate', description: 'Import/export verification' },
             { name: 'Shop & Establishment', href: '/shop-establishment', description: 'Shop registration verification', isNew: true },
-            { name: 'MSME / Udyam', description: 'MSME registration check' },
-            { name: 'EPFO Establishment Search', description: 'EPFO verification' }
+            { name: 'MSME / Udyam', href: '/msme-udyam-verification', description: 'MSME registration check', isNew: true },
+            { name: 'EPFO Establishment Search', href: '/epfo-establishment-search', description: 'EPFO verification', isNew: true }
           ]
         },
         {
           name: 'GST Verification',
+          href: '/gstin-verify',
           description: 'KPI for GST online verification',
+          isNew: true,
           services: [
-            { name: 'Prevent Fraudulent Invoices', description: 'Company and LLP verification' },
-            { name: 'Ensure Input Tax Credit (ITC) Compliance', description: 'Business PAN verification' },
-            { name: 'Enhance Audit Preparedness', description: 'TAN verification' },
-            { name: 'Reduce Administrative Errors', description: 'TIN verification' },
-            { name: 'Build Vendor Transparency and Business Trust', description: 'GST registration verification' },
+            { name: 'Prevent Fraudulent Invoices', description: '' },
+            { name: 'Ensure Input Tax Credit (ITC) Compliance', description: '' },
+            { name: 'Enhance Audit Preparedness', description: '' },
+            { name: 'Reduce Administrative Errors', description: '' },
+            { name: 'Build Vendor Transparency and Business Trust', description: '' },
           ]
         }
       ]
@@ -1956,15 +1959,18 @@ export default function Bar() {
           name: 'Financial Verification',
           description: 'Financial records and history verification',
           services: [
-            { name: 'Bank Account Verification', description: 'Bank account validation' },
+            { name: 'Bank Account Verification', href: '/bank-account-verification', description: 'Bank account validation', isNew: true },
+            { name: 'Hybrid Bank Account Verification', href: '/hybrid-bank-account-verification', description: 'Hybrid Bank Account Verification' },
             { name: 'Compensation Verification', description: 'Verify via bank statement' },
-            { name: 'IFSC Check', description: 'IFSC code verification' },
-            { name: 'Income Tax Return - ITR', description: 'ITR verification' },
+            { name: 'IFSC Check', href: '/ifsc-check', description: 'IFSC code verification', isNew: true },
+            { name: 'Income Tax Return - ITR', href: '/itr-verification', description: 'ITR verification', isNew: true },
+            { name: 'ITR Fetch', href: '/itr-fetch', description: 'ITR Fetch'},
             { name: 'Credit / CIBIL History', description: 'Credit history check' },
             { name: 'Digital Media Forensic', description: 'Digital forensics' },
             { name: 'Social Media & Reputation', description: 'Social media screening' },
             { name: 'Cheque Verify', description: 'Cheque verification' },
-            { name: 'OCR - Intelligent Doc Processing', description: 'Document OCR' }
+            { name: 'OCR - Intelligent Doc Processing', description: 'Document OCR' },
+            { name: 'Experian Credit Bureau', href: '/experian-credit-bureau', description: 'Experian Business Credit Bureau'}
           ]
         }
       ]
@@ -1978,9 +1984,10 @@ export default function Bar() {
           name: 'Vehicle & Transportation',
           description: 'Automobile verification and Tracking',
           services: [
-            { name: 'Driving Licence (DL)', description: 'DL verification' },
-            { name: 'Vehicle RC Verification', description: 'RC verification' },
-            { name: 'Fast Tag Verification', description: 'FASTag verification' },
+            { name: 'Driving Licence (DL)', href: '/driving-licence-verification', description: 'DL verification', isNew: true },
+            { name: 'Vehicle RC Verification', href: '/vehicle-rc-verification', description: 'RC verification', isNew: true },
+            { name: 'Vehicle Reverse RC', href: '/vehicle-reverse-rc', description: 'Vehicle Reverse RC'},
+            { name: 'Fast Tag Verification', href: '/fastag-verification', description: 'FASTag verification', isNew: true },
             { name: 'FASTTAG Last Location', description: 'FASTag location tracking' },
           ]
         }
