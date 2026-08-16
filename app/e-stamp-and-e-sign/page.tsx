@@ -22,7 +22,12 @@ import {
   Check,
   Sparkles,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Search,
+  Filter,
+  BookOpen,
+  Table as TableIcon,
+  Eye
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
@@ -30,6 +35,8 @@ import { useRouter } from 'next/navigation'
 export default function EStampAndESignPage() {
   const router = useRouter()
   const [isTableExpanded, setIsTableExpanded] = useState(false)
+  const [articleSearch, setArticleSearch] = useState('')
+  const [articleCategory, setArticleCategory] = useState('All')
 
   const documentTypes = [
     "Rent / Lease Agreement",
@@ -45,6 +52,12 @@ export default function EStampAndESignPage() {
   ]
 
   const articleCodes = [
+    {
+      art: "Art. 3",
+      docType: "Affidavit",
+      useCase: "Statutory declarations, court submissions",
+      basis: "Fixed amount"
+    },
     {
       art: "Art. 5",
       docType: "Agreement / MoU",
@@ -80,12 +93,6 @@ export default function EStampAndESignPage() {
       docType: "Power of Attorney",
       useCase: "General & specific PoA for property, legal matters",
       basis: "Fixed (general) / ad valorem (with consideration)"
-    },
-    {
-      art: "Art. 3",
-      docType: "Affidavit",
-      useCase: "Statutory declarations, court submissions",
-      basis: "Fixed amount"
     }
   ]
 
@@ -220,7 +227,7 @@ export default function EStampAndESignPage() {
               variant="outline"
               size="lg"
               className="border-gray-300 dark:border-gray-700 text-lg h-14 px-8 rounded-full transition-all w-full sm:w-auto"
-              onClick={() => router.push('/contact')}
+              onClick={() => router.push('/register')}
             >
               Book Demo
             </Button>
@@ -305,53 +312,122 @@ export default function EStampAndESignPage() {
       </section>
 
       {/* Stamp Duty Reference - Common Article Codes Section */}
-      <section className="px-6 py-16 md:py-24 bg-background border-b border-border/40">
-        <div className="max-w-6xl mx-auto space-y-12">
+      <section className="px-6 py-10 md:py-14 bg-background border-b border-border/40 relative overflow-hidden">
+        {/* Subtle ambient lighting backdrops */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-blue-500/10 blur-[100px] rounded-full pointer-events-none -z-10" />
+
+        <div className="max-w-6xl mx-auto space-y-10">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-amber-600/10 border border-blue-500/20 dark:border-purple-500/20 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-amber-500/15 via-purple-500/15 to-blue-500/15 border border-amber-500/30 dark:border-purple-500/30 text-amber-600 dark:text-amber-400 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
+              <BookOpen className="w-3.5 h-3.5" />
               Stamp Duty Reference
             </div>
             <h2 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight text-balance">
               Common Article Codes — <span className="bg-gradient-to-r from-amber-500 via-purple-600 to-blue-600 bg-clip-text text-transparent">Schedule I, Indian Stamp Act 1899</span>
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed text-pretty">
-              The Indian Stamp Act defines ~65 article codes in Schedule I. Rates vary by state — the table below shows the most frequently stamped document types. For the full schedule or state-specific rates, use the official references linked below.
+              The Indian Stamp Act defines ~65 article codes in Schedule I. Rates vary by state — explore the table below for the most frequently stamped document types.
             </p>
           </div>
 
-          {/* Toggle Button */}
-          <div className="flex justify-center pt-2">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setIsTableExpanded(!isTableExpanded)}
-              className="relative group overflow-hidden border-blue-500/20 hover:border-blue-500/50 dark:border-purple-500/20 dark:hover:border-purple-500/50 bg-card hover:bg-muted text-foreground transition-all duration-300 rounded-full px-8 h-12 shadow-sm hover:shadow-md flex items-center gap-2.5 font-bold"
-            >
-              {/* Subtle hover background highlight */}
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-              
-              <span className="relative flex items-center gap-2">
-                {isTableExpanded ? (
-                  <>
-                    Hide Common Article Codes Table
-                    <ChevronUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 text-amber-500 dark:text-amber-400" />
-                  </>
-                ) : (
-                  <>
-                    View Common Article Codes Table
-                    <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5 text-blue-500 dark:text-blue-400" />
-                  </>
-                )}
-              </span>
-            </Button>
+          {/* Glowing Animated Toggle Button */}
+          <div className="flex flex-col items-center justify-center pt-2 gap-3">
+            <div className="relative group cursor-pointer">
+              {/* Outer Pulsing Glow Aura */}
+              <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-amber-500 via-purple-600 to-blue-600 opacity-65 blur-md group-hover:opacity-100 transition duration-500 animate-pulse-halo" />
+
+              {/* Animated Gradient Border Frame */}
+              <div className="relative p-[2px] rounded-full bg-gradient-to-r from-amber-500 via-purple-500 to-blue-600 animate-gradient-shift shadow-xl">
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  onClick={() => setIsTableExpanded(!isTableExpanded)}
+                  className="relative overflow-hidden bg-card dark:bg-slate-950 hover:bg-muted/80 text-foreground rounded-full px-8 h-14 shadow-inner flex items-center gap-3.5 font-bold transition-all duration-300 transform active:scale-95 group-hover:scale-[1.01]"
+                >
+                  {/* Shimmer Light Sheen Overlay */}
+                  <span className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+
+                  {/* Pulsing Live Beacon Indicator */}
+                  <span className="relative flex h-3 w-3 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"></span>
+                  </span>
+
+                  {/* Button Label & Icons */}
+                  <span className="relative flex items-center gap-2.5 text-base md:text-lg tracking-tight">
+                    {isTableExpanded ? (
+                      <>
+                        <span className="bg-gradient-to-r from-amber-600 via-purple-600 to-blue-600 dark:from-amber-400 dark:via-purple-300 dark:to-blue-400 bg-clip-text text-transparent font-black">
+                          Hide Common Article Codes Table
+                        </span>
+                        <div className="p-1 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                          <ChevronUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <span className="bg-gradient-to-r from-amber-600 via-purple-600 to-blue-600 dark:from-amber-300 dark:via-purple-300 dark:to-blue-300 bg-clip-text text-transparent font-black">
+                          View Common Article Codes Table
+                        </span>
+                        <span className="ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-500/10 text-amber-600 dark:text-amber-300 border border-amber-500/20">
+                          Schedule I
+                        </span>
+                        <div className="p-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                          <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                        </div>
+                      </>
+                    )}
+                  </span>
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-xs text-muted-foreground font-medium flex items-center gap-1.5 animate-pulse">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              Click to toggle interactive article code schedule & search
+            </p>
           </div>
 
           {/* Collapsible Table Section */}
           <div className={`grid transition-[grid-template-rows,opacity,margin-top] duration-500 ease-in-out ${isTableExpanded ? 'grid-rows-[1fr] opacity-100 mt-8' : 'grid-rows-[0fr] opacity-0 mt-0 pointer-events-none'}`}>
-            <div className="overflow-hidden space-y-8">
-              {/* Table Container */}
-              <div className="relative rounded-2xl md:rounded-3xl border border-border/80 bg-card shadow-xl overflow-hidden">
+            <div className="overflow-hidden space-y-6">
+              {/* Controls Bar: Search & Category Filter Pills */}
+              <div className="p-4 rounded-2xl bg-card border border-border/80 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
+                {/* Search Box */}
+                <div className="relative w-full sm:w-72">
+                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search Article or Document..."
+                    value={articleSearch}
+                    onChange={(e) => setArticleSearch(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 text-xs md:text-sm bg-muted/50 rounded-xl border border-border/60 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                  />
+                </div>
+
+                {/* Category Filter Pills */}
+                <div className="flex flex-wrap items-center justify-center gap-1.5 w-full sm:w-auto">
+                  {['All', 'Agreements', 'Property & Lease', 'Affidavits & PoA'].map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setArticleCategory(cat)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 ${articleCategory === cat
+                        ? 'bg-gradient-to-r from-amber-500 to-purple-600 text-white shadow-sm scale-105'
+                        : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground'
+                        }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Main Table Container */}
+              <div className="relative rounded-2xl md:rounded-3xl border border-border/80 bg-card shadow-2xl overflow-hidden backdrop-blur-md">
+                {/* Top Animated Gradient Accent Bar */}
+                <div className="h-1.5 bg-gradient-to-r from-amber-500 via-purple-600 to-blue-600 animate-gradient-shift" />
+
                 {/* Scroll Indicator for Mobile */}
                 <div className="sm:hidden px-4 py-2 bg-muted/60 border-b border-border/50 text-[11px] text-muted-foreground text-center font-medium flex items-center justify-center gap-1.5">
                   <span>Scroll horizontally to view full table</span>
@@ -361,35 +437,51 @@ export default function EStampAndESignPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse min-w-[700px]">
                     <thead>
-                      <tr className="bg-gradient-to-r from-amber-600 via-purple-600 to-indigo-600 text-white text-xs md:text-sm uppercase tracking-wider font-semibold">
+                      <tr className="bg-gradient-to-r from-amber-600/90 via-purple-700/90 to-indigo-700/90 text-white text-xs md:text-sm uppercase tracking-wider font-semibold">
                         <th className="py-4 px-6 w-36">Article No.</th>
-                        <th className="py-4 px-6 w-52">Document Type</th>
+                        <th className="py-4 px-6 w-56">Document Type</th>
                         <th className="py-4 px-6">Common Use Case</th>
                         <th className="py-4 px-6 w-64">Typical Basis</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border/60 text-sm">
-                      {articleCodes.map((item, idx) => (
-                        <tr
-                          key={idx}
-                          className="hover:bg-muted/40 transition-colors duration-150 group"
-                        >
-                          <td className="py-4 px-6 font-bold">
-                            <span className="inline-block px-3 py-1 rounded-lg bg-amber-500/10 dark:bg-amber-400/10 text-amber-600 dark:text-amber-400 text-xs md:text-sm font-black border border-amber-500/20">
-                              {item.art}
-                            </span>
-                          </td>
-                          <td className="py-4 px-6 font-bold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {item.docType}
-                          </td>
-                          <td className="py-4 px-6 text-muted-foreground leading-relaxed">
-                            {item.useCase}
-                          </td>
-                          <td className="py-4 px-6 font-medium text-foreground/90">
-                            {item.basis}
-                          </td>
-                        </tr>
-                      ))}
+                      {articleCodes
+                        .filter((item) => {
+                          const matchesSearch =
+                            item.art.toLowerCase().includes(articleSearch.toLowerCase()) ||
+                            item.docType.toLowerCase().includes(articleSearch.toLowerCase()) ||
+                            item.useCase.toLowerCase().includes(articleSearch.toLowerCase()) ||
+                            item.basis.toLowerCase().includes(articleSearch.toLowerCase());
+                          if (articleCategory === 'All') return matchesSearch;
+                          if (articleCategory === 'Affidavits & PoA')
+                            return matchesSearch && (item.art === 'Art. 3' || item.art === 'Art. 48');
+                          if (articleCategory === 'Agreements')
+                            return matchesSearch && (item.art === 'Art. 5' || item.art === 'Art. 15');
+                          if (articleCategory === 'Property & Lease')
+                            return matchesSearch && (item.art === 'Art. 23' || item.art === 'Art. 35' || item.art === 'Art. 40');
+                          return matchesSearch;
+                        })
+                        .map((item, idx) => (
+                          <tr
+                            key={idx}
+                            className="hover:bg-muted/50 transition-all duration-200 group relative"
+                          >
+                            <td className="py-4 px-6 font-bold">
+                              <span className="inline-block px-3 py-1 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 text-amber-600 dark:text-amber-400 text-xs md:text-sm font-black border border-amber-500/20 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-purple-600 group-hover:text-white group-hover:border-transparent transition-all duration-300 group-hover:shadow-md group-hover:shadow-amber-500/20">
+                                {item.art}
+                              </span>
+                            </td>
+                            <td className="py-4 px-6 font-bold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                              {item.docType}
+                            </td>
+                            <td className="py-4 px-6 text-muted-foreground leading-relaxed">
+                              {item.useCase}
+                            </td>
+                            <td className="py-4 px-6 font-medium text-foreground/90">
+                              {item.basis}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
@@ -483,7 +575,7 @@ export default function EStampAndESignPage() {
       <section className="px-6 py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-            Ready to Go 100% Paperless with E-Sign?
+            Ready to Go 100% Paperless?
           </h2>
           <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto">
             Transform your document execution workflows today with DigitalRakshak's E-Stamp & E-Sign infrastructure.

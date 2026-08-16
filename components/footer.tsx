@@ -20,6 +20,13 @@ const footerServicesData = [
             { name: 'Document Intelligence', href: '#' },
             { name: 'Crime & Background Verification', href: '#' },
             { name: 'Business & ID Stack', href: '/business-verification' },
+            // { name: 'GSTIN Verification', href: '/gstin-verify' },
+            // { name: 'Bank Account Verification', href: '/bank-account-verification' },
+            // { name: 'IP Quality Check', href: '/ip-quality-check' },
+            // { name: 'EPFO Establishment Search', href: '/epfo-establishment-search' },
+            // { name: 'Passport Verification', href: '/passport-verification' },
+            // { name: 'Voter ID Verification', href: '/voter-id-verification' },
+            // { name: 'Driving License Verification', href: '/driving-licence-verification' },
             { name: 'Employment Check', href: '#' },
             { name: 'Education Check', href: '#' },
             { name: 'Banking Due Diligence', href: '#' },
@@ -59,7 +66,6 @@ const footerServicesData = [
     {
         name: 'Digital Trust',
         subservices: [
-            { name: 'e-Sign', href: '/e-stamp-and-e-sign' },
             { name: 'e-Stamping', href: '/e-stamp-and-e-sign' },
         ]
     }
@@ -128,7 +134,7 @@ export default function Footer() {
                     font-weight: 700;
                     line-height: 1.15;
                     letter-spacing: -0.02em;
-                    max-width: calc(100% - 150px);
+                    max-width: 100%;
                     margin: 0 0 1.75rem;
                 }
                 .cta-btn {
@@ -195,22 +201,23 @@ export default function Footer() {
                     border-radius: 40px 40px 0 0;
                 }
                 .footer-inner {
-                    max-width: 85%;
+                    max-width: 1400px;
+                    width: 92%;
                     margin: 0 auto;
-                    padding: 0 2rem 2.5rem;
+                    padding: 0 1.5rem 2.5rem;
                 }
 
                 /* ── GRID ── */
                 .footer-grid {
                     display: grid;
-                    grid-template-columns: 2.2fr 1.5fr 1.8fr 1.8fr 1.5fr 1.5fr;
-                    gap: 2.5rem 2rem;
+                    grid-template-columns: 2.2fr 1.3fr 1.5fr 1.1fr 1.3fr 1.3fr;
+                    gap: 2.5rem 1.75rem;
                     padding-bottom: 3rem;
                 }
 
                 /* ── BRAND ── */
                 .brand-logo {
-                min-width: 260px;
+                    min-width: 240px;
                     display: flex;
                     align-items: center;
                     gap: 0.75rem;
@@ -292,7 +299,7 @@ export default function Footer() {
                     gap: 0.6rem;
                 }
                 .service-list a {
-                    font-size: 1rem;
+                    font-size: 0.95rem;
                     color: #c7c7c7;
                     text-decoration: none;
                     display: flex;
@@ -339,7 +346,7 @@ export default function Footer() {
                     color: #6366f1;
                 }
                 .contact-text {
-                    font-size: 1rem;
+                    font-size: 0.95rem;
                     color: #c7c7c7;
                     text-decoration: none;
                     line-height: 1.5;
@@ -364,7 +371,7 @@ export default function Footer() {
                 }
                 .footer-copyright {
                     font-size: 0.78rem;
-                    color: #334155;
+                    color: #64748b;
                 }
                 .footer-links {
                     display: flex;
@@ -372,58 +379,20 @@ export default function Footer() {
                 }
                 .footer-links a {
                     font-size: 0.78rem;
-                    color: #334155;
+                    color: #64748b;
                     text-decoration: none;
                     transition: color 0.2s;
                 }
-                .footer-links a:hover { color: #64748b; }
+                .footer-links a:hover { color: #94a3b8; }
 
                 /* ── RESPONSIVE ── */
 
-                /* Laptop / large tablet: 2-col service area */
-                @media (max-width: 1800px) {
-                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
-                }
-                /* Laptop / large tablet: 2-col service area */
-                @media (max-width: 1700px) {
+                @media (max-width: 1380px) {
+                    .footer-inner { max-width: 95%; padding: 0 1.5rem 2rem; }
                     .footer-grid {
-                        grid-template-columns: 2fr 2fr 2fr;
-                        grid-template-rows: auto auto;
+                        grid-template-columns: 1.8fr 1.3fr 1.3fr;
+                        gap: 3rem 2.5rem;
                     }
-                }
-                /* Laptop / large tablet: 2-col service area */
-                @media (max-width: 1600px) {
-                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
-                }
-                /* Laptop / large tablet: 2-col service area */
-                @media (max-width: 1300px) {
-                    .footer-grid {
-                        grid-template-columns: 2fr 2fr 2fr;
-                        grid-template-rows: auto auto;
-                    }
-                    .brand-col {
-                        grid-column: 1 / -1;
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 2rem;
-                        align-items: start;
-                    }
-                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
-                }
-                /* Laptop / large tablet: 2-col service area */
-                @media (max-width: 1100px) {
-                    .footer-grid {
-                        grid-template-columns: 2fr 2fr 2fr;
-                        grid-template-rows: auto auto;
-                    }
-                    .brand-col {
-                        grid-column: 1 / -1;
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 2rem;
-                        align-items: start;
-                    }
-                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
                 }
 
                 /* Tablet */
@@ -436,15 +405,11 @@ export default function Footer() {
                         grid-template-columns: 1fr 1fr;
                         gap: 2rem 1.5rem;
                     }
-                    .brand-col {
-                        grid-column: 1 / -1;
-                        grid-template-columns: 1fr 1fr;
-                    }
-                    .footer-inner { max-width: 90%; padding: 0 1.5rem 2rem; }
+                    .footer-inner { max-width: 94%; padding: 0 1.5rem 2rem; }
                 }
 
                 /* Mobile */
-                @media (max-width: 540px) {
+                @media (max-width: 600px) {
                     .footer-main {
                         margin-top: -80px;
                         padding-top: 110px;
@@ -457,12 +422,12 @@ export default function Footer() {
                         gap: 1.75rem 1.25rem;
                     }
                     .brand-col {
-                        grid-column: 1 / -1;
+                        grid-column: 1;
                         display: flex;
                         flex-direction: column;
                         gap: 0;
                     }
-                    .contact-col { grid-column: 1 / -1; }
+                    .contact-col { grid-column: 1; }
                     .footer-inner { max-width: 100%; padding: 0 1.25rem 1.5rem; }
                     .footer-bottom {
                         flex-direction: column;
@@ -474,7 +439,6 @@ export default function Footer() {
                 /* Very small mobile */
                 @media (max-width: 360px) {
                     .footer-grid { grid-template-columns: 1fr; }
-                    .brand-col, .contact-col { grid-column: 1; }
                 }
             `}</style>
 
