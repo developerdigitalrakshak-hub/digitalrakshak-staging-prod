@@ -82,6 +82,174 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['shop', 'establishment', 'license', 'commercial', 'trade', 'labor', 'business']
   },
   {
+    id: 'gstin-verify',
+    title: 'GSTIN Verification API',
+    description: 'Instant real-time GSTIN lookup, taxpayer profiling, GSTR filing status, and ITC fraud prevention.',
+    href: '/gstin-verify',
+    category: 'Services',
+    keywords: ['gst', 'gstin', 'tax', 'verification', 'api', 'gstr1', 'gstr3b', 'itc', 'taxpayer', 'invoice', 'b2b']
+  },
+  {
+    id: 'bank-account-verification',
+    title: 'Bank Account Verification API',
+    description: 'Instant bank account validation, penny drop name match, IFSC verification, and payout bounce prevention.',
+    href: '/bank-account-verification',
+    category: 'Services',
+    keywords: ['bank', 'account', 'verification', 'penny drop', 'ifsc', 'imps', 'neft', 'payout', 'beneficiary', 'name match', 'banking']
+  },
+  {
+    id: 'ip-quality-check',
+    title: 'IP Quality Check API',
+    description: 'Real-time IP reputation scoring, VPN/Proxy/Tor detection, geolocation intelligence, and bot risk score.',
+    href: '/ip-quality-check',
+    category: 'Services',
+    keywords: ['ip', 'proxy', 'vpn', 'tor', 'bot', 'reputation', 'security', 'geolocation', 'fraud', 'risk', 'ip quality']
+  },
+  {
+    id: 'epfo-establishment-search',
+    title: 'EPFO Establishment Search API',
+    description: 'Real-time EPFO establishment ID lookup, PF active status, ECR filing history, and employer verification.',
+    href: '/epfo-establishment-search',
+    category: 'Services',
+    keywords: ['epfo', 'pf', 'establishment', 'employer', 'ecr', 'provident fund', 'bgv', 'compliance', 'search', 'verification']
+  },
+  {
+    id: 'passport-verification',
+    title: 'Passport Verification API',
+    description: 'Real-time passport number validation, MRZ code OCR extraction, DOB, expiry, and travel document authenticity check.',
+    href: '/passport-verification',
+    category: 'Services',
+    keywords: ['passport', 'mrz', 'ocr', 'travel', 'identity', 'kyc', 'verification', 'visa', 'aviation', 'nri', 'document']
+  },
+  {
+    id: 'voter-id-verification',
+    title: 'Voter ID Verification API',
+    description: 'Real-time EPIC voter ID lookup, ECI electoral roll search, voter name, age, gender, assembly constituency, and state.',
+    href: '/voter-id-verification',
+    category: 'Services',
+    keywords: ['voter', 'epic', 'voter id', 'eci', 'election', 'constituency', 'kyc', 'identity', 'verification', 'address', 'age']
+  },
+  {
+    id: 'driving-licence-verification',
+    title: 'Driving License (DL) Verification API',
+    description: 'Real-time Driving License validation, vehicle class endorsements, expiry date, RTO jurisdiction, and Sarathi database lookup.',
+    href: '/driving-licence-verification',
+    category: 'Services',
+    keywords: ['dl', 'driving license', 'parivahan', 'sarathi', 'rto', 'vehicle', 'driver', 'kyc', 'verification', 'lmv', 'hmv']
+  },
+  {
+    id: 'vehicle-rc-verification',
+    title: 'Vehicle RC Verification API',
+    description: 'Real-time vehicle Registration Certificate (RC) lookup, owner details, insurance validity, PUCC, and chassis/engine numbers.',
+    href: '/vehicle-rc-verification',
+    category: 'Services',
+    keywords: ['rc', 'vehicle', 'registration', 'vahan', 'parivahan', 'chassis', 'engine', 'insurance', 'pucc', 'rto', 'car', 'bike']
+  },
+  {
+    id: 'fastag-verification',
+    title: 'FASTag Verification API',
+    description: 'Real-time FASTag account lookup, Tag ID verification, active/blacklist status, issuing bank, and vehicle VRN match.',
+    href: '/fastag-verification',
+    category: 'Services',
+    keywords: ['fastag', 'toll', 'npci', 'netc', 'tag id', 'vrn', 'vehicle', 'bank', 'blacklist', 'fleet', 'verification']
+  },
+  {
+    id: 'ifsc-check',
+    title: 'IFSC Code Verification API',
+    description: 'Real-time IFSC code lookup, bank branch details, MICR code, NEFT/IMPS/RTGS transfer capability, and RBI directory sync.',
+    href: '/ifsc-check',
+    category: 'Services',
+    keywords: ['ifsc', 'bank', 'branch', 'micr', 'neft', 'imps', 'rtgs', 'upi', 'rbi', 'payout', 'verification']
+  },
+  {
+    id: 'itr-verification',
+    title: 'Income Tax Return (ITR) Verification API',
+    description: 'Real-time ITR filing verification, gross income, taxable income, acknowledgment number, assessment year, and ITD portal sync.',
+    href: '/itr-verification',
+    category: 'Services',
+    keywords: ['itr', 'income tax', 'tax return', 'gross income', 'acknowledgment', 'pan', 'itd', 'financial', 'kyc', 'underwriting']
+  },
+  {
+    id: 'msme-udyam-verification',
+    title: 'MSME / Udyam Registration Verification API',
+    description: 'Real-time Udyam Registration Number (URN) lookup without OTP, enterprise category (Micro/Small/Medium), DIC, and NIC activity.',
+    href: '/msme-udyam-verification',
+    category: 'Services',
+    keywords: ['msme', 'udyam', 'urn', 'enterprise', 'micro', 'small', 'medium', 'vendor', 'psl', 'dic', 'nic', 'business']
+  },
+  {
+    id: 'tan-verification',
+    title: 'TAN Verification API',
+    description: 'Real-time Tax Deduction Account Number (TAN) lookup, deductor legal entity name, AO code jurisdiction, and TDS compliance.',
+    href: '/tan-verification',
+    category: 'Services',
+    keywords: ['tan', 'tax deduction', 'deductor', 'ao code', 'tds', 'income tax', 'itd', 'compliance', 'vendor', 'business']
+  },
+  {
+    id: 'mnrl-verification',
+    title: 'TRAI MNRL Verification API',
+    description: 'Real-time TRAI Mobile Number Revocation List (MNRL) check to detect recycled, disconnected, and SIM-swapped phone numbers.',
+    href: '/mnrl-verification',
+    category: 'Services',
+    keywords: ['mnrl', 'trai', 'mobile', 'revocation', 'recycled', 'deactivated', 'sim swap', 'otp fraud', 'telecom', 'jio', 'airtel', 'vi']
+  },
+  {
+    id: 'negative-due-diligence',
+    title: 'Negative Due Diligence & Media Check API',
+    description: 'Real-time adverse media screening, global sanctions, PEP watchlists, court litigation records, and RBI defaulter checks.',
+    href: '/negative-due-diligence',
+    category: 'Services',
+    keywords: ['negative media', 'due diligence', 'sanctions', 'pep', 'interpol', 'adverse news', 'court', 'aml', 'kyc', 'defaulter']
+  },
+  {
+    id: 'document-forgery-detection',
+    title: 'Document Forgery Detection API',
+    description: 'AI-powered document tampering check, image manipulation detection, font & text alignment analysis, and EXIF metadata audit.',
+    href: '/document-forgery-detection',
+    category: 'Services',
+    keywords: ['forgery', 'tampering', 'photoshop', 'manipulation', 'fake document', 'exif', 'font', 'cloning', 'kyc', 'fraud']
+  },
+  {
+    id: 'vehicle-reverse-rc',
+    title: 'Vehicle Reverse RC Verification API',
+    description: 'Real-time reverse vehicle lookup by owner name, mobile number, chassis, or engine number to discover all linked vehicles.',
+    href: '/vehicle-reverse-rc',
+    category: 'Services',
+    keywords: ['reverse rc', 'vehicle', 'vahan', 'owner search', 'chassis', 'engine', 'fleet', 'repossession', 'rc lookup', 'car']
+  },
+  {
+    id: 'hybrid-bank-account-verification',
+    title: 'Hybrid Bank Account Verification API',
+    description: 'Intelligent multi-mode bank account verification combining Penny Drop, Penny-Less, and UPI failover for 100% success rate.',
+    href: '/hybrid-bank-account-verification',
+    category: 'Services',
+    keywords: ['hybrid bank account', 'bank verification', 'penny drop', 'penny-less', 'upi', 'imps', 'beneficiary', 'payout', 'failover']
+  },
+  {
+    id: 'itr-fetch',
+    title: 'ITR Fetch API',
+    description: 'Real-time Income Tax Return (ITR) financial data retrieval, income computation breakdown, Form 26AS/AIS summaries, and ITD sync.',
+    href: '/itr-fetch',
+    category: 'Services',
+    keywords: ['itr fetch', 'income tax fetch', 'tax data retrieval', 'form 26as', 'ais', 'gross income', 'deductions', 'pan', 'underwriting']
+  },
+  {
+    id: 'experian-credit-bureau',
+    title: 'Experian Credit Bureau API',
+    description: 'Real-time Experian credit score retrieval, commercial credit risk rank, active loan accounts, DPD delinquency, and bureau credit reports.',
+    href: '/experian-credit-bureau',
+    category: 'Services',
+    keywords: ['experian', 'credit bureau', 'credit score', 'cmr rank', 'cibil', 'dpd', 'delinquency', 'credit report', 'underwriting', 'loan']
+  },
+  {
+    id: 'roc-director-search',
+    title: 'ROC Director Search API',
+    description: 'Real-time DIN lookup, director associated companies, MCA directorship history, appointment dates, and Section 164 disqualification check.',
+    href: '/roc-director-search',
+    category: 'Services',
+    keywords: ['roc director', 'din', 'mca', 'directorship', 'company director', 'llp partner', 'disqualification', 'corporate governance', 'compliance']
+  },
+  {
     id: 'ai-services',
     title: 'AI & Machine Learning Services',
     description: 'Face matching, anti-spoofing liveness check, document classification, and AI fraud prevention.',
