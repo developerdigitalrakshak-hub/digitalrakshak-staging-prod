@@ -1859,9 +1859,9 @@ export default function Bar() {
           name: 'Forgery Detection',
           description: 'Advanced forgery and fraud detection',
           services: [
-            { name: 'Global DB - Negative Media Check', href: '/negative-due-diligence', description: 'Global database screening' },
-            { name: 'Advance Forgery Check', href: '/document-forgery-detection', description: 'Advanced forgery detection' },
-            { name: 'IP Quality Check', href: '/ip-quality-check', description: 'IP reputation check'}
+            { name: 'Global DB - Negative Media Check', href: '/negative-due-diligence', description: 'Global database screening', isNew: true  },
+            { name: 'Advance Forgery Check', href: '/document-forgery-detection', description: 'Advanced forgery detection', isNew: true  },
+            { name: 'IP Quality Check', href: '/ip-quality-check', description: 'IP reputation check', isNew: true }
           ]
         }
       ]
@@ -1887,7 +1887,7 @@ export default function Bar() {
           isNew: true,
           services: [
             { name: 'Company & LLP Check', description: 'Company and LLP verification' },
-            { name: 'ROC Director Search', href: '/roc-director-search', description: 'Director DIN & MCA records search'},
+            { name: 'ROC Director Search', href: '/roc-director-search', description: 'Director DIN & MCA records search', isNew: true },
             { name: 'PAN Verify', description: 'Business PAN verification' },
             { name: 'TAN Verify', href: '/tan-verification', description: 'TAN verification', isNew: true },
             { name: 'TIN Verify', description: 'TIN verification' },
@@ -1960,17 +1960,17 @@ export default function Bar() {
           description: 'Financial records and history verification',
           services: [
             { name: 'Bank Account Verification', href: '/bank-account-verification', description: 'Bank account validation', isNew: true },
-            { name: 'Hybrid Bank Account Verification', href: '/hybrid-bank-account-verification', description: 'Hybrid Bank Account Verification' },
+            { name: 'Hybrid Bank Account Verification', href: '/hybrid-bank-account-verification', description: 'Hybrid Bank Account Verification', isNew: true  },
             { name: 'Compensation Verification', description: 'Verify via bank statement' },
             { name: 'IFSC Check', href: '/ifsc-check', description: 'IFSC code verification', isNew: true },
             { name: 'Income Tax Return - ITR', href: '/itr-verification', description: 'ITR verification', isNew: true },
-            { name: 'ITR Fetch', href: '/itr-fetch', description: 'ITR Fetch'},
+            { name: 'ITR Fetch', href: '/itr-fetch', description: 'ITR Fetch', isNew: true },
             { name: 'Credit / CIBIL History', description: 'Credit history check' },
             { name: 'Digital Media Forensic', description: 'Digital forensics' },
             { name: 'Social Media & Reputation', description: 'Social media screening' },
             { name: 'Cheque Verify', description: 'Cheque verification' },
             { name: 'OCR - Intelligent Doc Processing', description: 'Document OCR' },
-            { name: 'Experian Credit Bureau', href: '/experian-credit-bureau', description: 'Experian Business Credit Bureau'}
+            { name: 'Experian Credit Bureau', href: '/experian-credit-bureau', description: 'Experian Business Credit Bureau', isNew: true }
           ]
         }
       ]
@@ -1986,7 +1986,7 @@ export default function Bar() {
           services: [
             { name: 'Driving Licence (DL)', href: '/driving-licence-verification', description: 'DL verification', isNew: true },
             { name: 'Vehicle RC Verification', href: '/vehicle-rc-verification', description: 'RC verification', isNew: true },
-            { name: 'Vehicle Reverse RC', href: '/vehicle-reverse-rc', description: 'Vehicle Reverse RC'},
+            { name: 'Vehicle Reverse RC', href: '/vehicle-reverse-rc', description: 'Vehicle Reverse RC', isNew: true },
             { name: 'Fast Tag Verification', href: '/fastag-verification', description: 'FASTag verification', isNew: true },
             { name: 'FASTTAG Last Location', description: 'FASTag location tracking' },
           ]
