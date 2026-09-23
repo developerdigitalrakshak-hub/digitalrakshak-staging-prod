@@ -5,7 +5,11 @@ import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 import ClientLayout from "./client-layout"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ 
+    subsets: ["latin"],
+    variable: "--font-inter",
+    display: "swap"
+})
 
 export const metadata: Metadata = {
     title: "DigitalRakshak - Your Digital Guardian for Cybersecurity & Compliance",
@@ -23,8 +27,8 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={inter.className} suppressHydrationWarning>
+        <html lang="en" className={inter.variable} suppressHydrationWarning>
+            <body className={`${inter.className} font-sans`} suppressHydrationWarning>
                 <ClientLayout>{children}</ClientLayout>
                 <Toaster />
             </body>

@@ -14,7 +14,9 @@ export default function ClientLayout({
 }) {
     const pathname = usePathname()
     const isClientOrAdmin =
-        pathname.includes("/client") || pathname.includes("/admin2025")
+        pathname.includes("/client") ||
+        pathname.includes("/admin2025") ||
+        pathname.includes("/new-gst-api")
 
     return (
         <AccessibilityProvider>
