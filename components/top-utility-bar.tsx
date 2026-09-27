@@ -287,7 +287,7 @@ export default function TopUtilityBar() {
             </div> */}
 
             {/* 6. My Account Dropdown */}
-            {/* <div
+            <div
               className="hidden md:block relative"
               ref={(el) => { utilityDropdownRefs.current['account'] = el }}
             >
@@ -317,10 +317,10 @@ export default function TopUtilityBar() {
                   </ul>
                 </div>
               )}
-            </div> */}
+            </div>
 
             {/* 7. Profile Avatar */}
-            {/* <div
+            <div
               className="relative"
               ref={(el) => { utilityDropdownRefs.current['profile'] = el }}
             >
@@ -362,7 +362,7 @@ export default function TopUtilityBar() {
                   </div>
                 </div>
               )}
-            </div> */}
+            </div>
 
           </div>
         </div>
