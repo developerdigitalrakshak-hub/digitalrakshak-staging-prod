@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { BadgeCheck } from "lucide-react";
+import GstNavbar from "./components/GstNavbar";
 
 const assetPathPrefix = "/assets";
 
@@ -62,92 +64,50 @@ const faqItems = [
   },
 ];
 
-function NavBar() {
-  return (
-    <header className="relative z-50 flex items-center justify-between w-full py-4 lg:py-6">
-      {/* Logo with white glow */}
-      <div className="w-[150px] sm:w-[170px] lg:w-[200px] flex-shrink-0 drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]">
-        <img
-          alt="DigitalRakshak"
-          src={imgLogo1}
-          className="w-full h-auto object-contain block"
-        />
-      </div>
-
-      {/* Nav pill - dark glass pill */}
-      <nav className="hidden md:flex items-center gap-3 lg:gap-6 xl:gap-7 bg-white/[0.26] backdrop-blur-xl px-5 py-2.5 lg:px-8 lg:py-3.5 rounded-[30px] border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
-        {[
-          "API Product",
-          "BGV",
-          "E-stamping",
-          "Pricing",
-          "Resources",
-          "Contact",
-        ].map((item) => (
-          <a
-            key={item}
-            href="#"
-            className="text-white/85 hover:text-white font-normal text-[15px] lg:text-[17px] xl:text-[20px] transition-colors whitespace-nowrap tracking-[0.01em]"
-          >
-            {item}
-          </a>
-        ))}
-      </nav>
-
-      {/* Book Demo - same dark pill as nav */}
-      <div className="bg-white/[0.26] backdrop-blur-xl px-5 py-2.5 lg:px-8 lg:py-3.5 rounded-[30px] border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.6)] hover:bg-[#1c2028]/90 transition-all cursor-pointer">
-        <a
-          href="#contact"
-          className="text-white font-normal text-[15px] lg:text-[17px] xl:text-[20px] whitespace-nowrap tracking-[0.01em]"
-        >
-          Book Demo
-        </a>
-      </div>
-    </header>
-  );
-}
-
 function HeroSection() {
   return (
-    <section className="relative min-h-[100dvh] overflow-hidden px-[5%] lg:px-[6%] flex flex-col justify-between py-4 sm:py-6">
-      {/* Background GIF with vertical glowing blue pillars */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src="/bg-frame.gif"
-          alt="Hero Background Animation"
+    <section className="relative min-h-0 lg:min-h-[100dvh] overflow-hidden px-[5%] lg:px-[6%] flex flex-col justify-between pt-24 sm:pt-28 lg:pt-24 pb-12 sm:pb-16">
+      {/* Background Video with instant poster and gradient overlay (replaces 50MB GIF for 0ms lag) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/bg-frame-poster.jpg"
           className="w-full h-full object-cover object-bottom"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent" />
+        >
+          <source src="/bg-frame.webm" type="video/webm" />
+          <source src="/bg-frame.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 lg:to-transparent" />
       </div>
 
-      {/* Header at top */}
-      <NavBar />
-
       {/* Center Hero content - fits on screen */}
-      <div className="relative z-10 flex-1 flex items-center py-6 lg:py-10">
+      <div className="relative z-10 flex-1 flex items-center py-4 lg:py-8">
         <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-8 xl:gap-12 items-center">
           {/* Left content */}
           <div className="lg:col-span-5 flex flex-col justify-between text-left">
             <div>
-              <h1 className="text-white text-[clamp(32px,3.8vw,56px)] font-black leading-[1.08] tracking-tight">
+              <h1 className="text-white text-[clamp(28px,7vw,56px)] font-black leading-[1.1] tracking-tight">
                 GST Verification<br />Services (GVS)
               </h1>
-              <p className="text-white text-[16px] sm:text-[18px] lg:text-[22px] font-medium mt-3 sm:mt-4">
+              <p className="text-white text-[15px] sm:text-[18px] lg:text-[22px] font-medium mt-3 sm:mt-4">
                 Verify GST Details. Integrate GST Workflows.
               </p>
             </div>
 
-            <div className="mt-6 sm:mt-8 lg:mt-12">
-              <p className="text-white/90 text-[15px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed max-w-[540px]">
+            <div className="mt-5 sm:mt-8 lg:mt-10">
+              <p className="text-white/90 text-[14px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed max-w-[540px]">
                 Access GSTIN and available GST information through portal or
                 API-based workflows, with support for GSTR, GST filing, e-Invoicing
                 and e-Way Bills.
               </p>
-              <div className="flex gap-4 mt-5 sm:mt-6 items-center flex-wrap">
-                <button className="bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-semibold text-[15px] px-8 py-2.5 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all">
+              <div className="flex gap-3 sm:gap-4 mt-5 sm:mt-6 items-center flex-wrap">
+                <button className="bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-semibold text-[14px] sm:text-[15px] px-6 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all">
                   Demo
                 </button>
-                <button className="bg-white hover:bg-gray-100 text-[#0a1e36] font-semibold text-[15px] px-8 py-2.5 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all">
+                <button className="bg-white hover:bg-gray-100 text-[#0a1e36] font-semibold text-[14px] sm:text-[15px] px-6 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all">
                   Get API Access
                 </button>
               </div>
@@ -155,10 +115,10 @@ function HeroSection() {
           </div>
 
           {/* Right – product screenshots */}
-          <div className="lg:col-span-7 relative flex justify-center lg:justify-end items-center w-full">
-            <div className="flex items-center gap-4 sm:gap-8 md:gap-12 w-full max-w-[650px] lg:max-w-none mx-auto">
+          <div className="lg:col-span-7 relative flex justify-center lg:justify-end items-center w-full mt-4 lg:mt-0">
+            <div className="flex items-center gap-3 sm:gap-6 md:gap-8 w-full max-w-[650px] lg:max-w-none mx-auto">
               {/* Main card - left */}
-              <div className="flex-[326] rounded-[18px] sm:rounded-[22px] lg:rounded-[26px] overflow-hidden shadow-2xl border border-white/10 aspect-[326/354] bg-[#f2f4f7]">
+              <div className="flex-[326] rounded-[16px] sm:rounded-[22px] lg:rounded-[26px] overflow-hidden shadow-2xl border border-white/10 aspect-[326/354] bg-[#f2f4f7]">
                 <img
                   alt="GVS Dashboard"
                   className="w-full h-full object-cover object-center"
@@ -167,15 +127,15 @@ function HeroSection() {
               </div>
 
               {/* Right stacked cards */}
-              <div className="flex-[175] flex flex-col justify-between self-stretch gap-3 sm:gap-4">
-                <div className="rounded-[14px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
+              <div className="flex-[175] flex flex-col justify-between self-stretch gap-2.5 sm:gap-4">
+                <div className="rounded-[12px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
                   <img
                     alt="Feature preview 1"
                     className="w-full h-full object-cover"
                     src={imgRectangle6}
                   />
                 </div>
-                <div className="rounded-[14px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
+                <div className="rounded-[12px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
                   <img
                     alt="Feature preview 2"
                     className="w-full h-full object-cover"
@@ -202,23 +162,20 @@ function FeatureCard({
   desc: string;
 }) {
   return (
-    <div className="relative w-full max-w-[227px] mx-auto flex-shrink-0" style={{ paddingTop: 44 }}>
+    <div className="relative w-full max-w-[227px] h-[349px] mx-auto flex-shrink-0 flex flex-col justify-start">
       {/* imgFrame70 SVG = blue-circle header + rounded-rect card body */}
-      <div
-        className="absolute inset-x-0"
-        style={{ top: -44, height: 349 }}
-      >
+      <div className="absolute inset-0 w-full h-[349px] pointer-events-none">
         <img
           alt=""
           src={imgFrame70}
-          className="w-full h-[349px] block object-fill"
+          className="w-full h-full block object-fill"
         />
       </div>
       {/* Icon sits on the glowing circle */}
       <div
-        className="absolute overflow-hidden"
+        className="absolute overflow-hidden z-10"
         style={{
-          top: -27,
+          top: 17,
           left: "50%",
           transform: "translateX(-50%)",
           width: 40,
@@ -229,12 +186,12 @@ function FeatureCard({
           <img alt="" className="w-full h-full" src={icon} />
         </div>
       </div>
-      {/* Text content */}
-      <div className="relative px-4 pt-3 pb-5">
-        <p className="text-white text-[17px] sm:text-[18px] font-semibold leading-[22px] sm:leading-[24px] mb-2">
+      {/* Text content inside the card body */}
+      <div className="relative z-10 px-4 pt-[88px] pb-6 text-center sm:text-left flex flex-col justify-start">
+        <p className="text-white text-[16px] sm:text-[18px] font-semibold leading-[22px] sm:leading-[24px] mb-2">
           {title}
         </p>
-        <p className="text-white text-[13px] sm:text-[14px] font-normal leading-[19px] sm:leading-[21px] opacity-90">
+        <p className="text-white/90 text-[13px] sm:text-[14px] font-normal leading-[19px] sm:leading-[21px]">
           {desc}
         </p>
       </div>
@@ -272,7 +229,7 @@ function WhatCanYouDoSection() {
   ];
 
   return (
-    <section className="relative py-16 sm:py-20 px-[5%] lg:px-[6%]">
+    <section id="api-product" className="relative py-16 sm:py-20 px-[5%] lg:px-[6%]">
       {/* Ellipse 19 glow */}
       <div className="absolute left-[-10%] top-[-10%] w-full max-w-[848px] pointer-events-none select-none opacity-70 mix-blend-screen">
         <img
@@ -283,11 +240,11 @@ function WhatCanYouDoSection() {
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto">
-        <h2 className="text-white text-[clamp(24px,3vw,40px)] font-bold text-center mb-16 sm:mb-20">
+        <h2 className="text-white text-[clamp(22px,4vw,40px)] font-bold text-center mb-12 sm:mb-20">
           What Can You Do with GST Verification Service
         </h2>
-        {/* Cards grid layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-16 justify-items-center">
+        {/* Cards grid layout - no card overlapping */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10 sm:gap-y-16 justify-items-center">
           {cards.map((c, i) => (
             <FeatureCard key={i} icon={c.icon} title={c.title} desc={c.desc} />
           ))}
@@ -300,87 +257,90 @@ function WhatCanYouDoSection() {
 function VerificationCardsSection() {
   return (
     <section className="relative py-12 sm:py-16 px-[5%] lg:px-[6%]">
-      <div className="max-w-[1400px] mx-auto">
-        <h2 className="text-white text-[clamp(24px,3vw,40px)] font-bold text-center mb-10 sm:mb-12">
+      <div className="relative z-10 max-w-[1240px] mx-auto">
+        <h2 className="text-white text-[22px] sm:text-[30px] lg:text-[34px] font-bold text-center tracking-tight mb-8 sm:mb-12">
           General | Consent Based Verification
         </h2>
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
-          {/* General Verification */}
-          <div className="relative bg-[rgba(81,115,194,0.46)] rounded-[18px] p-6 sm:p-8">
-            <div className="relative flex items-center gap-3 mb-4">
-              <div className="relative flex items-center justify-center size-7 flex-shrink-0">
-                <img
-                  alt=""
-                  className="w-[200%] h-[200%] max-w-none"
-                  src={imgEllipse22}
-                />
-                <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
-                  <img
-                    alt=""
-                    className="w-full h-full"
-                    src={imgSvgRepoIconCarrier6}
-                  />
-                </div>
-              </div>
-            </div>
-            <h3 className="text-white text-[22px] sm:text-[24px] lg:text-[28px] font-semibold leading-tight mb-2">
-              General Verification
-            </h3>
-            <p className="text-white text-[13px] sm:text-[14px] font-light leading-relaxed mb-4 opacity-80">
-              Taxpayer or borrower consent is not required for these services.
-            </p>
-            <ol className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-medium leading-[26px] sm:leading-[28px] list-decimal list-inside space-y-1">
-              {[
-                "GSTIN",
-                "Taxpayer name",
-                "Address",
-                "Business constitution",
-                "Date of registration",
-                "Taxpayer type",
-              ].map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ol>
-          </div>
 
-          {/* Consent Verification */}
-          <div className="relative bg-[rgba(81,115,194,0.46)] rounded-[18px] p-6 sm:p-8">
-            <div className="relative flex items-center gap-3 mb-4">
-              <div className="relative flex items-center justify-center size-7 flex-shrink-0">
-                <img
-                  alt=""
-                  className="w-[200%] h-[200%] max-w-none"
-                  src={imgEllipse22}
-                />
-                <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+        {/* Outer Blue Border Box matching screenshot */}
+        <div className="relative bg-[#040d24]/70 border-2 border-[#1677ff] rounded-[20px] p-5 sm:p-8 lg:p-10 shadow-[0_0_35px_rgba(22,119,255,0.35)] backdrop-blur-md">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 divide-y md:divide-y-0 md:divide-x divide-white/15">
+            {/* General Verification */}
+            <div className="md:pr-8 lg:pr-12 pb-6 md:pb-0">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="relative flex items-center justify-center size-7 flex-shrink-0">
                   <img
                     alt=""
-                    className="w-full h-full"
-                    src={imgSvgRepoIconCarrier6}
+                    className="w-[200%] h-[200%] max-w-none"
+                    src={imgEllipse22}
                   />
+                  <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+                    <img
+                      alt=""
+                      className="w-full h-full"
+                      src={imgSvgRepoIconCarrier6}
+                    />
+                  </div>
                 </div>
+                <h3 className="text-white text-[19px] sm:text-[22px] font-semibold leading-tight">
+                  General Verification
+                </h3>
               </div>
+              <p className="text-white/70 text-[13px] font-normal leading-relaxed mb-4 sm:mb-5">
+                Taxpayer or borrower consent is not required for these services.
+              </p>
+              <ol className="text-white/90 text-[13.5px] sm:text-[15px] font-medium leading-[24px] sm:leading-[26px] list-decimal list-inside space-y-1 sm:space-y-1.5 pl-1">
+                {[
+                  "GSTIN",
+                  "Taxpayer name",
+                  "Address",
+                  "Business constitution",
+                  "Date of registration",
+                  "Taxpayer type",
+                ].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ol>
             </div>
-            <h3 className="text-white text-[22px] sm:text-[24px] lg:text-[28px] font-semibold leading-tight mb-2">
-              Consent Verification
-            </h3>
-            <p className="text-white text-[13px] sm:text-[14px] font-light leading-relaxed mb-4 opacity-80">
-              These services require borrower/taxpayer consent and/or OTP, as
-              applicable
-            </p>
-            <ol className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-medium leading-[26px] sm:leading-[28px] list-decimal list-inside space-y-1">
-              {[
-                "GSTR-1 invoices",
-                "GSTR-1 monthly summary",
-                "Half-yearly GSTR-1 summary",
-                "GSTR-2A invoices",
-                "Half-yearly GSTR-2A summary",
-                "GSTR-3B monthly summary",
-                "Dealer GST compliance reports",
-              ].map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ol>
+
+            {/* Consent Verification */}
+            <div className="pt-6 md:pt-0 md:pl-8 lg:pl-12">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="relative flex items-center justify-center size-7 flex-shrink-0">
+                  <img
+                    alt=""
+                    className="w-[200%] h-[200%] max-w-none"
+                    src={imgEllipse22}
+                  />
+                  <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+                    <img
+                      alt=""
+                      className="w-full h-full"
+                      src={imgSvgRepoIconCarrier6}
+                    />
+                  </div>
+                </div>
+                <h3 className="text-white text-[19px] sm:text-[22px] font-semibold leading-tight">
+                  Consent Verification
+                </h3>
+              </div>
+              <p className="text-white/70 text-[13px] font-normal leading-relaxed mb-4 sm:mb-5">
+                These services require borrower/taxpayer consent and/or OTP, as applicable
+              </p>
+              <ol className="text-white/90 text-[13.5px] sm:text-[15px] font-medium leading-[24px] sm:leading-[26px] list-decimal list-inside space-y-1 sm:space-y-1.5 pl-1">
+                {[
+                  "GSTR-1 invoices",
+                  "GSTR-1 monthly summary",
+                  "Half-yearly GSTR-1 summary",
+                  "GSTR-2A invoices",
+                  "Half-yearly GSTR-2A summary",
+                  "GSTR-3B monthly summary",
+                  "Dealer GST compliance reports",
+                ].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
       </div>
@@ -389,81 +349,92 @@ function VerificationCardsSection() {
 }
 
 function ConnectAPISection() {
+  const workflows = [
+    {
+      title: "Accounts Payable",
+      desc: "Use GST verification as part of vendor validation and internal financial workflows before processing relevant vendor transactions.",
+    },
+    {
+      title: "Merchant Onboarding",
+      desc: "Integrate GST-related business verification into merchant or business onboarding workflows.",
+    },
+    {
+      title: "SME Lending",
+      desc: "Use relevant GST-related information as part of broader business verification and lending workflows, where applicable.",
+    },
+  ];
+
   return (
-    <section className="relative py-12 sm:py-16 px-[5%] lg:px-[6%]">
-      <div className="max-w-[1400px] mx-auto">
-        <h2 className="text-white text-[clamp(24px,3vw,40px)] font-bold text-center mb-10 sm:mb-12">
+    <section className="relative py-16 sm:py-20 lg:py-24 px-[5%] lg:px-[6%] overflow-hidden">
+      <div className="relative z-10 max-w-[1240px] mx-auto">
+        {/* Section Heading */}
+        <h2 className="text-white text-[24px] sm:text-[30px] lg:text-[34px] font-bold text-center tracking-tight mb-12 sm:mb-16">
           Connect GST Verification API With Your Existing System
         </h2>
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-14">
-          {/* Left – Practical Business Workflows */}
-          <div className="flex flex-col gap-6">
-            <h3 className="text-white text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[44px] font-bold leading-tight sm:leading-[48px] lg:leading-[56px]">
-              Practical
-              <br />
-              Business Workflows
-            </h3>
 
-            {/* Blue card */}
-            <div className="relative bg-[#b0daff] rounded-[18px] px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12 xl:px-16 xl:py-14 shadow-[2px_2px_5.7px_rgba(0,0,0,0.25),inset_-11px_-11px_14px_0px_rgba(0,132,255,0.42),inset_19px_14px_22.3px_0px_rgba(0,132,255,0.42)]">
-              <p className="text-[#06161e] text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] font-medium leading-relaxed sm:leading-[28px]">
-                GST-related processes do not always need to be managed
-                separately. API integration options for relevant businesses,
-                corporates and Application Service Providers. Integrate with:
+        {/* 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start justify-items-center">
+          {/* LEFT COLUMN: Blue Box (543x241) + Integrate with + Book a Demo */}
+          <div className="w-full max-w-[543px] flex flex-col">
+            {/* Top Blue Glowing Box (exact 543 x 241 px from Figma screenshot) */}
+            <div className="w-full min-h-[200px] h-auto sm:h-[241px] bg-gradient-to-b from-[#b2daff] to-[#92c8fc] border-2 border-[#54b4ff] rounded-[20px] p-6 sm:p-9 flex items-center shadow-[0_0_35px_rgba(84,180,255,0.45),0_0_12px_rgba(84,180,255,0.3)]">
+              <p className="text-[#081a2e] text-[15px] sm:text-[16px] lg:text-[17px] font-normal leading-[1.65] tracking-normal">
+                GST-related processes do not always need to be managed separately. API integration options for relevant businesses, corporates and Application Service Providers.
               </p>
             </div>
 
-            <ol className="text-white text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] font-medium leading-relaxed sm:leading-[28px] list-decimal list-inside space-y-2 pl-2">
-              {[
-                "ERP systems",
-                "Invoicing systems",
-                "Business applications",
-                "Internal compliance workflows",
-                "Financial workflows",
-                "Enterprise technology platforms",
-              ].map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ol>
+            {/* Integrate with: Heading */}
+            <h4 className="text-white font-bold text-[18px] sm:text-[19px] mt-8 mb-4">
+              Integrate with:
+            </h4>
 
-            <p className="text-white text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] font-medium leading-relaxed sm:leading-[28px]">
-              The GSP service also provides pass-through API capabilities for
-              applicable GST-related processes.
+            {/* Numbered List */}
+            <div className="space-y-3 text-white/90 text-[14px] sm:text-[15px] font-medium pl-1">
+              <div>1. ERP systems</div>
+              <div>2. Invoicing systems</div>
+              <div>3. Business applications</div>
+              <div>4. Internal compliance workflows</div>
+              <div>5. Financial workflows</div>
+              <div>6. Enterprise technology platforms</div>
+            </div>
+
+            {/* Sub-text */}
+            <p className="text-white/80 text-[13px] sm:text-[14px] leading-relaxed mt-6 mb-7 pl-1">
+              The GSP service also provides pass-through API capabilities for applicable GST-related processes.
             </p>
 
-            <button className="self-start bg-[#b0daff] text-[#1e1e1e] font-medium text-base sm:text-lg px-8 py-3 rounded-[18px] shadow-[2px_2px_5.7px_rgba(0,0,0,0.25),inset_5px_-2px_8.7px_0px_rgba(0,132,255,0.42)] hover:opacity-90 transition-opacity">
+            {/* Book a Demo Button */}
+            <a
+              href="#contact"
+              className="w-full max-w-[440px] text-center bg-[#b0daff] hover:bg-[#8ec7fc] text-[#081a2e] font-semibold text-[15px] py-3.5 px-8 rounded-[18px] shadow-[0_4px_16px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
+            >
               Book a Demo
-            </button>
+            </a>
           </div>
 
-          {/* Right – use-case cards */}
-          <div className="flex flex-col gap-6">
-            {[
-              {
-                title: "Accounts Payable:",
-                body: "Use GST verification as part of vendor validation and internal financial workflows before processing relevant vendor transactions.",
-              },
-              {
-                title: "Merchant Onboarding:",
-                body: "Integrate GST-related business verification into merchant or business onboarding workflows.",
-              },
-              {
-                title: "SME Lending:",
-                body: "Use relevant GST-related information as part of broader business verification and lending workflows, where applicable.",
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="relative bg-[#dfc6ff] rounded-[18px] px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12 xl:px-16 xl:py-14 shadow-[2px_2px_5.7px_rgba(0,0,0,0.25),inset_-11px_-11px_14px_0px_rgba(0,132,255,0.42),inset_19px_14px_22.3px_0px_rgba(0,132,255,0.42)]"
-              >
-                <p className="text-[#06161e] text-[20px] sm:text-[24px] lg:text-[28px] font-semibold leading-tight mb-2">
-                  {card.title}
-                </p>
-                <p className="text-[#06161e] text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[22px] font-medium leading-relaxed sm:leading-[28px]">
-                  {card.body}
-                </p>
-              </div>
-            ))}
+          {/* RIGHT COLUMN: Practical Business Workflows + 3 Lavender Glowing Cards */}
+          <div className="w-full max-w-[543px] flex flex-col">
+            {/* Column Heading */}
+            <h3 className="text-white font-bold text-[22px] sm:text-[24px] mb-6">
+              Practical Business Workflows
+            </h3>
+
+            {/* 3 Glowing Lavender/Lilac Cards */}
+            <div className="space-y-5 sm:space-y-6">
+              {workflows.map((wf) => (
+                <div
+                  key={wf.title}
+                  className="bg-gradient-to-r from-[#ebd6ff] via-[#e2c4ff] to-[#d8b0ff] border-2 border-[#d896ff] rounded-[20px] p-6 sm:px-8 sm:py-6 shadow-[0_0_30px_rgba(216,145,255,0.45),0_0_10px_rgba(216,145,255,0.3)] transition-transform duration-200 hover:scale-[1.01]"
+                >
+                  <h4 className="text-[#090e24] font-bold text-[18px] sm:text-[19px] mb-2">
+                    {wf.title}
+                  </h4>
+                  <p className="text-[#1a2038] text-[13px] sm:text-[14px] leading-relaxed font-normal">
+                    {wf.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -472,68 +443,162 @@ function ConnectAPISection() {
 }
 
 function HowItWorksSection() {
-  return (
-    <section className="relative py-12 sm:py-16 px-[5%] lg:px-[6%]">
-      {/* Ellipse 20 glow */}
-      <div className="absolute right-[-10%] w-full max-w-[848px] pointer-events-none select-none opacity-60 mix-blend-screen">
-        <img
-          alt=""
-          className="w-full h-full object-contain"
-          src={imgEllipse20}
-        />
-      </div>
-      <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
-        {/* Left – Dashboard image */}
-        <div className="rounded-[18px] overflow-hidden shadow-2xl">
-          <img
-            alt="GVS Dashboard"
-            className="w-full h-auto rounded-[18px] object-cover"
-            src={imgFrame81}
-          />
+  const [activeStep, setActiveStep] = useState<number | null>(1);
+
+  const stepsData = [
+    {
+      id: 1,
+      title: "Tell Us What You Need:",
+      image: "/images/how-it-works-step.png",
+      content: (
+        <div className="space-y-2 text-[#4b5563] text-[13px] sm:text-[14px] leading-relaxed pt-2">
+          <p>Let us understand your business requirements.</p>
+          <p>For example, you may need:</p>
+          <div className="space-y-1 pl-4 text-[#374151] font-medium">
+            <div>a. GSTIN verification</div>
+            <div>b. GST filing information</div>
+            <div>c. API integration</div>
+            <div>d. GSTR-related workflows</div>
+            <div>e. e-Invoicing</div>
+            <div>f. e-Way Bills</div>
+          </div>
         </div>
+      ),
+    },
+    {
+      id: 2,
+      title: "Choose the Right Access Option",
+      image: "/images/how-it-works-step.png",
+      content: (
+        <div className="space-y-2 text-[#4b5563] text-[13px] sm:text-[14px] leading-relaxed pt-2">
+          <p>Select from flexible API integration options tailored to your volume:</p>
+          <div className="space-y-1 pl-4 text-[#374151] font-medium">
+            <div>a. Real-time REST API for instant validation</div>
+            <div>b. Bulk / batch verification engine for high volume</div>
+            <div>c. Webhooks for automated filing status notifications</div>
+            <div>d. Dedicated sandbox testing environment</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 3,
+      title: "Integrate With Your Workflow",
+      image: "/images/how-it-works-step.png",
+      content: (
+        <div className="space-y-2 text-[#4b5563] text-[13px] sm:text-[14px] leading-relaxed pt-2">
+          <p>Connect seamlessly with your existing infrastructure:</p>
+          <div className="space-y-1 pl-4 text-[#374151] font-medium">
+            <div>a. ERP systems (SAP, Oracle, Tally, Zoho)</div>
+            <div>b. Merchant and vendor onboarding pipelines</div>
+            <div>c. Invoicing and financial management platforms</div>
+            <div>d. Ready-made SDKs in Node, Python, Java & PHP</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 4,
+      title: "Complete Consent Requirement",
+      image: "/images/how-it-works-step.png",
+      content: (
+        <div className="space-y-2 text-[#4b5563] text-[13px] sm:text-[14px] leading-relaxed pt-2">
+          <p>Maintain complete statutory compliance with ease:</p>
+          <div className="space-y-1 pl-4 text-[#374151] font-medium">
+            <div>a. Borrower and taxpayer consent authentication</div>
+            <div>b. Automated OTP generation and verification</div>
+            <div>c. End-to-end encrypted audit trails</div>
+            <div>d. ISO 27001 & SOC-2 compliant data protection</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 5,
+      title: "Use the Service for Your Business Process",
+      image: "/images/how-it-works-step.png",
+      content: (
+        <div className="space-y-2 text-[#4b5563] text-[13px] sm:text-[14px] leading-relaxed pt-2">
+          <p>Unlock fast, secure and reliable operational automation:</p>
+          <div className="space-y-1 pl-4 text-[#374151] font-medium">
+            <div>a. Instant vendor authentication before payouts</div>
+            <div>b. Protect Input Tax Credit (ITC) with filing history checks</div>
+            <div>c. Accelerated merchant and customer onboarding</div>
+            <div>d. Continuous compliance monitoring and alerts</div>
+          </div>
+        </div>
+      ),
+    },
+  ];
 
-        {/* Right – Steps */}
-        <div>
-          <h2 className="text-white text-[28px] sm:text-[36px] lg:text-[44px] font-bold leading-tight lg:leading-[56px] mb-6 sm:mb-8">
-            How it works
-          </h2>
+  const activeImage =
+    stepsData.find((s) => s.id === activeStep)?.image ||
+    "/images/how-it-works-step.png";
 
-          <div className="mb-6">
-            <h3 className="text-white text-[20px] sm:text-[24px] lg:text-[28px] font-semibold leading-tight mb-3">
-              1. Tell Us What You Need:
-            </h3>
-            <p className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-medium leading-relaxed mb-2">
-              Let us understand your business requirements. For example, you may
-              need:
-            </p>
-            <ol className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-medium leading-relaxed list-[lower-alpha] list-inside space-y-1 pl-4">
-              {[
-                "GSTIN verification",
-                "GST filing information",
-                "API integration",
-                "GSTR-related workflows",
-                "e-Invoicing",
-                "e-Way Bills",
-              ].map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ol>
+  return (
+    <section className="relative py-16 sm:py-24 px-[5%] lg:px-[6%] overflow-hidden bg-black">
+      {/* Ambient soft glow at bottom right matching design */}
+      <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-[#1e3a8a]/20 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-[1240px] mx-auto">
+        {/* Section Heading */}
+        <h2 className="text-white text-[28px] sm:text-[34px] lg:text-[40px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+          How it works
+        </h2>
+
+        {/* 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+          {/* Left Column: Image Card */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-start">
+            <div className="w-full max-w-[420px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10 relative bg-[#0b101d]">
+              <img
+                key={activeImage}
+                src={activeImage}
+                alt="How it works illustration"
+                className="w-full h-auto object-cover block transition-all duration-500 ease-out"
+              />
+            </div>
           </div>
 
-          <div className="space-y-4">
-            {[
-              "Choose the Right Access Option",
-              "Integrate With Your Workflow",
-              "Complete Consent Requirement",
-              "Use the Service for Your Business Process",
-            ].map((step, i) => (
-              <h3
-                key={step}
-                className="text-white text-[20px] sm:text-[24px] lg:text-[28px] font-semibold leading-tight"
-              >
-                {i + 2}. {step}
-              </h3>
-            ))}
+          {/* Right Column: Accordion Points */}
+          <div className="lg:col-span-7 flex flex-col space-y-4 sm:space-y-4.5">
+            {stepsData.map((step) => {
+              const isActive = activeStep === step.id;
+
+              return (
+                <div
+                  key={step.id}
+                  onClick={() => setActiveStep(isActive ? null : step.id)}
+                  className={`cursor-pointer transition-all duration-300 ease-out select-none ${isActive
+                    ? "bg-white rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 sm:px-8 border-2 border-[#5cb3ff] shadow-[0_6px_0_0_#38bdf8,0_16px_32px_rgba(56,189,248,0.28)]"
+                    : "bg-white rounded-full py-4 px-6 sm:px-8 hover:bg-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.2)] hover:scale-[1.008] transition-all"
+                    }`}
+                >
+                  {/* Header Row */}
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`rounded-full shrink-0 transition-all duration-300 ${isActive
+                        ? "w-3 h-3 bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]"
+                        : "w-2.5 h-2.5 bg-[#cbd5e1]"
+                        }`}
+                    />
+                    <h3 className="text-[#111827] text-[16px] sm:text-[18px] font-bold tracking-tight">
+                      {step.title}
+                    </h3>
+                  </div>
+
+                  {/* Expandable Content with smooth grid transition */}
+                  <div
+                    className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${isActive
+                      ? "grid-rows-[1fr] opacity-100 mt-2"
+                      : "grid-rows-[0fr] opacity-0 mt-0"
+                      }`}
+                  >
+                    <div className="overflow-hidden">{step.content}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -615,91 +680,146 @@ function WhyAPISection() {
   );
 }
 
-function BenefitItem({
-  icon,
-  title,
-  desc,
-}: {
-  icon: string;
-  title: string;
-  desc: string;
-}) {
+function BenefitCardGlow() {
   return (
-    <div className="flex flex-col">
-      <div className="size-7 mb-3 sm:mb-4 flex-shrink-0">
-        <img alt="" className="w-full h-full object-contain" src={icon} />
-      </div>
-      <h3 className="text-white text-[17px] sm:text-[18px] lg:text-[20px] font-bold leading-snug mb-2">
-        {title}
-      </h3>
-      <p className="text-gray-300 text-[13.5px] sm:text-[14px] lg:text-[15px] font-normal leading-relaxed">
-        {desc}
-      </p>
-    </div>
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none rounded-[16px]"
+      viewBox="0 0 406 446"
+      preserveAspectRatio="none"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        {/* Linear vertical base: smooth fade into dark */}
+        <linearGradient
+          id="cardGlowLinearBase"
+          x1="0"
+          y1="446"
+          x2="0"
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#ffdfff" stopOpacity="0.95" />
+          <stop offset="12%" stopColor="#fdd7ff" stopOpacity="0.9" />
+          <stop offset="28%" stopColor="#e9b3fa" stopOpacity="0.75" />
+          <stop offset="45%" stopColor="#a860cb" stopOpacity="0.45" />
+          <stop offset="62%" stopColor="#542579" stopOpacity="0.15" />
+          <stop offset="80%" stopColor="#13151a" stopOpacity="0" />
+        </linearGradient>
+
+        {/* Radial deep purple left: stays lower and richer */}
+        <radialGradient
+          id="cardGlowRadLeft"
+          cx="0%"
+          cy="100%"
+          r="65%"
+          fx="0%"
+          fy="100%"
+        >
+          <stop offset="0%" stopColor="#b884d5" stopOpacity="1" />
+          <stop offset="20%" stopColor="#9d50bf" stopOpacity="0.9" />
+          <stop offset="45%" stopColor="#732e94" stopOpacity="0.7" />
+          <stop offset="70%" stopColor="#3d1856" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#13151a" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Radial luminous white-pink right: rises smoothly */}
+        <radialGradient
+          id="cardGlowRadRight"
+          cx="95%"
+          cy="100%"
+          r="85%"
+          fx="95%"
+          fy="100%"
+        >
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+          <stop offset="20%" stopColor="#ffdfff" stopOpacity="1" />
+          <stop offset="40%" stopColor="#f8c6fe" stopOpacity="0.95" />
+          <stop offset="60%" stopColor="#d382f6" stopOpacity="0.7" />
+          <stop offset="80%" stopColor="#7f33a8" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#13151a" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Dark card base */}
+      <rect width="100%" height="100%" fill="#0d111a" />
+      {/* 10% #BACFFF ambient tint from Figma */}
+      <rect width="100%" height="100%" fill="#BACFFF" fillOpacity="0.10" />
+
+      {/* Atmospheric bottom gradients */}
+      <rect width="100%" height="100%" fill="url(#cardGlowLinearBase)" />
+      <rect width="100%" height="100%" fill="url(#cardGlowRadLeft)" />
+      <rect width="100%" height="100%" fill="url(#cardGlowRadRight)" />
+    </svg>
   );
 }
 
 function KeyBenefitsSection() {
-  return (
-    <section className="relative py-16 sm:py-20 px-[5%] lg:px-[6%]">
-      {/* Ellipse 15 glow */}
-      <div className="absolute right-[0] top-[5%] w-full max-w-[75%] pointer-events-none select-none opacity-80 mix-blend-screen">
-        <img
-          alt=""
-          className="w-full h-full object-contain"
-          src={imgEllipse15}
-        />
-      </div>
+  const benefits = [
+    {
+      title: "Simplify GST Verification",
+      desc: "Verify GSTIN and available taxpayer information through an API-driven workflow.",
+    },
+    {
+      title: "API or Portal Access",
+      desc: "Choose API integration or a ready-to-use portal based on your business needs.",
+    },
+    {
+      title: "Support GST Compliance Workflows",
+      desc: "Explore workflows for GSTR filing, e-Invoicing and E-Way Bills.",
+    },
+    {
+      title: "Consent Based Verification",
+      desc: "Support verification processes that require OTP or user consent.",
+    },
+    {
+      title: "Built for Business Workflows",
+      desc: "Integrate GST verification into onboarding, compliance and other business processes.",
+    },
+    {
+      title: "Support Bulk Operations",
+      desc: "Handle larger verification requirements with bulk data upload capabilities.",
+    },
+  ];
 
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        <h2 className="text-white text-[clamp(26px,3vw,38px)] font-bold text-center mb-12 sm:mb-16">
+  return (
+    <section className="relative py-16 sm:py-24 px-[5%] lg:px-[6%] overflow-hidden bg-black">
+      {/* Background ambient lighting */}
+      <div className="absolute right-[5%] top-[10%] w-[500px] h-[500px] bg-purple-900/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute left-[5%] bottom-[10%] w-[500px] h-[500px] bg-indigo-900/15 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-[1320px] mx-auto relative z-10">
+        {/* Section Heading */}
+        <h2 className="text-white text-[28px] sm:text-[36px] lg:text-[42px] font-bold text-center tracking-tight mb-12 sm:mb-16">
           Key Benefits For Your Business
         </h2>
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-12 xl:gap-14 items-center">
-          {/* Left: 2-col × 3-row benefit grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-8 lg:gap-x-10 gap-y-6 sm:gap-y-8 lg:gap-y-10">
-            <BenefitItem
-              icon={imgSvgRepoIconCarrier}
-              title="Simplify GST Verification"
-              desc="Verify GSTIN and available taxpayer information through an API-driven workflow."
-            />
-            <BenefitItem
-              icon={imgSvgRepoIconCarrier1}
-              title="API or Portal Access"
-              desc="Choose API integration or a ready-to-use portal based on your business needs."
-            />
-            <BenefitItem
-              icon={imgSvgRepoIconCarrier2}
-              title="Support GST Compliance Workflows"
-              desc="Explore workflows for GSTR filing, e-Invoicing and E-Way Bills."
-            />
-            <BenefitItem
-              icon={imgSvgRepoIconCarrier3}
-              title="Consent Based Verification"
-              desc="Support verification processes that require OTP or user consent."
-            />
-            <BenefitItem
-              icon={imgSvgRepoIconCarrier2}
-              title="Built for Business Workflows"
-              desc="Integrate GST verification into onboarding, compliance and other business processes."
-            />
-            <BenefitItem
-              icon={imgSvgRepoIconCarrier3}
-              title="Support Bulk Operations"
-              desc="Handle larger verification requirements with bulk data upload capabilities."
-            />
-          </div>
+        {/* 6 Cards Responsive Grid (exact 406px x 446px Figma specs) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          {benefits.map((benefit, idx) => (
+            <div
+              key={idx}
+              className="relative w-full max-w-[406px] min-h-[420px] sm:min-h-[446px] rounded-[18px] border-[2px] border-[#DFC6FF] p-6 sm:p-10 flex flex-col justify-start overflow-hidden group hover:scale-[1.015] hover:shadow-[0_0_35px_rgba(223,198,255,0.3)] transition-all duration-300"
+            >
+              {/* Exact Figma atmospheric bottom gradient */}
+              <BenefitCardGlow />
 
-          {/* Right: tablet image card */}
-          <div className="w-full max-w-[450px] lg:max-w-none mx-auto rounded-[24px] sm:rounded-[32px] overflow-hidden bg-[#D9D9D9] shadow-2xl">
-            <img
-              alt="GVS dashboard on tablet"
-              className="w-full h-auto block"
-              src={imgFrame21}
-            />
-          </div>
+              {/* Scalloped Badge Icon Circle */}
+              <div className="relative z-10 w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-[#1b2234]/85 border border-white/15 flex items-center justify-center mb-6 sm:mb-8 shrink-0 shadow-inner group-hover:border-white/30 transition-colors">
+                <BadgeCheck className="w-8 h-8 sm:w-10 sm:h-10 text-white stroke-[1.8]" />
+              </div>
+
+              {/* Card Title */}
+              <h3 className="relative z-10 text-white font-bold text-[22px] sm:text-[27px] leading-[1.25] tracking-tight mb-3 sm:mb-4">
+                {benefit.title}
+              </h3>
+
+              {/* Card Description */}
+              <p className="relative z-10 text-white/85 text-[14.5px] sm:text-[16.5px] leading-[1.6] font-normal">
+                {benefit.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -908,6 +1028,7 @@ function Footer() {
 export default function App() {
   return (
     <div className="align-center bg-black min-h-screen w-full font-[Inter] overflow-x-hidden">
+      <GstNavbar />
       <HeroSection />
       <WhatCanYouDoSection />
       <VerificationCardsSection />

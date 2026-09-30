@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, use } from "react"
 import {
     ArrowLeft,
     ThumbsUp,
@@ -124,7 +124,8 @@ For a business your size, I'd recommend starting with a GDPR compliance checklis
     },
 ]
 
-export default function QuestionDetailPage({ params }: { params: { id: string } }) {
+export default function QuestionDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params)
     const [newAnswer, setNewAnswer] = useState("")
     const [isBookmarked, setIsBookmarked] = useState(questionData.isBookmarked)
     const [questionVotes, setQuestionVotes] = useState(questionData.votes)

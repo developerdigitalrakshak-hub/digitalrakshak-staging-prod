@@ -36,13 +36,19 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-[920px] pt-32 lg:pt-36 pb-20 bg-black overflow-hidden flex items-center">
 
-      {/* Background GIF */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src="/bg-frame.gif"
-          alt="Hero Background Animation"
+      {/* Background Video with instant poster and gradient overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/bg-frame-poster.jpg"
           className="w-full h-full object-cover object-center"
-        />
+        >
+          <source src="/bg-frame.webm" type="video/webm" />
+          <source src="/bg-frame.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
