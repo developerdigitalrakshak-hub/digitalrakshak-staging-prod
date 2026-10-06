@@ -16,6 +16,7 @@ export default function ClientLayout({
     const isClientOrAdmin =
         pathname.includes("/client") ||
         pathname.includes("/admin2025") ||
+        pathname.includes("/gst-verification-api") ||
         pathname.includes("/new-gst-api")
 
     return (
