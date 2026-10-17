@@ -16,6 +16,7 @@ import {
     ShieldCheck,
 } from "lucide-react";
 import GstNavbar from "./components/GstNavbar";
+import Footer from "./components/GstFooter";
 
 const assetPathPrefix = "/assets";
 
@@ -1217,115 +1218,6 @@ function CTASection() {
                 </div>
             </div>
         </section>
-    );
-}
-
-function Footer() {
-    return (
-        <footer className="relative bg-gradient-to-b from-black via-[#000b58] to-[#59259b] overflow-hidden py-12 sm:py-16 px-[5%] lg:px-[6%]">
-            <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 lg:gap-10">
-                {/* Brand - gets 5 columns on desktop so tag text never overlaps Links column */}
-                <div className="md:col-span-6 lg:col-span-5 flex flex-col items-start gap-2 drop-shadow-[17px_3px_119px_rgba(255,255,255,0.74)]">
-                    <p className="text-white text-[28px] sm:text-[36px] lg:text-[44px] font-bold leading-tight">
-                        DigitalRakshak<sup className="text-xs top-[-2em] font-light">TM</sup>
-                    </p>
-                    <p className="text-white text-[14px] sm:text-[16px] lg:text-[18px] font-medium tracking-wide">
-                        SECURE | SWIFT | COMPLIANT
-                    </p>
-                    <div className="relative h-28 sm:h-36 w-44 sm:w-52 mt-2 overflow-hidden">
-                        <img
-                            alt=""
-                            className="absolute h-[186%] left-[-10%] max-w-none top-[-39%] w-[122%]"
-                            src={imgLogo1}
-                        />
-                    </div>
-                    {/* Social icons */}
-                    <div className="flex gap-4 mt-4">
-                        {[
-                            { icon: imgSvgRepoIconCarrier4, size: 22 },
-                            { icon: imgVector, size: 22 },
-                            { icon: imgSvgRepoIconCarrier5, size: 22 },
-                        ].map((s, i) => (
-                            <div key={i} className="relative size-10 cursor-pointer flex-shrink-0">
-                                <img
-                                    alt=""
-                                    className="absolute inset-0 w-full h-full"
-                                    src={imgEllipse3}
-                                />
-                                <div
-                                    className="absolute overflow-hidden"
-                                    style={{
-                                        left: '20%',
-                                        top: '20%',
-                                        width: s.size ?? 22,
-                                        height: s.size ?? 22,
-                                    }}
-                                >
-                                    <img alt="" className="w-full h-full" src={s.icon} />
-                                </div>
-                            </div>
-                        ))}
-                        <div className="relative size-10 cursor-pointer flex-shrink-0">
-                            <img
-                                alt=""
-                                className="absolute inset-0 w-full h-full"
-                                src={imgGroup27}
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Links */}
-                <div className="md:col-span-2 lg:col-span-2">
-                    <p className="text-white text-[18px] sm:text-[20px] font-bold mb-4">Links</p>
-                    {["About", "Product", "Resources", "Pricing", "Contact"].map((l) => (
-                        <a
-                            key={l}
-                            href="#"
-                            className="block text-white text-[15px] sm:text-[16px] font-normal mb-2 hover:opacity-70 transition-opacity"
-                        >
-                            {l}
-                        </a>
-                    ))}
-                </div>
-
-                {/* Help */}
-                <div className="md:col-span-2 lg:col-span-2">
-                    <p className="text-white text-[18px] sm:text-[20px] font-bold mb-4">Help</p>
-                    {["Help Center", "Support"].map((l) => (
-                        <a
-                            key={l}
-                            href="#"
-                            className="block text-white text-[15px] sm:text-[16px] font-normal mb-2 hover:opacity-70 transition-opacity"
-                        >
-                            {l}
-                        </a>
-                    ))}
-                </div>
-
-                {/* Legal */}
-                <div className="md:col-span-2 lg:col-span-3">
-                    <p className="text-white text-[18px] sm:text-[20px] font-bold mb-4">Legal</p>
-                    {["Privacy Policy", "Terms of Service"].map((l) => (
-                        <a
-                            key={l}
-                            href="#"
-                            className="block text-white text-[15px] sm:text-[16px] font-normal mb-2 hover:opacity-70 transition-opacity"
-                        >
-                            {l}
-                        </a>
-                    ))}
-                </div>
-            </div>
-
-            {/* Divider + copyright */}
-            <div className="max-w-[1400px] mx-auto mt-12">
-                <div className="border-t border-white/30 mb-6" />
-                <p className="text-white text-[15px] sm:text-[17px] lg:text-[18px] font-normal text-center">
-                    © 2026 Digital Rakshak. All Rights Reserved.
-                </p>
-            </div>
-        </footer>
     );
 }
 

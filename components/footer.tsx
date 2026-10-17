@@ -1,49 +1,42 @@
 import {
-    Mail,
-    MapPin,
-    Phone,
-    Facebook,
-    Instagram,
-    Linkedin,
-    Twitter,
-    ArrowUpRight,
-    Shield
+    ArrowUpRight
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const footerServicesData = [
+interface SubMenuItem {
+    name: string
+    href: string
+}
+
+interface ServiceItem {
+    name: string
+    href: string
+    subservices?: SubMenuItem[]
+}
+
+const platformsData = [
+    { name: 'API Hub', href: '#' },
+    { name: 'e-Sign Solution', href: '/e-stamp-and-e-sign' },
+    { name: 'e-Stamping Solution', href: '/e-stamp-and-e-sign' },
+    { name: 'e-Onboarding Platform', href: '#' }
+]
+
+const servicesData: ServiceItem[] = [
+    { name: 'e-KYC', href: '/identity-ekyc' },
+    { name: 'CKYC 2.0 Verification', href: '#' },
     {
-        name: 'Explore API',
-        subservices: [
-            { name: 'ID & e-KYC Data Stack', href: '/identity-ekyc' },
-            { name: 'Document Intelligence', href: '#' },
-            { name: 'Crime & Background Verification', href: '#' },
-            { name: 'Business & ID Stack', href: '/business-verification' },
-            // { name: 'GSTIN Verification', href: '/gstin-verify' },
-            // { name: 'Bank Account Verification', href: '/bank-account-verification' },
-            // { name: 'IP Quality Check', href: '/ip-quality-check' },
-            // { name: 'EPFO Establishment Search', href: '/epfo-establishment-search' },
-            // { name: 'Passport Verification', href: '/passport-verification' },
-            // { name: 'Voter ID Verification', href: '/voter-id-verification' },
-            // { name: 'Driving License Verification', href: '/driving-licence-verification' },
-            { name: 'Employment Check', href: '#' },
-            { name: 'Education Check', href: '#' },
-            { name: 'Banking Due Diligence', href: '#' },
-            { name: 'Trace Automobile', href: '#' }
-        ]
-    },
-    {
-        name: 'Background Verification',
+        name: 'Background Verification (BGV)',
+        href: '#',
         subservices: [
             {
-                name: 'Employee Verification',
-                // href: '/services/employment-verification' 
+                name: 'ID Verification',
+                // href: '/services' 
                 href: '#'
             },
             {
-                name: 'ID & BGV',
-                // href: '/services' 
+                name: 'Employee Verification',
+                // href: '/services/employment-verification' 
                 href: '#'
             },
             {
@@ -62,20 +55,57 @@ const footerServicesData = [
                 href: '#'
             }
         ]
-    },
-    {
-        name: 'Digital Trust',
-        subservices: [
-            { name: 'e-Stamping', href: '/e-stamp-and-e-sign' },
-        ]
     }
 ]
 
+function YouTubeIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        </svg>
+    );
+}
+
+function LinkedInIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+        </svg>
+    );
+}
+
+function FacebookIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+        </svg>
+    );
+}
+
+function InstagramIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+        </svg>
+    );
+}
+
+function TwitterIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+    );
+}
+
 const socialLinks = [
-    { Icon: Linkedin, href: 'https://www.linkedin.com/company/idigitalrakshak/', label: 'LinkedIn' },
-    { Icon: Facebook, href: 'https://www.facebook.com/iDigitalRakshak', label: 'Facebook' },
-    { Icon: Instagram, href: 'https://www.instagram.com/idigitalrakshak/', label: 'Instagram' },
-    { Icon: Twitter, href: 'https://x.com/iDigitalRakshak', label: 'Twitter / X' }
+    { Icon: LinkedInIcon, href: 'https://www.linkedin.com/company/idigitalrakshak/', label: 'LinkedIn' },
+    { Icon: FacebookIcon, href: 'https://www.facebook.com/iDigitalRakshak', label: 'Facebook' },
+    { Icon: InstagramIcon, href: 'https://www.instagram.com/idigitalrakshak/', label: 'Instagram' },
+    { Icon: TwitterIcon, href: 'https://x.com/iDigitalRakshak', label: 'Twitter / X' },
+    { Icon: YouTubeIcon, href: 'https://www.youtube.com/@iDigitalRakshak', label: 'YouTube' },
 ]
 
 export default function Footer() {
@@ -210,8 +240,8 @@ export default function Footer() {
                 /* ── GRID ── */
                 .footer-grid {
                     display: grid;
-                    grid-template-columns: 2.2fr 1.3fr 1.5fr 1.1fr 1.3fr 1.3fr;
-                    gap: 2.5rem 1.75rem;
+                    grid-template-columns: 2fr 1.5fr 1.2fr 1.5fr;
+                    gap: 2.5rem 2rem;
                     padding-bottom: 3rem;
                 }
 
@@ -296,13 +326,13 @@ export default function Footer() {
                     color: #c7c7c7;
                     display: flex;
                     flex-direction: column;
-                    gap: 0.6rem;
+                    gap: 0.65rem;
                 }
                 .service-list a {
                     font-size: 0.95rem;
                     color: #c7c7c7;
                     text-decoration: none;
-                    display: flex;
+                    display: inline-flex;
                     align-items: center;
                     gap: 0.4rem;
                     transition: color 0.2s, transform 0.15s;
@@ -324,36 +354,42 @@ export default function Footer() {
                     background: #6366f1;
                 }
 
-                /* ── CONTACT ── */
-                .contact-items {
+                /* ── SUBMENU ── */
+                .service-submenu {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0.45rem 0 0.35rem 0.65rem;
+                    padding-left: 0.85rem;
+                    border-left: 1.5px solid rgba(99, 102, 241, 0.35);
                     display: flex;
                     flex-direction: column;
-                    gap: 1rem;
+                    gap: 0.45rem;
                 }
-                .contact-row {
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 0.625rem;
-                }
-                .contact-icon {
-                    width: 32px; height: 32px;
-                    border-radius: 8px;
-                    background: #1e293b;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-shrink: 0;
-                    color: #6366f1;
-                }
-                .contact-text {
-                    font-size: 0.95rem;
-                    color: #c7c7c7;
+                .service-submenu a {
+                    font-size: 0.88rem;
+                    color: #94a3b8;
                     text-decoration: none;
-                    line-height: 1.5;
-                    padding-top: 0.35rem;
-                    transition: color 0.2s;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.35rem;
+                    transition: color 0.2s, transform 0.15s;
                 }
-                a.contact-text:hover { color: #c7d2fe; }
+                .service-submenu a::before {
+                    content: '';
+                    display: inline-block;
+                    width: 4px; height: 1.5px;
+                    border-radius: 1px;
+                    background: #475569;
+                    flex-shrink: 0;
+                    transition: background 0.2s;
+                }
+                .service-submenu a:hover {
+                    color: #c7d2fe;
+                    transform: translateX(2px);
+                }
+                .service-submenu a:hover::before {
+                    background: #818cf8;
+                }
 
                 /* ── DIVIDER + BOTTOM ── */
                 .footer-divider {
@@ -387,11 +423,11 @@ export default function Footer() {
 
                 /* ── RESPONSIVE ── */
 
-                @media (max-width: 1380px) {
+                @media (max-width: 1200px) {
                     .footer-inner { max-width: 95%; padding: 0 1.5rem 2rem; }
                     .footer-grid {
-                        grid-template-columns: 1.8fr 1.3fr 1.3fr;
-                        gap: 3rem 2.5rem;
+                        grid-template-columns: 1.6fr 1fr 1fr 1.25fr;
+                        gap: 2rem 1.5rem;
                     }
                 }
 
@@ -427,7 +463,6 @@ export default function Footer() {
                         flex-direction: column;
                         gap: 0;
                     }
-                    .contact-col { grid-column: 1; }
                     .footer-inner { max-width: 100%; padding: 0 1.25rem 1.5rem; }
                     .footer-bottom {
                         flex-direction: column;
@@ -508,55 +543,69 @@ export default function Footer() {
                                 </div>
                             </div>
 
-                            {/* Service columns */}
-                            {footerServicesData.map(service => (
-                                <div key={service.name}>
-                                    <h4 className="col-label">{service.name}</h4>
-                                    <ul className="service-list">
-                                        {service.subservices.map(sub => (
-                                            <li key={sub.name}>
-                                                <Link href={sub.href}>{sub.name}</Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-
-                            {/* Contact */}
-                            <div className="contact-col">
-                                <h4 className="col-label">Contact Us</h4>
-                                <div className="contact-items">
-                                    {[
-                                        { icon: <Mail size={15} />, href: 'mailto:info@digitalrakshak.com', text: 'info@digitalrakshak.com' },
-                                        { icon: <Mail size={15} />, href: 'mailto:sales@digitalrakshak.com', text: 'sales@digitalrakshak.com' },
-                                        { icon: <MapPin size={15} />, text: 'Gandhinagar, Gujarat, India' },
-                                        { icon: <Phone size={15} />, href: 'tel:+917387022442', text: '+91 88666 11427' }
-                                    ].map(({ icon, href, text }, i) => (
-                                        <div className="contact-row" key={i}>
-                                            <div className="contact-icon">{icon}</div>
-                                            {href
-                                                ? <a href={href} className="contact-text">{text}</a>
-                                                : <span className="contact-text">{text}</span>
-                                            }
-                                        </div>
+                            {/* Platforms & Software */}
+                            <div>
+                                <h4 className="col-label">Platforms & Software</h4>
+                                <ul className="service-list">
+                                    {platformsData.map(item => (
+                                        <li key={item.name}>
+                                            <Link
+                                                href={item.href}
+                                                onClick={(e) => {
+                                                    if (item.href === '#') e.preventDefault()
+                                                }}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
                                     ))}
-                                </div>
+                                </ul>
+                            </div>
+
+                            {/* Services */}
+                            <div>
+                                <h4 className="col-label">Services</h4>
+                                <ul className="service-list">
+                                    {servicesData.map(item => (
+                                        <li key={item.name}>
+                                            <Link
+                                                href={item.href}
+                                                onClick={(e) => {
+                                                    if (item.href === '#') e.preventDefault()
+                                                }}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                            {item.subservices && item.subservices.length > 0 && (
+                                                <ul className="service-submenu">
+                                                    {item.subservices.map(sub => (
+                                                        <li key={sub.name}>
+                                                            <Link
+                                                                href={sub.href}
+                                                                onClick={(e) => {
+                                                                    if (sub.href === '#') e.preventDefault()
+                                                                }}
+                                                            >
+                                                                {sub.name}
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
 
                             {/* Policies */}
-                            <div className="contact-col">
+                            <div>
                                 <h4 className="col-label">Policies</h4>
                                 <ul className="service-list">
-                                    {[
-                                        { href: '/privacy-policy', text: 'Privacy Policy' },
-                                        { href: '/terms-and-conditions', text: 'T&C of Services' },
-                                        { href: '/responsible-disclosure', text: 'Responsible Disclosure Policy' },
-                                        { href: '/consumer-grievance-redressal-policy', text: 'Grievance Redressal Policy' }
-                                    ].map(service => (
-                                        <li key={service.text}>
-                                            <Link href={service.href}>{service.text}</Link>
-                                        </li>
-                                    ))}
+                                    <li>
+                                        <Link href="/policies">
+                                            Policies
+                                        </Link>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

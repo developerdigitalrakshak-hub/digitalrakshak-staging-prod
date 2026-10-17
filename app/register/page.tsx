@@ -5,15 +5,46 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { ArrowRight, CheckCircle, Shield, Users, ChevronDown, AlertCircle, Sparkles, Mail, Phone, ExternalLink, User, Building2, FileText, Briefcase } from "lucide-react"
-import Image from "next/image"
+import {
+    ArrowRight,
+    CheckCircle,
+    Shield,
+    Users,
+    ChevronDown,
+    AlertCircle,
+    Sparkles,
+    Mail,
+    Phone,
+    ExternalLink,
+    User,
+    Building2,
+    FileText,
+    Briefcase,
+    Loader2,
+    RotateCcw,
+    BadgeCheck
+} from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
+import { Country, InquiryOption } from "@/lib/types/front-api"
+import { useFrontApiData, getFlagEmoji, submitInquiry } from "@/lib/api/front-client"
 
 // Forbidden personal email domains for Business Entity validation
-const forbiddenDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com", "yandex.com", "protonmail.com", "zoho.com", "mail.com", "gmx.com"]
+const forbiddenDomains = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "outlook.com",
+    "aol.com",
+    "icloud.com",
+    "yandex.com",
+    "protonmail.com",
+    "zoho.com",
+    "mail.com",
+    "gmx.com"
+]
 
 // Zod validation schema for Business Entity
 const businessSchema = z.object({
@@ -30,13 +61,13 @@ const businessSchema = z.object({
             { message: "Please use your corporate/business email address. Personal email domains are not allowed." }
         ),
     companyName: z.string().min(1, { message: "Company name is required" }),
-    countryCode: z.string().min(1, { message: "Country code is required" }),
+    countryId: z.coerce.number().min(1, { message: "Please select a country" }),
     phoneNumber: z
         .string()
         .min(1, { message: "Phone number is required" })
-        .regex(/^\d{8,12}$/, { message: "Phone number must be between 8 and 12 digits (numbers only)" }),
+        .regex(/^\d{7,15}$/, { message: "Phone number must be between 7 and 15 digits (numbers only)" }),
     gstNo: z.string().optional(),
-    dropdownValue: z.string().min(1, { message: "Please select an option" }),
+    optionId: z.coerce.number().min(1, { message: "Please select an inquiry option" }),
     agreeToTerms: z
         .boolean()
         .refine((val) => val === true, { message: "You must consent to the privacy policy and terms to proceed" }),
@@ -53,12 +84,12 @@ const professionalSchema = z.object({
         .string()
         .min(1, { message: "Email is required" })
         .email({ message: "Please enter a valid email address" }),
-    countryCode: z.string().min(1, { message: "Country code is required" }),
+    countryId: z.coerce.number().min(1, { message: "Please select a country" }),
     phoneNumber: z
         .string()
         .min(1, { message: "Phone number is required" })
-        .regex(/^\d{8,12}$/, { message: "Phone number must be between 8 and 12 digits (numbers only)" }),
-    dropdownValue: z.string().min(1, { message: "Please select an option" }),
+        .regex(/^\d{7,15}$/, { message: "Phone number must be between 7 and 15 digits (numbers only)" }),
+    optionId: z.coerce.number().min(1, { message: "Please select an inquiry option" }),
     agreeToTerms: z
         .boolean()
         .refine((val) => val === true, { message: "You must consent to the privacy policy and terms to proceed" }),
@@ -71,20 +102,41 @@ const professionalSchema = z.object({
 type BusinessFormValues = z.infer<typeof businessSchema>
 type ProfessionalFormValues = z.infer<typeof professionalSchema>
 
+interface InquirySuccessDetails {
+    email: string
+    inquiryId?: number
+    status?: string
+    country?: string
+    option?: string
+}
+
 interface FormProps {
-    onSuccess: (email: string) => void
+    countries: Country[]
+    inquiryOptions: InquiryOption[]
+    isLoadingCountries: boolean
+    isLoadingOptions: boolean
+    defaultCountryId?: number
+    onSuccess: (details: InquirySuccessDetails) => void
 }
 
 // ----------------------------------------------------
 // 1st Tab: Business Entity Form
 // ----------------------------------------------------
-function BusinessEntityForm({ onSuccess }: FormProps) {
+function BusinessEntityForm({
+    countries,
+    inquiryOptions,
+    isLoadingCountries,
+    isLoadingOptions,
+    defaultCountryId,
+    onSuccess
+}: FormProps) {
     const { toast } = useToast()
     const {
         register,
         handleSubmit,
         watch,
         setValue,
+        setError,
         formState: { errors, isSubmitting, touchedFields, isValid },
     } = useForm<BusinessFormValues>({
         resolver: zodResolver(businessSchema),
@@ -93,19 +145,27 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
             name: "",
             email: "",
             companyName: "",
-            countryCode: "+91",
+            countryId: defaultCountryId || 2,
             phoneNumber: "",
             gstNo: "",
-            dropdownValue: "",
+            optionId: undefined,
             agreeToTerms: false,
             agreeToMarketing: false,
             selectAll: false,
         },
     })
 
+    const selectedCountryId = watch("countryId")
     const agreeToTerms = watch("agreeToTerms")
     const agreeToMarketing = watch("agreeToMarketing")
     const selectAll = watch("selectAll")
+
+    // Auto-update countryId when defaultCountryId is available
+    useEffect(() => {
+        if (defaultCountryId && (!selectedCountryId || selectedCountryId === 0)) {
+            setValue("countryId", defaultCountryId, { shouldValidate: true })
+        }
+    }, [defaultCountryId, selectedCountryId, setValue])
 
     useEffect(() => {
         if (agreeToTerms && agreeToMarketing && !selectAll) {
@@ -115,14 +175,76 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
         }
     }, [agreeToTerms, agreeToMarketing, selectAll, setValue])
 
+    const selectedCountry = countries.find((c) => c.id === Number(selectedCountryId))
+    const phonePrefix = selectedCountry?.phone_code ? `+${selectedCountry.phone_code}` : "+91"
+
     const onSubmit = async (data: BusinessFormValues) => {
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-        console.log("Business Entity Registered:", data)
+        const payload = {
+            type: "business",
+            name: data.name.trim(),
+            business_email: data.email.trim(),
+            company_name: data.companyName.trim(),
+            gst_number: data.gstNo?.trim() || undefined,
+            mobile_number: data.phoneNumber.trim(),
+            country_id: Number(data.countryId) || undefined,
+            option_id: Number(data.optionId) || undefined,
+            consent: {
+                terms: data.agreeToTerms,
+                marketing: data.agreeToMarketing,
+            },
+        }
+
+        const res = await submitInquiry(payload)
+
+        if (res.success && res.data) {
+            toast({
+                title: "Inquiry Submitted Successfully",
+                description: `Inquiry #${res.data.id} has been recorded with status: ${res.data.status}.`,
+            })
+            onSuccess({
+                email: data.email,
+                inquiryId: res.data.id,
+                status: res.data.status,
+                country: res.data.country || undefined,
+                option: res.data.option || undefined,
+            })
+            return
+        }
+
+        if (res.status === 422 && res.errors) {
+            // Field-level validation messages from API
+            Object.entries(res.errors).forEach(([field, msgs]) => {
+                const message = Array.isArray(msgs) ? msgs.join(" ") : String(msgs)
+                if (field === "name") setError("name", { message })
+                else if (field === "business_email") setError("email", { message })
+                else if (field === "company_name") setError("companyName", { message })
+                else if (field === "gst_number") setError("gstNo", { message })
+                else if (field === "mobile_number") setError("phoneNumber", { message })
+                else if (field === "country_id") setError("countryId", { message })
+                else if (field === "option_id") setError("optionId", { message })
+            })
+            toast({
+                title: "Validation Error (422)",
+                description: res.message || "Please correct the highlighted form errors.",
+                variant: "destructive",
+            })
+            return
+        }
+
+        if (res.status === 401) {
+            toast({
+                title: "Authentication Error (401)",
+                description: "API Token is missing or invalid. Please configure DIGITALRAKSHAK_API_TOKEN in .env.local",
+                variant: "destructive",
+            })
+            return
+        }
+
         toast({
-            title: "Verification Email Sent",
-            description: `We have sent an activation link to ${data.email}.`,
+            title: "Submission Error",
+            description: res.message || "Unable to submit inquiry. Please try again.",
+            variant: "destructive",
         })
-        onSuccess(data.email)
     }
 
     return (
@@ -239,7 +361,7 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
                         <input
                             type="text"
                             id="bus-gstNo"
-                            placeholder="22AAAAA0000A1Z5"
+                            placeholder="24AAAAA0000A1Z5"
                             {...register("gstNo")}
                             className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white transition-all"
                         />
@@ -247,32 +369,40 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
                     </div>
                 </div>
 
-                {/* Mobile Number */}
+                {/* Country & Mobile Number */}
                 <div className="space-y-2">
                     <label htmlFor="bus-phoneNumber" className="block text-sm font-semibold text-gray-800">
-                        Mobile Number*
+                        Country & Mobile Number*
                     </label>
                     <div className="flex gap-2">
-                        <div className="relative flex-shrink-0">
+                        {/* Dynamic Country Dropdown */}
+                        <div className="relative flex-shrink-0 w-36 sm:w-48">
                             <select
-                                id="bus-countryCode"
-                                {...register("countryCode")}
-                                className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
+                                id="bus-countryId"
+                                {...register("countryId")}
+                                className="w-full appearance-none pl-3 pr-8 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all text-sm truncate"
                             >
-                                <option value="+91">🇮🇳 (+91)</option>
-                                <option value="+1">🇺🇸 (+1)</option>
-                                <option value="+44">🇬🇧 (+44)</option>
-                                <option value="+61">🇦🇺 (+61)</option>
+                                {isLoadingCountries ? (
+                                    <option value="">Loading...</option>
+                                ) : (
+                                    countries.map((country) => (
+                                        <option key={country.id} value={country.id}>
+                                            {getFlagEmoji(country.iso_code_2)} {country.name} (+{country.phone_code})
+                                        </option>
+                                    ))
+                                )}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400">
                                 <ChevronDown className="h-4 w-4" />
                             </div>
                         </div>
+
+                        {/* Mobile Number Input */}
                         <div className="relative flex-grow">
                             <input
                                 type="tel"
                                 id="bus-phoneNumber"
-                                placeholder="98765 43210"
+                                placeholder="9876543210"
                                 {...register("phoneNumber")}
                                 className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
                                     ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
@@ -290,6 +420,12 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
                             )}
                         </div>
                     </div>
+                    {errors.countryId && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.countryId.message}
+                        </p>
+                    )}
                     {errors.phoneNumber && (
                         <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
                             <AlertCircle className="h-3.5 w-3.5" />
@@ -298,35 +434,40 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
                     )}
                 </div>
 
-                {/* Dropdown Field */}
+                {/* Inquiry Option Dropdown */}
                 <div className="space-y-2">
-                    <label htmlFor="bus-dropdownValue" className="block text-sm font-semibold text-gray-800">
-                        Select Option*
+                    <label htmlFor="bus-optionId" className="block text-sm font-semibold text-gray-800">
+                        Inquiry Purpose / Option*
                     </label>
                     <div className="relative">
                         <select
-                            id="bus-dropdownValue"
-                            {...register("dropdownValue")}
-                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.dropdownValue
+                            id="bus-optionId"
+                            {...register("optionId")}
+                            defaultValue=""
+                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.optionId
                                 ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                : touchedFields.dropdownValue
+                                : touchedFields.optionId
                                     ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
                                     : "border-gray-300 focus:ring-blue-500/10"
                                 }`}
                         >
-                            <option value="" disabled hidden>Choose an option</option>
-                            <option value="value1">Option 1</option>
-                            <option value="value2">Option 2</option>
-                            <option value="value3">Option 3</option>
+                            <option value="" disabled hidden>
+                                {isLoadingOptions ? "Loading inquiry options..." : "Choose an inquiry option"}
+                            </option>
+                            {inquiryOptions.map((opt) => (
+                                <option key={opt.id} value={opt.id}>
+                                    {opt.name}
+                                </option>
+                            ))}
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400">
                             <ChevronDown className="h-5 w-5" />
                         </div>
                     </div>
-                    {errors.dropdownValue && (
+                    {errors.optionId && (
                         <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
                             <AlertCircle className="h-3.5 w-3.5" />
-                            {errors.dropdownValue.message}
+                            {errors.optionId.message}
                         </p>
                     )}
                 </div>
@@ -416,8 +557,17 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3.5 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
                 disabled={isSubmitting || !isValid}
             >
-                {isSubmitting ? "Creating Business Account..." : "Submit"}
-                {!isSubmitting && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
+                {isSubmitting ? (
+                    <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>Submitting Inquiry...</span>
+                    </>
+                ) : (
+                    <>
+                        <span>Submit Inquiry</span>
+                        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                )}
             </Button>
         </form>
     )
@@ -426,13 +576,21 @@ function BusinessEntityForm({ onSuccess }: FormProps) {
 // ----------------------------------------------------
 // 2nd Tab: Professional Form
 // ----------------------------------------------------
-function ProfessionalForm({ onSuccess }: FormProps) {
+function ProfessionalForm({
+    countries,
+    inquiryOptions,
+    isLoadingCountries,
+    isLoadingOptions,
+    defaultCountryId,
+    onSuccess
+}: FormProps) {
     const { toast } = useToast()
     const {
         register,
         handleSubmit,
         watch,
         setValue,
+        setError,
         formState: { errors, isSubmitting, touchedFields, isValid },
     } = useForm<ProfessionalFormValues>({
         resolver: zodResolver(professionalSchema),
@@ -440,18 +598,26 @@ function ProfessionalForm({ onSuccess }: FormProps) {
         defaultValues: {
             name: "",
             email: "",
-            countryCode: "+91",
+            countryId: defaultCountryId || 2,
             phoneNumber: "",
-            dropdownValue: "",
+            optionId: undefined,
             agreeToTerms: false,
             agreeToMarketing: false,
             selectAll: false,
         },
     })
 
+    const selectedCountryId = watch("countryId")
     const agreeToTerms = watch("agreeToTerms")
     const agreeToMarketing = watch("agreeToMarketing")
     const selectAll = watch("selectAll")
+
+    // Auto-update countryId when defaultCountryId is available
+    useEffect(() => {
+        if (defaultCountryId && (!selectedCountryId || selectedCountryId === 0)) {
+            setValue("countryId", defaultCountryId, { shouldValidate: true })
+        }
+    }, [defaultCountryId, selectedCountryId, setValue])
 
     useEffect(() => {
         if (agreeToTerms && agreeToMarketing && !selectAll) {
@@ -461,14 +627,71 @@ function ProfessionalForm({ onSuccess }: FormProps) {
         }
     }, [agreeToTerms, agreeToMarketing, selectAll, setValue])
 
+    const selectedCountry = countries.find((c) => c.id === Number(selectedCountryId))
+    const phonePrefix = selectedCountry?.phone_code ? `+${selectedCountry.phone_code}` : "+91"
+
     const onSubmit = async (data: ProfessionalFormValues) => {
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-        console.log("Professional Registered:", data)
+        const payload = {
+            type: "professional",
+            name: data.name.trim(),
+            business_email: data.email.trim(),
+            mobile_number: data.phoneNumber.trim(),
+            country_id: Number(data.countryId) || undefined,
+            option_id: Number(data.optionId) || undefined,
+            consent: {
+                terms: data.agreeToTerms,
+                marketing: data.agreeToMarketing,
+            },
+        }
+
+        const res = await submitInquiry(payload)
+
+        if (res.success && res.data) {
+            toast({
+                title: "Inquiry Submitted Successfully",
+                description: `Inquiry #${res.data.id} has been recorded with status: ${res.data.status}.`,
+            })
+            onSuccess({
+                email: data.email,
+                inquiryId: res.data.id,
+                status: res.data.status,
+                country: res.data.country || undefined,
+                option: res.data.option || undefined,
+            })
+            return
+        }
+
+        if (res.status === 422 && res.errors) {
+            Object.entries(res.errors).forEach(([field, msgs]) => {
+                const message = Array.isArray(msgs) ? msgs.join(" ") : String(msgs)
+                if (field === "name") setError("name", { message })
+                else if (field === "business_email") setError("email", { message })
+                else if (field === "mobile_number") setError("phoneNumber", { message })
+                else if (field === "country_id") setError("countryId", { message })
+                else if (field === "option_id") setError("optionId", { message })
+            })
+            toast({
+                title: "Validation Error (422)",
+                description: res.message || "Please correct the highlighted form errors.",
+                variant: "destructive",
+            })
+            return
+        }
+
+        if (res.status === 401) {
+            toast({
+                title: "Authentication Error (401)",
+                description: "API Token is missing or invalid. Please configure DIGITALRAKSHAK_API_TOKEN in .env.local",
+                variant: "destructive",
+            })
+            return
+        }
+
         toast({
-            title: "Verification Email Sent",
-            description: `We have sent an activation link to ${data.email}.`,
+            title: "Submission Error",
+            description: res.message || "Unable to submit inquiry. Please try again.",
+            variant: "destructive",
         })
-        onSuccess(data.email)
     }
 
     return (
@@ -542,32 +765,40 @@ function ProfessionalForm({ onSuccess }: FormProps) {
                     )}
                 </div>
 
-                {/* Mobile Number */}
+                {/* Country & Mobile Number */}
                 <div className="space-y-2">
                     <label htmlFor="prof-phoneNumber" className="block text-sm font-semibold text-gray-800">
-                        Mobile Number*
+                        Country & Mobile Number*
                     </label>
                     <div className="flex gap-2">
-                        <div className="relative flex-shrink-0">
+                        {/* Dynamic Country Dropdown */}
+                        <div className="relative flex-shrink-0 w-36 sm:w-48">
                             <select
-                                id="prof-countryCode"
-                                {...register("countryCode")}
-                                className="appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all"
+                                id="prof-countryId"
+                                {...register("countryId")}
+                                className="w-full appearance-none pl-3 pr-8 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all text-sm truncate"
                             >
-                                <option value="+91">🇮🇳 (+91)</option>
-                                <option value="+1">🇺🇸 (+1)</option>
-                                <option value="+44">🇬🇧 (+44)</option>
-                                <option value="+61">🇦🇺 (+61)</option>
+                                {isLoadingCountries ? (
+                                    <option value="">Loading...</option>
+                                ) : (
+                                    countries.map((country) => (
+                                        <option key={country.id} value={country.id}>
+                                            {getFlagEmoji(country.iso_code_2)} {country.name} (+{country.phone_code})
+                                        </option>
+                                    ))
+                                )}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400">
                                 <ChevronDown className="h-4 w-4" />
                             </div>
                         </div>
+
+                        {/* Mobile Number Input */}
                         <div className="relative flex-grow">
                             <input
                                 type="tel"
                                 id="prof-phoneNumber"
-                                placeholder="98765 43210"
+                                placeholder="9876543210"
                                 {...register("phoneNumber")}
                                 className={`w-full pl-11 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:border-blue-500 bg-white transition-all ${errors.phoneNumber
                                     ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
@@ -585,6 +816,12 @@ function ProfessionalForm({ onSuccess }: FormProps) {
                             )}
                         </div>
                     </div>
+                    {errors.countryId && (
+                        <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
+                            <AlertCircle className="h-3.5 w-3.5" />
+                            {errors.countryId.message}
+                        </p>
+                    )}
                     {errors.phoneNumber && (
                         <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
                             <AlertCircle className="h-3.5 w-3.5" />
@@ -593,35 +830,40 @@ function ProfessionalForm({ onSuccess }: FormProps) {
                     )}
                 </div>
 
-                {/* Dropdown Field */}
+                {/* Inquiry Option Dropdown */}
                 <div className="space-y-2">
-                    <label htmlFor="prof-dropdownValue" className="block text-sm font-semibold text-gray-800">
-                        Select Option*
+                    <label htmlFor="prof-optionId" className="block text-sm font-semibold text-gray-800">
+                        Inquiry Purpose / Option*
                     </label>
                     <div className="relative">
                         <select
-                            id="prof-dropdownValue"
-                            {...register("dropdownValue")}
-                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.dropdownValue
+                            id="prof-optionId"
+                            {...register("optionId")}
+                            defaultValue=""
+                            className={`w-full pl-4 pr-10 py-3 border rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white shadow-sm font-medium text-gray-700 cursor-pointer transition-all ${errors.optionId
                                 ? "border-red-300 focus:ring-red-500/10 focus:border-red-500"
-                                : touchedFields.dropdownValue
+                                : touchedFields.optionId
                                     ? "border-green-300 focus:ring-green-500/10 focus:border-green-500"
                                     : "border-gray-300 focus:ring-blue-500/10"
                                 }`}
                         >
-                            <option value="" disabled hidden>Choose an option</option>
-                            <option value="value1">Option 1</option>
-                            <option value="value2">Option 2</option>
-                            <option value="value3">Option 3</option>
+                            <option value="" disabled hidden>
+                                {isLoadingOptions ? "Loading inquiry options..." : "Choose an inquiry option"}
+                            </option>
+                            {inquiryOptions.map((opt) => (
+                                <option key={opt.id} value={opt.id}>
+                                    {opt.name}
+                                </option>
+                            ))}
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-gray-400">
                             <ChevronDown className="h-5 w-5" />
                         </div>
                     </div>
-                    {errors.dropdownValue && (
+                    {errors.optionId && (
                         <p className="text-xs font-medium text-red-600 flex items-center gap-1 pl-1">
                             <AlertCircle className="h-3.5 w-3.5" />
-                            {errors.dropdownValue.message}
+                            {errors.optionId.message}
                         </p>
                     )}
                 </div>
@@ -711,8 +953,17 @@ function ProfessionalForm({ onSuccess }: FormProps) {
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3.5 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
                 disabled={isSubmitting || !isValid}
             >
-                {isSubmitting ? "Creating Professional Account..." : "Submit"}
-                {!isSubmitting && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
+                {isSubmitting ? (
+                    <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>Submitting Inquiry...</span>
+                    </>
+                ) : (
+                    <>
+                        <span>Submit Inquiry</span>
+                        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                )}
             </Button>
         </form>
     )
@@ -724,17 +975,31 @@ function ProfessionalForm({ onSuccess }: FormProps) {
 export default function RegisterPage() {
     const [isMounted, setIsMounted] = useState(false)
     const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false)
-    const [registeredEmail, setRegisteredEmail] = useState("")
+    const [successDetails, setSuccessDetails] = useState<InquirySuccessDetails | null>(null)
     const [accountType, setAccountType] = useState<"business" | "professional">("business")
+
+    // Fetch dynamic countries and inquiry options globally
+    const {
+        countries,
+        inquiryOptions,
+        isLoadingCountries,
+        isLoadingOptions,
+        defaultCountryId
+    } = useFrontApiData()
 
     // Mount animation trigger
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
-    const handleSuccess = (email: string) => {
-        setRegisteredEmail(email)
+    const handleSuccess = (details: InquirySuccessDetails) => {
+        setSuccessDetails(details)
         setIsSubmittedSuccessfully(true)
+    }
+
+    const handleReset = () => {
+        setIsSubmittedSuccessfully(false)
+        setSuccessDetails(null)
     }
 
     const benefits = [
@@ -761,8 +1026,6 @@ export default function RegisterPage() {
                 className={`container mx-auto max-w-7xl transition-all duration-1000 ease-out transform ${isMounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                     }`}
             >
-
-
                 <div className="grid lg:grid-cols-12 gap-12 items-start">
                     {/* Left Column - Benefits and Information (5 cols) */}
                     <div className="lg:col-span-5 space-y-8">
@@ -801,8 +1064,8 @@ export default function RegisterPage() {
                                     </div>
                                     <div className="flex-1">
                                         <blockquote className="text-gray-700 mb-4 italic text-sm sm:text-base leading-relaxed">
-                                            "We take immense satisfaction in our ability to achieve a 5-minute end-to-end target TAT for
-                                            security assessments, and DigitalRakshak continues to be a pivotal partner in this endeavour."
+                                            &ldquo;We take immense satisfaction in our ability to achieve a 5-minute end-to-end target TAT for
+                                            security assessments, and DigitalRakshak continues to be a pivotal partner in this endeavour.&rdquo;
                                         </blockquote>
                                         <div className="flex items-center space-x-3">
                                             <div className="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center border border-white">
@@ -863,41 +1126,81 @@ export default function RegisterPage() {
 
                                         {/* Render Separate Form for each tab */}
                                         {accountType === "business" ? (
-                                            <BusinessEntityForm onSuccess={handleSuccess} />
+                                            <BusinessEntityForm
+                                                countries={countries}
+                                                inquiryOptions={inquiryOptions}
+                                                isLoadingCountries={isLoadingCountries}
+                                                isLoadingOptions={isLoadingOptions}
+                                                defaultCountryId={defaultCountryId}
+                                                onSuccess={handleSuccess}
+                                            />
                                         ) : (
-                                            <ProfessionalForm onSuccess={handleSuccess} />
+                                            <ProfessionalForm
+                                                countries={countries}
+                                                inquiryOptions={inquiryOptions}
+                                                isLoadingCountries={isLoadingCountries}
+                                                isLoadingOptions={isLoadingOptions}
+                                                defaultCountryId={defaultCountryId}
+                                                onSuccess={handleSuccess}
+                                            />
                                         )}
                                     </>
                                 ) : (
-                                    /* Success State View - Animated */
-                                    <div className="text-center py-12 px-4 space-y-6 animate-fade-in-up">
-                                        <div className="w-20 h-20 bg-green-50 border border-green-200 rounded-full flex items-center justify-center mx-auto shadow-sm relative animate-bounce">
-                                            <CheckCircle className="h-10 w-10 text-green-500" />
+                                    /* Success State View - Animated with Inquiry ID & Status as required by documentation */
+                                    <div className="text-center py-10 px-4 space-y-6 animate-fade-in-up">
+                                        <div className="w-20 h-20 bg-green-50 border-2 border-green-200 rounded-full flex items-center justify-center mx-auto shadow-md relative">
+                                            <CheckCircle className="h-10 w-10 text-green-600" />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Account Pending Verification</h2>
-                                            <p className="text-gray-600 max-w-md mx-auto">
-                                                Thank you for choosing DigitalRakshak. We've sent a verification email to:
+                                            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Inquiry Submitted Successfully</h2>
+                                            <p className="text-gray-600 max-w-md mx-auto text-sm sm:text-base">
+                                                Thank you for choosing DigitalRakshak. Your inquiry has been submitted and is currently being processed.
                                             </p>
-                                            <div className="bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 w-fit mx-auto font-mono text-sm text-blue-700 font-semibold shadow-sm">
-                                                {registeredEmail}
+                                        </div>
+
+                                        {/* Reference and Status Badges */}
+                                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-5 max-w-md mx-auto shadow-sm space-y-3">
+                                            <div className="flex items-center justify-between text-sm py-1 border-b border-blue-100/60">
+                                                <span className="text-gray-500 font-medium">Inquiry Reference ID:</span>
+                                                <span className="font-mono font-bold text-blue-700 bg-white px-2.5 py-0.5 rounded-md border border-blue-200 shadow-2xs">
+                                                    #{successDetails?.inquiryId ?? "N/A"}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex items-center justify-between text-sm py-1 border-b border-blue-100/60">
+                                                <span className="text-gray-500 font-medium">Inquiry Status:</span>
+                                                <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200">
+                                                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                                                    {successDetails?.status ?? "pending"}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex items-center justify-between text-sm py-1">
+                                                <span className="text-gray-500 font-medium">Notification Sent To:</span>
+                                                <span className="font-mono text-xs sm:text-sm text-gray-800 font-semibold truncate max-w-[200px]">
+                                                    {successDetails?.email}
+                                                </span>
                                             </div>
                                         </div>
 
-                                        <p className="text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
-                                            Please click the link inside that email to verify your email address and start setting up your trials.
+                                        <p className="text-xs sm:text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
+                                            Please check your inbox for an email confirmation with next steps to start setting up your trials.
                                         </p>
 
-                                        <div className="pt-6 flex flex-col gap-3 max-w-xs mx-auto">
-                                            <Link href="/">
+                                        <div className="pt-4 flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+                                            <Button
+                                                onClick={handleReset}
+                                                variant="outline"
+                                                className="flex-1 rounded-xl py-3 font-semibold border-gray-300 hover:bg-slate-50 transition-all cursor-pointer flex items-center justify-center gap-2"
+                                            >
+                                                <RotateCcw className="h-4 w-4" />
+                                                New Inquiry
+                                            </Button>
+
+                                            <Link href="/" className="flex-1">
                                                 <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white rounded-xl py-3 font-semibold shadow transition-all cursor-pointer">
                                                     Go to Homepage
-                                                </Button>
-                                            </Link>
-                                            <Link href="/#">
-                                                <Button variant="outline" className="w-full rounded-xl py-3 font-semibold border-gray-200 hover:bg-slate-50 transition-all cursor-pointer">
-                                                    Sign In Console
                                                 </Button>
                                             </Link>
                                         </div>
