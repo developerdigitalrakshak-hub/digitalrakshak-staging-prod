@@ -1,698 +1,1281 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { useRouter } from 'next/navigation'
+import { useState } from "react";
 import {
-  Landmark,
-  ShieldCheck,
-  CheckCircle,
-  Zap,
-  Building2,
-  Search,
-  ArrowRight,
-  AlertTriangle,
-  Database,
-  Check,
-  Copy,
-  FileText,
-  Layers,
-  BarChart3,
-  BadgeCheck,
-  Globe,
-  Briefcase,
-  ShoppingCart,
-  Truck,
-  CreditCard,
-  RefreshCw,
-  Lock,
-  Users
-} from 'lucide-react'
+    Landmark,
+    Building2,
+    ArrowRight,
+    CheckCircle2,
+    Check,
+    ChevronDown,
+    ShieldCheck,
+    Zap,
+    Database,
+    AlertTriangle,
+    FileText,
+    BarChart3,
+    ShieldAlert,
+    Briefcase,
+    Users,
+    Clock,
+    Lock,
+    Scale,
+    CreditCard,
+    RefreshCw,
+    ShoppingCart,
+    Truck,
+    Globe,
+    BadgeCheck,
+    Layers,
+} from "lucide-react";
 
+const assetPathPrefix = "/assets";
+
+const imgSvgRepoIconCarrier = `${assetPathPrefix}/e8dc9.svg`;
+const imgFrame19 = `${assetPathPrefix}/643e6.png`;
+const imgFrame20 = `${assetPathPrefix}/Frame 20.png`;
+const imgFrame22 = `${assetPathPrefix}/Frame 22.png`;
+const imgFrame77 = `${assetPathPrefix}/Frame 77.png`;
+const imgRectangle6 = `${assetPathPrefix}/Rectangle 6.png`;
+const imgRectangle7 = `${assetPathPrefix}/Rectangle 7.png`;
+const imgEllipse21 = `${assetPathPrefix}/Ellipse 21.png`;
+const imgEllipse19 = `${assetPathPrefix}/Ellipse 19.png`;
+const imgEllipse22 = `${assetPathPrefix}/e2585.svg`;
+const imgSvgRepoIconCarrier6 = `${assetPathPrefix}/52ecf.svg`;
+const imgVector2 = `${assetPathPrefix}/50101.svg`;
+
+const faqItems = [
+    {
+        q: "1. What is Bank Account Verification API?",
+        a: "The Bank Account Verification API allows enterprises and platforms to instantly validate bank account numbers, IFSC codes, beneficiary names, and account active status in real-time before initiating payouts or onboarding customers.",
+    },
+    {
+        q: "2. How does Penny Drop verification work?",
+        a: "During Penny Drop verification, our API deposits a micro-amount (₹1) into the target bank account via IMPS/NPCI. Destination bank networks return the official registered account holder name and account status.",
+    },
+    {
+        q: "3. What is Reverse Penny Drop verification?",
+        a: "Reverse Penny Drop asks the end user to pay ₹1 using any UPI app (GPay, PhonePe, Paytm). The incoming UPI payment payload provides 100% verified bank account details and holder name without manual data entry.",
+    },
+    {
+        q: "4. Which banks are supported?",
+        a: "DigitalRakshak supports 200+ major public, private, regional rural, and cooperative banks across India supporting IMPS, NEFT, RTGS, and UPI networks.",
+    },
+    {
+        q: "5. What is the response time and uptime SLA?",
+        a: "DigitalRakshak guarantees sub-300ms API response latency with 99.99% uptime SLA backed by bank-grade redundant infrastructure.",
+    },
+    {
+        q: "6. How do I integrate the Bank Account Verification API?",
+        a: "Register on DigitalRakshak, obtain your production/sandbox API keys, and follow our clean REST API documentation to start verifying bank accounts within minutes.",
+    },
+];
+
+/* ── 1. HERO SECTION (Identical visual design to gst-verification-api) ── */
+function HeroSection() {
+    return (
+        <section className="relative min-h-0 lg:min-h-[100dvh] overflow-hidden px-[5%] lg:px-[6%] flex flex-col justify-between pt-24 sm:pt-28 lg:pt-24 pb-12 sm:pb-16">
+            {/* Background Video with instant poster and gradient overlay */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster="/bg-frame-poster.jpg"
+                    className="w-full h-full object-cover object-bottom"
+                >
+                    <source src="/bg-frame.webm" type="video/webm" />
+                    <source src="/bg-frame.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 lg:to-transparent" />
+            </div>
+
+            {/* Center Hero content - fits on screen */}
+            <div className="relative z-10 flex-1 flex items-center py-4 lg:py-8">
+                <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-8 xl:gap-12 items-center">
+                    {/* Left content */}
+                    <div className="lg:col-span-5 flex flex-col justify-between text-left">
+                        <div>
+                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-3">
+                                <Landmark className="w-3.5 h-3.5 text-blue-300" />
+                                Enterprise Financial &amp; Payout Verification
+                            </span>
+                            <h1 className="text-white text-[clamp(28px,7vw,56px)] font-black leading-[1.1] tracking-tight">
+                                Bank Account<br />Verification API
+                            </h1>
+                            <p className="text-white text-[15px] sm:text-[18px] lg:text-[22px] font-medium mt-3 sm:mt-4">
+                                Instantly validate bank account numbers, IFSC codes, and beneficiary names in sub-seconds.
+                            </p>
+                        </div>
+
+                        <div className="mt-5 sm:mt-8 lg:mt-10">
+                            <p className="text-white/90 text-[14px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed max-w-[540px]">
+                                Instantly validate bank account numbers, IFSC codes, beneficiary names, and active bank account status in sub-seconds before processing payouts or merchant onboarding.
+                            </p>
+                            <div className="flex gap-3 sm:gap-4 mt-5 sm:mt-6 items-center flex-wrap">
+                                <a
+                                    href="#contact"
+                                    className="bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-semibold text-[14px] sm:text-[15px] px-6 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all flex items-center gap-2"
+                                >
+                                    <span>Get API Access</span>
+                                    <ArrowRight className="w-4 h-4" />
+                                </a>
+                                <a
+                                    href="#contact"
+                                    className="bg-white hover:bg-gray-100 text-[#0a1e36] font-semibold text-[14px] sm:text-[15px] px-6 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all"
+                                >
+                                    Book a Meeting
+                                </a>
+                            </div>
+
+                            {/* Tag capabilities */}
+                            <div className="flex items-center gap-3 sm:gap-4 mt-6 sm:mt-8 pt-4 border-t border-white/10 flex-wrap text-white/80 text-[12.5px] sm:text-[13.5px]">
+                                <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-[#76bbf8]" /> &lt; 300ms Latency</span>
+                                <span className="text-white/30 hidden sm:inline">•</span>
+                                <span className="flex items-center gap-1.5"><Building2 className="w-4 h-4 text-[#76bbf8]" /> 200+ Banks Network</span>
+                                <span className="text-white/30 hidden sm:inline">•</span>
+                                <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-[#76bbf8]" /> 99.99% Uptime SLA</span>
+                                <span className="text-white/30 hidden sm:inline">•</span>
+                                <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-[#76bbf8]" /> 100% Penny Drop Accuracy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right – product screenshots (identical to gst-verification-api) */}
+                    <div className="lg:col-span-7 relative flex justify-center lg:justify-end items-center w-full mt-4 lg:mt-0">
+                        <div className="flex items-center gap-3 sm:gap-6 md:gap-8 w-full max-w-[650px] lg:max-w-none mx-auto">
+                            {/* Main card - left */}
+                            <div className="flex-[326] rounded-[16px] sm:rounded-[22px] lg:rounded-[26px] overflow-hidden shadow-2xl border border-white/10 aspect-[326/354] bg-[#f2f4f7]">
+                                <img
+                                    alt="Bank Account Verification Dashboard"
+                                    className="w-full h-full object-cover object-center"
+                                    src={imgFrame19}
+                                />
+                            </div>
+
+                            {/* Right stacked cards */}
+                            <div className="flex-[175] flex flex-col justify-between self-stretch gap-2.5 sm:gap-4">
+                                <div className="rounded-[12px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
+                                    <img
+                                        alt="Feature preview 1"
+                                        className="w-full h-full object-cover"
+                                        src={imgRectangle6}
+                                    />
+                                </div>
+                                <div className="rounded-[12px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
+                                    <img
+                                        alt="Feature preview 2"
+                                        className="w-full h-full object-cover"
+                                        src={imgRectangle7}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 2. FEATURE CARD (Identical to gst-verification-api) ── */
+function FeatureCard({
+    icon,
+    title,
+    desc,
+}: {
+    icon: string;
+    title: string;
+    desc: string;
+}) {
+    return (
+        <div className="relative w-full max-w-[235px] mt-6 mx-auto flex-shrink-0 flex flex-col justify-start transition-transform duration-300 hover:-translate-y-1.5 group">
+            {/* Top glowing circular badge - perfectly centered */}
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full bg-[#0088FF]/50 border-2 border-[#38bdf8]/70 shadow-[0_0_22px_rgba(0,136,255,0.65)] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_28px_rgba(0,136,255,0.9)]">
+                <img
+                    alt=""
+                    src={icon}
+                    className="w-6 h-6 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+                />
+            </div>
+
+            {/* Card Body with exact Figma styling */}
+            <div className="w-full min-h-[220px] rounded-[18px] bg-[#5173C2]/45 border border-[#6b8cd8]/35 backdrop-blur-md px-4 pt-9 pb-5 text-center sm:text-left flex flex-col justify-start h-full shadow-[0_10px_25px_rgba(0,0,0,0.35)]">
+                <p className="text-white text-[16px] sm:text-[17px] font-semibold leading-[22px] sm:leading-[24px] mb-2.5">
+                    {title}
+                </p>
+                <p className="text-white/90 text-[13px] sm:text-[13.5px] font-normal leading-[19px] sm:leading-[21px]">
+                    {desc}
+                </p>
+            </div>
+        </div>
+    );
+}
+
+function WhatCanYouDoSection() {
+    const cards = [
+        {
+            title: "1. Prevent Payment Bounces",
+            desc: "Pre-validate bank accounts before releasing high-volume vendor or user payouts.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "2. Eliminate Fraudulent Accounts",
+            desc: "Unmask third-party account details and prevent money laundering & fraud.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "3. Instant Name Match",
+            desc: "Verify beneficiary name retrieved from NPCI against PAN/Aadhaar identity.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "4. Penny Drop & Reverse Drop",
+            desc: "Support both direct IMPS micro-deposits and dynamic UPI QR code validation.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "5. Sub-Second Latency",
+            desc: "Execute penny drop verification in <300ms for seamless in-app user onboarding.",
+            icon: imgSvgRepoIconCarrier,
+        },
+    ];
+
+    return (
+        <section id="api-product" className="relative pt-10 sm:pt-14 pb-8 sm:pb-12 px-[5%] lg:px-[6%]">
+            {/* Ellipse 19 glow (same as gst-verification-api) */}
+            <div className="absolute left-[-10%] top-[-10%] w-full max-w-[848px] pointer-events-none select-none opacity-70 mix-blend-screen">
+                <img
+                    alt=""
+                    className="w-full h-full object-contain"
+                    src={imgEllipse19}
+                />
+            </div>
+
+            <div className="relative z-10 max-w-[1400px] mx-auto">
+                <h2 className="text-white text-[clamp(24px,4vw,42px)] font-bold text-center tracking-tight mb-3">
+                    What Can You Do with Bank Account Verification
+                </h2>
+                <p className="text-white/70 text-[15px] sm:text-[17px] text-center max-w-[700px] mx-auto mb-14 sm:mb-20">
+                    Eliminate payout failures, verify beneficiary names via NPCI rails, and streamline merchant KYB.
+                </p>
+
+                {/* Cards grid layout */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10 sm:gap-y-16 justify-items-center">
+                    {cards.map((c, i) => (
+                        <FeatureCard key={i} icon={c.icon} title={c.title} desc={c.desc} />
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 3. VERIFICATION CARDS SECTION (Big blue border box identical to gst-verification-api) ── */
+function VerificationCardsSection() {
+    return (
+        <section className="relative py-8 sm:py-12 px-[5%] lg:px-[6%]">
+            <div className="relative z-10 max-w-[1240px] mx-auto">
+                <h2 className="text-white text-[24px] sm:text-[32px] lg:text-[36px] font-bold text-center tracking-tight mb-3">
+                    Verified Data Output Parameters
+                </h2>
+                <p className="text-white/70 text-[14px] sm:text-[16px] text-center max-w-[650px] mx-auto mb-10 sm:mb-14">
+                    Our API returns complete, authoritative bank account parameters directly from destination banks.
+                </p>
+
+                {/* Outer Blue Border Box */}
+                <div className="relative bg-[#040d24]/70 border-2 border-[#1677ff] rounded-[22px] p-6 sm:p-9 lg:p-12 shadow-[0_0_35px_rgba(22,119,255,0.35)] backdrop-blur-md">
+                    <div className="grid md:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 divide-y md:divide-y-0 md:divide-x divide-white/15">
+                        {/* Column 1: Account & Beneficiary Identifiers */}
+                        <div className="md:pr-8 lg:pr-12 pb-6 md:pb-0">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="relative flex items-center justify-center size-7 flex-shrink-0">
+                                    <img
+                                        alt=""
+                                        className="w-[200%] h-[200%] max-w-none"
+                                        src={imgEllipse22}
+                                    />
+                                    <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+                                        <img
+                                            alt=""
+                                            className="w-full h-full"
+                                            src={imgSvgRepoIconCarrier6}
+                                        />
+                                    </div>
+                                </div>
+                                <h3 className="text-white text-[20px] sm:text-[23px] font-semibold leading-tight">
+                                    Account &amp; Beneficiary Identifiers
+                                </h3>
+                            </div>
+                            <p className="text-white/70 text-[13.5px] font-normal leading-relaxed mb-4 sm:mb-5">
+                                Official destination bank account metadata.
+                            </p>
+                            <ol className="text-white/90 text-[14px] sm:text-[15px] font-medium leading-[26px] list-decimal list-inside space-y-1.5 pl-1">
+                                {[
+                                    "Beneficiary Full Name (Official name registered in bank account records) [beneficiary_name]",
+                                    "Account Active Status (Active, Frozen, Dormant, or Invalid indicator) [account_status]",
+                                    "Fuzzy Name Match Score (AI confidence score 0-100% matching KYC name vs bank name) [name_match_score]",
+                                    "Account Category (Savings, Current, Overdraft, or NRE/NRO account type) [account_type]",
+                                ].map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ol>
+                        </div>
+
+                        {/* Column 2: Banking & Clearing Network Parameters */}
+                        <div className="pt-6 md:pt-0 md:pl-8 lg:pl-12">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="relative flex items-center justify-center size-7 flex-shrink-0">
+                                    <img
+                                        alt=""
+                                        className="w-[200%] h-[200%] max-w-none"
+                                        src={imgEllipse22}
+                                    />
+                                    <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+                                        <img
+                                            alt=""
+                                            className="w-full h-full"
+                                            src={imgSvgRepoIconCarrier6}
+                                        />
+                                    </div>
+                                </div>
+                                <h3 className="text-white text-[20px] sm:text-[23px] font-semibold leading-tight">
+                                    Banking &amp; Clearing Network Parameters
+                                </h3>
+                            </div>
+                            <p className="text-white/70 text-[13.5px] font-normal leading-relaxed mb-4 sm:mb-5">
+                                Routing and payment rail parameters.
+                            </p>
+                            <ol className="text-white/90 text-[14px] sm:text-[15px] font-medium leading-[26px] list-decimal list-inside space-y-1.5 pl-1">
+                                {[
+                                    "IFSC & Branch Details (Verified branch name, address, city, state, and pincode) [branch_details]",
+                                    "Bank Name & MICR (Official bank entity name and 9-digit MICR code) [micr_code]",
+                                    "Supported Modes (Real-time flags for IMPS, NEFT, RTGS, and UPI support) [supported_modes]",
+                                    "Transaction RRN (Official Bank Reference Number RRN for audit logs) [rrn]",
+                                ].map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 4. CONNECT API SECTION (Identical dual-column layout to gst-verification-api) ── */
+function ConnectAPISection() {
+    const workflows = [
+        {
+            title: "Fintech & Digital Lending",
+            desc: "Pre-verify borrower bank account ownership before disbursing personal, business, or BNPL loans to prevent loan fraud.",
+            features: ["Disbursement account match", "Loan fraud prevention", "Instant bank validation"],
+        },
+        {
+            title: "Payroll & HR Excellence",
+            desc: "Automate salary bank account verification during employee onboarding to eliminate wrong account credits and failed salary runs.",
+            features: ["Salary account validation", "Zero payout bounce", "Instant employee onboarding"],
+        },
+        {
+            title: "E-Commerce & Marketplaces",
+            desc: "Validate merchant settlement bank accounts and customer refund accounts to ensure compliance and smooth cash flow.",
+            features: ["Merchant payout verification", "Refund routing audit", "Vendor KYB compliance"],
+        },
+        {
+            title: "Gig Economy & Gaming",
+            desc: "Instant withdrawal bank account validation for delivery partners, drivers, and online gaming players for instant payouts.",
+            features: ["Instant withdrawal verification", "Fraud account prevention", "Automated settlements"],
+        },
+    ];
+
+    return (
+        <section className="relative pt-8 sm:pt-10 lg:pt-12 pb-7 sm:pb-9 px-[5%] lg:px-[6%] overflow-hidden">
+            <div className="relative z-10 max-w-[1240px] mx-auto">
+                {/* Section Heading */}
+                <h2 className="text-white text-[24px] sm:text-[30px] lg:text-[36px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+                    Connect Bank Account Verification API With Your Existing System
+                </h2>
+
+                {/* 2-Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start justify-items-center">
+                    {/* LEFT COLUMN: Blue Box + Integrate with */}
+                    <div className="w-full max-w-[543px] flex flex-col">
+                        <div className="w-full min-h-[190px] h-auto bg-gradient-to-b from-[#b2daff] to-[#92c8fc] border-2 border-[#54b4ff] rounded-[20px] p-6 sm:p-8 flex items-center shadow-[0_0_35px_rgba(84,180,255,0.45),0_0_12px_rgba(84,180,255,0.3)]">
+                            <p className="text-[#081a2e] text-[15px] sm:text-[16px] lg:text-[17px] font-normal leading-[1.65]">
+                                Executing high-volume payouts, merchant settlements, employee salary credits, or loan disbursements without pre-verifying beneficiary bank account details leads to costly payment bounces, wrong account credits, and fraud risks. DigitalRakshak&apos;s Bank Account Verification API executes real-time penny drop transfers across NPCI &amp; IMPS networks, retrieving official beneficiary names directly from destination banks to guarantee 100% account legitimacy.
+                            </p>
+                        </div>
+
+                        <h4 className="text-white font-bold text-[18px] sm:text-[20px] mt-8 mb-4">
+                            Integrate with:
+                        </h4>
+
+                        <div className="space-y-3 text-white/90 text-[14px] sm:text-[15px] font-medium pl-1">
+                            <div>1. Fintech, digital lending &amp; BNPL loan disbursal engines</div>
+                            <div>2. Payroll &amp; HR management platforms (SAP, Oracle, Darwinbox, Keka)</div>
+                            <div>3. E-commerce merchant settlements &amp; marketplace vendor onboarding</div>
+                            <div>4. Gig economy, on-demand delivery &amp; gaming instant withdrawal systems</div>
+                            <div>5. Insurance claim payout &amp; mutual fund redemption workflows</div>
+                            <div>6. Corporate treasury, ERP &amp; automated accounting systems</div>
+                        </div>
+
+                        <p className="text-white/80 text-[13.5px] sm:text-[14.5px] leading-relaxed mt-6 pl-1">
+                            The Bank Account Verification API provides webhook and real-time pass-through capabilities for automated payout pre-validation.
+                        </p>
+                    </div>
+
+                    {/* RIGHT COLUMN: Practical Business Workflows */}
+                    <div className="w-full max-w-[543px] flex flex-col">
+                        <h3 className="text-white font-bold text-[22px] sm:text-[24px] mb-6">
+                            Built for High-Growth Financial Platforms
+                        </h3>
+
+                        <div className="space-y-5 sm:space-y-6">
+                            {workflows.map((wf) => (
+                                <div
+                                    key={wf.title}
+                                    className="bg-gradient-to-r from-[#ebd6ff] via-[#e2c4ff] to-[#d8b0ff] border-2 border-[#d896ff] rounded-[20px] p-6 sm:px-8 sm:py-6 shadow-[0_0_30px_rgba(216,145,255,0.45),0_0_10px_rgba(216,145,255,0.3)] transition-transform duration-200 hover:scale-[1.01]"
+                                >
+                                    <h4 className="text-[#090e24] font-bold text-[18px] sm:text-[19px] mb-2">
+                                        {wf.title}
+                                    </h4>
+                                    <p className="text-[#1a2038] text-[13px] sm:text-[14px] leading-relaxed font-normal mb-3">
+                                        {wf.desc}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {wf.features.map((feat, idx) => (
+                                            <span key={idx} className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-[#090e24] bg-white/60 px-2.5 py-0.5 rounded-md">
+                                                <CheckCircle2 className="w-3 h-3 text-emerald-700" />
+                                                {feat}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Centered Book a Demo CTA */}
+                <div className="mt-6 sm:mt-8 flex justify-center">
+                    <a
+                        href="#contact"
+                        className="inline-flex items-center justify-center bg-[#b0daff] hover:bg-[#8ec7fc] text-[#081a2e] font-semibold text-[15px] sm:text-[16px] py-3.5 px-12 rounded-[18px] shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 5. HOW IT WORKS (Identical interactive step-toggle to gst-verification-api) ── */
+function HowItWorksSection() {
+    const [activeStep, setActiveStep] = useState<number | null>(1);
+
+    const stepsData = [
+        {
+            id: 1,
+            title: "1. Submit Account & IFSC",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Pass the account number &amp; IFSC code via our REST API or dashboard batch upload.
+                    </p>
+                    <p className="font-medium text-[#1f2937]">Supported inputs include:</p>
+                    <div className="space-y-1.5 pl-3 text-[#374151]">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>1. Beneficiary Bank Account Number &amp; 11-char IFSC</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>2. Optional candidate name for fuzzy AI matching</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>3. Batch spreadsheet upload for high-volume corporate disbursements</span>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            id: 2,
+            title: "2. Trigger Penny Drop",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Our gateway dispatches an instant micro ₹1 deposit query via direct IMPS bank rails.
+                    </p>
+                    <div className="space-y-1.5 pl-3 text-[#374151] font-medium">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>1. Direct connectivity to 200+ Indian banks via NPCI/IMPS rails</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>2. Zero user friction or manual bank visits</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>3. Reverse Penny Drop option via dynamic UPI QR code</span>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            id: 3,
+            title: "3. Fetch Account Name",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Target bank responds with active account status and official account holder name.
+                    </p>
+                    <div className="space-y-1.5 pl-3 text-[#374151] font-medium">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>1. Official beneficiary title registered on core banking systems</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>2. Active, frozen, dormant, or invalid status verification</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>3. Branch name, city, state, and MICR code extraction</span>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            id: 4,
+            title: "4. Name Match & Output",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Receive structured JSON with fuzzy name match percentage and reference RRN.
+                    </p>
+                    <div className="space-y-1.5 pl-3 text-[#374151] font-medium">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>1. AI-powered phonetic name matching algorithm (0-100% confidence)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>2. Bank Reference Number (RRN / UTR) for statutory audit logs</span>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+    ];
+
+    const activeImage =
+        stepsData.find((s) => s.id === activeStep)?.image ||
+        "/images/how-it-works-step.png";
+
+    return (
+        <section className="relative py-5 sm:py-7 px-[5%] lg:px-[6%] overflow-hidden bg-black">
+            {/* Ambient soft glow at bottom right */}
+            <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-[#1e3a8a]/20 rounded-full blur-[140px] pointer-events-none" />
+
+            <div className="relative z-10 max-w-[1240px] mx-auto">
+                <h2 className="text-white text-[28px] sm:text-[34px] lg:text-[40px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+                    How Bank Verification Works
+                </h2>
+
+                {/* 2-Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+                    {/* Left Column: Image Card */}
+                    <div className="lg:col-span-5 flex justify-center lg:justify-start">
+                        <div className="w-full max-w-[420px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10 relative bg-[#0b101d]">
+                            <img
+                                key={activeImage}
+                                src={activeImage}
+                                alt="How it works illustration"
+                                className="w-full h-auto object-cover block transition-all duration-500 ease-out"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Right Column: Accordion Points */}
+                    <div className="lg:col-span-7 flex flex-col space-y-4 sm:space-y-4.5">
+                        {stepsData.map((step) => {
+                            const isActive = activeStep === step.id;
+
+                            return (
+                                <div
+                                    key={step.id}
+                                    onClick={() => setActiveStep(isActive ? null : step.id)}
+                                    className={`cursor-pointer transition-all duration-300 ease-out select-none ${isActive
+                                        ? "bg-white rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 sm:px-8 border-2 border-[#5cb3ff] shadow-[0_6px_0_0_#38bdf8,0_16px_32px_rgba(56,189,248,0.28)]"
+                                        : "bg-white rounded-full py-4 px-6 sm:px-8 hover:bg-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.2)] hover:scale-[1.008] transition-all"
+                                        }`}
+                                >
+                                    {/* Header Row */}
+                                    <div className="flex items-center gap-3">
+                                        <span
+                                            className={`rounded-full shrink-0 transition-all duration-300 ${isActive
+                                                ? "w-3 h-3 bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]"
+                                                : "w-2.5 h-2.5 bg-[#cbd5e1]"
+                                                }`}
+                                        />
+                                        <h3 className="text-[#111827] text-[16px] sm:text-[18px] font-bold tracking-tight">
+                                            {step.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Expandable Content with smooth grid transition */}
+                                    <div
+                                        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${isActive
+                                            ? "grid-rows-[1fr] opacity-100 mt-2"
+                                            : "grid-rows-[0fr] opacity-0 mt-0"
+                                            }`}
+                                    >
+                                        <div className="overflow-hidden">{step.content}</div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 6. WHY API SECTION (Identical visual design to gst-verification-api) ── */
+function WhyAPISection() {
+    return (
+        <section className="relative py-10 sm:py-14 px-[5%] lg:px-[6%]">
+            {/* Ellipse 21 glow */}
+            <div className="absolute left-0 w-full max-w-[848px] pointer-events-none select-none opacity-65 mix-blend-screen z-50">
+                <img
+                    alt=""
+                    className="w-full h-full object-contain"
+                    src={imgEllipse21}
+                />
+            </div>
+            <div className="max-w-[1400px] mx-auto space-y-16 lg:space-y-20">
+                {/* Top Section: Why Bank Account Verification is Vital */}
+                <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    <div className="lg:col-span-5">
+                        <span className="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2 block">
+                            Financial Risk Reduction
+                        </span>
+                        <h2 className="text-white text-[clamp(24px,3vw,40px)] font-bold leading-tight mb-6">
+                            Why Bank Account Verification is Vital for Payouts &amp; KYB
+                        </h2>
+                        <p className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed mb-4">
+                            Executing high-volume payouts, merchant settlements, employee salary credits, or loan disbursements without pre-verifying beneficiary bank account details leads to costly payment bounces, wrong account credits, and fraud risks.
+                        </p>
+                        <p className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed mb-4">
+                            DigitalRakshak&apos;s Bank Account Verification API executes real-time penny drop transfers across NPCI &amp; IMPS networks, retrieving official beneficiary names directly from destination banks to guarantee 100% account legitimacy:
+                        </p>
+                        <ul className="text-white/90 text-[14px] sm:text-[16px] font-normal leading-relaxed space-y-2 pl-1">
+                            {[
+                                "Prevent Payment Failures: Validate account status before triggering IMPS/NEFT payouts.",
+                                "Eliminate Impersonation Fraud: Ensure beneficiary name matches customer KYC identity.",
+                                "Fuzzy Name Matching Score: AI-powered algorithms calculate exact or partial match percentage.",
+                                "Penny Drop & Reverse Penny Drop: Support both direct IMPS and UPI-based verification modes.",
+                                "Sub-300ms Ultra-Low Latency for Instant In-App User Onboarding",
+                                "ISO 27001 Certified & Bank-Grade Security",
+                            ].map((item) => (
+                                <li key={item} className="flex items-center gap-2.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#76bbf8] shrink-0" />
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Right side: 3 images layout */}
+                    <div className="lg:col-span-7 flex items-center gap-4 sm:gap-5 w-full">
+                        {/* Big card - left */}
+                        <div className="flex-[581] rounded-[18px] overflow-hidden shadow-2xl border border-white/10">
+                            <img
+                                alt="Bank Account Verification Dashboard"
+                                className="w-full h-auto rounded-[18px] object-cover block"
+                                src={imgFrame20}
+                            />
+                        </div>
+
+                        {/* Right column: 2 stacked cards */}
+                        <div className="flex-[288] flex flex-col justify-between self-stretch gap-3 sm:gap-4">
+                            <div className="rounded-[18px] overflow-hidden shadow-2xl border border-white/10">
+                                <img
+                                    alt="NPCI Banking Analytics"
+                                    className="w-full h-auto rounded-[18px] object-cover block"
+                                    src={imgFrame22}
+                                />
+                            </div>
+                            <div className="rounded-[18px] overflow-hidden shadow-2xl border border-white/10">
+                                <img
+                                    alt="Payment Rail Metrics"
+                                    className="w-full h-auto rounded-[18px] object-cover block"
+                                    src={imgFrame77}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Section: The DigitalRakshak Advantage Comparison Table */}
+                <div className="relative rounded-[24px] sm:rounded-[28px] bg-gradient-to-r from-[#0a1226]/90 via-[#0d1733]/90 to-[#120f2e]/90 border border-blue-500/20 p-6 sm:p-9 lg:p-12 shadow-[0_0_40px_rgba(22,119,255,0.15)]">
+                    <div className="max-w-[1200px] mx-auto">
+                        <div className="text-center mb-8">
+                            <span className="text-[#76bbf8] text-xs font-semibold uppercase tracking-wider">
+                                Platform Comparison
+                            </span>
+                            <h3 className="text-white text-[24px] sm:text-[30px] lg:text-[34px] font-bold leading-tight mt-1 mb-2">
+                                The DigitalRakshak Advantage
+                            </h3>
+                            <p className="text-white/70 text-[14px] sm:text-[16px] max-w-xl mx-auto">
+                                How DigitalRakshak Bank Account Verification API compares to manual statement checks and legacy scrapers.
+                            </p>
+                        </div>
+
+                        <div className="overflow-x-auto rounded-[20px] border border-white/10 bg-[#050b1a]/70 backdrop-blur-md">
+                            <table className="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr className="border-b border-white/10 bg-white/5">
+                                        <th className="p-4 sm:p-5 font-bold text-white">Feature / Parameter</th>
+                                        <th className="p-4 sm:p-5 font-bold text-[#76bbf8] bg-blue-500/10">DigitalRakshak API</th>
+                                        <th className="p-4 sm:p-5 font-bold text-white/60">Manual Bank Statement</th>
+                                        <th className="p-4 sm:p-5 font-bold text-white/60">Legacy Web Scrapers</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/10">
+                                    {[
+                                        { feature: "Verification Latency", us: "< 300ms", manual: "12 - 24 Hours", scraper: "5 - 15 Seconds" },
+                                        { feature: "Bank Network Support", us: "200+ Indian Banks", manual: "Limited Banks", scraper: "Fragile Connections" },
+                                        { feature: "Name Match Accuracy", us: "Direct Bank NPCI Match", manual: "Human Eye Error", scraper: "Unreliable Parsing" },
+                                        { feature: "Bulk Processing", us: "Up to 50,000 / min", manual: "Manual PDF Reading", scraper: "Rate-limited" },
+                                        { feature: "Enterprise SLA Uptime", us: "99.99% Guaranteed", manual: "N/A", scraper: "Frequent Downtime" },
+                                        { feature: "Security & Compliance", us: "ISO 27001 / AES-256", manual: "Data Leak Risk", scraper: "Unsecured" },
+                                    ].map((row, i) => (
+                                        <tr key={i} className="hover:bg-white/5 transition-colors">
+                                            <td className="p-4 sm:p-5 font-semibold text-white">{row.feature}</td>
+                                            <td className="p-4 sm:p-5 font-bold text-[#76bbf8] bg-blue-500/5">{row.us}</td>
+                                            <td className="p-4 sm:p-5 text-white/60">{row.manual}</td>
+                                            <td className="p-4 sm:p-5 text-white/60">{row.scraper}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 7. KEY BENEFITS SECTION (6 cards with BenefitCardGlow identical to gst-verification-api) ── */
+function BenefitCardGlow() {
+    return (
+        <svg
+            className="absolute inset-0 w-full h-full pointer-events-none rounded-[16px]"
+            viewBox="0 0 406 446"
+            preserveAspectRatio="none"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <defs>
+                <linearGradient
+                    id="cardGlowLinearBaseBank"
+                    x1="0"
+                    y1="446"
+                    x2="0"
+                    y2="0"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop offset="0%" stopColor="#ffdfff" stopOpacity="0.95" />
+                    <stop offset="12%" stopColor="#fdd7ff" stopOpacity="0.9" />
+                    <stop offset="28%" stopColor="#e9b3fa" stopOpacity="0.75" />
+                    <stop offset="45%" stopColor="#a860cb" stopOpacity="0.45" />
+                    <stop offset="62%" stopColor="#542579" stopOpacity="0.15" />
+                    <stop offset="80%" stopColor="#13151a" stopOpacity="0" />
+                </linearGradient>
+
+                <radialGradient
+                    id="cardGlowRadLeftBank"
+                    cx="0%"
+                    cy="100%"
+                    r="65%"
+                    fx="0%"
+                    fy="100%"
+                >
+                    <stop offset="0%" stopColor="#b884d5" stopOpacity="1" />
+                    <stop offset="20%" stopColor="#9d50bf" stopOpacity="0.9" />
+                    <stop offset="45%" stopColor="#732e94" stopOpacity="0.7" />
+                    <stop offset="70%" stopColor="#3d1856" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#13151a" stopOpacity="0" />
+                </radialGradient>
+
+                <radialGradient
+                    id="cardGlowRadRightBank"
+                    cx="95%"
+                    cy="100%"
+                    r="85%"
+                    fx="95%"
+                    fy="100%"
+                >
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                    <stop offset="20%" stopColor="#ffdfff" stopOpacity="1" />
+                    <stop offset="40%" stopColor="#f8c6fe" stopOpacity="0.95" />
+                    <stop offset="60%" stopColor="#d382f6" stopOpacity="0.7" />
+                    <stop offset="80%" stopColor="#7f33a8" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#13151a" stopOpacity="0" />
+                </radialGradient>
+            </defs>
+
+            <rect width="100%" height="100%" fill="#0d111a" />
+            <rect width="100%" height="100%" fill="#BACFFF" fillOpacity="0.10" />
+
+            <rect width="100%" height="100%" fill="url(#cardGlowLinearBaseBank)" />
+            <rect width="100%" height="100%" fill="url(#cardGlowRadLeftBank)" />
+            <rect width="100%" height="100%" fill="url(#cardGlowRadRightBank)" />
+        </svg>
+    );
+}
+
+function KeyBenefitsSection() {
+    const benefits = [
+        {
+            title: "Penny Drop Verification",
+            desc: "Deposit micro ₹1 via IMPS to instantly confirm account active status and official holder title.",
+            icon: CreditCard,
+        },
+        {
+            title: "Reverse Penny Drop (UPI/QR)",
+            desc: "User pays ₹1 via UPI to eliminate typing errors with zero merchant cost.",
+            icon: RefreshCw,
+        },
+        {
+            title: "AI Fuzzy Name Match",
+            desc: "Calculate precision match score between KYC documents and destination bank records.",
+            icon: BarChart3,
+        },
+        {
+            title: "200+ Bank Coverage",
+            desc: "Comprehensive coverage across all national, private, rural, and cooperative banks.",
+            icon: Landmark,
+        },
+        {
+            title: "Sub-Second Latency",
+            desc: "Sub-300ms API response ensures instant payouts and friction-free user onboarding.",
+            icon: Zap,
+        },
+        {
+            title: "Bank-Grade Encryption",
+            desc: "ISO 27001 certified, 256-bit encryption, and 99.99% enterprise uptime SLA.",
+            icon: Lock,
+        },
+    ];
+
+    return (
+        <section className="relative py-10 sm:py-14 px-[5%] lg:px-[6%] overflow-hidden bg-black">
+            {/* Background ambient lighting */}
+            <div className="absolute right-[5%] top-[10%] w-[500px] h-[500px] bg-purple-900/15 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute left-[5%] bottom-[10%] w-[500px] h-[500px] bg-indigo-900/15 rounded-full blur-[140px] pointer-events-none" />
+
+            <div className="max-w-[1320px] mx-auto relative z-10">
+                {/* Section Heading */}
+                <h2 className="text-white text-[28px] sm:text-[36px] lg:text-[42px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+                    Key Benefits For Your Business
+                </h2>
+
+                {/* 6 Cards Responsive Grid with proper spacing */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 justify-items-center">
+                    {benefits.map((benefit, idx) => (
+                        <div
+                            key={idx}
+                            className="relative w-full max-w-[406px] min-h-[280px] sm:min-h-[300px] rounded-[18px] border-[2px] border-[#DFC6FF] p-6 sm:p-8 flex flex-col justify-start overflow-hidden group hover:scale-[1.015] hover:shadow-[0_0_35px_rgba(223,198,255,0.3)] transition-all duration-300"
+                        >
+                            {/* Exact Figma atmospheric bottom gradient */}
+                            <BenefitCardGlow />
+
+                            {/* Icon and Title beside each other */}
+                            <div className="relative z-10 flex items-center gap-3.5 mb-5 sm:mb-6">
+                                <div className="w-[46px] h-[46px] sm:w-[50px] sm:h-[50px] rounded-full bg-[#1b2234]/90 border border-white/20 flex items-center justify-center shrink-0 shadow-inner group-hover:border-white/40 transition-colors">
+                                    <benefit.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white stroke-[1.8]" />
+                                </div>
+                                <h3 className="text-white font-bold text-[20px] sm:text-[23px] leading-[1.25] tracking-tight">
+                                    {benefit.title}
+                                </h3>
+                            </div>
+
+                            {/* Card Description */}
+                            <p className="relative z-10 text-white/85 text-[14.5px] sm:text-[16px] leading-[1.6] font-normal">
+                                {benefit.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 8. FAQ SECTION (Identical accordion to gst-verification-api) ── */
+function FAQSection() {
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+    return (
+        <section id="faqs" className="relative py-12 sm:py-16 px-[5%] lg:px-[6%] bg-black">
+            <div className="max-w-[1400px] mx-auto">
+                <h2 className="text-white text-[clamp(28px,3vw,42px)] font-bold mb-2 tracking-tight">
+                    Frequently Asked Questions
+                </h2>
+                <p className="text-white/70 text-[15px] sm:text-[17px] mb-10">
+                    Everything you need to know about integrating the Bank Account Verification API.
+                </p>
+
+                <div className="divide-y divide-white/20">
+                    {faqItems.map((item, i) => (
+                        <div key={i}>
+                            <button
+                                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                                className="w-full flex items-center justify-between py-6 text-left group transition-colors hover:text-white cursor-pointer"
+                            >
+                                <span className="text-white text-[17px] sm:text-[20px] lg:text-[22px] font-semibold leading-snug tracking-tight pr-6">
+                                    {item.q}
+                                </span>
+                                <div className="flex-shrink-0 size-6">
+                                    <img
+                                        alt=""
+                                        className="w-full h-full transition-transform duration-200"
+                                        src={imgVector2}
+                                        style={{
+                                            transform:
+                                                openIndex === i ? "rotate(180deg)" : "rotate(0deg)",
+                                        }}
+                                    />
+                                </div>
+                            </button>
+                            {openIndex === i && (
+                                <div className="pb-6">
+                                    <p className="w-full md:w-[85%] lg:w-[80%] text-[#d1d5db] text-[15px] sm:text-[16.5px] lg:text-[18px] font-normal leading-relaxed tracking-normal whitespace-pre-line">
+                                        {item.a}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 9. CTA SECTION (Interactive enterprise 2-column form identical to gst-verification-api) ── */
+function CTASection() {
+    const apiOptions = [
+        "Penny Drop Verification API",
+        "Reverse Penny Drop (UPI/QR) API",
+        "IFSC & Branch Lookup API",
+        "AI Fuzzy Name Match Engine API",
+        "Bulk Bank Payout Pre-Validation API",
+        "Complete KYB & Financial Intelligence Suite",
+    ];
+
+    const [selectedApis, setSelectedApis] = useState<string[]>([
+        "Penny Drop Verification API",
+    ]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [email, setEmail] = useState("");
+    const [company, setCompany] = useState("");
+    const [submitted, setSubmitted] = useState(false);
+
+    const isAllSelected = selectedApis.length === apiOptions.length;
+
+    const toggleSelectAll = () => {
+        if (isAllSelected) {
+            setSelectedApis([]);
+        } else {
+            setSelectedApis([...apiOptions]);
+        }
+    };
+
+    const toggleOption = (opt: string) => {
+        if (selectedApis.includes(opt)) {
+            setSelectedApis(selectedApis.filter((o) => o !== opt));
+        } else {
+            setSelectedApis([...selectedApis, opt]);
+        }
+    };
+
+    const handleSubmit = (actionType: "demo" | "meeting") => {
+        if (!email) {
+            alert("Please enter your work email.");
+            return;
+        }
+        setSubmitted(true);
+    };
+
+    return (
+        <section id="contact" className="relative py-8 sm:py-12 px-[5%] lg:px-[6%]">
+            <div className="max-w-[1400px] mx-auto">
+                <div className="bg-[#0e1424] border border-white/15 rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] overflow-hidden grid lg:grid-cols-12 shadow-[0_0_50px_rgba(22,119,255,0.2)]">
+                    {/* Left Form: API requirement selector and CTAs */}
+                    <div className="lg:col-span-6 p-7 sm:p-10 lg:p-12 flex flex-col justify-between">
+                        <div>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wider uppercase mb-3">
+                                Let's Connect
+                            </span>
+                            <h2 className="text-white text-[28px] sm:text-[34px] lg:text-[40px] font-bold leading-tight">
+                                Ready to Automate Bank Account Verification &amp; Eliminate Payout Failures?
+                            </h2>
+                            <p className="text-white/80 text-[14px] sm:text-[16px] font-normal leading-relaxed mt-2 mb-6">
+                                Get instant API sandbox keys and start verifying bank accounts in sub-seconds.
+                            </p>
+
+                            {submitted ? (
+                                <div className="bg-emerald-950/60 border border-emerald-500/30 rounded-[20px] p-6 text-center my-6">
+                                    <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
+                                    <h4 className="text-white font-bold text-lg mb-1">Request Received!</h4>
+                                    <p className="text-white/80 text-sm">
+                                        Our banking API specialist will reach out to you shortly.
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {/* Select Requirement - API List */}
+                                    <div className="relative">
+                                        <label className="block text-white/90 text-[13.5px] font-medium mb-1.5">
+                                            Select Requirement - API List:
+                                        </label>
+                                        <button
+                                            type="button"
+                                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                                            className="w-full flex items-center justify-between bg-[#151c30] text-white text-[14px] sm:text-[15px] rounded-[16px] px-4 py-3 border border-white/15 hover:border-blue-400/50 transition-colors text-left"
+                                        >
+                                            <span className="truncate pr-2">
+                                                {isAllSelected
+                                                    ? "All APIs (Complete Banking Suite)"
+                                                    : selectedApis.length === 0
+                                                        ? "Select APIs..."
+                                                        : selectedApis.length === 1
+                                                            ? selectedApis[0]
+                                                            : `${selectedApis.length} APIs selected`}
+                                            </span>
+                                            <ChevronDown
+                                                className={`w-4 h-4 text-white/70 shrink-0 transition-transform ${dropdownOpen ? "rotate-180" : ""
+                                                    }`}
+                                            />
+                                        </button>
+
+                                        {/* Dropdown popup with Single / Multi / All selector */}
+                                        {dropdownOpen && (
+                                            <div className="absolute top-[calc(100%+6px)] left-0 right-0 z-50 bg-[#12192d] border border-blue-400/30 rounded-[18px] p-3 shadow-2xl space-y-1 backdrop-blur-xl">
+                                                {/* Select All Toggle */}
+                                                <div
+                                                    onClick={toggleSelectAll}
+                                                    className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-white/10 cursor-pointer border-b border-white/10 pb-2 text-[13.5px] font-semibold text-[#76bbf8]"
+                                                >
+                                                    <div
+                                                        className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isAllSelected
+                                                            ? "bg-[#76bbf8] border-[#76bbf8]"
+                                                            : "border-white/40"
+                                                            }`}
+                                                    >
+                                                        {isAllSelected && <Check className="w-3 h-3 text-[#0a1e36] stroke-[3]" />}
+                                                    </div>
+                                                    <span>Select All Options</span>
+                                                </div>
+
+                                                {/* Options List */}
+                                                <div className="max-h-56 overflow-y-auto space-y-1 pt-1">
+                                                    {apiOptions.map((opt) => {
+                                                        const selected = selectedApis.includes(opt);
+                                                        return (
+                                                            <div
+                                                                key={opt}
+                                                                onClick={() => toggleOption(opt)}
+                                                                className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-white/10 cursor-pointer text-[13.5px] text-white/90"
+                                                            >
+                                                                <div
+                                                                    className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${selected
+                                                                        ? "bg-[#76bbf8] border-[#76bbf8]"
+                                                                        : "border-white/30"
+                                                                        }`}
+                                                                >
+                                                                    {selected && <Check className="w-3 h-3 text-[#0a1e36] stroke-[3]" />}
+                                                                </div>
+                                                                <span>{opt}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Work Email */}
+                                    <div>
+                                        <label className="block text-white/90 text-[13.5px] font-medium mb-1.5">
+                                            Work Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="name@company.com"
+                                            className="bg-[#151c30] text-white placeholder-white/40 text-[14px] sm:text-[15px] rounded-[16px] px-4 py-3 border border-white/15 outline-none focus:border-blue-400 w-full transition-colors"
+                                        />
+                                    </div>
+
+                                    {/* Company Name */}
+                                    <div>
+                                        <label className="block text-white/90 text-[13.5px] font-medium mb-1.5">
+                                            Company Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={company}
+                                            onChange={(e) => setCompany(e.target.value)}
+                                            placeholder="Your organization"
+                                            className="bg-[#151c30] text-white placeholder-white/40 text-[14px] sm:text-[15px] rounded-[16px] px-4 py-3 border border-white/15 outline-none focus:border-blue-400 w-full transition-colors"
+                                        />
+                                    </div>
+
+                                    {/* CTAs */}
+                                    <div className="pt-2 grid sm:grid-cols-2 gap-3.5">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleSubmit("demo")}
+                                            className="bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-bold text-[14px] sm:text-[15px] py-3.5 px-5 rounded-[16px] shadow-lg transition-all flex flex-col items-center justify-center text-center cursor-pointer"
+                                        >
+                                            <span>Demo</span>
+                                            <span className="text-[11px] font-normal text-[#0a1e36]/80 mt-0.5">
+                                                Fit into your workflow
+                                            </span>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => handleSubmit("meeting")}
+                                            className="bg-white/10 hover:bg-white/20 text-white font-bold text-[14px] sm:text-[15px] py-3.5 px-5 rounded-[16px] border border-white/20 transition-all flex flex-col items-center justify-center text-center cursor-pointer"
+                                        >
+                                            <span>Book a Meeting</span>
+                                            <span className="text-[11px] font-normal text-white/70 mt-0.5">
+                                                Discuss integration
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Right Column: High-tech Bank API Console Simulator */}
+                    <div className="lg:col-span-6 bg-gradient-to-br from-[#0c1428] via-[#091024] to-[#040817] p-7 sm:p-10 lg:p-12 border-t lg:border-t-0 lg:border-l border-white/10 flex flex-col justify-center">
+                        <div className="rounded-[20px] bg-[#020510] border border-blue-500/25 p-5 sm:p-6 shadow-2xl relative overflow-hidden font-mono text-[12.5px] sm:text-[13.5px]">
+                            {/* Terminal top header */}
+                            <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/10 font-sans">
+                                <div className="flex items-center gap-2">
+                                    <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+                                    <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
+                                    <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
+                                    <span className="text-white/60 text-xs ml-2 font-mono">POST /v1/bank/verify</span>
+                                </div>
+                                <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">
+                                    200 OK • 175ms
+                                </span>
+                            </div>
+
+                            {/* Payload simulator */}
+                            <div className="space-y-1.5 text-blue-200">
+                                <p className="text-white/50">{"// Official NPCI IMPS Bank Verification Response"}</p>
+                                <p><span className="text-[#ff7b72]">&quot;status&quot;</span>: <span className="text-[#a5d6ff]">&quot;COMPLETED&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;accountNumber&quot;</span>: <span className="text-[#a5d6ff]">&quot;918234567890&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;ifsc&quot;</span>: <span className="text-[#a5d6ff]">&quot;SBIN0001234&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;accountStatus&quot;</span>: <span className="text-[#7ee787]">&quot;ACTIVE&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;beneficiaryName&quot;</span>: <span className="text-[#a5d6ff]">&quot;RAHUL SHARMA&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;nameMatchScore&quot;</span>: <span className="text-[#79c0ff]">98</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;nameMatchResult&quot;</span>: <span className="text-[#7ee787]">&quot;EXACT_MATCH&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;bankName&quot;</span>: <span className="text-[#a5d6ff]">&quot;STATE BANK OF INDIA&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;branch&quot;</span>: <span className="text-[#a5d6ff]">&quot;CYBER CITY GURUGRAM&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;city&quot;</span>: <span className="text-[#a5d6ff]">&quot;GURUGRAM&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;state&quot;</span>: <span className="text-[#a5d6ff]">&quot;HARYANA&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;micrCode&quot;</span>: <span className="text-[#a5d6ff]">&quot;110002034&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;supportedModes&quot;</span>: [<span className="text-[#a5d6ff]">&quot;IMPS&quot;</span>, <span className="text-[#a5d6ff]">&quot;NEFT&quot;</span>, <span className="text-[#a5d6ff]">&quot;RTGS&quot;</span>, <span className="text-[#a5d6ff]">&quot;UPI&quot;</span>],</p>
+                                <p><span className="text-[#ff7b72]">&quot;rrn&quot;</span>: <span className="text-[#a5d6ff]">&quot;422319087612&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;auditTrail&quot;</span>: <span className="text-[#7ee787]">&quot;NPCI_IMPS_BANK_VERIFIED&quot;</span></p>
+                            </div>
+
+                            {/* Bottom badge */}
+                            <div className="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between font-sans text-xs text-white/60">
+                                <span>DigitalRakshak Bank Verification Engine</span>
+                                <span className="text-[#76bbf8] flex items-center gap-1">
+                                    <ShieldCheck className="w-3.5 h-3.5" /> High Trust Verified
+                                </span>
+                            </div>
+                        </div>
+
+                        <p className="text-white/60 text-xs text-center mt-4">
+                            200+ Indian banks • Real-time NPCI/IMPS rails • Sub-300ms SLA
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── MAIN EXPORT (Exact 9 Sections Matching gst-verification-api 1:1) ── */
 export default function BankAccountVerificationPage() {
-  const router = useRouter()
-  const [activeTab, setActiveTab] = useState<'penny' | 'reverse' | 'ifsc'>('penny')
-  const [copied, setCopied] = useState(false)
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Bank Account Verification API",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "provider": {
+            "@type": "Organization",
+            "name": "DigitalRakshak",
+            "url": "https://digitalrakshak.com",
+        },
+        "description":
+            "Instantly validate bank account numbers, IFSC codes, beneficiary names, and active bank account status in sub-seconds before processing payouts or merchant onboarding.",
+        "keywords": [
+            "Bank Account Verification API",
+            "Penny Drop Verification",
+            "Reverse Penny Drop API",
+            "IFSC Verification API",
+            "Beneficiary Name Match API",
+            "Bank Account Validation",
+            "NPCI IMPS Bank Verification",
+            "DigitalRakshak Bank API",
+        ],
+    };
 
-  const samplePayloads = {
-    penny: `{
-  "status": "success",
-  "code": 200,
-  "data": {
-    "account_number": "918234567890",
-    "ifsc": "SBIN0001234",
-    "account_status": "Active",
-    "beneficiary_name": "RAHUL SHARMA",
-    "name_match_score": 98,
-    "name_match_result": "EXACT_MATCH",
-    "bank_name": "STATE BANK OF INDIA",
-    "branch": "CYBER CITY GURUGRAM",
-    "city": "GURUGRAM",
-    "state": "HARYANA",
-    "micr_code": "110002034",
-    "supported_modes": ["IMPS", "NEFT", "RTGS", "UPI"],
-    "rrn": "422319087612",
-    "verified_at": "2026-08-15T10:30:00Z"
-  }
-}`,
-    reverse: `{
-  "status": "success",
-  "verification_mode": "REVERSE_PENNY_DROP",
-  "data": {
-    "vpa": "rahulsharma@upi",
-    "account_number": "xxxxxx7890",
-    "ifsc": "HDFC0000240",
-    "beneficiary_name": "RAHUL SHARMA",
-    "bank_name": "HDFC BANK",
-    "utr": "422319991204",
-    "amount_received": 1.00,
-    "status": "Verified"
-  }
-}`,
-    ifsc: `{
-  "status": "success",
-  "ifsc": "HDFC0000240",
-  "data": {
-    "bank": "HDFC BANK",
-    "branch": "MG ROAD CANNAUGHT PLACE",
-    "address": "G-3, GROUND FLOOR, HDFC HOUSE, NEW DELHI",
-    "city": "NEW DELHI",
-    "state": "DELHI",
-    "pincode": "110001",
-    "contact": "011-41512000",
-    "imps_supported": true,
-    "neft_supported": true,
-    "rtgs_supported": true,
-    "upi_supported": true,
-    "micr": "110240002"
-  }
-}`
-  }
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(samplePayloads[activeTab])
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      {/* Hero Section */}
-      <section className="relative px-6 py-20 md:py-32 md:px-12 bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/20 via-background to-transparent pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent, black)' }}></div>
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm font-semibold mb-6 shadow-md">
-            <Landmark className="w-4 h-4" />
-            Enterprise Financial & Payout Verification
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-extrabold text-foreground mb-6 tracking-tight text-balance">
-            Bank Account Verification API
-          </h1>
-
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto leading-relaxed">
-            Instantly validate bank account numbers, IFSC codes, beneficiary names, and active bank account status in sub-seconds before processing payouts or merchant onboarding.
-          </p>
-
-          <div className="flex flex-wrap gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
-              onClick={() => router.push('/register')}
-            >
-              Contact US
-            </Button>
-            <Button
-              size="lg"
-              className="border-2 border-blue-600 bg-transparent text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-8 h-14 rounded-full text-lg transition-all"
-              onClick={() => router.push('/contact')}
-            >
-              Talk to an API Specialist
-            </Button>
-          </div>
-
-          {/* Key Metrics / Highlights */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-border/40">
-            {[
-              { label: "Latency", value: "< 300ms", desc: "Sub-second response" },
-              { label: "Bank Network", value: "200+ Banks", desc: "All Indian banks supported" },
-              { label: "Uptime SLA", value: "99.99%", desc: "Bank-grade infrastructure" },
-              { label: "Accuracy", value: "100% Penny Drop", desc: "NPCI & Direct IMPS sync" },
-            ].map((metric, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-background/60 backdrop-blur-md border border-border/50 shadow-sm">
-                <div className="text-2xl md:text-3xl font-extrabold text-blue-600">{metric.value}</div>
-                <div className="text-sm font-semibold text-foreground">{metric.label}</div>
-                <div className="text-xs text-muted-foreground">{metric.desc}</div>
-              </div>
-            ))}
-          </div>
+    return (
+        <div className="align-center bg-black min-h-screen w-full font-[Inter] overflow-x-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <HeroSection />
+            <WhatCanYouDoSection />
+            <VerificationCardsSection />
+            <ConnectAPISection />
+            <HowItWorksSection />
+            <WhyAPISection />
+            <KeyBenefitsSection />
+            <FAQSection />
+            <CTASection />
         </div>
-      </section>
-
-      {/* Overview & Why It Matters */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <Badge variant="outline" className="mb-4 text-blue-600 border-blue-600/30 bg-blue-500/10 px-3 py-1">
-              Financial Risk Reduction
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground leading-tight">
-              Why Bank Account Verification is Vital for Payouts & KYB
-            </h2>
-            <p className="text-lg text-muted-foreground mb-6">
-              Executing high-volume payouts, merchant settlements, employee salary credits, or loan disbursements without pre-verifying beneficiary bank account details leads to costly payment bounces, wrong account credits, and fraud risks.
-            </p>
-            <p className="text-lg text-muted-foreground mb-8">
-              DigitalRakshak&apos;s Bank Account Verification API executes real-time penny drop transfers across NPCI & IMPS networks, retrieving official beneficiary names directly from destination banks to guarantee 100% account legitimacy.
-            </p>
-
-            <ul className="space-y-4 mb-6">
-              {[
-                "Prevent Payment Failures: Validate account status before triggering IMPS/NEFT payouts.",
-                "Eliminate Impersonation Fraud: Ensure beneficiary name matches customer KYC identity.",
-                "Fuzzy Name Matching Score: AI-powered algorithms calculate exact or partial match percentage.",
-                "Penny Drop & Reverse Penny Drop: Support both direct IMPS and UPI-based verification modes."
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-foreground font-medium text-base">
-                  <CheckCircle className="text-blue-500 w-5 h-5 flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Prevent Payment Bounces",
-                desc: "Pre-validate bank accounts before releasing high-volume vendor or user payouts.",
-                icon: AlertTriangle,
-                color: "text-red-500",
-                bg: "bg-red-500/10",
-                border: "border-red-500/20"
-              },
-              {
-                title: "Eliminate Fraudulent Accounts",
-                desc: "Unmask third-party account details and prevent money laundering & fraud.",
-                icon: ShieldCheck,
-                color: "text-blue-500",
-                bg: "bg-blue-500/10",
-                border: "border-blue-500/20"
-              },
-              {
-                title: "Instant Name Match",
-                desc: "Verify beneficiary name retrieved from NPCI against PAN/Aadhaar identity.",
-                icon: Database,
-                color: "text-green-500",
-                bg: "bg-green-500/10",
-                border: "border-green-500/20"
-              },
-              {
-                title: "Sub-Second Latency",
-                desc: "Execute penny drop verification in <300ms for seamless in-app user onboarding.",
-                icon: Zap,
-                color: "text-amber-500",
-                bg: "bg-amber-500/10",
-                border: "border-amber-500/20"
-              },
-            ].map((benefit, i) => (
-              <Card key={i} className={`p-6 border ${benefit.border} hover:shadow-lg transition-all duration-300 group`}>
-                <div className={`w-12 h-12 rounded-xl ${benefit.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <benefit.icon className={`w-6 h-6 ${benefit.color}`} />
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-foreground">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Verification Modes Section */}
-      <section className="px-6 py-20 md:px-12 bg-blue-500/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-3 text-purple-600 border-purple-600/30 bg-purple-500/10 px-3 py-1">
-              Flexible Verification Methods
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Penny Drop vs Reverse Penny Drop
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Choose the verification flow that best aligns with your enterprise user experience.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8 border border-blue-500/20 bg-background hover:shadow-xl transition-all relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6">
-                <CreditCard className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">1. Penny Drop Verification</h3>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                The enterprise passes the user&apos;s Account Number and IFSC Code. Our API deposits ₹1 via IMPS into the beneficiary account and instantly returns the official bank account holder name and account active status.
-              </p>
-              <ul className="space-y-3 text-sm text-foreground font-medium">
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-500" />
-                  Ideal for payout pre-validation & vendor onboarding
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-500" />
-                  Zero friction for the end user
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-blue-500" />
-                  Instant name match against PAN / Aadhaar records
-                </li>
-              </ul>
-            </Card>
-
-            <Card className="p-8 border border-purple-500/20 bg-background hover:shadow-xl transition-all relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6">
-                <RefreshCw className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">2. Reverse Penny Drop (UPI/QR)</h3>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                The user pays ₹1 using any UPI App (GPay, PhonePe, Paytm). The incoming transaction payload provides 100% verified bank account details, VPA, and bank account holder name without any manual typing errors.
-              </p>
-              <ul className="space-y-3 text-sm text-foreground font-medium">
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
-                  Eliminates typos in account numbers & IFSC codes
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
-                  Zero cost for merchant (₹1 is collected)
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-purple-500" />
-                  Supports dynamic QR code generation
-                </li>
-              </ul>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Complete Data Payload Capabilities */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-3 text-blue-600 border-blue-600/30 bg-blue-500/10 px-3 py-1">
-              Data Enrichment & Intelligence
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Verified Data Output Parameters
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our API returns complete, authoritative bank account parameters directly from destination banks.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Beneficiary Full Name",
-                desc: "Official name registered in bank account records.",
-                icon: Building2,
-                color: "text-blue-500"
-              },
-              {
-                title: "Account Active Status",
-                desc: "Active, Frozen, Dormant, or Invalid account indicator.",
-                icon: BadgeCheck,
-                color: "text-green-500"
-              },
-              {
-                title: "Fuzzy Name Match Score",
-                desc: "AI confidence score (0-100%) matching KYC name vs bank name.",
-                icon: BarChart3,
-                color: "text-purple-500"
-              },
-              {
-                title: "IFSC & Branch Details",
-                desc: "Verified branch name, address, city, state, and pincode.",
-                icon: Globe,
-                color: "text-amber-500"
-              },
-              {
-                title: "Bank Name & MICR",
-                desc: "Official bank entity name and 9-digit MICR code.",
-                icon: Landmark,
-                color: "text-indigo-500"
-              },
-              {
-                title: "Supported Modes",
-                desc: "Real-time flags for IMPS, NEFT, RTGS, and UPI support.",
-                icon: Zap,
-                color: "text-rose-500"
-              },
-              {
-                title: "Transaction RRN",
-                desc: "Official Bank Reference Number (RRN) for audit logs.",
-                icon: FileText,
-                color: "text-teal-500"
-              },
-              {
-                title: "Account Category",
-                desc: "Savings, Current, Overdraft, or NRE/NRO account type.",
-                icon: Layers,
-                color: "text-cyan-500"
-              },
-            ].map((feature, i) => (
-              <Card key={i} className="p-6 border border-border/60 hover:shadow-xl transition-all duration-300 bg-background group">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2.5 rounded-lg bg-blue-500/10 group-hover:scale-110 transition-transform">
-                    <feature.icon className={`w-5 h-5 ${feature.color}`} />
-                  </div>
-                  <h3 className="font-bold text-base text-foreground">{feature.title}</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feature.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Live API Response Sandbox (Commented Out) */}
-      {/*
-      <section id="api-playground" className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-3 text-blue-600 border-blue-600/30 bg-blue-500/10 px-3 py-1">
-              Developer Friendly Integration
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Interactive API Payload Preview
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Clean, RESTful JSON response payload structure designed for instant integration in Node.js, Python, Java, Go, or PHP.
-            </p>
-          </div>
-
-          <div className="bg-slate-950 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden max-w-4xl mx-auto">
-            <div className="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <span className="text-xs font-mono text-slate-400 ml-2">POST /api/v2/bank/verify</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setActiveTab('penny')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all \${
-                    activeTab === 'penny' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Penny Drop
-                </button>
-                <button
-                  onClick={() => setActiveTab('reverse')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all \${
-                    activeTab === 'reverse' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Reverse Penny Drop
-                </button>
-                <button
-                  onClick={() => setActiveTab('ifsc')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all \${
-                    activeTab === 'ifsc' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  IFSC Lookup
-                </button>
-
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleCopy}
-                  className="text-slate-300 hover:text-white hover:bg-slate-800 ml-2"
-                >
-                  {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                </Button>
-              </div>
-            </div>
-
-            <div className="p-6 overflow-x-auto font-mono text-sm leading-relaxed text-slate-200 bg-slate-950">
-              <pre>{samplePayloads[activeTab]}</pre>
-            </div>
-          </div>
-        </div>
-      </section>
-      */}
-
-      {/* How It Works Section */}
-      <section className="px-6 py-24 md:px-12 bg-blue-500/10 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">How Bank Verification Works</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Four simple, automated steps to verify any Indian bank account in sub-seconds.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                step: "01",
-                title: "Submit Account & IFSC",
-                desc: "Pass the account number & IFSC code via our REST API or dashboard batch upload.",
-                icon: FileText,
-                color: "blue"
-              },
-              {
-                step: "02",
-                title: "Trigger Penny Drop",
-                desc: "Our gateway dispatches a instant micro ₹1 deposit query via direct IMPS bank rails.",
-                icon: Database,
-                color: "purple"
-              },
-              {
-                step: "03",
-                title: "Fetch Account Name",
-                desc: "Target bank responds with active account status and official account holder name.",
-                icon: Search,
-                color: "green"
-              },
-              {
-                step: "04",
-                title: "Name Match & Output",
-                desc: "Receive structured JSON with fuzzy name match percentage and reference RRN.",
-                icon: BarChart3,
-                color: "orange"
-              }
-            ].map((item, i) => (
-              <Card key={i} className="relative overflow-hidden p-6 border border-border/50 hover:shadow-xl transition-all duration-500 group bg-background/50 backdrop-blur-sm text-center">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
-                <div className="w-12 h-12 rounded-full bg-blue-600/10 text-blue-600 font-extrabold flex items-center justify-center mb-4 mx-auto text-lg group-hover:scale-110 transition-transform">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-foreground">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases / Industry Applications */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-3 text-green-600 border-green-600/30 bg-green-500/10 px-3 py-1">
-              Industry Applications
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Built for High-Growth Financial Platforms
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Empowering lenders, payroll software, marketplaces, and gaming platforms.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Fintech & Digital Lending",
-                desc: "Pre-verify borrower bank account ownership before disbursing personal, business, or BNPL loans to prevent loan fraud.",
-                icon: Landmark,
-                features: ["Disbursement account match", "Loan fraud prevention", "Instant bank validation"]
-              },
-              {
-                title: "Payroll & HR Excellence",
-                desc: "Automate salary bank account verification during employee onboarding to eliminate wrong account credits and failed salary runs.",
-                icon: Briefcase,
-                features: ["Salary account validation", "Zero payout bounce", "Instant employee onboarding"]
-              },
-              {
-                title: "E-Commerce & Marketplaces",
-                desc: "Validate merchant settlement bank accounts and customer refund accounts to ensure compliance and smooth cash flow.",
-                icon: ShoppingCart,
-                features: ["Merchant payout verification", "Refund routing audit", "Vendor KYB compliance"]
-              },
-              {
-                title: "Gig Economy & Gaming",
-                desc: "Instant withdrawal bank account validation for delivery partners, drivers, and online gaming players for instant payouts.",
-                icon: Truck,
-                features: ["Instant withdrawal verification", "Fraud account prevention", "Automated settlements"]
-              },
-            ].map((useCase, i) => (
-              <Card key={i} className="p-8 border border-border/60 hover:shadow-xl transition-all duration-300 bg-background group">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <useCase.icon className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground">{useCase.title}</h3>
-                </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">{useCase.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {useCase.features.map((feat, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 border border-blue-500/20">
-                      <CheckCircle className="w-3.5 h-3.5" />
-                      {feat}
-                    </span>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Platform Comparison / Advantage */}
-      <section className="px-6 py-20 md:px-12 bg-blue-500/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              The DigitalRakshak Advantage
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-              How DigitalRakshak Bank Account Verification API compares to manual statement checks and legacy scrapers.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-border bg-background shadow-lg">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-border bg-muted/50">
-                  <th className="p-4 font-bold text-foreground">Feature / Parameter</th>
-                  <th className="p-4 font-bold text-blue-600 bg-blue-500/10">DigitalRakshak API</th>
-                  <th className="p-4 font-bold text-muted-foreground">Manual Bank Statement</th>
-                  <th className="p-4 font-bold text-muted-foreground">Legacy Web Scrapers</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border text-sm">
-                {[
-                  { feature: "Verification Latency", us: "< 300ms", manual: "12 - 24 Hours", scraper: "5 - 15 Seconds" },
-                  { feature: "Bank Network Support", us: "200+ Indian Banks", manual: "Limited Banks", scraper: "Fragile Connections" },
-                  { feature: "Name Match Accuracy", us: "Direct Bank NPCI Match", manual: "Human Eye Error", scraper: "Unreliable Parsing" },
-                  { feature: "Bulk Processing", us: "Up to 50,000 / min", manual: "Manual PDF Reading", scraper: "Rate-limited" },
-                  { feature: "Enterprise SLA Uptime", us: "99.99% Guaranteed", manual: "N/A", scraper: "Frequent Downtime" },
-                  { feature: "Security & Compliance", us: "ISO 27001 / AES-256", manual: "Data Leak Risk", scraper: "Unsecured" },
-                ].map((row, i) => (
-                  <tr key={i} className="hover:bg-muted/30 transition-colors">
-                    <td className="p-4 font-semibold text-foreground">{row.feature}</td>
-                    <td className="p-4 font-bold text-blue-600 bg-blue-500/5">{row.us}</td>
-                    <td className="p-4 text-muted-foreground">{row.manual}</td>
-                    <td className="p-4 text-muted-foreground">{row.scraper}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Accordion */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Everything you need to know about integrating the Bank Account Verification API.
-            </p>
-          </div>
-
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {[
-              {
-                q: "What is Bank Account Verification API?",
-                a: "The Bank Account Verification API allows enterprises and platforms to instantly validate bank account numbers, IFSC codes, beneficiary names, and account active status in real-time before initiating payouts or onboarding customers."
-              },
-              {
-                q: "How does Penny Drop verification work?",
-                a: "During Penny Drop verification, our API deposits a micro-amount (₹1) into the target bank account via IMPS/NPCI. Destination bank networks return the official registered account holder name and account status."
-              },
-              {
-                q: "What is Reverse Penny Drop verification?",
-                a: "Reverse Penny Drop asks the end user to pay ₹1 using any UPI app (GPay, PhonePe, Paytm). The incoming UPI payment payload provides 100% verified bank account details and holder name without manual data entry."
-              },
-              {
-                q: "Which banks are supported?",
-                a: "DigitalRakshak supports 200+ major public, private, regional rural, and cooperative banks across India supporting IMPS, NEFT, RTGS, and UPI networks."
-              },
-              {
-                q: "What is the response time and uptime SLA?",
-                a: "DigitalRakshak guarantees sub-300ms API response latency with 99.99% uptime SLA backed by bank-grade redundant infrastructure."
-              },
-              {
-                q: "How do I integrate the Bank Account Verification API?",
-                a: "Register on DigitalRakshak, obtain your production/sandbox API keys, and follow our clean REST API documentation to start verifying bank accounts within minutes."
-              }
-            ].map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="border border-border/60 rounded-xl px-4 bg-background">
-                <AccordionTrigger className="text-left text-lg font-semibold hover:text-blue-600 transition-colors py-4">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-4">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="px-6 py-20 md:px-12 bg-gradient-to-br from-blue-600 to-purple-700 text-white relative overflow-hidden">
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-balance">
-            Ready to Automate Bank Account Verification & Eliminate Payout Failures?
-          </h2>
-          <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Get instant API sandbox keys and start verifying bank accounts in sub-seconds.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-blue-700 hover:bg-slate-100 font-extrabold text-lg h-14 px-8 rounded-full shadow-2xl transition-all"
-              onClick={() => router.push('/register')}
-            >
-              Get Started Now
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-            <Button
-              size="lg"
-              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-blue-700 font-bold px-8 h-14 rounded-full text-lg transition-all"
-              onClick={() => router.push('/contact')}
-            >
-              Talk to Sales
-            </Button>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+    );
 }

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
-import GstNavbar from "./components/GstNavbar";
 
 const assetPathPrefix = "/assets";
 
@@ -151,7 +150,7 @@ function HeroSection() {
   );
 }
 
-// Card that uses imgFrame70 as its own shape (blue circle + card body baked in)
+// Properly aligned FeatureCard with centered circular badge and matching Figma palette
 function FeatureCard({
   icon,
   title,
@@ -162,36 +161,22 @@ function FeatureCard({
   desc: string;
 }) {
   return (
-    <div className="relative w-full max-w-[227px] h-[349px] mx-auto flex-shrink-0 flex flex-col justify-start">
-      {/* imgFrame70 SVG = blue-circle header + rounded-rect card body */}
-      <div className="absolute inset-0 w-full h-[349px] pointer-events-none">
+    <div className="relative w-full max-w-[235px] mt-6 mx-auto flex-shrink-0 flex flex-col justify-start transition-transform duration-300 hover:-translate-y-1.5 group">
+      {/* Top glowing circular badge - perfectly centered */}
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full bg-[#0088FF]/50 border-2 border-[#38bdf8]/70 shadow-[0_0_22px_rgba(0,136,255,0.65)] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_28px_rgba(0,136,255,0.9)]">
         <img
           alt=""
-          src={imgFrame70}
-          className="w-full h-full block object-fill"
+          src={icon}
+          className="w-6 h-6 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
         />
       </div>
-      {/* Icon sits on the glowing circle */}
-      <div
-        className="absolute overflow-hidden z-10"
-        style={{
-          top: 17,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 40,
-          height: 40,
-        }}
-      >
-        <div className="absolute inset-[8%]">
-          <img alt="" className="w-full h-full" src={icon} />
-        </div>
-      </div>
-      {/* Text content inside the card body */}
-      <div className="relative z-10 px-4 pt-[88px] pb-6 text-center sm:text-left flex flex-col justify-start">
-        <p className="text-white text-[16px] sm:text-[18px] font-semibold leading-[22px] sm:leading-[24px] mb-2">
+
+      {/* Card Body with exact Figma styling */}
+      <div className="w-full min-h-[220px] rounded-[18px] bg-[#5173C2]/45 border border-[#6b8cd8]/35 backdrop-blur-md px-4 pt-9 pb-5 text-center sm:text-left flex flex-col justify-start h-full shadow-[0_10px_25px_rgba(0,0,0,0.35)]">
+        <p className="text-white text-[16px] sm:text-[17px] font-semibold leading-[22px] sm:leading-[24px] mb-2.5">
           {title}
         </p>
-        <p className="text-white/90 text-[13px] sm:text-[14px] font-normal leading-[19px] sm:leading-[21px]">
+        <p className="text-white/90 text-[13px] sm:text-[13.5px] font-normal leading-[19px] sm:leading-[21px]">
           {desc}
         </p>
       </div>
@@ -1028,7 +1013,6 @@ function Footer() {
 export default function App() {
   return (
     <div className="align-center bg-black min-h-screen w-full font-[Inter] overflow-x-hidden">
-      <GstNavbar />
       <HeroSection />
       <WhatCanYouDoSection />
       <VerificationCardsSection />
@@ -1038,7 +1022,6 @@ export default function App() {
       <KeyBenefitsSection />
       <FAQSection />
       <CTASection />
-      <Footer />
     </div>
   );
 }

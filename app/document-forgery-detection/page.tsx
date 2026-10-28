@@ -1,506 +1,1242 @@
-'use client'
+"use client";
 
-import { Card } from '@/components/ui/card'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { useRouter } from 'next/navigation'
+import { useState } from "react";
 import {
-  Scan,
-  ShieldCheck,
-  CheckCircle,
-  Zap,
-  Search,
-  ArrowRight,
-  AlertTriangle,
-  Database,
-  FileText,
-  Layers,
-  BarChart3,
-  BadgeCheck,
-  Globe,
-  Briefcase,
-  Users,
-  Landmark,
-  FileCheck,
-  Image as ImageIcon,
-  Type,
-  Camera,
-  ShieldAlert,
-  CreditCard
-} from 'lucide-react'
+    Scan,
+    ArrowRight,
+    CheckCircle2,
+    Check,
+    ChevronDown,
+    ShieldCheck,
+    Globe,
+    Zap,
+    Database,
+    AlertTriangle,
+    FileText,
+    BarChart3,
+    ShieldAlert,
+    Image as ImageIcon,
+    Type,
+    Camera,
+    Layers,
+    BadgeCheck,
+    CreditCard,
+    Users,
+    Briefcase,
+    Search,
+} from "lucide-react";
 
+const assetPathPrefix = "/assets";
+
+const imgSvgRepoIconCarrier = `${assetPathPrefix}/e8dc9.svg`;
+const imgFrame19 = `${assetPathPrefix}/643e6.png`;
+const imgFrame20 = `${assetPathPrefix}/Frame 20.png`;
+const imgFrame22 = `${assetPathPrefix}/Frame 22.png`;
+const imgFrame77 = `${assetPathPrefix}/Frame 77.png`;
+const imgRectangle6 = `${assetPathPrefix}/Rectangle 6.png`;
+const imgRectangle7 = `${assetPathPrefix}/Rectangle 7.png`;
+const imgEllipse21 = `${assetPathPrefix}/Ellipse 21.png`;
+const imgEllipse19 = `${assetPathPrefix}/Ellipse 19.png`;
+const imgEllipse22 = `${assetPathPrefix}/e2585.svg`;
+const imgSvgRepoIconCarrier6 = `${assetPathPrefix}/52ecf.svg`;
+const imgVector2 = `${assetPathPrefix}/50101.svg`;
+
+const faqItems = [
+    {
+        q: "1. What is the Document Forgery Detection API?",
+        a: "The Document Forgery Detection API uses computer vision, deep learning models, font forensic analysis, and EXIF metadata inspection to detect photoshopped images, modified bank statements, substituted text, and cloned elements across identity documents, financial statements, and bills in real time.",
+    },
+    {
+        q: "2. Which document types are supported for forgery checks?",
+        a: "Our API supports Aadhaar cards, PAN cards, Voter ID cards, Passports, Driving Licenses, bank statements, salary slips, utility bills, and insurance claims.",
+    },
+    {
+        q: "3. How does the API detect Photoshop and image editing?",
+        a: "The API analyzes pixel compression anomalies, localized blur patterns, color channel inconsistencies, and metadata signatures left by editing software like Photoshop, Canva, or MS Paint.",
+    },
+    {
+        q: "4. What is the response latency and SLA?",
+        a: "DigitalRakshak guarantees sub-300ms API response latency with 99.99% uptime SLA backed by enterprise redundant infrastructure.",
+    },
+    {
+        q: "5. What parameters are returned in the Forgery API output?",
+        a: "The response includes overall forgery score (Authentic/Tampered), image manipulation alert, font baseline anomaly metrics, copy-paste cloning flag, EXIF software signatures, and tampered region bounding box coordinates.",
+    },
+    {
+        q: "6. How do I integrate the Document Forgery Detection API?",
+        a: "Register on DigitalRakshak, obtain your production/sandbox API keys, and connect our clean REST API endpoints into your KYC or digital lending application within minutes.",
+    },
+];
+
+/* ── 1. HERO SECTION (Identical visual design to gst-verification-api) ── */
+function HeroSection() {
+    return (
+        <section className="relative min-h-0 lg:min-h-[100dvh] overflow-hidden px-[5%] lg:px-[6%] flex flex-col justify-between pt-24 sm:pt-28 lg:pt-24 pb-12 sm:pb-16">
+            {/* Background Video with instant poster and gradient overlay */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster="/bg-frame-poster.jpg"
+                    className="w-full h-full object-cover object-bottom"
+                >
+                    <source src="/bg-frame.webm" type="video/webm" />
+                    <source src="/bg-frame.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 lg:to-transparent" />
+            </div>
+
+            {/* Center Hero content - fits on screen */}
+            <div className="relative z-10 flex-1 flex items-center py-4 lg:py-8">
+                <div className="w-full max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-8 xl:gap-12 items-center">
+                    {/* Left content */}
+                    <div className="lg:col-span-5 flex flex-col justify-between text-left">
+                        <div>
+                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-3">
+                                AI-Powered Document Tampering &amp; Forgery Detection
+                            </span>
+                            <h1 className="text-white text-[clamp(28px,7vw,56px)] font-black leading-[1.1] tracking-tight">
+                                Document Forgery<br />Detection API
+                            </h1>
+                            <p className="text-white text-[15px] sm:text-[18px] lg:text-[22px] font-medium mt-3 sm:mt-4">
+                                Detect manipulated images, photoshopped KYC documents, and digital forgery in real time.
+                            </p>
+                        </div>
+
+                        <div className="mt-5 sm:mt-8 lg:mt-10">
+                            <p className="text-white/90 text-[14px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed max-w-[540px]">
+                                Detect manipulated images, photoshopped KYC documents, font tampering, copy-paste artifacts, EXIF metadata anomalies, and digital forgery across Aadhaar, PAN, Voter ID, Passport, and bank statements in real time.
+                            </p>
+                            <div className="flex gap-3 sm:gap-4 mt-5 sm:mt-6 items-center flex-wrap">
+                                <a
+                                    href="#contact"
+                                    className="bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-semibold text-[14px] sm:text-[15px] px-6 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all flex items-center gap-2"
+                                >
+                                    <span>Get API Access</span>
+                                    <ArrowRight className="w-4 h-4" />
+                                </a>
+                                <a
+                                    href="#contact"
+                                    className="bg-white hover:bg-gray-100 text-[#0a1e36] font-semibold text-[14px] sm:text-[15px] px-6 sm:px-8 py-2.5 sm:py-3 rounded-[18px] shadow-[2px_2px_11.4px_0px_#00000040,_5px_-2px_8.7px_0px_#0084FF6B_inset] transition-all"
+                                >
+                                    Book a Meeting
+                                </a>
+                            </div>
+
+                            {/* Tag capabilities */}
+                            <div className="flex items-center gap-3 sm:gap-4 mt-6 sm:mt-8 pt-4 border-t border-white/10 flex-wrap text-white/80 text-[12.5px] sm:text-[13.5px]">
+                                <span className="flex items-center gap-1.5"><Layers className="w-4 h-4 text-[#76bbf8]" /> Multi-Layer Forensics</span>
+                                <span className="text-white/30 hidden sm:inline">•</span>
+                                <span className="flex items-center gap-1.5"><Type className="w-4 h-4 text-[#76bbf8]" /> Font &amp; EXIF Audit</span>
+                                <span className="text-white/30 hidden sm:inline">•</span>
+                                <span className="flex items-center gap-1.5"><BadgeCheck className="w-4 h-4 text-[#76bbf8]" /> 99.8% Accuracy</span>
+                                <span className="text-white/30 hidden sm:inline">•</span>
+                                <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-[#76bbf8]" /> &lt; 300ms SLA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right – product screenshots (identical to gst-verification-api) */}
+                    <div className="lg:col-span-7 relative flex justify-center lg:justify-end items-center w-full mt-4 lg:mt-0">
+                        <div className="flex items-center gap-3 sm:gap-6 md:gap-8 w-full max-w-[650px] lg:max-w-none mx-auto">
+                            {/* Main card - left */}
+                            <div className="flex-[326] rounded-[16px] sm:rounded-[22px] lg:rounded-[26px] overflow-hidden shadow-2xl border border-white/10 aspect-[326/354] bg-[#f2f4f7]">
+                                <img
+                                    alt="Document Forgery Detection Dashboard"
+                                    className="w-full h-full object-cover object-center"
+                                    src={imgFrame19}
+                                />
+                            </div>
+
+                            {/* Right stacked cards */}
+                            <div className="flex-[175] flex flex-col justify-between self-stretch gap-2.5 sm:gap-4">
+                                <div className="rounded-[12px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
+                                    <img
+                                        alt="Feature preview 1"
+                                        className="w-full h-full object-cover"
+                                        src={imgRectangle6}
+                                    />
+                                </div>
+                                <div className="rounded-[12px] sm:rounded-[18px] lg:rounded-[22px] overflow-hidden shadow-2xl border border-white/10 aspect-square">
+                                    <img
+                                        alt="Feature preview 2"
+                                        className="w-full h-full object-cover"
+                                        src={imgRectangle7}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 2. FEATURE CARD (Identical to gst-verification-api) ── */
+function FeatureCard({
+    icon,
+    title,
+    desc,
+}: {
+    icon: string;
+    title: string;
+    desc: string;
+}) {
+    return (
+        <div className="relative w-full max-w-[235px] mt-6 mx-auto flex-shrink-0 flex flex-col justify-start transition-transform duration-300 hover:-translate-y-1.5 group">
+            {/* Top glowing circular badge - perfectly centered */}
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full bg-[#0088FF]/50 border-2 border-[#38bdf8]/70 shadow-[0_0_22px_rgba(0,136,255,0.65)] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_28px_rgba(0,136,255,0.9)]">
+                <img
+                    alt=""
+                    src={icon}
+                    className="w-6 h-6 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+                />
+            </div>
+
+            {/* Card Body with exact Figma styling */}
+            <div className="w-full min-h-[220px] rounded-[18px] bg-[#5173C2]/45 border border-[#6b8cd8]/35 backdrop-blur-md px-4 pt-9 pb-5 text-center sm:text-left flex flex-col justify-start h-full shadow-[0_10px_25px_rgba(0,0,0,0.35)]">
+                <p className="text-white text-[16px] sm:text-[17px] font-semibold leading-[22px] sm:leading-[24px] mb-2.5">
+                    {title}
+                </p>
+                <p className="text-white/90 text-[13px] sm:text-[13.5px] font-normal leading-[19px] sm:leading-[21px]">
+                    {desc}
+                </p>
+            </div>
+        </div>
+    );
+}
+
+function WhatCanYouDoSection() {
+    const cards = [
+        {
+            title: "1. Photoshop & Pixel Edit Check",
+            desc: "Spot pixel-level edits, localized blur, color mismatches, and compression anomalies across document surfaces.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "2. Font & Typography Forensic",
+            desc: "Detect substituted fonts, baseline alignment shifts, character size inconsistencies, and text overlays.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "3. Copy-Paste & Element Cloning",
+            desc: "Identify cloned signatures, duplicated stamps, cut-and-paste fields, and digital artifacts.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "4. EXIF & Camera Inspection",
+            desc: "Analyze camera EXIF metadata, editing software signatures (Photoshop, Canva, Paint), and creation dates.",
+            icon: imgSvgRepoIconCarrier,
+        },
+        {
+            title: "5. Sub-Second Risk Decision",
+            desc: "Retrieve complete document forensic analysis in <300ms for instant onboarding and underwriting security.",
+            icon: imgSvgRepoIconCarrier,
+        },
+    ];
+
+    return (
+        <section id="api-product" className="relative pt-10 sm:pt-14 pb-8 sm:pb-12 px-[5%] lg:px-[6%]">
+            {/* Ellipse 19 glow (same as gst-verification-api) */}
+            <div className="absolute left-[-10%] top-[-10%] w-full max-w-[848px] pointer-events-none select-none opacity-70 mix-blend-screen">
+                <img
+                    alt=""
+                    className="w-full h-full object-contain"
+                    src={imgEllipse19}
+                />
+            </div>
+
+            <div className="relative z-10 max-w-[1400px] mx-auto">
+                <h2 className="text-white text-[clamp(24px,4vw,42px)] font-bold text-center tracking-tight mb-3">
+                    What Can You Do with Document Forgery Detection
+                </h2>
+                <p className="text-white/70 text-[15px] sm:text-[17px] text-center max-w-[700px] mx-auto mb-14 sm:mb-20">
+                    Detect localized image editing, text overlays, substituted fonts, and copy-paste element cloning instantly across all document types.
+                </p>
+
+                {/* Cards grid layout */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10 sm:gap-y-16 justify-items-center">
+                    {cards.map((c, i) => (
+                        <FeatureCard key={i} icon={c.icon} title={c.title} desc={c.desc} />
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 3. VERIFICATION CARDS SECTION (Big blue border box identical to gst-verification-api) ── */
+function VerificationCardsSection() {
+    return (
+        <section className="relative py-8 sm:py-12 px-[5%] lg:px-[6%]">
+            <div className="relative z-10 max-w-[1240px] mx-auto">
+                <h2 className="text-white text-[24px] sm:text-[32px] lg:text-[36px] font-bold text-center tracking-tight mb-3">
+                    Comprehensive Forgery Detection Output Parameters
+                </h2>
+                <p className="text-white/70 text-[14px] sm:text-[16px] text-center max-w-[650px] mx-auto mb-10 sm:mb-14">
+                    Authoritative computer vision forensic metrics and tampered region coordinates extracted in real time.
+                </p>
+
+                {/* Outer Blue Border Box */}
+                <div className="relative bg-[#040d24]/70 border-2 border-[#1677ff] rounded-[22px] p-6 sm:p-9 lg:p-12 shadow-[0_0_35px_rgba(22,119,255,0.35)] backdrop-blur-md">
+                    <div className="grid md:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 divide-y md:divide-y-0 md:divide-x divide-white/15">
+                        {/* Core Tamper & Forgery Screening */}
+                        <div className="md:pr-8 lg:pr-12 pb-6 md:pb-0">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="relative flex items-center justify-center size-7 flex-shrink-0">
+                                    <img
+                                        alt=""
+                                        className="w-[200%] h-[200%] max-w-none"
+                                        src={imgEllipse22}
+                                    />
+                                    <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+                                        <img
+                                            alt=""
+                                            className="w-full h-full"
+                                            src={imgSvgRepoIconCarrier6}
+                                        />
+                                    </div>
+                                </div>
+                                <h3 className="text-white text-[20px] sm:text-[23px] font-semibold leading-tight">
+                                    Core Tamper &amp; Forgery Screening
+                                </h3>
+                            </div>
+                            <p className="text-white/70 text-[13.5px] font-normal leading-relaxed mb-4 sm:mb-5">
+                                Essential pixel, font, and metadata tampering detection parameters.
+                            </p>
+                            <ol className="text-white/90 text-[14px] sm:text-[15px] font-medium leading-[26px] list-decimal list-inside space-y-1.5 pl-1">
+                                {[
+                                    "Document Classification Type (Aadhaar, PAN, Voter ID, Passport, Bank Statement, or Salary Slip)",
+                                    "Overall Forgery Score (Authentic / Clear indicator vs Tampered / High Risk status)",
+                                    "Image Manipulation Alert (Flag for localized pixel editing, splicing, and compression anomalies)",
+                                    "Font Alignment Anomaly (Detailed baseline shift, substituted font, and character spacing metrics)",
+                                    "Copy-Paste Cloning Flag (Detection of duplicated signatures, stamps, and cloned text blocks)",
+                                    "EXIF Software Signature (Extraction of creation software: Photoshop, Canva, Paint, and camera metadata)",
+                                ].map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ol>
+                        </div>
+
+                        {/* Forensic Analysis & Audit Trail */}
+                        <div className="pt-6 md:pt-0 md:pl-8 lg:pl-12">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="relative flex items-center justify-center size-7 flex-shrink-0">
+                                    <img
+                                        alt=""
+                                        className="w-[200%] h-[200%] max-w-none"
+                                        src={imgEllipse22}
+                                    />
+                                    <div className="absolute top-[1px] left-[-1px] z-10 overflow-hidden size-5">
+                                        <img
+                                            alt=""
+                                            className="w-full h-full"
+                                            src={imgSvgRepoIconCarrier6}
+                                        />
+                                    </div>
+                                </div>
+                                <h3 className="text-white text-[20px] sm:text-[23px] font-semibold leading-tight">
+                                    Forensic Analysis &amp; Audit Trail
+                                </h3>
+                            </div>
+                            <p className="text-white/70 text-[13.5px] font-normal leading-relaxed mb-4 sm:mb-5">
+                                Deep neural network inspection and bounding box coordinate mapping.
+                            </p>
+                            <ol className="text-white/90 text-[14px] sm:text-[15px] font-medium leading-[26px] list-decimal list-inside space-y-1.5 pl-1">
+                                {[
+                                    "Tampered Region Coordinates (Bounding box coordinates highlighting exact tampered document areas)",
+                                    "Authenticity Risk Score (Final confidence score for decisioning in loan & KYC pipelines)",
+                                    "Double Compression & Resaving Artifacts Detection across image matrices",
+                                    "Text & Stamp Erasure / Inpainting Identification on official identity cards",
+                                    "Sub-300ms ultra-low latency response for automated straight-through processing",
+                                    "Tamper-evident digital audit trail for regulatory and compliance governance",
+                                ].map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 4. CONNECT API SECTION (Identical dual-column layout to gst-verification-api) ── */
+function ConnectAPISection() {
+    const workflows = [
+        {
+            title: "Banks & NBFC Digital Lending",
+            desc: "Prevent loan fraud by detecting modified bank statements, fabricated salary slips, and edited ITR acknowledgments during automated digital loan underwriting.",
+        },
+        {
+            title: "Insurance Claims Processing",
+            desc: "Detect forged medical bills, altered hospital discharge summaries, and edited vehicle repair estimates to prevent fraudulent insurance claim payouts.",
+        },
+        {
+            title: "KYC & Digital Onboarding",
+            desc: "Detect photoshopped identity proofs (Aadhaar, PAN, Voter ID, Passport) to stop synthetic identity fraud and account takeover attempts during onboarding.",
+        },
+    ];
+
+    return (
+        <section className="relative pt-8 sm:pt-10 lg:pt-12 pb-7 sm:pb-9 px-[5%] lg:px-[6%] overflow-hidden">
+            <div className="relative z-10 max-w-[1240px] mx-auto">
+                {/* Section Heading */}
+                <h2 className="text-white text-[24px] sm:text-[30px] lg:text-[36px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+                    Connect Document Forgery Detection API With Your Existing System
+                </h2>
+
+                {/* 2-Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start justify-items-center">
+                    {/* LEFT COLUMN: Blue Box + Integrate with */}
+                    <div className="w-full max-w-[543px] flex flex-col">
+                        <div className="w-full min-h-[190px] h-auto bg-gradient-to-b from-[#b2daff] to-[#92c8fc] border-2 border-[#54b4ff] rounded-[20px] p-6 sm:p-8 flex items-center shadow-[0_0_35px_rgba(84,180,255,0.45),0_0_12px_rgba(84,180,255,0.3)]">
+                            <p className="text-[#081a2e] text-[15px] sm:text-[16px] lg:text-[17px] font-normal leading-[1.65]">
+                                Fraudsters frequently use Photoshop, online image editors, and font-replacement tools to fabricate bank statements, alter salary slips, and edit government identity documents during digital onboarding and credit applications. DigitalRakshak provides seamless API integration for banks, fintech lenders, insurance providers, and KYC platforms.
+                            </p>
+                        </div>
+
+                        <h4 className="text-white font-bold text-[18px] sm:text-[20px] mt-8 mb-4">
+                            Integrate with:
+                        </h4>
+
+                        <div className="space-y-3 text-white/90 text-[14px] sm:text-[15px] font-medium pl-1">
+                            <div>1. Digital lending &amp; loan origination systems (LOS)</div>
+                            <div>2. KYC &amp; digital customer onboarding workflows</div>
+                            <div>3. Insurance claims verification &amp; payout portals</div>
+                            <div>4. Real estate due diligence &amp; legal contract audit engines</div>
+                            <div>5. Background verification &amp; HR onboarding systems</div>
+                            <div>6. FinTech payment gateway &amp; merchant onboarding pipelines</div>
+                        </div>
+
+                        <p className="text-white/80 text-[13.5px] sm:text-[14.5px] leading-relaxed mt-6 pl-1">
+                            The Document Forgery Detection API provides webhook and real-time pass-through capabilities for automated fraud prevention.
+                        </p>
+                    </div>
+
+                    {/* RIGHT COLUMN: Practical Business Workflows */}
+                    <div className="w-full max-w-[543px] flex flex-col">
+                        <h3 className="text-white font-bold text-[22px] sm:text-[24px] mb-6">
+                            Practical Business Workflows
+                        </h3>
+
+                        <div className="space-y-5 sm:space-y-6">
+                            {workflows.map((wf) => (
+                                <div
+                                    key={wf.title}
+                                    className="bg-gradient-to-r from-[#ebd6ff] via-[#e2c4ff] to-[#d8b0ff] border-2 border-[#d896ff] rounded-[20px] p-6 sm:px-8 sm:py-6 shadow-[0_0_30px_rgba(216,145,255,0.45),0_0_10px_rgba(216,145,255,0.3)] transition-transform duration-200 hover:scale-[1.01]"
+                                >
+                                    <h4 className="text-[#090e24] font-bold text-[18px] sm:text-[19px] mb-2">
+                                        {wf.title}
+                                    </h4>
+                                    <p className="text-[#1a2038] text-[13px] sm:text-[14px] leading-relaxed font-normal">
+                                        {wf.desc}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Centered Book a Demo CTA */}
+                <div className="mt-6 sm:mt-8 flex justify-center">
+                    <a
+                        href="#contact"
+                        className="inline-flex items-center justify-center bg-[#b0daff] hover:bg-[#8ec7fc] text-[#081a2e] font-semibold text-[15px] sm:text-[16px] py-3.5 px-12 rounded-[18px] shadow-[0_4px_20px_rgba(0,0,0,0.35)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 5. HOW IT WORKS (Identical interactive step-toggle to gst-verification-api) ── */
+function HowItWorksSection() {
+    const [activeStep, setActiveStep] = useState<number | null>(1);
+
+    const stepsData = [
+        {
+            id: 1,
+            title: "1. Upload Document Image or PDF",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Upload document image (JPEG/PNG) or multi-page PDF via secure REST API endpoint, SDK, or dashboard.
+                    </p>
+                    <p className="font-medium text-[#1f2937]">Supported inputs include:</p>
+                    <div className="space-y-1.5 pl-3 text-[#374151]">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>1. Aadhaar, PAN, Voter ID, Passport, Driving License</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>2. Bank statements, salary slips, and ITR documents</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>3. Medical bills, invoices, and commercial contracts</span>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            id: 2,
+            title: "2. AI Computer Vision Scan",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Deep neural networks scan image pixels, noise distribution, color channels, and compression anomalies to expose localized image edits and splicing.
+                    </p>
+                    <p className="text-[#1f2937] font-medium">
+                        Instant pixel-level anomaly and tampering detection.
+                    </p>
+                </div>
+            ),
+        },
+        {
+            id: 3,
+            title: "3. Font & Typography Forensic Audit",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        System audits character baseline consistency, glyph geometry, stroke width, and kerning variations against official document typography standards.
+                    </p>
+                    <div className="space-y-1.5 pl-3 text-[#374151] font-medium">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>1. Non-standard font substitution identification</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>2. Baseline alignment shift &amp; text overlay detection</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                            <span>3. Copy-paste signature &amp; stamp cloning inspection</span>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            id: 4,
+            title: "4. EXIF & Metadata Inspection",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Parse camera EXIF metadata, editing software signatures (Photoshop, Canva, MS Paint), and document creation/modification dates.
+                    </p>
+                </div>
+            ),
+        },
+        {
+            id: 5,
+            title: "5. Receive Structured Forgery JSON",
+            image: "/images/how-it-works-step.png",
+            content: (
+                <div className="space-y-2 text-[#4b5563] text-[13.5px] sm:text-[14.5px] leading-relaxed pt-2">
+                    <p>
+                        Get clean JSON payload in &lt;300ms with authenticity score, tamper alert flags, and bounding box coordinates of manipulated regions.
+                    </p>
+                </div>
+            ),
+        },
+    ];
+
+    const activeImage =
+        stepsData.find((s) => s.id === activeStep)?.image ||
+        "/images/how-it-works-step.png";
+
+    return (
+        <section className="relative py-5 sm:py-7 px-[5%] lg:px-[6%] overflow-hidden bg-black">
+            {/* Ambient soft glow at bottom right */}
+            <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-[#1e3a8a]/20 rounded-full blur-[140px] pointer-events-none" />
+
+            <div className="relative z-10 max-w-[1240px] mx-auto">
+                <h2 className="text-white text-[28px] sm:text-[34px] lg:text-[40px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+                    How it works
+                </h2>
+
+                {/* 2-Column Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+                    {/* Left Column: Image Card */}
+                    <div className="lg:col-span-5 flex justify-center lg:justify-start">
+                        <div className="w-full max-w-[420px] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10 relative bg-[#0b101d]">
+                            <img
+                                key={activeImage}
+                                src={activeImage}
+                                alt="How it works illustration"
+                                className="w-full h-auto object-cover block transition-all duration-500 ease-out"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Right Column: Accordion Points */}
+                    <div className="lg:col-span-7 flex flex-col space-y-4 sm:space-y-4.5">
+                        {stepsData.map((step) => {
+                            const isActive = activeStep === step.id;
+
+                            return (
+                                <div
+                                    key={step.id}
+                                    onClick={() => setActiveStep(isActive ? null : step.id)}
+                                    className={`cursor-pointer transition-all duration-300 ease-out select-none ${isActive
+                                        ? "bg-white rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 sm:px-8 border-2 border-[#5cb3ff] shadow-[0_6px_0_0_#38bdf8,0_16px_32px_rgba(56,189,248,0.28)]"
+                                        : "bg-white rounded-full py-4 px-6 sm:px-8 hover:bg-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.2)] hover:scale-[1.008] transition-all"
+                                        }`}
+                                >
+                                    {/* Header Row */}
+                                    <div className="flex items-center gap-3">
+                                        <span
+                                            className={`rounded-full shrink-0 transition-all duration-300 ${isActive
+                                                ? "w-3 h-3 bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]"
+                                                : "w-2.5 h-2.5 bg-[#cbd5e1]"
+                                                }`}
+                                        />
+                                        <h3 className="text-[#111827] text-[16px] sm:text-[18px] font-bold tracking-tight">
+                                            {step.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Expandable Content with smooth grid transition */}
+                                    <div
+                                        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${isActive
+                                            ? "grid-rows-[1fr] opacity-100 mt-2"
+                                            : "grid-rows-[0fr] opacity-0 mt-0"
+                                            }`}
+                                    >
+                                        <div className="overflow-hidden">{step.content}</div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 6. WHY API SECTION (Identical visual design to gst-verification-api) ── */
+function WhyAPISection() {
+    return (
+        <section className="relative py-10 sm:py-14 px-[5%] lg:px-[6%]">
+            {/* Ellipse 21 glow */}
+            <div className="absolute left-0 w-full max-w-[848px] pointer-events-none select-none opacity-65 mix-blend-screen z-50">
+                <img
+                    alt=""
+                    className="w-full h-full object-contain"
+                    src={imgEllipse21}
+                />
+            </div>
+            <div className="max-w-[1400px] mx-auto space-y-16 lg:space-y-20">
+                {/* Top Section: Why Automated Document Forgery Check is Essential */}
+                <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    <div className="lg:col-span-5">
+                        <h2 className="text-white text-[clamp(24px,3vw,40px)] font-bold leading-tight mb-6">
+                            Why Automated Document Forgery Check is Essential
+                        </h2>
+                        <p className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed mb-4">
+                            Fraudsters frequently use Photoshop, online image editors, and font-replacement tools to fabricate bank statements, alter salary slips, and edit government-issued identity documents during digital onboarding and credit applications.
+                        </p>
+                        <p className="text-white text-[15px] sm:text-[16px] lg:text-[18px] font-normal leading-relaxed mb-4">
+                            DigitalRakshak&apos;s Document Forgery Detection API leverages advanced computer vision, deep neural networks, font forensic analysis, and EXIF metadata extraction to expose local image tampering, text overlays, and copy-paste element cloning instantly:
+                        </p>
+                        <ul className="text-white/90 text-[14px] sm:text-[16px] font-normal leading-relaxed space-y-2 pl-1">
+                            {[
+                                "Detect Image Manipulation & Photoshop (pixel-level edits, localized blur)",
+                                "Font & Typography Forensic Audit (substituted fonts, baseline shifts)",
+                                "Copy-Paste & Element Cloning (cloned signatures, duplicated stamps)",
+                                "EXIF Metadata & Camera Inspection (software signatures, creation dates)",
+                                "Tampered Region Bounding Box Coordinates (<300ms response)",
+                                "ISO 27001 Certified & Bank-Grade Data Security",
+                            ].map((item) => (
+                                <li key={item} className="flex items-center gap-2.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#76bbf8] shrink-0" />
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Right side: 3 images layout */}
+                    <div className="lg:col-span-7 flex items-center gap-4 sm:gap-5 w-full">
+                        {/* Big card - left */}
+                        <div className="flex-[581] rounded-[18px] overflow-hidden shadow-2xl border border-white/10">
+                            <img
+                                alt="Document Forgery Detection Dashboard"
+                                className="w-full h-auto rounded-[18px] object-cover block"
+                                src={imgFrame20}
+                            />
+                        </div>
+
+                        {/* Right column: 2 stacked cards */}
+                        <div className="flex-[288] flex flex-col justify-between self-stretch gap-3 sm:gap-4">
+                            <div className="rounded-[18px] overflow-hidden shadow-2xl border border-white/10">
+                                <img
+                                    alt="Computer Vision Analytics"
+                                    className="w-full h-auto rounded-[18px] object-cover block"
+                                    src={imgFrame22}
+                                />
+                            </div>
+                            <div className="rounded-[18px] overflow-hidden shadow-2xl border border-white/10">
+                                <img
+                                    alt="Tampered Bounding Box Metrics"
+                                    className="w-full h-auto rounded-[18px] object-cover block"
+                                    src={imgFrame77}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Section: Why DigitalRakshak? */}
+                <div className="relative rounded-[24px] sm:rounded-[28px] bg-gradient-to-r from-[#0a1226]/90 via-[#0d1733]/90 to-[#120f2e]/90 border border-blue-500/20 p-8 sm:p-10 lg:p-12 shadow-[0_0_40px_rgba(22,119,255,0.15)]">
+                    <div className="max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-8 items-center">
+                        <div className="lg:col-span-5">
+                            <span className="text-[#76bbf8] text-xs font-semibold uppercase tracking-wider">
+                                Enterprise Assurance
+                            </span>
+                            <h3 className="text-white text-[24px] sm:text-[30px] lg:text-[34px] font-bold leading-tight mt-1 mb-4">
+                                Why DigitalRakshak?
+                            </h3>
+                            <p className="text-white/85 text-[15px] sm:text-[16px] leading-relaxed mb-4">
+                                Built for Digital Lending, Insurance &amp; Onboarding: DigitalRakshak provides bank-grade document forensic verification. Detect Photoshop edits, font tampering, and copy-paste cloning with 99.8% computer vision accuracy, sub-300ms response latency, and 99.99% uptime.
+                            </p>
+                            <p className="text-white/70 text-[14px] leading-relaxed">
+                                Don&apos;t let manipulated documents or synthetic identity fraud compromise your underwriting. Protect your business with real-time AI document forensics.
+                            </p>
+                        </div>
+
+                        <div className="lg:col-span-7 bg-[#050b1a]/60 border border-white/10 rounded-[20px] p-6 sm:p-7">
+                            <p className="text-white/90 text-[14px] sm:text-[15px] font-semibold mb-4 text-[#B0DAFF]">
+                                The DigitalRakshak Advantage:
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {[
+                                    "Response Latency: < 300ms vs 10-30 mins manual inspection",
+                                    "Photoshop & Pixel Audit: Automated deep learning vs misses subtle edits",
+                                    "Font Baseline Forensic: Sub-pixel alignment check vs human eyeball only",
+                                    "EXIF & Software Metadata: Full camera & software audit vs requires expert tools",
+                                    "Bulk Processing Capacity: Up to 50,000 / min vs slow & high cost",
+                                    "Data Security & Privacy: ISO 27001 certified & bank-grade 256-bit encryption",
+                                    "Tampered Region Bounding Boxes: Instant visual coordinate mapping",
+                                ].map((item) => (
+                                    <div key={item} className="flex items-center gap-2.5 text-white/90 text-[13.5px] sm:text-[14.5px]">
+                                        <CheckCircle2 className="w-4 h-4 text-[#76bbf8] shrink-0" />
+                                        <span>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 7. KEY BENEFITS SECTION (6 cards with BenefitCardGlow identical to gst-verification-api) ── */
+function BenefitCardGlow() {
+    return (
+        <svg
+            className="absolute inset-0 w-full h-full pointer-events-none rounded-[16px]"
+            viewBox="0 0 406 446"
+            preserveAspectRatio="none"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <defs>
+                <linearGradient
+                    id="cardGlowLinearBaseForgery"
+                    x1="0"
+                    y1="446"
+                    x2="0"
+                    y2="0"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop offset="0%" stopColor="#ffdfff" stopOpacity="0.95" />
+                    <stop offset="12%" stopColor="#fdd7ff" stopOpacity="0.9" />
+                    <stop offset="28%" stopColor="#e9b3fa" stopOpacity="0.75" />
+                    <stop offset="45%" stopColor="#a860cb" stopOpacity="0.45" />
+                    <stop offset="62%" stopColor="#542579" stopOpacity="0.15" />
+                    <stop offset="80%" stopColor="#13151a" stopOpacity="0" />
+                </linearGradient>
+
+                <radialGradient
+                    id="cardGlowRadLeftForgery"
+                    cx="0%"
+                    cy="100%"
+                    r="65%"
+                    fx="0%"
+                    fy="100%"
+                >
+                    <stop offset="0%" stopColor="#b884d5" stopOpacity="1" />
+                    <stop offset="20%" stopColor="#9d50bf" stopOpacity="0.9" />
+                    <stop offset="45%" stopColor="#732e94" stopOpacity="0.7" />
+                    <stop offset="70%" stopColor="#3d1856" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#13151a" stopOpacity="0" />
+                </radialGradient>
+
+                <radialGradient
+                    id="cardGlowRadRightForgery"
+                    cx="95%"
+                    cy="100%"
+                    r="85%"
+                    fx="95%"
+                    fy="100%"
+                >
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                    <stop offset="20%" stopColor="#ffdfff" stopOpacity="1" />
+                    <stop offset="40%" stopColor="#f8c6fe" stopOpacity="0.95" />
+                    <stop offset="60%" stopColor="#d382f6" stopOpacity="0.7" />
+                    <stop offset="80%" stopColor="#7f33a8" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#13151a" stopOpacity="0" />
+                </radialGradient>
+            </defs>
+
+            <rect width="100%" height="100%" fill="#0d111a" />
+            <rect width="100%" height="100%" fill="#BACFFF" fillOpacity="0.10" />
+
+            <rect width="100%" height="100%" fill="url(#cardGlowLinearBaseForgery)" />
+            <rect width="100%" height="100%" fill="url(#cardGlowRadLeftForgery)" />
+            <rect width="100%" height="100%" fill="url(#cardGlowRadRightForgery)" />
+        </svg>
+    );
+}
+
+function KeyBenefitsSection() {
+    const benefits = [
+        {
+            title: "Photoshop & Pixel Audit",
+            desc: "Expose localized image editing, pixel compression artifacts, and color mismatches across document formats.",
+            icon: ImageIcon,
+        },
+        {
+            title: "Font & Typography Forensic",
+            desc: "Detect substituted fonts, baseline alignment shifts, and overlaid text fields with sub-pixel precision.",
+            icon: Type,
+        },
+        {
+            title: "EXIF & Software Signatures",
+            desc: "Audit camera EXIF data and flag images created or modified using editing software like Photoshop or Canva.",
+            icon: Camera,
+        },
+        {
+            title: "Sub-Second Response Latency",
+            desc: "Retrieve complete document forensic analysis in <300ms for instant onboarding and straight-through processing.",
+            icon: Zap,
+        },
+        {
+            title: "Stop Loan & Identity Fraud",
+            desc: "Prevent fraudulent account opening, synthetic identity scams, and fabricated salary slip loan defaults.",
+            icon: ShieldAlert,
+        },
+        {
+            title: "Enterprise Scale & Security",
+            desc: "Process up to 50,000 documents per minute with 99.99% uptime SLA and bank-grade ISO 27001 data security.",
+            icon: Database,
+        },
+    ];
+
+    return (
+        <section className="relative py-10 sm:py-14 px-[5%] lg:px-[6%] overflow-hidden bg-black">
+            {/* Background ambient lighting */}
+            <div className="absolute right-[5%] top-[10%] w-[500px] h-[500px] bg-purple-900/15 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute left-[5%] bottom-[10%] w-[500px] h-[500px] bg-indigo-900/15 rounded-full blur-[140px] pointer-events-none" />
+
+            <div className="max-w-[1320px] mx-auto relative z-10">
+                {/* Section Heading */}
+                <h2 className="text-white text-[28px] sm:text-[36px] lg:text-[42px] font-bold text-center tracking-tight mb-12 sm:mb-16">
+                    Key Benefits For Your Business
+                </h2>
+
+                {/* 6 Cards Responsive Grid with proper spacing */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 justify-items-center">
+                    {benefits.map((benefit, idx) => (
+                        <div
+                            key={idx}
+                            className="relative w-full max-w-[406px] min-h-[280px] sm:min-h-[300px] rounded-[18px] border-[2px] border-[#DFC6FF] p-6 sm:p-8 flex flex-col justify-start overflow-hidden group hover:scale-[1.015] hover:shadow-[0_0_35px_rgba(223,198,255,0.3)] transition-all duration-300"
+                        >
+                            {/* Exact Figma atmospheric bottom gradient */}
+                            <BenefitCardGlow />
+
+                            {/* Icon and Title beside each other */}
+                            <div className="relative z-10 flex items-center gap-3.5 mb-5 sm:mb-6">
+                                <div className="w-[46px] h-[46px] sm:w-[50px] sm:h-[50px] rounded-full bg-[#1b2234]/90 border border-white/20 flex items-center justify-center shrink-0 shadow-inner group-hover:border-white/40 transition-colors">
+                                    <benefit.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white stroke-[1.8]" />
+                                </div>
+                                <h3 className="text-white font-bold text-[20px] sm:text-[23px] leading-[1.25] tracking-tight">
+                                    {benefit.title}
+                                </h3>
+                            </div>
+
+                            {/* Card Description */}
+                            <p className="relative z-10 text-white/85 text-[14.5px] sm:text-[16px] leading-[1.6] font-normal">
+                                {benefit.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 8. FAQ SECTION (Identical accordion to gst-verification-api) ── */
+function FAQSection() {
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+    return (
+        <section id="faqs" className="relative py-12 sm:py-16 px-[5%] lg:px-[6%] bg-black">
+            <div className="max-w-[1400px] mx-auto">
+                <h2 className="text-white text-[clamp(28px,3vw,42px)] font-bold mb-2 tracking-tight">
+                    Frequently Asked Questions
+                </h2>
+                <p className="text-white/70 text-[15px] sm:text-[17px] mb-10">
+                    Everything you need to know about integrating the Document Forgery Detection API.
+                </p>
+
+                <div className="divide-y divide-white/20">
+                    {faqItems.map((item, i) => (
+                        <div key={i}>
+                            <button
+                                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                                className="w-full flex items-center justify-between py-6 text-left group transition-colors hover:text-white cursor-pointer"
+                            >
+                                <span className="text-white text-[17px] sm:text-[20px] lg:text-[22px] font-semibold leading-snug tracking-tight pr-6">
+                                    {item.q}
+                                </span>
+                                <div className="flex-shrink-0 size-6">
+                                    <img
+                                        alt=""
+                                        className="w-full h-full transition-transform duration-200"
+                                        src={imgVector2}
+                                        style={{
+                                            transform:
+                                                openIndex === i ? "rotate(180deg)" : "rotate(0deg)",
+                                        }}
+                                    />
+                                </div>
+                            </button>
+                            {openIndex === i && (
+                                <div className="pb-6">
+                                    <p className="w-full md:w-[85%] lg:w-[80%] text-[#d1d5db] text-[15px] sm:text-[16.5px] lg:text-[18px] font-normal leading-relaxed tracking-normal whitespace-pre-line">
+                                        {item.a}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── 9. CTA SECTION (Interactive enterprise 2-column form identical to gst-verification-api) ── */
+function CTASection() {
+    const apiOptions = [
+        "Document Forgery Detection API",
+        "Bank Statement Tamper Check API",
+        "KYC Image & Photoshop Audit API",
+        "Font & Typography Forensic API",
+        "EXIF Metadata Inspection API",
+        "Complete Fraud Prevention Suite",
+    ];
+
+    const [selectedApis, setSelectedApis] = useState<string[]>([
+        "Document Forgery Detection API",
+    ]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [email, setEmail] = useState("");
+    const [company, setCompany] = useState("");
+    const [submitted, setSubmitted] = useState(false);
+
+    const isAllSelected = selectedApis.length === apiOptions.length;
+
+    const toggleSelectAll = () => {
+        if (isAllSelected) {
+            setSelectedApis([]);
+        } else {
+            setSelectedApis([...apiOptions]);
+        }
+    };
+
+    const toggleOption = (opt: string) => {
+        if (selectedApis.includes(opt)) {
+            setSelectedApis(selectedApis.filter((o) => o !== opt));
+        } else {
+            setSelectedApis([...selectedApis, opt]);
+        }
+    };
+
+    const handleSubmit = (actionType: "demo" | "meeting") => {
+        if (!email) {
+            alert("Please enter your work email.");
+            return;
+        }
+        setSubmitted(true);
+    };
+
+    return (
+        <section id="contact" className="relative py-8 sm:py-12 px-[5%] lg:px-[6%]">
+            <div className="max-w-[1400px] mx-auto">
+                <div className="bg-[#0e1424] border border-white/15 rounded-[28px] sm:rounded-[36px] lg:rounded-[40px] overflow-hidden grid lg:grid-cols-12 shadow-[0_0_50px_rgba(22,119,255,0.2)]">
+                    {/* Left Form: API requirement selector and CTAs */}
+                    <div className="lg:col-span-6 p-7 sm:p-10 lg:p-12 flex flex-col justify-between">
+                        <div>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wider uppercase mb-3">
+                                Let's Connect
+                            </span>
+                            <h2 className="text-white text-[28px] sm:text-[34px] lg:text-[40px] font-bold leading-tight">
+                                Let's Talk
+                            </h2>
+                            <p className="text-white/80 text-[14px] sm:text-[16px] font-normal leading-relaxed mt-2 mb-6">
+                                Whether you need Document Forgery Detection, photoshopped KYC checks, bank statement tamper audits, or API integration for digital lending, we can discuss your business requirements.
+                            </p>
+
+                            {submitted ? (
+                                <div className="bg-emerald-950/60 border border-emerald-500/30 rounded-[20px] p-6 text-center my-6">
+                                    <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
+                                    <h4 className="text-white font-bold text-lg mb-1">Request Received!</h4>
+                                    <p className="text-white/80 text-sm">
+                                        Our document forensics API specialist will reach out to you shortly.
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {/* Select Requirement - API List */}
+                                    <div className="relative">
+                                        <label className="block text-white/90 text-[13.5px] font-medium mb-1.5">
+                                            Select Requirement - API List:
+                                        </label>
+                                        <button
+                                            type="button"
+                                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                                            className="w-full flex items-center justify-between bg-[#151c30] text-white text-[14px] sm:text-[15px] rounded-[16px] px-4 py-3 border border-white/15 hover:border-blue-400/50 transition-colors text-left"
+                                        >
+                                            <span className="truncate pr-2">
+                                                {isAllSelected
+                                                    ? "All APIs (Complete Fraud Suite)"
+                                                    : selectedApis.length === 0
+                                                        ? "Select APIs..."
+                                                        : selectedApis.length === 1
+                                                            ? selectedApis[0]
+                                                            : `${selectedApis.length} APIs selected`}
+                                            </span>
+                                            <ChevronDown
+                                                className={`w-4 h-4 text-white/70 shrink-0 transition-transform ${dropdownOpen ? "rotate-180" : ""
+                                                    }`}
+                                            />
+                                        </button>
+
+                                        {/* Dropdown popup with Single / Multi / All selector */}
+                                        {dropdownOpen && (
+                                            <div className="absolute top-[calc(100%+6px)] left-0 right-0 z-50 bg-[#12192d] border border-blue-400/30 rounded-[18px] p-3 shadow-2xl space-y-1 backdrop-blur-xl">
+                                                {/* Select All Toggle */}
+                                                <div
+                                                    onClick={toggleSelectAll}
+                                                    className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-white/10 cursor-pointer border-b border-white/10 pb-2 text-[13.5px] font-semibold text-[#76bbf8]"
+                                                >
+                                                    <div
+                                                        className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isAllSelected
+                                                            ? "bg-[#76bbf8] border-[#76bbf8]"
+                                                            : "border-white/40"
+                                                            }`}
+                                                    >
+                                                        {isAllSelected && <Check className="w-3 h-3 text-[#0a1e36] stroke-[3]" />}
+                                                    </div>
+                                                    <span>Select All Options</span>
+                                                </div>
+
+                                                {/* Options List */}
+                                                <div className="max-h-56 overflow-y-auto space-y-1 pt-1">
+                                                    {apiOptions.map((opt) => {
+                                                        const selected = selectedApis.includes(opt);
+                                                        return (
+                                                            <div
+                                                                key={opt}
+                                                                onClick={() => toggleOption(opt)}
+                                                                className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-white/10 cursor-pointer text-[13.5px] text-white/90"
+                                                            >
+                                                                <div
+                                                                    className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${selected
+                                                                        ? "bg-[#76bbf8] border-[#76bbf8]"
+                                                                        : "border-white/30"
+                                                                        }`}
+                                                                >
+                                                                    {selected && <Check className="w-3 h-3 text-[#0a1e36] stroke-[3]" />}
+                                                                </div>
+                                                                <span>{opt}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Work Email */}
+                                    <div>
+                                        <label className="block text-white/90 text-[13.5px] font-medium mb-1.5">
+                                            Work Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="name@company.com"
+                                            className="bg-[#151c30] text-white placeholder-white/40 text-[14px] sm:text-[15px] rounded-[16px] px-4 py-3 border border-white/15 outline-none focus:border-blue-400 w-full transition-colors"
+                                        />
+                                    </div>
+
+                                    {/* Company Name */}
+                                    <div>
+                                        <label className="block text-white/90 text-[13.5px] font-medium mb-1.5">
+                                            Company Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={company}
+                                            onChange={(e) => setCompany(e.target.value)}
+                                            placeholder="Your organization"
+                                            className="bg-[#151c30] text-white placeholder-white/40 text-[14px] sm:text-[15px] rounded-[16px] px-4 py-3 border border-white/15 outline-none focus:border-blue-400 w-full transition-colors"
+                                        />
+                                    </div>
+
+                                    {/* CTAs */}
+                                    <div className="pt-2 grid sm:grid-cols-2 gap-3.5">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleSubmit("demo")}
+                                            className="bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-bold text-[14px] sm:text-[15px] py-3.5 px-5 rounded-[16px] shadow-lg transition-all flex flex-col items-center justify-center text-center cursor-pointer"
+                                        >
+                                            <span>Demo</span>
+                                            <span className="text-[11px] font-normal text-[#0a1e36]/80 mt-0.5">
+                                                Fit into your workflow
+                                            </span>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => handleSubmit("meeting")}
+                                            className="bg-white/10 hover:bg-white/20 text-white font-bold text-[14px] sm:text-[15px] py-3.5 px-5 rounded-[16px] border border-white/20 transition-all flex flex-col items-center justify-center text-center cursor-pointer"
+                                        >
+                                            <span>Book a Meeting</span>
+                                            <span className="text-[11px] font-normal text-white/70 mt-0.5">
+                                                Discuss integration
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Right Column: High-tech Document Forgery API Console Simulator */}
+                    <div className="lg:col-span-6 bg-gradient-to-br from-[#0c1428] via-[#091024] to-[#040817] p-7 sm:p-10 lg:p-12 border-t lg:border-t-0 lg:border-l border-white/10 flex flex-col justify-center">
+                        <div className="rounded-[20px] bg-[#020510] border border-blue-500/25 p-5 sm:p-6 shadow-2xl relative overflow-hidden font-mono text-[12.5px] sm:text-[13.5px]">
+                            {/* Terminal top header */}
+                            <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/10 font-sans">
+                                <div className="flex items-center gap-2">
+                                    <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+                                    <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
+                                    <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
+                                    <span className="text-white/60 text-xs ml-2 font-mono">POST /v1/forgery-detection/verify</span>
+                                </div>
+                                <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">
+                                    200 OK • 185ms
+                                </span>
+                            </div>
+
+                            {/* Payload simulator */}
+                            <div className="space-y-1.5 text-blue-200">
+                                <p className="text-white/50">{"// Document Tamper & Forgery Forensic Response"}</p>
+                                <p><span className="text-[#ff7b72]">&quot;status&quot;</span>: <span className="text-[#a5d6ff]">&quot;COMPLETED&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;documentType&quot;</span>: <span className="text-[#a5d6ff]">&quot;PAN_CARD&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;overallVerdict&quot;</span>: <span className="text-[#ff7b72]">&quot;TAMPERED&quot;</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;forgeryScore&quot;</span>: <span className="text-[#79c0ff]">0.94</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;tamperedRegions&quot;</span>: [ &#123; <span className="text-[#ff7b72]">&quot;x&quot;</span>: <span className="text-[#79c0ff]">420</span>, <span className="text-[#ff7b72]">&quot;y&quot;</span>: <span className="text-[#79c0ff]">180</span>, <span className="text-[#ff7b72]">&quot;width&quot;</span>: <span className="text-[#79c0ff]">140</span>, <span className="text-[#ff7b72]">&quot;height&quot;</span>: <span className="text-[#79c0ff]">35</span>, <span className="text-[#ff7b72]">&quot;type&quot;</span>: <span className="text-[#a5d6ff]">&quot;FONT_TAMPERING&quot;</span> &#125; ],</p>
+                                <p><span className="text-[#ff7b72]">&quot;pixelAnalysis&quot;</span>: &#123; <span className="text-[#ff7b72]">&quot;manipulationDetected&quot;</span>: <span className="text-[#ff7b72]">true</span>, <span className="text-[#ff7b72]">&quot;splicingScore&quot;</span>: <span className="text-[#79c0ff]">0.88</span> &#125;,</p>
+                                <p><span className="text-[#ff7b72]">&quot;fontForensic&quot;</span>: &#123; <span className="text-[#ff7b72]">&quot;baselineShift&quot;</span>: <span className="text-[#a5d6ff]">&quot;2.4px&quot;</span>, <span className="text-[#ff7b72]">&quot;substitutedFont&quot;</span>: <span className="text-[#ff7b72]">true</span> &#125;,</p>
+                                <p><span className="text-[#ff7b72]">&quot;exifInspection&quot;</span>: &#123; <span className="text-[#ff7b72]">&quot;softwareDetected&quot;</span>: <span className="text-[#a5d6ff]">&quot;Adobe Photoshop 2024&quot;</span>, <span className="text-[#ff7b72]">&quot;cameraModel&quot;</span>: <span className="text-[#a5d6ff]">&quot;N/A&quot;</span> &#125;,</p>
+                                <p><span className="text-[#ff7b72]">&quot;confidenceScore&quot;</span>: <span className="text-[#79c0ff]">0.99</span>,</p>
+                                <p><span className="text-[#ff7b72]">&quot;auditTrail&quot;</span>: <span className="text-[#7ee787]">&quot;FLAGGED_FOR_HUMAN_REVIEW&quot;</span></p>
+                            </div>
+
+                            {/* Bottom badge */}
+                            <div className="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between font-sans text-xs text-white/60">
+                                <span>DigitalRakshak Document Forensic Engine</span>
+                                <span className="text-[#76bbf8] flex items-center gap-1">
+                                    <ShieldCheck className="w-3.5 h-3.5" /> High Trust Verified
+                                </span>
+                            </div>
+                        </div>
+
+                        <p className="text-white/60 text-xs text-center mt-4">
+                            Multi-layer pixel &amp; font forensics • EXIF software audit • Sub-300ms SLA
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ── MAIN EXPORT (Exact 9 Sections Matching gst-verification-api 1:1) ── */
 export default function DocumentForgeryDetectionPage() {
-  const router = useRouter()
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Document Forgery Detection API",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "provider": {
+            "@type": "Organization",
+            "name": "DigitalRakshak",
+            "url": "https://digitalrakshak.com",
+        },
+        "description":
+            "Detect manipulated images, photoshopped KYC documents, font tampering, copy-paste artifacts, EXIF metadata anomalies, and digital forgery across Aadhaar, PAN, Voter ID, Passport, and bank statements in real time.",
+        "keywords": [
+            "Document Forgery Detection API",
+            "Photoshop Detection API",
+            "KYC Tamper Detection",
+            "Font Tampering Forensic",
+            "EXIF Metadata Audit",
+            "Bank Statement Forgery Check",
+            "Aadhaar PAN Tamper Detection",
+        ],
+    };
 
-  return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      {/* Hero Section */}
-      <section className="relative px-6 py-20 md:py-32 md:px-12 bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/20 via-background to-transparent pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent, black)' }}></div>
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm font-semibold mb-6 shadow-md">
-            <Scan className="w-4 h-4" />
-            AI-Powered Document Tampering & Forgery Detection
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-extrabold text-foreground mb-6 tracking-tight text-balance">
-            Document Forgery Detection API
-          </h1>
-
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto leading-relaxed">
-            Detect manipulated images, photoshopped KYC documents, font tampering, copy-paste artifacts, EXIF metadata anomalies, and digital forgery across Aadhaar, PAN, Voter ID, Passport, and bank statements in real time.
-          </p>
-
-          <div className="flex flex-wrap gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-primary/25 transition-all"
-              onClick={() => router.push('/register')}
-            >
-              Contact US
-            </Button>
-            <Button
-              size="lg"
-              className="border-2 border-blue-600 bg-transparent text-blue-600 hover:bg-blue-600 hover:text-white font-bold px-8 h-14 rounded-full text-lg transition-all"
-              onClick={() => router.push('/contact')}
-            >
-              Talk to an API Specialist
-            </Button>
-          </div>
-
-          {/* Key Metrics / Highlights */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-border/40">
-            {[
-              { label: "Latency", value: "< 300ms", desc: "Sub-second response" },
-              { label: "Accuracy", value: "99.8%", desc: "Computer vision AI engine" },
-              { label: "Uptime SLA", value: "99.99%", desc: "Bank-grade infrastructure" },
-              { label: "Forensics", value: "Multi-Layer", desc: "Pixel, font & EXIF audit" },
-            ].map((metric, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-background/60 backdrop-blur-md border border-border/50 shadow-sm">
-                <div className="text-2xl md:text-3xl font-extrabold text-blue-600">{metric.value}</div>
-                <div className="text-sm font-semibold text-foreground">{metric.label}</div>
-                <div className="text-xs text-muted-foreground">{metric.desc}</div>
-              </div>
-            ))}
-          </div>
+    return (
+        <div className="align-center bg-black min-h-screen w-full font-[Inter] overflow-x-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <HeroSection />
+            <WhatCanYouDoSection />
+            <VerificationCardsSection />
+            <ConnectAPISection />
+            <HowItWorksSection />
+            <WhyAPISection />
+            <KeyBenefitsSection />
+            <FAQSection />
+            <CTASection />
         </div>
-      </section>
-
-      {/* Overview & Why It Matters */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <Badge variant="outline" className="mb-4 text-blue-600 border-blue-600/30 bg-blue-500/10 px-3 py-1">
-              Computer Vision & Document Forensics
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground leading-tight">
-              Why Automated Document Forgery Check is Essential
-            </h2>
-            <p className="text-lg text-muted-foreground mb-6">
-              Fraudsters frequently use Photoshop, online image editors, and font-replacement tools to fabricate bank statements, alter salary slips, and edit government-issued identity documents during digital onboarding and credit applications.
-            </p>
-            <p className="text-lg text-muted-foreground mb-8">
-              DigitalRakshak&apos;s Document Forgery Detection API leverages advanced computer vision, deep neural networks, font forensic analysis, and EXIF metadata extraction to expose local image tampering, text overlays, and copy-paste element cloning instantly.
-            </p>
-
-            <ul className="space-y-4 mb-6">
-              {[
-                "Detect Image Manipulation & Photoshop: Spot pixel-level edits, localized blur, color mismatches, and compression anomalies.",
-                "Font & Typography Forensic Audit: Detect non-standard fonts, text baseline shifts, character size inconsistencies, and text overlays.",
-                "Copy-Paste & Element Cloning: Identify cloned signatures, duplicated stamps, cut-and-paste fields, and digital artifacts.",
-                "EXIF Metadata & Camera Inspection: Analyze EXIF metadata, editing software signatures (Photoshop, Canva, Paint), and creation dates."
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-foreground font-medium text-base">
-                  <CheckCircle className="text-blue-500 w-5 h-5 flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Photoshop & Pixel Edit Check",
-                desc: "Expose localized image editing, pixel compression artifacts, and color mismatches.",
-                icon: ImageIcon,
-                color: "text-red-500",
-                bg: "bg-red-500/10",
-                border: "border-red-500/20"
-              },
-              {
-                title: "Font & Typography Audit",
-                desc: "Detect substituted fonts, baseline alignment shifts, and overlaid text fields.",
-                icon: Type,
-                color: "text-blue-500",
-                bg: "bg-blue-500/10",
-                border: "border-blue-500/20"
-              },
-              {
-                title: "EXIF & Software Signatures",
-                desc: "Audit camera EXIF data and flag images created or modified using editing software.",
-                icon: Camera,
-                color: "text-purple-500",
-                bg: "bg-purple-500/10",
-                border: "border-purple-500/20"
-              },
-              {
-                title: "Sub-Second Response",
-                desc: "Retrieve complete document forensic analysis in <300ms for instant onboarding security.",
-                icon: Zap,
-                color: "text-amber-500",
-                bg: "bg-amber-500/10",
-                border: "border-amber-500/20"
-              },
-            ].map((benefit, i) => (
-              <Card key={i} className={`p-6 border ${benefit.border} hover:shadow-lg transition-all duration-300 group bg-background`}>
-                <div className={`w-12 h-12 rounded-xl ${benefit.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <benefit.icon className={`w-6 h-6 ${benefit.color}`} />
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-foreground">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Complete Data Payload Capabilities */}
-      <section className="px-6 py-20 md:px-12 bg-blue-500/5 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-3 text-purple-600 border-purple-600/30 bg-purple-500/10 px-3 py-1">
-              Authoritative Forensic Data Extraction
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Verified Forgery Output Parameters
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our API returns comprehensive computer vision forensic metrics and tampered region coordinates.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Document Classification Type",
-                desc: "Aadhaar, PAN, Voter ID, Passport, Bank Statement, or Salary Slip.",
-                icon: FileText,
-                color: "text-blue-500"
-              },
-              {
-                title: "Overall Forgery Score",
-                desc: "Calculated authenticity indicator: Authentic (Clear) or Tampered (High Risk).",
-                icon: ShieldAlert,
-                color: "text-red-500"
-              },
-              {
-                title: "Image Manipulation Alert",
-                desc: "Flag for localized pixel editing, splicing, and compression anomalies.",
-                icon: ImageIcon,
-                color: "text-purple-500"
-              },
-              {
-                title: "Font Alignment Anomaly",
-                desc: "Detailed baseline shift, substituted font, and character spacing metrics.",
-                icon: Type,
-                color: "text-amber-500"
-              },
-              {
-                title: "Copy-Paste Cloning Flag",
-                desc: "Detection of duplicated signatures, stamps, and cloned text blocks.",
-                icon: Layers,
-                color: "text-indigo-500"
-              },
-              {
-                title: "EXIF Software Signature",
-                desc: "Extraction of creation software (Photoshop, Canva) and camera metadata.",
-                icon: Camera,
-                color: "text-rose-500"
-              },
-              {
-                title: "Tampered Region Coordinates",
-                desc: "Bounding box coordinates highlighting exact tampered document areas.",
-                icon: Scan,
-                color: "text-teal-500"
-              },
-              {
-                title: "Authenticity Risk Score",
-                desc: "Final confidence score for decisioning in loan & KYC pipelines.",
-                icon: BadgeCheck,
-                color: "text-cyan-500"
-              },
-            ].map((feature, i) => (
-              <Card key={i} className="p-6 border border-border/60 hover:shadow-xl transition-all duration-300 bg-background group">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2.5 rounded-lg bg-blue-500/10 group-hover:scale-110 transition-transform">
-                    <feature.icon className={`w-5 h-5 ${feature.color}`} />
-                  </div>
-                  <h3 className="font-bold text-base text-foreground">{feature.title}</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feature.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Live API Response Sandbox (Commented Out) */}
-      {/*
-      <section id="api-playground" className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-3 text-blue-600 border-blue-600/30 bg-blue-500/10 px-3 py-1">
-              Developer Friendly Integration
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Interactive API Payload Preview
-            </h2>
-          </div>
-        </div>
-      </section>
-      */}
-
-      {/* How It Works Section */}
-      <section className="px-6 py-24 md:px-12 bg-blue-500/10 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">How Forgery Detection Works</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Four simple, automated steps to audit any document image for digital tampering in sub-seconds.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                step: "01",
-                title: "Upload Document File",
-                desc: "Upload document image (JPEG/PNG) or PDF via REST API endpoint or dashboard.",
-                icon: FileText
-              },
-              {
-                step: "02",
-                title: "AI Computer Vision Scan",
-                desc: "Deep neural networks scan image pixels, text alignment, and EXIF metadata.",
-                icon: Scan
-              },
-              {
-                step: "03",
-                title: "Forensic Analysis",
-                desc: "System audits font baseline consistency, copy-paste cloning, and software signatures.",
-                icon: Search
-              },
-              {
-                step: "04",
-                title: "Receive JSON Output",
-                desc: "Get clean JSON payload in <300ms with forgery scores & tampered bounding boxes.",
-                icon: BarChart3
-              }
-            ].map((item, i) => (
-              <Card key={i} className="relative overflow-hidden p-6 border border-border/50 hover:shadow-xl transition-all duration-500 group bg-background/50 backdrop-blur-sm text-center">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
-                <div className="w-12 h-12 rounded-full bg-blue-600/10 text-blue-600 font-extrabold flex items-center justify-center mb-4 mx-auto text-lg group-hover:scale-110 transition-transform">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-foreground">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases / Industry Applications */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-3 text-green-600 border-green-600/30 bg-green-500/10 px-3 py-1">
-              Enterprise Applications
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-              Built for Digital Lending, Insurance & Onboarding
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Empowering banks, fintech lenders, insurance providers, and legal due diligence platforms.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Banks & NBFC Digital Lending",
-                desc: "Prevent loan fraud by detecting modified bank statements, fabricated salary slips, and edited ITR acknowledgments during automated digital loan underwriting.",
-                icon: CreditCard,
-                features: ["Bank statement tampering audit", "Salary slip forgery check", "Loan fraud prevention"]
-              },
-              {
-                title: "Insurance Claims Processing",
-                desc: "Detect forged medical bills, altered hospital discharge summaries, and edited vehicle repair estimates to prevent fraudulent insurance claim payouts.",
-                icon: ShieldCheck,
-                features: ["Medical bill forgery audit", "Repair estimate validation", "Claim fraud prevention"]
-              },
-              {
-                title: "KYC & Digital Onboarding",
-                desc: "Detect photoshopped identity proofs (Aadhaar, PAN, Voter ID, Passport) to stop synthetic identity fraud and account takeover attempts during onboarding.",
-                icon: Users,
-                features: ["Photoshopped KYC detection", "Synthetic ID prevention", "Identity proof audit"]
-              },
-              {
-                title: "Real Estate & Legal Document Audit",
-                desc: "Verify property agreements, NOC certificates, and commercial contracts for font tampering, cut-and-paste text fields, and digital signature cloning.",
-                icon: Briefcase,
-                features: ["Property deed audit", "Contract forgery detection", "Digital signature check"]
-              },
-            ].map((useCase, i) => (
-              <Card key={i} className="p-8 border border-border/60 hover:shadow-xl transition-all duration-300 bg-background group">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <useCase.icon className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground">{useCase.title}</h3>
-                </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">{useCase.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {useCase.features.map((feat, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 border border-blue-500/20">
-                      <CheckCircle className="w-3.5 h-3.5" />
-                      {feat}
-                    </span>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Platform Comparison / Advantage */}
-      <section className="px-6 py-20 md:px-12 bg-blue-500/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              The DigitalRakshak Advantage
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-              How DigitalRakshak Document Forgery API compares to manual human inspection and basic OCR tools.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-border bg-background shadow-lg">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-border bg-muted/50">
-                  <th className="p-4 font-bold text-foreground">Feature / Parameter</th>
-                  <th className="p-4 font-bold text-blue-600 bg-blue-500/10">DigitalRakshak API</th>
-                  <th className="p-4 font-bold text-muted-foreground">Manual Human Inspection</th>
-                  <th className="p-4 font-bold text-muted-foreground">Basic OCR Scanners</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border text-sm">
-                {[
-                  { feature: "Response Latency", us: "< 300ms", manual: "10 - 30 Minutes", scraper: "2 - 5 Seconds" },
-                  { feature: "Photoshop & Pixel Audit", us: "Automated Deep Learning", manual: "Misses Subtle Edits", scraper: "Not Supported" },
-                  { feature: "Font Baseline Forensic", us: "Sub-pixel Alignment Check", manual: "Human Eyeball Only", scraper: "Text Extraction Only" },
-                  { feature: "EXIF & Software Metadata", us: "Full Camera & Software Audit", manual: "Requires Expert Tools", scraper: "Ignored" },
-                  { feature: "Bulk Processing Capacity", us: "Up to 50,000 / min", manual: "Slow / High Cost", scraper: "Limited Rate" },
-                  { feature: "Data Security & Privacy", us: "ISO 27001 / Encrypted", manual: "Manual Data Risk", scraper: "Unsecured" },
-                ].map((row, i) => (
-                  <tr key={i} className="hover:bg-muted/30 transition-colors">
-                    <td className="p-4 font-semibold text-foreground">{row.feature}</td>
-                    <td className="p-4 font-bold text-blue-600 bg-blue-500/5">{row.us}</td>
-                    <td className="p-4 text-muted-foreground">{row.manual}</td>
-                    <td className="p-4 text-muted-foreground">{row.scraper}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Accordion */}
-      <section className="px-6 py-20 md:px-12 bg-background">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Everything you need to know about integrating the Document Forgery Detection API.
-            </p>
-          </div>
-
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {[
-              {
-                q: "What is the Document Forgery Detection API?",
-                a: "The Document Forgery Detection API uses computer vision, deep learning models, font forensic analysis, and EXIF metadata inspection to detect photoshopped images, modified bank statements, substituted text, and cloned elements across identity documents, financial statements, and bills in real time."
-              },
-              {
-                q: "Which document types are supported for forgery checks?",
-                a: "Our API supports Aadhaar cards, PAN cards, Voter ID cards, Passports, Driving Licenses, bank statements, salary slips, utility bills, and insurance claims."
-              },
-              {
-                q: "How does the API detect Photoshop and image editing?",
-                a: "The API analyzes pixel compression anomalies, localized blur patterns, color channel inconsistencies, and metadata signatures left by editing software like Photoshop, Canva, or MS Paint."
-              },
-              {
-                q: "What is the response latency and SLA?",
-                a: "DigitalRakshak guarantees sub-300ms API response latency with 99.99% uptime SLA backed by enterprise redundant infrastructure."
-              },
-              {
-                q: "What parameters are returned in the Forgery API output?",
-                a: "The response includes overall forgery score (Authentic/Tampered), image manipulation alert, font baseline anomaly metrics, copy-paste cloning flag, EXIF software signatures, and tampered region bounding box coordinates."
-              },
-              {
-                q: "How do I integrate the Document Forgery Detection API?",
-                a: "Register on DigitalRakshak, obtain your production/sandbox API keys, and connect our clean REST API endpoints into your KYC or digital lending application within minutes."
-              }
-            ].map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="border border-border/60 rounded-xl px-4 bg-background">
-                <AccordionTrigger className="text-left text-lg font-semibold hover:text-blue-600 transition-colors py-4">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-4">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="px-6 py-20 md:px-12 bg-gradient-to-br from-blue-600 to-purple-700 text-white relative overflow-hidden">
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-balance">
-            Ready to Automate Document Forgery Check & Stop Fraud?
-          </h2>
-          <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Get instant API sandbox keys and start verifying document authenticity in sub-seconds.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-blue-700 hover:bg-slate-100 font-extrabold text-lg h-14 px-8 rounded-full shadow-2xl transition-all"
-              onClick={() => router.push('/register')}
-            >
-              Get Started Now
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-            <Button
-              size="lg"
-              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-blue-700 font-bold px-8 h-14 rounded-full text-lg transition-all"
-              onClick={() => router.push('/contact')}
-            >
-              Talk to Sales
-            </Button>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+    );
 }

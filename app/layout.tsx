@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={inter.variable} suppressHydrationWarning>
-            <body className={`${inter.className} font-sans`} suppressHydrationWarning>
+            <body className={`${inter.className} font-sans bg-[#02050f]`} suppressHydrationWarning>
                 <ClientLayout>{children}</ClientLayout>
                 <Toaster />
             </body>

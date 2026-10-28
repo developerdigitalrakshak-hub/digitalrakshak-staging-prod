@@ -82,10 +82,10 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['shop', 'establishment', 'license', 'commercial', 'trade', 'labor', 'business']
   },
   {
-    id: 'gstin-verify',
+    id: 'gst-verification-api',
     title: 'GSTIN Verification API',
     description: 'Instant real-time GSTIN lookup, taxpayer profiling, GSTR filing status, and ITC fraud prevention.',
-    href: '/gstin-verify',
+    href: '/gst-verification-api',
     category: 'Services',
     keywords: ['gst', 'gstin', 'tax', 'verification', 'api', 'gstr1', 'gstr3b', 'itc', 'taxpayer', 'invoice', 'b2b']
   },
@@ -363,9 +363,25 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     id: 'about',
     title: 'About DigitalRakshak',
     description: 'Learn about our mission, leadership, security standards, and identity verification infrastructure.',
-    href: '/about',
+    href: '/resources/about-us',
     category: 'Company',
     keywords: ['about', 'company', 'mission', 'team', 'digitalrakshak', 'security', 'who we are']
+  },
+  {
+    id: 'careers',
+    title: 'Careers at DigitalRakshak',
+    description: 'Build the future of digital trust. Explore engineering, product, infrastructure, compliance, and growth positions.',
+    href: '/resources/glossary',
+    category: 'Company',
+    keywords: ['career', 'careers', 'jobs', 'hiring', 'work', 'engineering', 'openings', 'employment']
+  },
+  {
+    id: 'blog',
+    title: 'DigitalRakshak Blog & Research',
+    description: 'Insights on verification, compliance, data privacy laws, fraud trends, and developer blueprints.',
+    href: '/resources/blog',
+    category: 'Resources',
+    keywords: ['blog', 'articles', 'insights', 'research', 'blueprints', 'compliance', 'news']
   },
   {
     id: 'contact',
@@ -432,6 +448,9 @@ export function searchSite(query: string): SearchItem[] {
   if (!normalizedQuery) return []
 
   const queryTokens = normalizedQuery.split(/\s+/).filter(Boolean)
+  const singularQuery = normalizedQuery.endsWith("s") && normalizedQuery.length > 3
+    ? normalizedQuery.slice(0, -1)
+    : normalizedQuery
 
   return SITE_SEARCH_INDEX.filter((item) => {
     const title = item.title.toLowerCase()
@@ -439,23 +458,42 @@ export function searchSite(query: string): SearchItem[] {
     const cat = item.category.toLowerCase()
     const keywords = item.keywords.map((k) => k.toLowerCase())
 
-    // Direct substring match on full query
-    if (title.includes(normalizedQuery) || desc.includes(normalizedQuery) || cat.includes(normalizedQuery)) {
+    // Direct substring match on full query or singular form
+    if (
+      title.includes(normalizedQuery) ||
+      desc.includes(normalizedQuery) ||
+      cat.includes(normalizedQuery) ||
+      (singularQuery !== normalizedQuery && (title.includes(singularQuery) || desc.includes(singularQuery)))
+    ) {
       return true
     }
 
-    // Match keywords
-    if (keywords.some((k) => k.includes(normalizedQuery) || normalizedQuery.includes(k))) {
+    // Match keywords (both exact and stem)
+    if (
+      keywords.some(
+        (k) =>
+          k.includes(normalizedQuery) ||
+          normalizedQuery.includes(k) ||
+          (singularQuery !== normalizedQuery && (k.includes(singularQuery) || singularQuery.includes(k)))
+      )
+    ) {
       return true
     }
 
     // Token match: check if all query tokens are covered by title, desc, or keywords
     return queryTokens.every((token) => {
+      const singularToken = token.endsWith("s") && token.length > 3 ? token.slice(0, -1) : token
       return (
         title.includes(token) ||
         desc.includes(token) ||
         cat.includes(token) ||
-        keywords.some((k) => k.includes(token))
+        (singularToken !== token && (title.includes(singularToken) || desc.includes(singularToken))) ||
+        keywords.some(
+          (k) =>
+            k.includes(token) ||
+            token.includes(k) ||
+            (singularToken !== token && (k.includes(singularToken) || singularToken.includes(k)))
+        )
       )
     })
   })

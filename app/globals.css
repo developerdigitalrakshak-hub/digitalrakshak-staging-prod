@@ -159,8 +159,13 @@ body {
     @apply border-border;
   }
 
+  html {
+    background-color: #02050f;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: #02050f;
+    @apply text-foreground;
   }
 }
 

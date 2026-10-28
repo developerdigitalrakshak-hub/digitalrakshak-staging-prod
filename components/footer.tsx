@@ -1,3 +1,5 @@
+"use client"
+
 import {
     ArrowUpRight
 } from 'lucide-react'
@@ -31,27 +33,22 @@ const servicesData: ServiceItem[] = [
         subservices: [
             {
                 name: 'ID Verification',
-                // href: '/services' 
                 href: '#'
             },
             {
                 name: 'Employee Verification',
-                // href: '/services/employment-verification' 
                 href: '#'
             },
             {
                 name: 'Education Verification',
-                // href: '/services/education-verification'
                 href: '#'
             },
             {
                 name: 'Employment History',
-                // href: '/services/employment-history-check' 
                 href: '#'
             },
             {
                 name: 'Physical Address Check',
-                // href: '/services'
                 href: '#'
             }
         ]
@@ -118,117 +115,12 @@ export default function Footer() {
                 .footer-root {
                     color: #fff;
                     font-family: 'Sora', 'Inter', sans-serif;
-                    padding-top: 24px
-                }
-
-                /* ── CTA ── */
-                .cta-wrapper {
-                    max-width: 1280px;
-                    margin: 0 auto;
-                    padding: 0 1.5rem;
-                    position: relative;
-                    z-index: 10;
-                }
-                .cta-card {
-                    border-radius: 32px;
-                    background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 50%, #4338ca 100%);
-                    padding: 3.5rem 3rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    gap: 2rem;
-                    box-shadow: 0 25px 60px rgba(99, 102, 241, 0.35);
-                    position: relative;
-                    overflow: hidden;
-                }
-                .cta-card::before {
-                    content: '';
-                    position: absolute;
-                    top: -60px; right: -60px;
-                    width: 260px; height: 260px;
-                    background: rgba(255,255,255,0.06);
-                    border-radius: 50%;
-                    pointer-events: none;
-                }
-                .cta-card::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -80px; left: 30%;
-                    width: 200px; height: 200px;
-                    background: rgba(255,255,255,0.04);
-                    border-radius: 50%;
-                    pointer-events: none;
-                }
-                .cta-heading {
-                    font-size: clamp(1.75rem, 4vw, 3.25rem);
-                    font-weight: 700;
-                    line-height: 1.15;
-                    letter-spacing: -0.02em;
-                    max-width: 100%;
-                    margin: 0 0 1.75rem;
-                }
-                .cta-btn {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    background: rgba(255,255,255,0.15);
-                    border: 1px solid rgba(255,255,255,0.3);
-                    color: #fff;
-                    padding: 0.875rem 1.75rem;
-                    border-radius: 9999px;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: background 0.2s, transform 0.15s;
-                    backdrop-filter: blur(6px);
-                }
-                .cta-btn:hover {
-                    background: rgba(255,255,255,0.25);
-                    transform: translateY(-1px);
-                }
-                .cta-btn-icon {
-                    background: #fff;
-                    color: #4338ca;
-                    border-radius: 50%;
-                    padding: 6px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .cta-illustration {
-                    flex-shrink: 0;
-                    width: 180px;
-                    height: 180px;
-                    border-radius: 28px;
-                    background: rgba(255,255,255,0.12);
-                    border: 1px solid rgba(255,255,255,0.2);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    backdrop-filter: blur(10px);
-                }
-                .cta-illustration-inner {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                }
-                .cta-dot {
-                    width: 36px; height: 36px;
-                    border-radius: 10px;
-                    background: rgba(255,255,255,0.2);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.25rem;
                 }
 
                 /* ── MAIN FOOTER ── */
                 .footer-main {
-                    background: #0f172a;
-                    margin-top: -120px;
-                    padding-top: 160px;
+                    padding-top: 60px;
                     padding-bottom: 0;
-                    border-radius: 40px 40px 0 0;
                 }
                 .footer-inner {
                     max-width: 1400px;
@@ -290,22 +182,27 @@ export default function Footer() {
                     gap: 0.75rem;
                 }
                 .social-link {
-                    width: 36px; height: 36px;
-                    border-radius: 10px;
-                    border: 1px solid #1e293b;
-                    background: #1e293b;
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 12px;
+                    border: 1px solid rgba(255, 255, 255, 0.14);
+                    background: rgba(255, 255, 255, 0.06);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: #c7c7c7;
-                    transition: all 0.2s;
+                    color: rgba(255, 255, 255, 0.85);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
                     text-decoration: none;
                 }
                 .social-link:hover {
-                    background: #334155;
-                    color: #e2e8f0;
+                    background: rgba(255, 255, 255, 0.16);
+                    color: #ffffff;
                     transform: translateY(-2px);
-                    border-color: #334155;
+                    border-color: rgba(168, 85, 247, 0.55);
+                    box-shadow: 0 6px 20px rgba(147, 51, 234, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
                 }
 
                 /* ── SERVICE COLUMNS ── */
@@ -314,10 +211,10 @@ export default function Footer() {
                     font-weight: 700;
                     letter-spacing: 0.12em;
                     text-transform: uppercase;
-                    color: #6366f1;
+                    color: #818cf8;
                     margin-bottom: 1.25rem;
                     padding-bottom: 0.75rem;
-                    border-bottom: 1px solid #1e293b;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
                 }
                 .service-list {
                     list-style: none;
@@ -342,7 +239,7 @@ export default function Footer() {
                     display: inline-block;
                     width: 4px; height: 4px;
                     border-radius: 50%;
-                    background: #334155;
+                    background: rgba(255, 255, 255, 0.35);
                     flex-shrink: 0;
                     transition: background 0.2s;
                 }
@@ -351,7 +248,7 @@ export default function Footer() {
                     transform: translateX(3px);
                 }
                 .service-list a:hover::before {
-                    background: #6366f1;
+                    background: #a78bfa;
                 }
 
                 /* ── SUBMENU ── */
@@ -360,7 +257,7 @@ export default function Footer() {
                     padding: 0;
                     margin: 0.45rem 0 0.35rem 0.65rem;
                     padding-left: 0.85rem;
-                    border-left: 1.5px solid rgba(99, 102, 241, 0.35);
+                    border-left: 1.5px solid rgba(168, 85, 247, 0.4);
                     display: flex;
                     flex-direction: column;
                     gap: 0.45rem;
@@ -379,7 +276,7 @@ export default function Footer() {
                     display: inline-block;
                     width: 4px; height: 1.5px;
                     border-radius: 1px;
-                    background: #475569;
+                    background: rgba(255, 255, 255, 0.3);
                     flex-shrink: 0;
                     transition: background 0.2s;
                 }
@@ -388,13 +285,13 @@ export default function Footer() {
                     transform: translateX(2px);
                 }
                 .service-submenu a:hover::before {
-                    background: #818cf8;
+                    background: #a78bfa;
                 }
 
                 /* ── DIVIDER + BOTTOM ── */
                 .footer-divider {
                     border: none;
-                    border-top: 1px solid #1e293b;
+                    border-top: 1px solid rgba(255, 255, 255, 0.12);
                     margin: 0;
                 }
                 .footer-bottom {
@@ -406,20 +303,20 @@ export default function Footer() {
                     flex-wrap: wrap;
                 }
                 .footer-copyright {
-                    font-size: 0.78rem;
-                    color: #64748b;
+                    font-size: 0.85rem;
+                    color: rgba(255, 255, 255, 0.7);
                 }
                 .footer-links {
                     display: flex;
                     gap: 1.5rem;
                 }
                 .footer-links a {
-                    font-size: 0.78rem;
-                    color: #64748b;
+                    font-size: 0.85rem;
+                    color: rgba(255, 255, 255, 0.7);
                     text-decoration: none;
                     transition: color 0.2s;
                 }
-                .footer-links a:hover { color: #94a3b8; }
+                .footer-links a:hover { color: #ffffff; }
 
                 /* ── RESPONSIVE ── */
 
@@ -433,10 +330,6 @@ export default function Footer() {
 
                 /* Tablet */
                 @media (max-width: 860px) {
-                    .footer-main { border-radius: 28px 28px 0 0; }
-                    .cta-card { border-radius: 24px; padding: 2.75rem 2rem; }
-                    .cta-illustration { display: none; }
-                    .cta-heading { max-width: 100%; }
                     .footer-grid {
                         grid-template-columns: 1fr 1fr;
                         gap: 2rem 1.5rem;
@@ -447,12 +340,8 @@ export default function Footer() {
                 /* Mobile */
                 @media (max-width: 600px) {
                     .footer-main {
-                        margin-top: -80px;
-                        padding-top: 110px;
-                        border-radius: 22px 22px 0 0;
+                        padding-top: 40px;
                     }
-                    .cta-wrapper { padding: 0 1rem; }
-                    .cta-card { border-radius: 20px; padding: 2rem 1.5rem; }
                     .footer-grid {
                         grid-template-columns: 1fr;
                         gap: 1.75rem 1.25rem;
@@ -477,31 +366,7 @@ export default function Footer() {
                 }
             `}</style>
 
-            <footer className="footer-root">
-                {/* CTA */}
-                <div className="cta-wrapper">
-                    <div className="cta-card">
-                        <div>
-                            <h2 className="cta-heading">
-                                Ready to Improve Conversions and Reduce Risk?
-                            </h2>
-                            <Link href="/register" className="cta-btn">
-                                Contact US
-                                <span className="cta-btn-icon">
-                                    <ArrowUpRight size={16} />
-                                </span>
-                            </Link>
-                        </div>
-                        <div className="cta-illustration">
-                            <div className="cta-illustration-inner">
-                                {['🔐', '📄', '🛡️', '👥'].map((em, i) => (
-                                    <div className="cta-dot" key={i}>{em}</div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <footer className="footer-root bg-gradient-to-b from-black via-[#000b58] to-[#59259b]">
                 {/* Main Footer */}
                 <div className="footer-main">
                     <div className="footer-inner">
@@ -512,7 +377,6 @@ export default function Footer() {
                                 <div>
                                     <div className="brand-logo">
                                         <div className="brand-logo-icon">
-                                            {/* <Shield size={38} color="#6366f1" /> */}
                                             <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={80} height={80} />
                                         </div>
                                         <span className="brand-name">DigitalRakshak  <span className="text-[30px] font-bold leading-none">™</span><br /> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
