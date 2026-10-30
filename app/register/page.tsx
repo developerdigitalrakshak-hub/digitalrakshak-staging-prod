@@ -1005,17 +1005,17 @@ export default function RegisterPage() {
     const benefits = [
         {
             icon: CheckCircle,
-            text: "Minimize security risks during business operations",
+            text: "Test our APIs in a secure sandbox environment to ensure smooth functionality and integration.",
             color: "text-blue-600",
         },
         {
             icon: CheckCircle,
-            text: "Improve compliance timelines with optimized frameworks",
+            text: "Gain access to over 100+ verification APIs to streamline your KYC/KYB processes effortlessly.",
             color: "text-blue-600",
         },
         {
             icon: CheckCircle,
-            text: "Seamless user experience with enhanced security protocols",
+            text: "Enjoy seamless integration with developer-friendly documentation and 24/7 expert support.",
             color: "text-blue-600",
         },
     ]
@@ -1036,15 +1036,12 @@ export default function RegisterPage() {
                     <div className="lg:col-span-5 space-y-8">
                         <div className="space-y-6">
                             <h1 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight">
-                                Optimize your{" "}
                                 <span className="bg-gradient-to-r from-sky-400 via-[#38bdf8] to-blue-500 bg-clip-text text-transparent">
-                                    Security Framework,
+                                    Get API Key
                                 </span>
-                                <br />
-                                boost your compliance!
                             </h1>
                             <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-                                Join leading enterprises optimizing their security postures and compliance timelines using DigitalRakshak.
+                                By creating a free account, you get
                             </p>
 
                             <div className="space-y-3.5">
@@ -1063,6 +1060,9 @@ export default function RegisterPage() {
                                         </div>
                                     )
                                 })}
+                                <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
+                                    Trusted by over  <span className="bg-gradient-to-r from-sky-400 via-[#38bdf8] to-blue-500 bg-clip-text text-transparent"> 1,000+</span> companies of all sizes
+                                </p>
                             </div>
                         </div>
 

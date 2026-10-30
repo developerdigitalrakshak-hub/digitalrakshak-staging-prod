@@ -586,6 +586,27 @@ export default function Bar() {
     Resources: 'Resources'
   }
 
+  const digitalTrustData: ResourceItem[] = [
+    {
+      name: "e-Sign Solution",
+      href: "/e-stamp-and-e-sign",
+      icon: FileSignature,
+      description: "Legally binding Aadhaar & digital signatures for swift paperless execution.",
+    },
+    {
+      name: "e-Stamping Solution",
+      href: "/e-stamp-and-e-sign",
+      icon: FileCheck,
+      description: "Instant online non-judicial digital stamp duty payment across Indian states.",
+    },
+    {
+      name: "e-Onboarding Platform",
+      href: "#",
+      icon: UserCheck,
+      description: "Automated digital user onboarding with instant verification and compliance.",
+    },
+  ]
+
   const navigation: NavigationItem[] = [
     {
       name: "Services",
@@ -606,8 +627,8 @@ export default function Bar() {
     {
       name: "Digital Trust",
       href: "/e-stamp-and-e-sign",
-      hasDropdown: false,
-      dropDownMenu: [],
+      hasDropdown: true,
+      dropDownMenu: digitalTrustData,
       icon: FileSignature,
       description: "E-Stamp & E-Sign Solutions",
     },
@@ -859,6 +880,39 @@ export default function Bar() {
     )
   }
 
+  // Mobile Digital Trust Content
+  const MobileDigitalTrustContent = () => {
+    return (
+      <div className="space-y-3 pb-6">
+        <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 border border-white/15 rounded-2xl p-5 text-white">
+          <div className="flex items-center gap-2.5 mb-1.5">
+            <FileSignature className="h-6 w-6 text-[#76bbf8]" />
+            <h3 className="text-lg font-bold">Digital Trust</h3>
+          </div>
+          <p className="text-gray-300 text-xs">Paperless solutions for e-sign, stamping and digital onboarding</p>
+        </div>
+
+        {digitalTrustData.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            onClick={() => setIsOpen(false)}
+            className="flex items-start gap-3.5 p-4 bg-[#141824] rounded-2xl border border-white/10 shadow-sm hover:border-blue-400/40 hover:bg-[#1a1f30] transition-all group"
+          >
+            <div className="flex-shrink-0 w-10 h-10 bg-blue-500/15 border border-blue-400/20 rounded-xl flex items-center justify-center text-[#76bbf8] group-hover:scale-105 transition-transform">
+              <item.icon className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="font-semibold text-white group-hover:text-blue-300 transition-colors text-sm">{item.name}</h4>
+              <p className="text-xs text-gray-400 mt-1 leading-snug">{item.description}</p>
+            </div>
+            <ArrowRight className="h-4 w-4 text-gray-500 group-hover:text-[#76bbf8] group-hover:translate-x-0.5 transition-all shrink-0 mt-1" />
+          </Link>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-out pointer-events-none">
       {/* Main Navigation Bar - Full width when at top, compact floating pill from logo to last button when scrolled down */}
@@ -950,8 +1004,8 @@ export default function Bar() {
                     {activeDropdown === item.name && (
                       <div
                         className={
-                          item.name === "Resources"
-                            ? "absolute top-full left-1/2 -translate-x-1/2 pt-2.5 z-50 w-80 max-w-[90vw] animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto"
+                          item.name === "Resources" || item.name === "Digital Trust"
+                            ? "absolute top-full left-1/2 -translate-x-1/2 pt-2.5 z-50 w-84 sm:w-96 max-w-[90vw] animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto"
                             : "fixed left-1/2 -translate-x-1/2 top-[62px] sm:top-[68px] z-50 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto w-[94vw] max-w-[1150px]"
                         }
                         onMouseEnter={() => {
@@ -966,11 +1020,11 @@ export default function Bar() {
                           {/* Glowing top accent strip */}
                           <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#76bbf8]/60 to-transparent" />
 
-                          {item.name === "Resources" ? (
+                          {item.name === "Resources" || item.name === "Digital Trust" ? (
                             <div className="p-3 space-y-1">
                               <div className="px-3 py-2 border-b border-white/10 mb-1">
                                 <p className="text-[11px] font-bold text-[#76bbf8] uppercase tracking-wider">
-                                  Resources
+                                  {displayServicesName[item.name] || item.name}
                                 </p>
                               </div>
                               {(item.dropDownMenu as ResourceItem[]).map((res) => (
@@ -1408,9 +1462,6 @@ export default function Bar() {
                       if (tab.id === "Pricing") {
                         router.push('/pricing')
                         setIsOpen(false)
-                      } else if (tab.id === "Digital Trust") {
-                        router.push('/e-stamp-and-e-sign')
-                        setIsOpen(false)
                       } else {
                         setMobileSelectedMainTab(tab.id)
                       }
@@ -1433,6 +1484,8 @@ export default function Bar() {
             <div className="p-4 bg-[#0d101a] min-h-[300px]">
               {mobileSelectedMainTab === "Resources" ? (
                 <MobileResourcesContent />
+              ) : mobileSelectedMainTab === "Digital Trust" ? (
+                <MobileDigitalTrustContent />
               ) : (
                 <MobileServicesContent />
               )}

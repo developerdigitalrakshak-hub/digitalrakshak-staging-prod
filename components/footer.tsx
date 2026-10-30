@@ -17,11 +17,17 @@ interface ServiceItem {
     subservices?: SubMenuItem[]
 }
 
-const platformsData = [
+const platformsData: ServiceItem[] = [
     { name: 'API Hub', href: '#' },
-    { name: 'e-Sign Solution', href: '/e-stamp-and-e-sign' },
-    { name: 'e-Stamping Solution', href: '/e-stamp-and-e-sign' },
-    { name: 'e-Onboarding Platform', href: '#' }
+    {
+        name: 'Paperless Solution',
+        href: '#',
+        subservices: [
+            { name: 'e-Sign Solution', href: '/e-stamp-and-e-sign' },
+            { name: 'e-Stamping Solution', href: '/e-stamp-and-e-sign' },
+            { name: 'e-Onboarding Platform', href: '#' }
+        ]
+    }
 ]
 
 const servicesData: ServiceItem[] = [
@@ -138,48 +144,76 @@ export default function Footer() {
                 }
 
                 /* ── BRAND ── */
-                .brand-logo {
-                    min-width: 240px;
+                .brand-col {
                     display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .brand-wrapper {
+                    display: inline-flex;
+                    flex-direction: column;
                     align-items: center;
-                    gap: 0.75rem;
+                    width: 100%;
+                    max-width: 320px;
                 }
-                .brand-logo-icon {
-                    position: relative;
+                .brand-header-link {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-decoration: none;
+                    text-align: center;
                 }
-                .brand-name {
-                    font-size: 1.35rem;
+                .brand-title {
+                    font-size: 1.85rem;
                     font-weight: 700;
                     letter-spacing: -0.02em;
-                    background: linear-gradient(135deg, #60a5fa, #a78bfa);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    color: #fff;
-                    min-width: 175px;
+                    color: #ffffff;
+                    display: inline-flex;
+                    align-items: flex-start;
+                    line-height: 1.1;
+                    font-family: inherit;
                 }
-                .brand-legal {
-                    font-size: 1rem;
-                    color: #fff;
-                    margin-bottom: 0.25rem;
-                    margin-top: 0.25rem;
-                }
-                .brand-cin {
+                .brand-tm {
                     font-size: 0.9rem;
-                    color: #ccc;
-                    margin-bottom: 1.25rem;
-                    font-family: monospace;
-                    letter-spacing: 0.04em;
+                    font-weight: 700;
+                    color: #ffffff;
+                    margin-left: 0.15rem;
                 }
-                .brand-desc {
-                    font-size: 0.9rem;
-                    line-height: 1.75;
-                    color: #c7c7c7;
-                    margin-bottom: 1.5rem;
+                .brand-tagline {
+                    font-size: 0.72rem;
+                    font-weight: 600;
+                    letter-spacing: 0.18em;
+                    color: rgba(255, 255, 255, 0.95);
+                    margin-top: 0.4rem;
+                    text-transform: uppercase;
+                    display: block;
+                }
+                .brand-logo-container {
+                    margin-top: 2rem;
+                    margin-bottom: 2.25rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    width: 100%;
+                }
+                .brand-logo-img {
+                    width: 290px;
+                    max-width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                    display: block;
+                    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.45));
+                    transition: transform 0.25s ease;
+                }
+                .brand-logo-container:hover .brand-logo-img {
+                    transform: scale(1.03);
                 }
                 .socials {
                     display: flex;
                     gap: 0.75rem;
+                    justify-content: center;
+                    width: 100%;
                 }
                 .social-link {
                     width: 38px;
@@ -374,35 +408,38 @@ export default function Footer() {
 
                             {/* Brand */}
                             <div className="brand-col">
-                                <div>
-                                    <div className="brand-logo">
-                                        <div className="brand-logo-icon">
-                                            <Image src="/images/logo-white.png" alt="DigitalRakshak Logo" width={80} height={80} />
-                                        </div>
-                                        <span className="brand-name">DigitalRakshak  <span className="text-[30px] font-bold leading-none">™</span><br /> <span className="text-xs text-blue-600 font-medium">SECURE | SWIFT | COMPLIANT</span></span>
-                                    </div>
-                                    <p className="brand-legal">DigitalRakshak InfoTech Pvt. Ltd</p>
-                                    <p className="brand-cin">CIN: U78300GJ2025PTC171397</p>
-                                    <p className="brand-desc">
-                                        Your trusted partner for comprehensive API, BGV and
-                                        compliance solutions. Secure, reliable, and compliant
-                                        services for your business.
-                                    </p>
-                                    <div>
-                                        <div className="socials">
-                                            {socialLinks.map(({ Icon, href, label }) => (
-                                                <a
-                                                    key={label}
-                                                    href={href}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="social-link"
-                                                    aria-label={label}
-                                                >
-                                                    <Icon size={16} />
-                                                </a>
-                                            ))}
-                                        </div>
+                                <div className="brand-wrapper">
+                                    <Link href="/" className="brand-header-link">
+                                        <span className="brand-title">
+                                            DigitalRakshak<span className="brand-tm">™</span>
+                                        </span>
+                                        <span className="brand-tagline text-[#76bbf8]">SECURE | SWIFT | COMPLIANT</span>
+                                    </Link>
+
+                                    <Link href="/" className="brand-logo-container">
+                                        <Image
+                                            src="/images/logo-white.png"
+                                            alt="DigitalRakshak Logo"
+                                            width={290}
+                                            height={180}
+                                            className="brand-logo-img"
+                                            priority
+                                        />
+                                    </Link>
+
+                                    <div className="socials">
+                                        {socialLinks.map(({ Icon, href, label }) => (
+                                            <a
+                                                key={label}
+                                                href={href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="social-link"
+                                                aria-label={label}
+                                            >
+                                                <Icon size={16} />
+                                            </a>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -421,6 +458,22 @@ export default function Footer() {
                                             >
                                                 {item.name}
                                             </Link>
+                                            {item.subservices && item.subservices.length > 0 && (
+                                                <ul className="service-submenu">
+                                                    {item.subservices.map(sub => (
+                                                        <li key={sub.name}>
+                                                            <Link
+                                                                href={sub.href}
+                                                                onClick={(e) => {
+                                                                    if (sub.href === '#') e.preventDefault()
+                                                                }}
+                                                            >
+                                                                {sub.name}
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
                                         </li>
                                     ))}
                                 </ul>
