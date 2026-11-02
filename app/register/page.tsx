@@ -1069,9 +1069,9 @@ export default function RegisterPage() {
                         {/* Customer Testimonial */}
                         <div className="border border-white/10 shadow-2xl bg-[#0b101e]/90 backdrop-blur-md rounded-2xl p-6 transition-all duration-300">
                             <div className="flex items-start space-x-4">
-                                <div className="bg-gradient-to-tr from-blue-600 to-sky-400 w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.35)] text-white">
+                                {/* <div className="bg-gradient-to-tr from-blue-600 to-sky-400 w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.35)] text-white">
                                     <Shield className="h-6 w-6" />
-                                </div>
+                                </div> */}
                                 <div className="flex-1">
                                     <blockquote className="text-gray-300 mb-4 italic text-sm sm:text-base leading-relaxed">
                                         &ldquo;We take immense satisfaction in our ability to achieve a 5-minute end-to-end target TAT for

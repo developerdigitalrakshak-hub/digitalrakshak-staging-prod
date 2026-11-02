@@ -152,16 +152,16 @@ export default function Footer() {
                 .brand-wrapper {
                     display: inline-flex;
                     flex-direction: column;
-                    align-items: center;
+                    align-items: flex-start;
                     width: 100%;
                     max-width: 320px;
                 }
                 .brand-header-link {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+                    align-items: flex-start;
                     text-decoration: none;
-                    text-align: center;
+                    text-align: left;
                 }
                 .brand-title {
                     font-size: 1.85rem;
@@ -176,7 +176,7 @@ export default function Footer() {
                 .brand-tm {
                     font-size: 0.9rem;
                     font-weight: 700;
-                    color: #ffffff;
+                    color: #38bdf8;
                     margin-left: 0.15rem;
                 }
                 .brand-tagline {
@@ -190,15 +190,15 @@ export default function Footer() {
                 }
                 .brand-logo-container {
                     margin-top: 2rem;
-                    margin-bottom: 2.25rem;
+                    margin-bottom: 2rem;
                     display: flex;
-                    justify-content: center;
+                    justify-content: flex-start;
                     align-items: center;
                     text-decoration: none;
                     width: 100%;
                 }
                 .brand-logo-img {
-                    width: 290px;
+                    width: 195px;
                     max-width: 100%;
                     height: auto;
                     object-fit: contain;
@@ -212,7 +212,7 @@ export default function Footer() {
                 .socials {
                     display: flex;
                     gap: 0.75rem;
-                    justify-content: center;
+                    justify-content: flex-start;
                     width: 100%;
                 }
                 .social-link {
@@ -420,8 +420,8 @@ export default function Footer() {
                                         <Image
                                             src="/images/logo-white.png"
                                             alt="DigitalRakshak Logo"
-                                            width={290}
-                                            height={180}
+                                            width={195}
+                                            height={119}
                                             className="brand-logo-img"
                                             priority
                                         />

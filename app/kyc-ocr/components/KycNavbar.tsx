@@ -62,8 +62,8 @@ export default function KycNavbar() {
                 alt="DigitalRakshak Logo"
                 className={`w-auto object-contain brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.7)] transition-all duration-500 ${
                   isScrolled
-                    ? 'h-6 sm:h-7 lg:h-8'
-                    : 'h-7 sm:h-8 lg:h-9'
+                    ? 'h-9 sm:h-10'
+                    : 'h-10 sm:h-11 lg:h-12'
                 }`}
               />
             </div>

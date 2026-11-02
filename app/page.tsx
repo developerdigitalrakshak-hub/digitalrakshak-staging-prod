@@ -253,7 +253,7 @@ export default function HomePage() {
             {/* <HeroAnimation /> */}
 
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-14 sm:py-20 relative overflow-hidden">
+            <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-28 sm:pt-32 lg:pt-36 pb-14 sm:pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
                 <div className="container mx-auto px-4 sm:px-6 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">

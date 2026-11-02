@@ -736,7 +736,7 @@ export default function Bar() {
                     : "bg-[#1c2234] text-gray-300 border border-white/10 hover:border-white/20"
                     }`}
                 >
-                  <div className="text-xs sm:text-sm font-semibold truncate">
+                  <div className="text-xs sm:text-sm font-semibold leading-snug line-clamp-2">
                     {category.name}
                   </div>
                 </button>
@@ -938,8 +938,8 @@ export default function Bar() {
                 src="/images/header-logo.png"
                 alt="DigitalRakshak Logo"
                 className={`w-auto object-contain brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.7)] transition-all duration-300 ease-out ${isScrolled
-                  ? 'h-6 sm:h-7'
-                  : 'h-7 sm:h-8 lg:h-9'
+                  ? 'h-9 sm:h-10'
+                  : 'h-10 sm:h-11 lg:h-12'
                   }`}
               />
             </div>
@@ -1055,8 +1055,8 @@ export default function Bar() {
                           ) : item.name === "Services" ? (
                             <div className="flex">
                               {/* Left Sidebar - Service Categories */}
-                              <div className="w-56 sm:w-60 shrink-0 border-r border-white/10 p-4 bg-white/[0.02]">
-                                <div className="px-2 pb-2">
+                              <div className="w-56 sm:w-60 shrink-0 border-r border-white/10 p-3 sm:p-3.5 bg-white/[0.02]">
+                                <div className="pb-1">
                                   <h3 className="text-[11px] font-bold text-[#76bbf8] uppercase tracking-wider mb-3 px-1">
                                     Services
                                   </h3>
@@ -1065,14 +1065,14 @@ export default function Bar() {
                                       <button
                                         key={category.name}
                                         onClick={() => setSelectedCategory(category.name)}
-                                        className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-between group ${selectedCategory === category.name
+                                        className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-between gap-2 group ${selectedCategory === category.name
                                           ? "bg-blue-500/20 text-white border-l-2 border-[#76bbf8] shadow-[inset_0_0_12px_rgba(59,130,246,0.2)]"
                                           : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
                                           }`}
                                       >
-                                        <span className="truncate">{category.name}</span>
+                                        <span className="whitespace-normal break-words leading-snug">{category.name}</span>
                                         <ChevronRight
-                                          className={`w-3.5 h-3.5 transition-transform ${selectedCategory === category.name
+                                          className={`w-3.5 h-3.5 shrink-0 transition-transform ${selectedCategory === category.name
                                             ? "text-[#76bbf8] translate-x-0.5"
                                             : "text-gray-500 opacity-0 group-hover:opacity-100"
                                             }`}
@@ -1188,8 +1188,8 @@ export default function Bar() {
                           ) : item.name === "inhouseServices" ? (
                             <div className="flex">
                               {isDisplayMainServices?.name && (
-                                <div className="w-56 sm:w-60 shrink-0 border-r border-white/10 p-4 bg-white/[0.02]">
-                                  <div className="px-2 pb-2">
+                                <div className="w-56 sm:w-60 shrink-0 border-r border-white/10 p-3 sm:p-3.5 bg-white/[0.02]">
+                                  <div className="pb-1">
                                     <h3 className="text-[11px] font-bold text-[#76bbf8] uppercase tracking-wider mb-3 px-1">
                                       Inhouse Services
                                     </h3>
@@ -1198,14 +1198,14 @@ export default function Bar() {
                                         <button
                                           key={category.name}
                                           onClick={() => setSelectedInhouseCategory(category.name)}
-                                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-between group ${selectedInhouseCategory === category.name
+                                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-between gap-2 group ${selectedInhouseCategory === category.name
                                             ? "bg-blue-500/20 text-white border-l-2 border-[#76bbf8] shadow-[inset_0_0_12px_rgba(59,130,246,0.2)]"
                                             : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
                                             }`}
                                         >
-                                          <span className="truncate">{category.name}</span>
+                                          <span className="whitespace-normal break-words leading-snug">{category.name}</span>
                                           <ChevronRight
-                                            className={`w-3.5 h-3.5 transition-transform ${selectedInhouseCategory === category.name
+                                            className={`w-3.5 h-3.5 shrink-0 transition-transform ${selectedInhouseCategory === category.name
                                               ? "text-[#76bbf8] translate-x-0.5"
                                               : "text-gray-500 opacity-0 group-hover:opacity-100"
                                               }`}

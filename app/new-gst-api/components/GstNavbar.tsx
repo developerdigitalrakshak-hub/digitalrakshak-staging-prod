@@ -64,8 +64,8 @@ export default function GstNavbar() {
               alt="DigitalRakshak Logo"
               className={`w-auto object-contain transition-all duration-500 drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] ${
                 isScrolled
-                  ? 'h-7 sm:h-8 lg:h-9'
-                  : 'h-8 sm:h-9 lg:h-10'
+                  ? 'h-9 sm:h-10'
+                  : 'h-10 sm:h-11 lg:h-12'
               }`}
             />
           </Link>
