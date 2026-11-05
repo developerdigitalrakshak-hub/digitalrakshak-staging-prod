@@ -6,6 +6,7 @@ import Footer from "@/components/footer"
 import { AccessibilityProvider } from "@/components/accessibility/accessibility-provider"
 import AccessibilityToolsModal from "@/components/accessibility/accessibility-tools-modal"
 import AccessibilityTriggerButton from "@/components/accessibility/accessibility-trigger-button"
+import { RegisterModalProvider } from "@/components/register-modal-provider"
 
 export default function ClientLayout({
     children,
@@ -19,12 +20,13 @@ export default function ClientLayout({
 
     return (
         <AccessibilityProvider>
-            {!isClientOrAdmin && <Navbar />}
-            <main>{children}</main>
-            {!isClientOrAdmin && <Footer />}
-            <AccessibilityToolsModal />
-            <AccessibilityTriggerButton />
+            <RegisterModalProvider>
+                {!isClientOrAdmin && <Navbar />}
+                <main>{children}</main>
+                {!isClientOrAdmin && <Footer />}
+                <AccessibilityToolsModal />
+                <AccessibilityTriggerButton />
+            </RegisterModalProvider>
         </AccessibilityProvider>
     )
 }
-

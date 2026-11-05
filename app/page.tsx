@@ -7,6 +7,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useRegisterModal } from "@/components/register-modal-provider"
 import dynamic from "next/dynamic"
 
 
@@ -16,6 +17,7 @@ const HeroAnimation = dynamic(() => import("@/components/home/HeroAnimation"), {
 });
 
 export default function HomePage() {
+    const { openRegisterModal } = useRegisterModal()
     const [activeTestimonial, setActiveTestimonial] = useState(0)
     const [isTestimonialAnimating, setIsTestimonialAnimating] = useState(false)
     const [activeSecurityCard, setActiveSecurityCard] = useState(2)
@@ -268,15 +270,14 @@ export default function HomePage() {
                                 Minimize security risks and compliance gaps while maintaining business continuity and growth.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                <Link href="/register">
-                                    <Button
-                                        size="lg"
-                                        className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
-                                    >
-                                        Contact US
-                                        <ArrowRight className="ml-2 h-5 w-5" />
-                                    </Button>
-                                </Link>
+                                <Button
+                                    size="lg"
+                                    onClick={openRegisterModal}
+                                    className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                                >
+                                    Contact US
+                                    <ArrowRight className="ml-2 h-5 w-5" />
+                                </Button>
                             </div>
                         </div>
                         <div className="relative mt-4 lg:mt-0">
@@ -1379,15 +1380,14 @@ export default function HomePage() {
                         🚀 Go-live in 4 hours • 🛠️ No-code Workflows • 🔧 24/7 Support • 📊 Real-time Analytics
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/register">
-                            <Button
-                                size="lg"
-                                className="w-full sm:w-auto bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-base sm:text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all"
-                            >
-                                Contact US
-                                <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
-                        </Link>
+                        <Button
+                            size="lg"
+                            onClick={openRegisterModal}
+                            className="w-full sm:w-auto bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-base sm:text-lg font-semibold shadow-2xl hover:shadow-3xl transition-all cursor-pointer"
+                        >
+                            Contact US
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
                         {/* <Button
                             size="lg"
                             variant="outline"

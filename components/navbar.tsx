@@ -54,6 +54,7 @@ import {
   PersonStanding,
 } from "lucide-react"
 import { useAccessibility } from "@/components/accessibility/accessibility-provider"
+import { useRegisterModal } from "@/components/register-modal-provider"
 
 // Type definitions
 interface ServiceItem {
@@ -115,6 +116,7 @@ export default function Bar() {
   const router = useRouter()
   const pathname = usePathname()
   const { openModal } = useAccessibility()
+  const { openRegisterModal } = useRegisterModal()
 
   // Scroll state matching gst-verification-api header
   const [isScrolled, setIsScrolled] = useState(false)
@@ -144,8 +146,20 @@ export default function Bar() {
 
   // Listen to scroll to toggle compact floating capsule mode
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY
+          setIsScrolled((prev) => {
+            if (!prev && scrollY > 35) return true
+            if (prev && scrollY < 15) return false
+            return prev
+          })
+          ticking = false
+        })
+        ticking = true
+      }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
@@ -459,26 +473,31 @@ export default function Bar() {
       subservices: [
         {
           name: 'Employee Verification',
+          href: '/services/employment-verification',
           description: 'Comprehensive candidate screening and employee background verification.',
           services: []
         },
         {
           name: 'ID & BGV',
+          href: '/services/identity-address-verification',
           description: 'Instant government ID validation, identity verification & criminal background checks.',
           services: []
         },
         {
           name: 'Education Verification',
+          href: '/services/education-verification',
           description: 'Authenticating educational qualifications, university degrees & academic certificates.',
           services: []
         },
         {
           name: 'Employment History',
+          href: '/services/employment-history-check',
           description: 'Validating prior work experience, employment tenure, and company designations.',
           services: []
         },
         {
           name: 'Physical Address Check',
+          href: '/services/identity-address-verification',
           description: 'On-ground physical and digital verification of residential addresses.',
           services: []
         },
@@ -914,47 +933,55 @@ export default function Bar() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-out pointer-events-none">
-      {/* Main Navigation Bar - Full width when at top, compact floating pill from logo to last button when scrolled down */}
+    <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
+      {/* 1. Full-width top backdrop & subtle bottom border: visible when at the top, smoothly fades out on scroll */}
       <div
-        className={`mx-auto transition-all duration-300 ease-out pointer-events-auto ${isScrolled
-          ? 'w-[94%] xl:w-auto xl:max-w-fit mt-2 sm:mt-2.5 bg-[#141824]/95 backdrop-blur-2xl border border-white/15 rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.7)] ring-1 ring-white/10 px-4 sm:px-6 py-1.5 sm:py-2'
-          : 'w-full bg-[#141824]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.4)] rounded-none px-4 sm:px-8 lg:px-12 py-0'
-          }`}
-      >
+        className={`absolute inset-x-0 top-0 h-16 sm:h-[68px] bg-[#070b16]/85 backdrop-blur-md border-b border-white/[0.06] transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
+          isScrolled ? 'opacity-0' : 'opacity-100'
+        }`}
+      />
+
+      {/* 2. Main Navigation Bar Capsule:
+          - Smoothly transitions from spacious full-width top position to floating cyber capsule
+          - Numeric max-width ensures 60/120fps GPU interpolation with ZERO width snapping or layout lag
+          - Constant 1px border eliminates white flashing outlines
+      */}
+      <div className="w-full flex justify-center px-3 sm:px-6 pointer-events-auto">
         <div
-          className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${isScrolled
-            ? 'gap-4 xl:gap-8 h-12 sm:h-13'
-            : 'w-full max-w-[1600px] h-16 sm:h-17'
-            }`}
+          className={`w-full transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between ${
+            isScrolled
+              ? 'max-w-[1240px] mt-2 sm:mt-2.5 h-[54px] sm:h-[58px] bg-[#0b0f1d]/90 backdrop-blur-2xl border border-white/[0.12] rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.65)] px-4 sm:px-6 gap-3 xl:gap-6'
+              : 'max-w-[1440px] mt-0 h-16 sm:h-[68px] bg-transparent border border-transparent rounded-none shadow-none px-2 sm:px-4 gap-4 xl:gap-8'
+          }`}
         >
-          {/* Left: DigitalRakshak Logo with Eagle Icon & crisp branding */}
+          {/* Left: DigitalRakshak Logo with Eagle Icon & crisp branding - exact staging.digitalrakshak.io style */}
           <Link
             href="/"
-            className="relative flex items-center gap-2.5 shrink-0 group py-0.5"
+            className="cursor-pointer flex-none items-center gap-[7px] sm:gap-[10px] no-underline flex relative group select-none py-0.5"
+            aria-label="DigitalRakshak Home"
           >
-            <div className="relative flex items-center justify-center">
-              <img
-                src="/images/header-logo.png"
-                alt="DigitalRakshak Logo"
-                className={`w-auto object-contain brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.7)] transition-all duration-300 ease-out ${isScrolled
-                  ? 'h-9 sm:h-10'
-                  : 'h-10 sm:h-11 lg:h-12'
-                  }`}
-              />
-            </div>
-            <div className="flex flex-col justify-center">
-              <div className="flex items-center">
-                <span className={`text-white font-bold tracking-tight transition-all duration-300 ${isScrolled
-                  ? 'text-sm sm:text-base'
-                  : 'text-sm sm:text-base lg:text-lg'
-                  }`}>
-                  DigitalRakshak
+            <div
+              className="absolute -inset-x-3 -inset-y-1.5 bg-[radial-gradient(circle,#38bdf847_0%,#6366f11f_60%,transparent_80%)] blur-[12px] rounded-full opacity-70 pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:scale-115"
+              aria-hidden="true"
+            />
+            <img
+              src="/assets/logo.png"
+              alt="DigitalRakshak Logo"
+              className={`object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.35)] w-auto relative transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isScrolled
+                  ? 'h-[28px] max-h-[28px] sm:h-[34px] sm:max-h-[34px]'
+                  : 'h-[32px] max-h-[32px] sm:h-[38px] sm:max-h-[38px]'
+              }`}
+            />
+            <div className="flex flex-col justify-center leading-[1.15]">
+              <span className="text-white tracking-[-0.02em] whitespace-nowrap inline-flex items-start font-bold text-[15px] sm:text-[16.5px]">
+                DigitalRakshak
+                <span className="text-[#94a3b8] align-super ml-[2px] text-[9px] font-bold leading-none">
+                  ™
                 </span>
-                <span className="text-[10px] text-white/80 font-bold ml-0.5 -mt-1.5">™</span>
-              </div>
-              <span className={`text-[8px] sm:text-[9px] text-[#76bbf8] font-semibold tracking-wider uppercase -mt-0.5 hidden ${isScrolled ? 'md:block' : 'sm:block'}`}>
-                SECURE | SWIFT | COMPLIANT
+              </span>
+              <span className="text-[#38bdf8] font-bold tracking-[0.06em] sm:tracking-[0.09em] uppercase whitespace-nowrap items-center gap-1 mt-[2px] text-[7.5px] sm:text-[8px] hidden xs:flex">
+                SECURE <span className="text-[#38bdf8]/60 font-normal text-[7.5px] sm:text-[8px]">|</span> SWIFT <span className="text-[#38bdf8]/60 font-normal text-[7.5px] sm:text-[8px]">|</span> COMPLIANT
               </span>
             </div>
           </Link>
@@ -962,7 +989,7 @@ export default function Bar() {
           {/* Center: Navigation Bar with same spacing & text across the unified header */}
           <nav
             ref={navRef}
-            className={`hidden xl:flex items-center transition-all duration-300 ${isScrolled ? 'gap-3 xl:gap-5' : 'gap-4 xl:gap-6'}`}
+            className="hidden xl:flex items-center gap-3.5 xl:gap-5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
           >
             {navigation.map((item) => (
               <div
@@ -982,7 +1009,7 @@ export default function Bar() {
                           handleMouseEnter(item.name)
                         }
                       }}
-                      className={`font-medium transition-all duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center gap-1.5 ${isScrolled ? 'py-1 px-2.5 text-[13px] xl:text-[14px]' : 'py-1.5 px-3 text-[14px] xl:text-[15px]'} ${pathname.startsWith(item.href) || activeDropdown === item.name
+                      className={`font-medium transition-colors duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center gap-1.5 py-1.5 px-3 text-[14px] xl:text-[14.5px] ${pathname.startsWith(item.href) || activeDropdown === item.name
                         ? 'text-white'
                         : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
                         }`}
@@ -1006,7 +1033,9 @@ export default function Bar() {
                         className={
                           item.name === "Resources" || item.name === "Digital Trust"
                             ? "absolute top-full left-1/2 -translate-x-1/2 pt-2.5 z-50 w-84 sm:w-96 max-w-[90vw] animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto"
-                            : "fixed left-1/2 -translate-x-1/2 top-[62px] sm:top-[68px] z-50 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto w-[94vw] max-w-[1150px]"
+                            : item.name === "inhouseServices"
+                              ? "fixed left-1/2 -translate-x-1/2 top-[64px] sm:top-[70px] z-50 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto w-[94vw] max-w-[900px]"
+                              : "fixed left-1/2 -translate-x-1/2 top-[64px] sm:top-[70px] z-50 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto w-[94vw] max-w-[1150px]"
                         }
                         onMouseEnter={() => {
                           if (hideTimeoutRef.current) {
@@ -1186,135 +1215,84 @@ export default function Bar() {
                               </div>
                             </div>
                           ) : item.name === "inhouseServices" ? (
-                            <div className="flex">
-                              {isDisplayMainServices?.name && (
-                                <div className="w-56 sm:w-60 shrink-0 border-r border-white/10 p-3 sm:p-3.5 bg-white/[0.02]">
-                                  <div className="pb-1">
-                                    <h3 className="text-[11px] font-bold text-[#76bbf8] uppercase tracking-wider mb-3 px-1">
-                                      Inhouse Services
-                                    </h3>
-                                    <div className="space-y-1">
-                                      {inHouseServicesData.map((category) => (
-                                        <button
-                                          key={category.name}
-                                          onClick={() => setSelectedInhouseCategory(category.name)}
-                                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-between gap-2 group ${selectedInhouseCategory === category.name
-                                            ? "bg-blue-500/20 text-white border-l-2 border-[#76bbf8] shadow-[inset_0_0_12px_rgba(59,130,246,0.2)]"
-                                            : "text-gray-300 hover:text-white hover:bg-white/[0.06]"
-                                            }`}
-                                        >
-                                          <span className="whitespace-normal break-words leading-snug">{category.name}</span>
-                                          <ChevronRight
-                                            className={`w-3.5 h-3.5 shrink-0 transition-transform ${selectedInhouseCategory === category.name
-                                              ? "text-[#76bbf8] translate-x-0.5"
-                                              : "text-gray-500 opacity-0 group-hover:opacity-100"
-                                              }`}
-                                          />
-                                        </button>
-                                      ))}
-                                    </div>
-                                  </div>
+                            <div className="p-4 sm:p-5">
+                              {/* Top Header */}
+                              <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-white/10 px-1">
+                                <div className="flex items-center gap-2.5">
+                                  <div className="w-2 h-2 rounded-full bg-[#76bbf8] shadow-[0_0_8px_#76bbf8]" />
+                                  <h3 className="text-xs font-bold text-[#76bbf8] uppercase tracking-wider">
+                                    Background Verification Suite
+                                  </h3>
+                                  <span className="hidden sm:inline text-xs text-gray-400">
+                                    • Comprehensive candidate screening &amp; verification
+                                  </span>
                                 </div>
-                              )}
-                              <div className="flex-1 p-5 sm:p-6 max-h-[580px] overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#2a3348_transparent]">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                  {inHouseServicesData.map((mainService) => {
-                                    if (mainService.name === selectedInhouseCategory) {
-                                      return mainService.subservices.map((service, i) => (
+                                <Link
+                                  href="/services"
+                                  onClick={() => handleMouseLeave()}
+                                  className="text-xs font-medium text-gray-400 hover:text-white transition-colors flex items-center gap-1 group/all"
+                                >
+                                  <span>All Services</span>
+                                  <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover/all:text-white group-hover/all:translate-x-0.5 transition-transform" />
+                                </Link>
+                              </div>
+
+                              {/* 5 Options Grid - Symmetrical & balanced without wasted space */}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                                {inHouseServicesData.map((mainService) => {
+                                  if (mainService.name === selectedInhouseCategory) {
+                                    return mainService.subservices.map((service, i) => {
+                                      const IconComponent =
+                                        i === 0 ? UserCheck :
+                                        i === 1 ? ShieldCheck :
+                                        i === 2 ? GraduationCap :
+                                        i === 3 ? Briefcase : MapPin;
+
+                                      return (
                                         <Link
                                           key={service?.name}
-                                          href={service?.href ?? '#'}
+                                          href={service?.href ?? '/services'}
                                           onClick={() => handleMouseLeave()}
-                                          className="cursor-pointer group relative p-4 rounded-xl bg-[#131624]/90 hover:bg-[#181c2d] border border-white/10 hover:border-blue-400/50 hover:shadow-[0_8px_25px_rgba(0,0,0,0.5)] transition-all duration-300 min-h-[260px] flex flex-col justify-between"
+                                          className="cursor-pointer group relative p-4 rounded-xl bg-[#131624]/90 hover:bg-[#181c2d] border border-white/10 hover:border-blue-400/50 hover:shadow-[0_10px_25px_rgba(59,130,246,0.18)] transition-all duration-300 flex flex-col justify-between gap-3 h-full"
                                         >
-                                          <div className="flex flex-col h-full" key={i}>
-                                            <div className="mb-3">
-                                              <div className="flex items-start gap-3 mb-2">
-                                                <div className="flex-shrink-0">
-                                                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/15 border border-blue-400/30 text-[#76bbf8] group-hover:scale-105 group-hover:bg-blue-500/25 transition-all">
-                                                    <Shield className="h-4 w-4" />
-                                                  </div>
+                                          <div>
+                                            <div className="flex items-start gap-3 mb-2">
+                                              <div className="flex-shrink-0">
+                                                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/15 border border-blue-400/30 text-[#76bbf8] group-hover:scale-105 group-hover:bg-blue-500/25 transition-all">
+                                                  <IconComponent className="h-4 w-4" />
                                                 </div>
-                                                <div className="flex-1 min-w-0">
-                                                  <div className="flex items-center gap-2 flex-wrap">
-                                                    <h4 className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors leading-tight">
-                                                      {service.name}
-                                                    </h4>
-                                                    {service.isNew && (
-                                                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                                                        New
-                                                      </span>
-                                                    )}
-                                                  </div>
+                                              </div>
+                                              <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                  <h4 className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors leading-tight">
+                                                    {service.name}
+                                                  </h4>
+                                                  {service.isNew && (
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                                                      New
+                                                    </span>
+                                                  )}
                                                 </div>
                                               </div>
                                             </div>
 
-                                            <div className="flex-grow">
-                                              <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors mb-3 leading-relaxed">
-                                                {service.description}
-                                              </p>
+                                            <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors leading-relaxed">
+                                              {service.description}
+                                            </p>
+                                          </div>
 
-                                              {service.services && service.services.length > 0 && (
-                                                <div className="space-y-1.5 mb-3">
-                                                  {(expandedCards.includes(service.name)
-                                                    ? service.services
-                                                    : service.services.slice(0, 4)
-                                                  ).map((subItem, idx) => (
-                                                    <div
-                                                      key={idx}
-                                                      onClick={(e) => {
-                                                        e.preventDefault()
-                                                        if (subItem.href) {
-                                                          router.push(`${subItem.href}`)
-                                                          handleMouseLeave()
-                                                        }
-                                                      }}
-                                                      className="flex items-start gap-2 text-xs text-gray-300 hover:text-white cursor-pointer group/subitem py-0.5"
-                                                    >
-                                                      <div className="w-1.5 h-1.5 rounded-full bg-[#76bbf8] mt-1.5 flex-shrink-0 shadow-[0_0_6px_rgba(118,187,248,0.8)]" />
-                                                      <span className="line-clamp-1 flex items-center gap-1.5">
-                                                        {subItem.name}
-                                                        {subItem.isNew && (
-                                                          <span className="inline-flex items-center px-1.5 py-0.2 rounded-full text-[9px] font-medium bg-red-500/20 text-red-300 border border-red-500/30">
-                                                            New
-                                                          </span>
-                                                        )}
-                                                      </span>
-                                                    </div>
-                                                  ))}
-
-                                                  {service.services.length > 4 && (
-                                                    <button
-                                                      onClick={(e) => {
-                                                        e.preventDefault()
-                                                        e.stopPropagation()
-                                                        toggleCard(service.name)
-                                                      }}
-                                                      className="pl-3 text-xs font-semibold text-[#76bbf8] hover:text-blue-300 transition-colors pt-1"
-                                                    >
-                                                      {expandedCards.includes(service.name)
-                                                        ? "Show Less"
-                                                        : `+${service.services.length - 4} more services`}
-                                                    </button>
-                                                  )}
-                                                </div>
-                                              )}
-                                            </div>
-
-                                            <div className="flex items-center justify-between pt-3 border-t border-white/10 group-hover:border-blue-400/30 transition-colors">
-                                              <span className="text-xs font-medium text-[#76bbf8] group-hover:text-blue-300">
-                                                Learn more
-                                              </span>
-                                              <ArrowRight className="w-3.5 h-3.5 text-[#76bbf8] group-hover:text-blue-300 group-hover:translate-x-1 transition-transform" />
-                                            </div>
+                                          <div className="flex items-center justify-between pt-2.5 border-t border-white/10 group-hover:border-blue-400/30 transition-colors">
+                                            <span className="text-xs font-medium text-[#76bbf8] group-hover:text-blue-300">
+                                              Learn more
+                                            </span>
+                                            <ArrowRight className="w-3.5 h-3.5 text-[#76bbf8] group-hover:text-blue-300 group-hover:translate-x-1 transition-transform" />
                                           </div>
                                         </Link>
-                                      ))
-                                    }
-                                    return null
-                                  })}
-                                </div>
+                                      );
+                                    });
+                                  }
+                                  return null;
+                                })}
                               </div>
                             </div>
                           ) : item.name === "Industries" ? (
@@ -1351,7 +1329,7 @@ export default function Bar() {
                   <Link
                     href={item.href}
                     onClick={() => handleMouseLeave()}
-                    className={`font-medium transition-all duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center ${isScrolled ? 'py-1 px-2.5 text-[13px] xl:text-[14px]' : 'py-1.5 px-3 text-[14px] xl:text-[15px]'} ${pathname === item.href
+                    className={`font-medium transition-colors duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center py-1.5 px-3 text-[14px] xl:text-[14.5px] ${pathname === item.href
                       ? 'text-white'
                       : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
                       }`}
@@ -1420,15 +1398,12 @@ export default function Bar() {
             </button>
 
             {/* Contact US Button */}
-            <Link
-              href="/register"
-              className={`inline-flex items-center justify-center font-medium text-white transition-all duration-300 ease-out whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full shadow-sm ${isScrolled
-                ? 'text-[13px] xl:text-[14px] px-4 sm:px-5 py-1.5'
-                : 'text-[14px] px-5 sm:px-6 py-2'
-                }`}
+            <button
+              onClick={openRegisterModal}
+              className="inline-flex items-center justify-center font-medium text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full shadow-sm cursor-pointer text-[13.5px] xl:text-[14px] px-4 sm:px-5 py-1.5 sm:py-2"
             >
-              Contact US
-            </Link>
+              Contact us
+            </button>
           </div>
 
           {/* Mobile Menu Toggle Button */}
@@ -1493,11 +1468,15 @@ export default function Bar() {
 
             {/* Bottom Actions */}
             <div className="p-4 border-t border-white/10 bg-[#10121a] flex flex-col gap-2.5">
-              <Link href="/register" className="w-full" onClick={() => setIsOpen(false)}>
-                <button className="w-full px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-full shadow-lg transition-all text-sm">
-                  Contact US
-                </button>
-              </Link>
+              <button
+                onClick={() => {
+                  setIsOpen(false)
+                  openRegisterModal()
+                }}
+                className="w-full px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-full shadow-lg transition-all text-sm cursor-pointer"
+              >
+                Contact us
+              </button>
             </div>
           </div>
         </div>
