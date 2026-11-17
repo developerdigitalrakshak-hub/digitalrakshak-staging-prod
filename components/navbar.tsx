@@ -607,6 +607,12 @@ export default function Bar() {
 
   const digitalTrustData: ResourceItem[] = [
     {
+      name: "e-KYC",
+      href: "/identity-ekyc",
+      icon: FileSignature,
+      description: "Seamless Aadhaar & document-based digital onboarding for instant verification.",
+    },
+    {
       name: "e-Sign Solution",
       href: "/e-stamp-and-e-sign",
       icon: FileSignature,
@@ -618,12 +624,12 @@ export default function Bar() {
       icon: FileCheck,
       description: "Instant online non-judicial digital stamp duty payment across Indian states.",
     },
-    {
-      name: "e-Onboarding Platform",
-      href: "#",
-      icon: UserCheck,
-      description: "Automated digital user onboarding with instant verification and compliance.",
-    },
+    // {
+    //   name: "e-Onboarding Platform",
+    //   href: "#",
+    //   icon: UserCheck,
+    //   description: "Automated digital user onboarding with instant verification and compliance.",
+    // },
   ]
 
   const navigation: NavigationItem[] = [
@@ -870,13 +876,13 @@ export default function Bar() {
   const MobileResourcesContent = () => {
     return (
       <div className="space-y-3 pb-6">
-        <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 border border-white/15 rounded-2xl p-5 text-white">
+        {/* <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 border border-white/15 rounded-2xl p-5 text-white">
           <div className="flex items-center gap-2.5 mb-1.5">
             <Library className="h-6 w-6 text-[#76bbf8]" />
             <h3 className="text-lg font-bold">Resources</h3>
           </div>
           <p className="text-gray-300 text-xs">Explore knowledge base, company insights & industry research</p>
-        </div>
+        </div> */}
 
         {resourcesData.map((resource) => (
           <Link
@@ -903,13 +909,13 @@ export default function Bar() {
   const MobileDigitalTrustContent = () => {
     return (
       <div className="space-y-3 pb-6">
-        <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 border border-white/15 rounded-2xl p-5 text-white">
+        {/* <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 border border-white/15 rounded-2xl p-5 text-white">
           <div className="flex items-center gap-2.5 mb-1.5">
             <FileSignature className="h-6 w-6 text-[#76bbf8]" />
             <h3 className="text-lg font-bold">Digital Trust</h3>
           </div>
           <p className="text-gray-300 text-xs">Paperless solutions for e-sign, stamping and digital onboarding</p>
-        </div>
+        </div> */}
 
         {digitalTrustData.map((item) => (
           <Link
@@ -936,9 +942,8 @@ export default function Bar() {
     <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
       {/* 1. Full-width top backdrop & subtle bottom border: visible when at the top, smoothly fades out on scroll */}
       <div
-        className={`absolute inset-x-0 top-0 h-16 sm:h-[68px] bg-[#070b16]/85 backdrop-blur-md border-b border-white/[0.06] transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
-          isScrolled ? 'opacity-0' : 'opacity-100'
-        }`}
+        className={`absolute inset-x-0 top-0 h-16 sm:h-[68px] bg-[#070b16]/85 backdrop-blur-md border-b border-white/[0.06] transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${isScrolled ? 'opacity-0' : 'opacity-100'
+          }`}
       />
 
       {/* 2. Main Navigation Bar Capsule:
@@ -948,11 +953,10 @@ export default function Bar() {
       */}
       <div className="w-full flex justify-center px-3 sm:px-6 pointer-events-auto">
         <div
-          className={`w-full transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between ${
-            isScrolled
-              ? 'max-w-[1240px] mt-2 sm:mt-2.5 h-[54px] sm:h-[58px] bg-[#0b0f1d]/90 backdrop-blur-2xl border border-white/[0.12] rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.65)] px-4 sm:px-6 gap-3 xl:gap-6'
-              : 'max-w-[1440px] mt-0 h-16 sm:h-[68px] bg-transparent border border-transparent rounded-none shadow-none px-2 sm:px-4 gap-4 xl:gap-8'
-          }`}
+          className={`w-full transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between ${isScrolled
+            ? 'max-w-[1240px] mt-2 sm:mt-2.5 h-[54px] sm:h-[58px] bg-[#0b0f1d]/90 backdrop-blur-2xl border border-white/[0.12] rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.65)] px-4 sm:px-6 gap-3 xl:gap-6'
+            : 'max-w-[1440px] mt-0 h-16 sm:h-[68px] bg-transparent border border-transparent rounded-none shadow-none px-2 sm:px-4 gap-4 xl:gap-8'
+            }`}
         >
           {/* Left: DigitalRakshak Logo with Eagle Icon & crisp branding - exact staging.digitalrakshak.io style */}
           <Link
@@ -967,11 +971,10 @@ export default function Bar() {
             <img
               src="/assets/logo.png"
               alt="DigitalRakshak Logo"
-              className={`object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.35)] w-auto relative transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isScrolled
-                  ? 'h-[28px] max-h-[28px] sm:h-[34px] sm:max-h-[34px]'
-                  : 'h-[32px] max-h-[32px] sm:h-[38px] sm:max-h-[38px]'
-              }`}
+              className={`object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.35)] w-auto relative transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
+                ? 'h-[28px] max-h-[28px] sm:h-[34px] sm:max-h-[34px]'
+                : 'h-[32px] max-h-[32px] sm:h-[38px] sm:max-h-[38px]'
+                }`}
             />
             <div className="flex flex-col justify-center leading-[1.15]">
               <span className="text-white tracking-[-0.02em] whitespace-nowrap inline-flex items-start font-bold text-[15px] sm:text-[16.5px]">
@@ -1244,9 +1247,9 @@ export default function Bar() {
                                     return mainService.subservices.map((service, i) => {
                                       const IconComponent =
                                         i === 0 ? UserCheck :
-                                        i === 1 ? ShieldCheck :
-                                        i === 2 ? GraduationCap :
-                                        i === 3 ? Briefcase : MapPin;
+                                          i === 1 ? ShieldCheck :
+                                            i === 2 ? GraduationCap :
+                                              i === 3 ? Briefcase : MapPin;
 
                                       return (
                                         <Link

@@ -21,15 +21,16 @@ const platformsData: ServiceItem[] = [
     name: 'Paperless Solution',
     href: '#',
     subservices: [
+      { name: 'e-KYC', href: '/identity-ekyc' },
       { name: 'e-Sign Solution', href: '/e-stamp-and-e-sign' },
       { name: 'e-Stamping Solution', href: '/e-stamp-and-e-sign' },
-      { name: 'e-Onboarding Platform', href: '#' }
+      // { name: 'e-Onboarding Platform', href: '#' }
     ]
   }
 ]
 
 const servicesData: ServiceItem[] = [
-  { name: 'e-KYC', href: '/identity-ekyc' },
+  // { name: 'e-KYC', href: '/identity-ekyc' },
   // { name: 'CKYC 2.0 Verification', href: '#' },
   {
     name: 'Background Verification (BGV)',

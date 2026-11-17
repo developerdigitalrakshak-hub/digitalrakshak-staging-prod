@@ -20,6 +20,7 @@ export default function HomePage() {
     const [activeTestimonial, setActiveTestimonial] = useState(0)
     const [isTestimonialAnimating, setIsTestimonialAnimating] = useState(false)
     const [activeSecurityCard, setActiveSecurityCard] = useState(2)
+    const [activeIndustryCard, setActiveIndustryCard] = useState(0)
 
     const testimonials = [
         {
@@ -150,6 +151,8 @@ export default function HomePage() {
             color: "bg-blue-500/15 border-blue-400/25",
             iconColor: "text-[#76bbf8]",
             image: "/placeholder.svg?height=200&width=300&text=NBFC+Security",
+            bgImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+            link: "/services",
         },
         {
             icon: TrendingUp,
@@ -158,6 +161,8 @@ export default function HomePage() {
             color: "bg-emerald-500/15 border-emerald-400/25",
             iconColor: "text-emerald-400",
             image: "/placeholder.svg?height=200&width=300&text=Securities+Security",
+            bgImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
+            link: "/services",
         },
         {
             icon: Shield,
@@ -166,6 +171,8 @@ export default function HomePage() {
             color: "bg-purple-500/15 border-purple-400/25",
             iconColor: "text-purple-400",
             image: "/placeholder.svg?height=200&width=300&text=Insurance+Security",
+            bgImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&q=80",
+            link: "/services",
         },
         {
             icon: MapPin,
@@ -174,6 +181,8 @@ export default function HomePage() {
             color: "bg-orange-500/15 border-orange-400/25",
             iconColor: "text-orange-400",
             image: "/placeholder.svg?height=200&width=300&text=Logistics+Security",
+            bgImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+            link: "/services",
         },
         {
             icon: CreditCard,
@@ -182,6 +191,8 @@ export default function HomePage() {
             color: "bg-rose-500/15 border-rose-400/25",
             iconColor: "text-rose-400",
             image: "/placeholder.svg?height=200&width=300&text=Gaming+Security",
+            bgImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
+            link: "/services",
         },
         {
             icon: Globe,
@@ -190,6 +201,8 @@ export default function HomePage() {
             color: "bg-indigo-500/15 border-indigo-400/25",
             iconColor: "text-indigo-400",
             image: "/placeholder.svg?height=200&width=300&text=Remittance+Security",
+            bgImage: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=800&q=80",
+            link: "/services",
         },
         {
             icon: Database,
@@ -198,6 +211,8 @@ export default function HomePage() {
             color: "bg-amber-500/15 border-amber-400/25",
             iconColor: "text-amber-400",
             image: "/placeholder.svg?height=200&width=300&text=Crypto+Security",
+            bgImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
+            link: "/services",
         },
         {
             icon: Search,
@@ -206,6 +221,8 @@ export default function HomePage() {
             color: "bg-pink-500/15 border-pink-400/25",
             iconColor: "text-pink-400",
             image: "/placeholder.svg?height=200&width=300&text=Marketplace+Security",
+            bgImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80",
+            link: "/services",
         },
     ]
 
@@ -672,15 +689,178 @@ export default function HomePage() {
             </section>
 
             {/* ── 7. INDUSTRIES SECTION ── */}
-            <section className="py-14 sm:py-20 bg-[#02050f] border-b border-white/[0.08]">
-                <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-                    <div className="text-center mb-10 sm:mb-16">
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-3 sm:mb-4 tracking-tight">Tailored for every industry's unique needs</h2>
+            <section className="py-14 sm:py-20 bg-[#02050f] border-b border-white/[0.08] overflow-hidden">
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .ind-accordion {
+                        display: flex;
+                        width: 100%;
+                        height: 440px;
+                        gap: 12px;
+                    }
+                    .ind-card {
+                        position: relative;
+                        flex: 1;
+                        min-width: 0;
+                        overflow: hidden;
+                        cursor: pointer;
+                        border-radius: 20px;
+                        transition: flex 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+                        border: 1px solid rgba(255, 255, 255, 0.12);
+                    }
+                    .ind-card.active { 
+                        flex: 4.5; 
+                        border-color: rgba(56, 189, 248, 0.5);
+                        box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+                    }
+                    .ind-card-bg {
+                        position: absolute;
+                        inset: 0;
+                        background-size: cover;
+                        background-position: center;
+                        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+                    .ind-card:hover .ind-card-bg { transform: scale(1.07); }
+                    .ind-card-overlay {
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(to top, rgba(2,5,15,0.95) 0%, rgba(2,5,15,0.6) 45%, rgba(7,13,30,0.4) 100%);
+                        transition: background 0.4s ease;
+                    }
+                    .ind-card.active .ind-card-overlay {
+                        background: linear-gradient(to top, rgba(2,5,15,0.92) 0%, rgba(2,5,15,0.45) 50%, rgba(7,13,30,0.25) 100%);
+                    }
+                    .ind-title-vertical {
+                        position: absolute;
+                        bottom: 26px;
+                        left: 50%;
+                        transform: translateX(-50%) rotate(180deg);
+                        writing-mode: vertical-rl;
+                        white-space: nowrap;
+                        color: #fff;
+                        font-size: 20px;
+                        font-weight: 700;
+                        letter-spacing: 0.05em;
+                        opacity: 1;
+                        transition: opacity 0.2s ease;
+                        text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+                    }
+                    .ind-card.active .ind-title-vertical { opacity: 0; pointer-events: none; }
+                    .ind-content {
+                        position: absolute;
+                        bottom: 0; left: 0; right: 0;
+                        padding: 28px 26px;
+                        opacity: 0;
+                        transform: translateY(14px);
+                        transition: opacity 0.32s ease 0.12s, transform 0.32s ease 0.12s;
+                        pointer-events: none;
+                    }
+                    .ind-card.active .ind-content {
+                        opacity: 1;
+                        transform: translateY(0);
+                        pointer-events: auto;
+                    }
+                    .ind-content h3 { font-size: 22px; }
+                    .ind-content p { font-size: 15px; }
+                    .ind-icon-badge {
+                        position: absolute;
+                        top: 18px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 42px; height: 42px;
+                        border-radius: 12px;
+                        background: rgba(255,255,255,0.12);
+                        backdrop-filter: blur(8px);
+                        border: 1px solid rgba(255,255,255,0.25);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        transition: opacity 0.25s ease, transform 0.3s ease;
+                    }
+                    .ind-card.active .ind-icon-badge {
+                        opacity: 0;
+                        transform: translateX(-50%) scale(0.7);
+                    }
+                    .ind-read-more {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        margin-top: 12px;
+                        color: #76bbf8;
+                        font-size: 13px;
+                        font-weight: 600;
+                        text-decoration: none;
+                        transition: color 0.2s, gap 0.2s;
+                    }
+                    .ind-read-more:hover { color: #fff; gap: 10px; }
+                    @media (min-width: 641px) and (max-width: 1023px) {
+                        .ind-accordion {
+                            display: grid;
+                            grid-template-columns: repeat(4, 1fr);
+                            grid-template-rows: repeat(2, 220px);
+                            height: auto;
+                            gap: 12px;
+                        }
+                        .ind-card { flex: none; border-radius: 16px; height: 220px; }
+                        .ind-card.active { flex: none; }
+                        .ind-title-vertical { display: none; }
+                        .ind-icon-badge { opacity: 0 !important; pointer-events: none; }
+                        .ind-content {
+                            opacity: 1 !important;
+                            transform: translateY(0) !important;
+                            pointer-events: auto !important;
+                            padding: 16px 16px;
+                        }
+                        .ind-content h3 { font-size: 18px; }
+                        .ind-content p { display: none; }
+                    }
+                    @media (max-width: 640px) {
+                        .ind-accordion {
+                            display: flex;
+                            flex-direction: row;
+                            overflow-x: scroll;
+                            scroll-snap-type: x mandatory;
+                            -webkit-overflow-scrolling: touch;
+                            height: auto;
+                            gap: 14px;
+                            border-radius: 0;
+                            padding-bottom: 4px;
+                            scrollbar-width: none;
+                        }
+                        .ind-accordion::-webkit-scrollbar { display: none; }
+                        .ind-card {
+                            flex: 0 0 82vw;
+                            min-width: 82vw;
+                            height: 360px;
+                            border-radius: 20px;
+                            scroll-snap-align: center;
+                        }
+                        .ind-card.active { flex: 0 0 82vw; }
+                        .ind-title-vertical { display: none; }
+                        .ind-icon-badge {
+                            opacity: 0 !important;
+                            pointer-events: none;
+                        }
+                        .ind-content {
+                            opacity: 1 !important;
+                            transform: translateY(0) !important;
+                            pointer-events: auto !important;
+                            padding: 24px 22px;
+                        }
+                        .ind-content h3 { font-size: 20px; }
+                        .ind-content p { font-size: 15px; }
+                    }
+                `}} />
+                <div className="max-w-[1340px] mx-auto px-4 sm:px-6">
+                    <div className="text-center mb-10 sm:mb-14">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-3 sm:mb-4 tracking-tight">Tailored for every industry&apos;s unique needs</h2>
                         <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
                             Comprehensive security solutions designed specifically for your industry requirements
                         </p>
                     </div>
 
+                    {/* ── PREVIOUS GRID IMPLEMENTATION (COMMENTED OUT AS REQUESTED) ── */}
+                    {/*
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                         {industries.map((industry, index) => {
                             const IconComponent = industry.icon
@@ -703,6 +883,50 @@ export default function HomePage() {
                                         <p className="text-white/65 text-xs sm:text-sm leading-relaxed">{industry.description}</p>
                                     </CardContent>
                                 </Card>
+                            )
+                        })}
+                    </div>
+                    */}
+
+                    {/* ── NEW ACCORDION CONCEPT (SAME AS CUSTOMER JOURNEY ACCORDION) ── */}
+                    <div className="ind-accordion">
+                        {industries.map((industry, index) => {
+                            const IconComponent = industry.icon
+                            const isActive = activeIndustryCard === index
+                            return (
+                                <div
+                                    key={index}
+                                    className={`ind-card${isActive ? ' active' : ''}`}
+                                    onMouseEnter={() => setActiveIndustryCard(index)}
+                                    onClick={() => setActiveIndustryCard(index)}
+                                >
+                                    <div
+                                        className="ind-card-bg"
+                                        style={{ backgroundImage: `url('${industry.bgImage}')` }}
+                                    />
+                                    <div className="ind-card-overlay" />
+
+                                    <div className="ind-icon-badge">
+                                        <IconComponent className="h-5 w-5 text-white" />
+                                    </div>
+
+                                    <span className="ind-title-vertical">{industry.title}</span>
+
+                                    <div className="ind-content">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center flex-shrink-0">
+                                                <IconComponent className="h-5 w-5 text-white" />
+                                            </div>
+                                            <h3 className="text-white text-lg sm:text-xl font-bold leading-tight">{industry.title}</h3>
+                                        </div>
+                                        <p className="text-white/80 text-sm leading-relaxed max-w-sm">
+                                            {industry.description}
+                                        </p>
+                                        <Link href={industry.link || '/services'} className="ind-read-more">
+                                            Read More <ArrowRight className="h-4 w-4" />
+                                        </Link>
+                                    </div>
+                                </div>
                             )
                         })}
                     </div>
