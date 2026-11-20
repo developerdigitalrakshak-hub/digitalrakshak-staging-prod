@@ -1,0 +1,10 @@
+export * from "./types";
+export { default as BgvNavbar } from "./bgv-navbar";
+export { default as BgvHero } from "./bgv-hero";
+export { default as BgvWhyImportant } from "./bgv-why-important";
+export { default as BgvCapabilities } from "./bgv-capabilities";
+export { default as BgvHowItWorks } from "./bgv-how-it-works";
+export { default as BgvStats } from "./bgv-stats";
+export { default as BgvContactCta } from "./bgv-contact-cta";
+export { default as BgvFooter } from "./bgv-footer";
+export { default as BgvServicePage } from "./bgv-service-page";

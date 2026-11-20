@@ -471,34 +471,94 @@ export default function Bar() {
       description: 'Complete HR and employee management solutions',
       icon: '👥',
       subservices: [
+        // {
+        //   name: 'Employee Verification',
+        //   href: '/services/employment-verification',
+        //   description: 'Comprehensive candidate screening and employee background verification.',
+        //   services: []
+        // },
+        // {
+        //   name: 'ID & BGV',
+        //   href: '/services/identity-address-verification',
+        //   description: 'Instant government ID validation, identity verification & criminal background checks.',
+        //   services: []
+        // },
+        // {
+        //   name: 'Education Verification',
+        //   href: '/services/education-verification',
+        //   description: 'Authenticating educational qualifications, university degrees & academic certificates.',
+        //   services: []
+        // },
+        // {
+        //   name: 'Employment History',
+        //   href: '/services/employment-history-check',
+        //   description: 'Validating prior work experience, employment tenure, and company designations.',
+        //   services: []
+        // },
+        // {
+        //   name: 'Physical Address Check',
+        //   href: '/services/identity-address-verification',
+        //   description: 'On-ground physical and digital verification of residential addresses.',
+        //   services: []
+        // },
         {
-          name: 'Employee Verification',
-          href: '/services/employment-verification',
-          description: 'Comprehensive candidate screening and employee background verification.',
+          name: 'Identity',
+          href: '/identity-verification',
+          description: 'Instant government ID validation including Aadhaar, PAN, Voter ID, and Passport.',
           services: []
         },
         {
-          name: 'ID & BGV',
-          href: '/services/identity-address-verification',
-          description: 'Instant government ID validation, identity verification & criminal background checks.',
+          name: 'Live e-KYC Verification',
+          href: '/live-ekyc-verification',
+          description: 'Real-time biometric validation, facial recognition, and liveness check for instant verification.',
           services: []
         },
         {
-          name: 'Education Verification',
-          href: '/services/education-verification',
-          description: 'Authenticating educational qualifications, university degrees & academic certificates.',
+          name: 'e-Onboarding',
+          href: '/e-onboarding',
+          description: 'Streamlined digital candidate onboarding with automated document collection and workflows.',
           services: []
         },
         {
-          name: 'Employment History',
-          href: '/services/employment-history-check',
-          description: 'Validating prior work experience, employment tenure, and company designations.',
+          name: 'Address verification-Digital & Physical',
+          href: '/address-verification',
+          description: 'Comprehensive digital geolocation tagging and on-ground physical address verification.',
           services: []
         },
         {
-          name: 'Physical Address Check',
-          href: '/services/identity-address-verification',
-          description: 'On-ground physical and digital verification of residential addresses.',
+          name: 'Employment History Verification',
+          href: '/employment-history-verification',
+          description: 'Validating past work experience, tenure, company designation, and exit clearance.',
+          services: []
+        },
+        {
+          name: 'Education Qualification Verification',
+          href: '/education-qualification-verification',
+          description: 'Authenticating university degrees, academic marksheets, roll numbers, and board records.',
+          services: []
+        },
+        {
+          name: 'Moonlighting & ITR Verification',
+          href: '/moonlighting-itr-verification',
+          description: 'Detecting dual employment, overlapping EPFO records, and verifying income tax filings.',
+          services: []
+        },
+        {
+          name: 'Credit History Verification',
+          href: '/credit-history-verification',
+          description: 'Comprehensive credit bureau score checks and financial risk assessment.',
+          services: []
+        },
+        {
+          name: 'Social Media & Court Record Checks',
+          href: '/court-record-checks',
+          description: 'Screening civil, criminal, and tribunal court records alongside public digital presence.',
+          services: []
+        },
+        {
+          name: 'Police Verification (Gujarat)',
+          href: '/police-verification-gujarat',
+          description: 'Direct police clearance and official criminal background check across Gujarat.',
           services: []
         },
       ]
@@ -623,6 +683,12 @@ export default function Bar() {
       href: "/e-stamp-and-e-sign",
       icon: FileCheck,
       description: "Instant online non-judicial digital stamp duty payment across Indian states.",
+    },
+    {
+      name: "e-Notary Solution",
+      href: "/e-stamp-and-e-sign",
+      icon: FileCheck,
+      description: "Legally binding online document notarization and attestation by certified notaries.",
     },
     // {
     //   name: "e-Onboarding Platform",

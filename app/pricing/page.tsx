@@ -122,7 +122,7 @@ export default function PricingPage() {
                     buttonText: "Get Started Monthly",
                     href: "/contact",
                     image: "/abstract-pink-hand-holding-box.jpg",
-                    popular: true,
+                    popular: false,
                     highlightColor: "border-2 border-[#1677ff] shadow-[0_0_45px_rgba(22,119,255,0.35)]",
                     glowBg: "from-blue-600/25 via-blue-900/20 to-transparent",
                 },
@@ -195,7 +195,7 @@ export default function PricingPage() {
                     buttonText: "Claim Annual Savings",
                     href: "/contact",
                     image: "/abstract-pink-hand-holding-box.jpg",
-                    popular: true,
+                    popular: false,
                     highlightColor: "border-2 border-[#1677ff] shadow-[0_0_45px_rgba(22,119,255,0.35)]",
                     glowBg: "from-blue-600/25 via-blue-900/20 to-transparent",
                 },
@@ -307,7 +307,7 @@ export default function PricingPage() {
                     buttonText: "Get Corporate BGV",
                     href: "/contact",
                     image: "/abstract-pink-hand-holding-box.jpg",
-                    popular: true,
+                    popular: false,
                     highlightColor: "border-2 border-[#1677ff] shadow-[0_0_45px_rgba(22,119,255,0.35)]",
                     glowBg: "from-blue-600/25 via-blue-900/20 to-transparent",
                 },
@@ -361,7 +361,7 @@ export default function PricingPage() {
                 },
                 {
                     name: "Grow",
-                    tagline: "Annual Corporate (Most Popular)",
+                    tagline: "Annual Corporate",
                     description: "Maximum savings for enterprises hiring 100+ candidates every month",
                     price: "₹19,999",
                     billingPeriod: "/ month",
@@ -378,7 +378,7 @@ export default function PricingPage() {
                     buttonText: "Claim Annual BGV Savings",
                     href: "/contact",
                     image: "/abstract-pink-hand-holding-box.jpg",
-                    popular: true,
+                    popular: false,
                     highlightColor: "border-2 border-[#1677ff] shadow-[0_0_45px_rgba(22,119,255,0.35)]",
                     glowBg: "from-blue-600/25 via-blue-900/20 to-transparent",
                 },
@@ -489,7 +489,7 @@ export default function PricingPage() {
                     buttonText: "Deploy Trust Shield",
                     href: "/contact",
                     image: "/abstract-pink-hand-holding-box.jpg",
-                    popular: true,
+                    popular: false,
                     highlightColor: "border-2 border-[#1677ff] shadow-[0_0_45px_rgba(22,119,255,0.35)]",
                     glowBg: "from-blue-600/25 via-blue-900/20 to-transparent",
                 },
@@ -543,7 +543,7 @@ export default function PricingPage() {
                 },
                 {
                     name: "Grow",
-                    tagline: "Annual Trust Shield (Most Popular)",
+                    tagline: "Annual Trust Shield",
                     description: "Comprehensive risk coverage with maximum annual cost advantage",
                     price: "₹23,999",
                     billingPeriod: "/ month",
@@ -560,7 +560,7 @@ export default function PricingPage() {
                     buttonText: "Claim Trust Savings",
                     href: "/contact",
                     image: "/abstract-pink-hand-holding-box.jpg",
-                    popular: true,
+                    popular: false,
                     highlightColor: "border-2 border-[#1677ff] shadow-[0_0_45px_rgba(22,119,255,0.35)]",
                     glowBg: "from-blue-600/25 via-blue-900/20 to-transparent",
                 },
@@ -754,15 +754,8 @@ export default function PricingPage() {
                     {pricingPlans.map((plan) => (
                         <div
                             key={`${activeTab}-${billingCycle}-${plan.name}`}
-                            className={`relative rounded-[26px] bg-gradient-to-b ${plan.glowBg} bg-[#070d1e] p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] backdrop-blur-md ${plan.highlightColor} group`}
+                            className="relative rounded-[26px] bg-[#070d1e] border border-white/10 p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-500/50 hover:bg-[#0c1836] hover:shadow-[0_0_35px_rgba(37,99,235,0.22)] backdrop-blur-md group"
                         >
-                            {/* Popular Ribbon */}
-                            {plan.popular && (
-                                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-xs font-black px-4 py-1 rounded-full shadow-[0_0_20px_rgba(22,119,255,0.6)] uppercase tracking-wider">
-                                    ★ Most Popular
-                                </div>
-                            )}
-
                             <div>
                                 {/* Plan Header */}
                                 <div className="flex items-center justify-between gap-4 mb-6">
@@ -837,13 +830,10 @@ export default function PricingPage() {
                             <div>
                                 <Link
                                     href={plan.href}
-                                    className={`w-full py-3.5 px-6 rounded-[16px] font-bold text-[15px] flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${plan.popular
-                                        ? "bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] shadow-[0_4px_25px_rgba(22,119,255,0.4)] hover:scale-[1.01]"
-                                        : "bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40"
-                                        }`}
+                                    className="w-full py-3.5 px-6 rounded-[16px] font-bold text-[15px] flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer bg-white/10 text-white border border-white/15 hover:bg-blue-600 hover:border-blue-500 hover:shadow-[0_4px_20px_rgba(37,99,235,0.35)] group-hover:border-blue-400/30 group-hover:bg-white/15"
                                 >
                                     <span>{plan.buttonText}</span>
-                                    <ArrowRight className="w-4 h-4" />
+                                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </div>
                         </div>
@@ -884,19 +874,19 @@ export default function PricingPage() {
                                             </span>
                                             <Link
                                                 href="/register"
-                                                className="mt-3 inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-1.5 px-4 rounded-full transition-colors"
+                                                className="mt-3 inline-block bg-white/10 hover:bg-blue-600 text-white font-semibold text-xs py-1.5 px-4 rounded-full border border-white/20 hover:border-blue-500 transition-colors"
                                             >
                                                 Start Free Trial
                                             </Link>
                                         </th>
-                                        <th className="py-6 px-4 text-center w-[22%] bg-blue-500/10 border-x border-blue-500/20">
-                                            <span className="text-lg font-bold text-[#76bbf8] block">Grow</span>
+                                        <th className="py-6 px-4 text-center w-[22%]">
+                                            <span className="text-lg font-bold text-white block">Grow</span>
                                             <span className="text-xs text-white/50 block font-normal mt-0.5">
                                                 For Mid-size companies
                                             </span>
                                             <Link
                                                 href="/contact"
-                                                className="mt-3 inline-block bg-[#B0DAFF] hover:bg-[#76bbf8] text-[#0a1e36] font-bold text-xs py-1.5 px-4 rounded-full transition-colors"
+                                                className="mt-3 inline-block bg-white/10 hover:bg-blue-600 text-white font-semibold text-xs py-1.5 px-4 rounded-full border border-white/20 hover:border-blue-500 transition-colors"
                                             >
                                                 Buy Now
                                             </Link>
@@ -908,7 +898,7 @@ export default function PricingPage() {
                                             </span>
                                             <Link
                                                 href="/contact"
-                                                className="mt-3 inline-block bg-white/10 hover:bg-white/20 text-white font-semibold text-xs py-1.5 px-4 rounded-full border border-white/20 transition-colors"
+                                                className="mt-3 inline-block bg-white/10 hover:bg-blue-600 text-white font-semibold text-xs py-1.5 px-4 rounded-full border border-white/20 hover:border-blue-500 transition-colors"
                                             >
                                                 Contact Sales
                                             </Link>
@@ -946,7 +936,7 @@ export default function PricingPage() {
                                                             <Minus className="h-4 w-4 text-white/30 mx-auto" />
                                                         )}
                                                     </td>
-                                                    <td className="py-4 px-4 text-center bg-blue-500/5 border-x border-blue-500/10">
+                                                    <td className="py-4 px-4 text-center">
                                                         {item.grow ? (
                                                             <div className="w-6 h-6 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto">
                                                                 <Check className="h-3.5 w-3.5 text-emerald-400 stroke-[3]" />

@@ -26,6 +26,7 @@ const platformsData: ServiceItem[] = [
             { name: 'e-KYC', href: '/identity-ekyc' },
             { name: 'e-Sign Solution', href: '/e-stamp-and-e-sign' },
             { name: 'e-Stamping Solution', href: '/e-stamp-and-e-sign' },
+            { name: 'e-Notary Solution', href: '/e-stamp-and-e-sign' },
             // { name: 'e-Onboarding Platform', href: '#' }
         ]
     }
