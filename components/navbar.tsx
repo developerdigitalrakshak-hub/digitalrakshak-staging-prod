@@ -263,10 +263,10 @@ export default function Bar() {
           services: [
             { name: 'Face Match', description: 'Biometric face matching' },
             { name: 'Liveness Check', description: 'Anti-spoofing liveness verification' },
-            { name: 'KYC - OCR', href: '/kyc-ocr', description: 'Optical character recognition for KYC', isNew: true },
+            { name: 'KYC - OCR', href: '/kyc-ocr-plus-api', description: 'Optical character recognition for KYC', isNew: true },
             { name: 'Email / Mobile Verification', href: '/email-and-mobile-verification', description: 'Channel verification', isNew: true },
             { name: 'Email Fraud Check', description: 'Detect email fraud' },
-            { name: 'Mobile No. Revocation List (MNRL)', href: '/mnrl-verification', description: 'Check mobile revocation', isNew: true }
+            { name: 'Mobile No. Revocation List (MNRL)', href: '/mnrl-check-api', description: 'Check mobile revocation', isNew: true }
           ]
         },
         {
@@ -275,7 +275,7 @@ export default function Bar() {
           services: [
             { name: 'Aadhar Card', description: 'Aadhar verification' },
             { name: 'PAN Card', description: 'PAN verification' },
-            { name: 'Passport', href: '/passport-verification', description: 'Passport verification', isNew: true },
+            { name: 'Passport', href: '/passport-verification-api', description: 'Passport verification', isNew: true },
             { name: 'Voter ID', href: '/voter-id-verification', description: 'Voter ID verification', isNew: true },
             { name: 'Ration Card Details', description: 'Ration card verification' }
           ]
@@ -295,7 +295,7 @@ export default function Bar() {
             { name: 'Address Match', description: 'Address verification' },
             { name: 'Address Split', description: 'Parse address components' },
             { name: 'Geo Fencing', href: '/geo-fencing', description: 'Geographic boundary verification', isNew: true },
-            { name: 'Reverse GeoCodes', href: '/reverse-geocodes', description: 'Reverse geocoding services', isNew: true },
+            { name: 'Reverse Geocode API', href: '/reverse-geocode-api', description: 'Convert coordinates into addresses', isNew: true },
             { name: 'Property Tax Verification', description: 'Property tax records check' },
             { name: 'Electricity Bill Verify', description: 'Electricity bill verification' },
             { name: 'LPG ID Verification', description: 'LPG ID check' },

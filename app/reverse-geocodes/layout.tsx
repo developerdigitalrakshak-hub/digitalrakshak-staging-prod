@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Reverse Geo-Code & Spatial Address Intelligence API | DigitalRakshak",
+  title: "Reverse Geocode API for Businesses | DigitalRakshak",
   description:
-    "Convert messy address strings into precise, verified physical coordinates instantly. Automated address validation, PIN code verification, and GIS matching for enterprise workflows.",
+    "Convert latitude and longitude into structured address details with DigitalRakshak's Reverse Geocode API. Integrate location lookup into your applications.",
   keywords: [
-    "Reverse Geo-Code API",
-    "Spatial Address Intelligence",
-    "Address Verification API",
-    "GIS Coordinate Verification",
-    "PIN Code Verification",
-    "Address Standardization API",
-    "Background Verification Address Check",
-    "DigitalRakshak Reverse Geocoding",
+    "Reverse Geocode API",
+    "Reverse Geocoding API",
+    "Latitude Longitude to Address API",
+    "Coordinates to Address API",
+    "GPS Coordinates to Address API",
+    "Location Geocoding API",
+    "Address Lookup API",
+    "Reverse Geocoding Services",
+    "Coordinate to Address Conversion",
   ],
   alternates: {
     canonical: "/reverse-geocodes",
   },
   openGraph: {
-    title: "Reverse Geo-Code & Spatial Address Intelligence API | DigitalRakshak",
+    title: "Reverse Geocode API for Businesses | DigitalRakshak",
     description:
-      "Convert messy address strings into precise, verified physical coordinates instantly. Automated address validation, PIN code verification, and GIS matching for enterprise workflows.",
+      "Convert latitude and longitude into structured address details with DigitalRakshak's Reverse Geocode API. Integrate location lookup into your applications.",
     url: "https://digitalrakshak.com/reverse-geocodes",
     siteName: "DigitalRakshak",
     type: "website",
@@ -37,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Reverse Geo-Code & Spatial Address Intelligence API | DigitalRakshak",
+    title: "Reverse Geocode API for Businesses | DigitalRakshak",
     description:
-      "Convert messy address strings into precise, verified physical coordinates instantly. Automated address validation, PIN code verification, and GIS matching for enterprise workflows.",
+      "Convert latitude and longitude into structured address details with DigitalRakshak's Reverse Geocode API. Integrate location lookup into your applications.",
   },
 };
 

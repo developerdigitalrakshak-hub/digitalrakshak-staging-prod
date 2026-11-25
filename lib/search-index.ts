@@ -18,12 +18,12 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['kyc', 'ekyc', 'identity', 'aadhaar', 'pan', 'passport', 'voter id', 'digilocker', 'onboarding']
   },
   {
-    id: 'kyc-ocr',
-    title: 'KYC - OCR Verification',
-    description: 'Automated Optical Character Recognition for document data extraction and validation.',
-    href: '/kyc-ocr',
+    id: 'kyc-ocr-plus-api',
+    title: 'KYC OCR Plus API',
+    description: 'Extract KYC document information, Aadhaar data extraction, and structured information retrieval.',
+    href: '/kyc-ocr-plus-api',
     category: 'Services',
-    keywords: ['ocr', 'document', 'kyc', 'extraction', 'identity', 'ai', 'net', 'scan']
+    keywords: ['kyc ocr api', 'kyc ocr plus api', 'aadhaar ocr api', 'document ocr api', 'kyc data extraction', 'identity document ocr']
   },
   {
     id: 'email-and-mobile-verification',
@@ -58,12 +58,12 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['geo', 'geofencing', 'location', 'gps', 'perimeter', 'tracking', 'map']
   },
   {
-    id: 'reverse-geocodes',
-    title: 'Reverse Geocoding Services',
-    description: 'Convert coordinates into verified postal addresses with building and street-level precision.',
-    href: '/reverse-geocodes',
+    id: 'reverse-geocode-api',
+    title: 'Reverse Geocode API',
+    description: 'Convert latitude and longitude into structured address details with DigitalRakshak\'s Reverse Geocode API. Integrate location lookup into your applications.',
+    href: '/reverse-geocode-api',
     category: 'Services',
-    keywords: ['reverse', 'geocode', 'address', 'coordinates', 'lat', 'lng', 'location', 'map']
+    keywords: ['reverse', 'geocode', 'reverse geocode api', 'coordinates', 'latitude', 'longitude', 'address', 'gps', 'location']
   },
   {
     id: 'business-verification',
@@ -114,12 +114,12 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['epfo', 'pf', 'establishment', 'employer', 'ecr', 'provident fund', 'bgv', 'compliance', 'search', 'verification']
   },
   {
-    id: 'passport-verification',
+    id: 'passport-verification-api',
     title: 'Passport Verification API',
-    description: 'Real-time passport number validation, MRZ code OCR extraction, DOB, expiry, and travel document authenticity check.',
-    href: '/passport-verification',
+    description: 'Integrate Passport Verification API to submit applicant details and retrieve available passport application information for KYC workflows.',
+    href: '/passport-verification-api',
     category: 'Services',
-    keywords: ['passport', 'mrz', 'ocr', 'travel', 'identity', 'kyc', 'verification', 'visa', 'aviation', 'nri', 'document']
+    keywords: ['passport verification api', 'passport verification services', 'passport data verification', 'passport kyc api', 'passport details verification', 'digital passport verification']
   },
   {
     id: 'voter-id-verification',
@@ -186,12 +186,12 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['tan', 'tax deduction', 'deductor', 'ao code', 'tds', 'income tax', 'itd', 'compliance', 'vendor', 'business']
   },
   {
-    id: 'mnrl-verification',
-    title: 'TRAI MNRL Verification API',
-    description: 'Real-time TRAI Mobile Number Revocation List (MNRL) check to detect recycled, disconnected, and SIM-swapped phone numbers.',
-    href: '/mnrl-verification',
+    id: 'mnrl-check-api',
+    title: 'MNRL Check API',
+    description: 'Integrate DigitalRakshak\'s MNRL Check API to submit mobile numbers for Mobile Number Revocation List checking in your business applications.',
+    href: '/mnrl-check-api',
     category: 'Services',
-    keywords: ['mnrl', 'trai', 'mobile', 'revocation', 'recycled', 'deactivated', 'sim swap', 'otp fraud', 'telecom', 'jio', 'airtel', 'vi']
+    keywords: ['mnrl', 'mnrl check api', 'mobile number revocation list api', 'mobile number check api', 'mobile verification api', 'telecom', 'jio', 'airtel', 'vi']
   },
   {
     id: 'negative-due-diligence',
