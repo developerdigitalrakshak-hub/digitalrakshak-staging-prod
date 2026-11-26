@@ -190,11 +190,10 @@ function HeroSection() {
                                         <button
                                             key={op}
                                             onClick={() => setSelectedOperator(op)}
-                                            className={`py-1.5 px-2 rounded-xl text-xs font-semibold transition-all border ${
-                                                selectedOperator === op
-                                                    ? "bg-blue-600/30 border-blue-400 text-white shadow-[0_0_12px_rgba(59,130,246,0.4)]"
-                                                    : "bg-white/[0.04] border-white/10 text-white/70 hover:bg-white/[0.08]"
-                                            }`}
+                                            className={`py-1.5 px-2 rounded-xl text-xs font-semibold transition-all border ${selectedOperator === op
+                                                ? "bg-blue-600/30 border-blue-400 text-white shadow-[0_0_12px_rgba(59,130,246,0.4)]"
+                                                : "bg-white/[0.04] border-white/10 text-white/70 hover:bg-white/[0.08]"
+                                                }`}
                                         >
                                             {op}
                                         </button>
@@ -366,10 +365,12 @@ function WhyItMattersSection() {
                             key={i}
                             className={`p-6 rounded-2xl bg-[#0c101d]/90 backdrop-blur-xl border ${b.border} hover:border-blue-400/50 hover:shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all duration-300 group`}
                         >
-                            <div className={`w-12 h-12 rounded-xl ${b.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                                <b.icon className={`w-6 h-6 ${b.color}`} />
+                            <div className="flex gap-5">
+                                <div className={`w-12 h-12 rounded-xl ${b.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                                    <b.icon className={`w-6 h-6 ${b.color}`} />
+                                </div>
+                                <h3 className="text-white font-bold text-lg mb-2">{b.title}</h3>
                             </div>
-                            <h3 className="text-white font-bold text-lg mb-2">{b.title}</h3>
                             <p className="text-white/70 text-xs sm:text-sm leading-relaxed">{b.desc}</p>
                         </div>
                     ))}
@@ -509,7 +510,7 @@ function ConnectAPISection() {
                                 {copied ? "Copied!" : "Copy Body"}
                             </button>
                         </div>
-                        
+
                         <div className="p-4 sm:p-5 border-b border-white/10 bg-[#0d1222]/60">
                             <div className="text-xs font-semibold text-[#76bbf8] uppercase tracking-wider mb-2">
                                 API Request Information

@@ -34,6 +34,22 @@ export const SITE_SEARCH_INDEX: SearchItem[] = [
     keywords: ['email', 'mobile', 'otp', 'verification', 'fraud', 'mnrl', 'phone']
   },
   {
+    id: 'mobile-verification-with-otp-api',
+    title: 'Mobile Verification with OTP API',
+    description: 'Generate OTPs for mobile number verification with DigitalRakshak\'s Mobile Verification API.',
+    href: '/mobile-verification-with-otp-api',
+    category: 'Services',
+    keywords: ['mobile verification with otp api', 'mobile number verification api', 'otp verification api', 'mobile otp authentication api', 'phone number verification api', 'otp generation api', 'mobile number authentication', 'otp-based mobile verification']
+  },
+  {
+    id: 'mobile-silent-verification-api',
+    title: 'Mobile Silent Verification API',
+    description: 'Verify mobile numbers and access subscriber details with DigitalRakshak\'s Mobile Silent Verification API for seamless business workflows.',
+    href: '/mobile-silent-verification-api',
+    category: 'Services',
+    keywords: ['mobile silent verification api', 'mobile number verification api', 'mobile silent verification', 'mobile kyc api', 'mobile number validation api', 'subscriber verification api', 'telecom operator verification', 'mobile number portability check']
+  },
+  {
     id: 'e-stamp-and-e-sign',
     title: 'e-Stamp & e-Sign Digital Signatures',
     description: 'Legal digital signatures, Aadhaar e-sign, state e-stamping, agreement execution and document workflows.',

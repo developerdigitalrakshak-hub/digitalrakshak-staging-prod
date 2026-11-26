@@ -264,7 +264,9 @@ export default function Bar() {
             { name: 'Face Match', description: 'Biometric face matching' },
             { name: 'Liveness Check', description: 'Anti-spoofing liveness verification' },
             { name: 'KYC - OCR', href: '/kyc-ocr-plus-api', description: 'Optical character recognition for KYC', isNew: true },
-            { name: 'Email / Mobile Verification', href: '/email-and-mobile-verification', description: 'Channel verification', isNew: true },
+            { name: 'Email / Mobile Verification', href: '/email-and-mobile-verification', description: 'Channel verification' },
+            { name: 'Mobile Verification with OTP', href: '/mobile-verification-with-otp-api', description: 'OTP-based mobile verification', isNew: true },
+            { name: 'Mobile Silent Verification', href: '/mobile-silent-verification-api', description: 'Silent mobile verification without OTP', isNew: true },
             { name: 'Email Fraud Check', description: 'Detect email fraud' },
             { name: 'Mobile No. Revocation List (MNRL)', href: '/mnrl-check-api', description: 'Check mobile revocation', isNew: true }
           ]
@@ -276,7 +278,7 @@ export default function Bar() {
             { name: 'Aadhar Card', description: 'Aadhar verification' },
             { name: 'PAN Card', description: 'PAN verification' },
             { name: 'Passport', href: '/passport-verification-api', description: 'Passport verification', isNew: true },
-            { name: 'Voter ID', href: '/voter-id-verification', description: 'Voter ID verification', isNew: true },
+            { name: 'Voter ID', href: '/voter-id-verification', description: 'Voter ID verification' },
             { name: 'Ration Card Details', description: 'Ration card verification' }
           ]
         }
@@ -294,7 +296,7 @@ export default function Bar() {
             { name: 'Name Match', description: 'Verify name consistency' },
             { name: 'Address Match', description: 'Address verification' },
             { name: 'Address Split', description: 'Parse address components' },
-            { name: 'Geo Fencing', href: '/geo-fencing', description: 'Geographic boundary verification', isNew: true },
+            { name: 'Geo Fencing', href: '/geo-fencing', description: 'Geographic boundary verification' },
             { name: 'Reverse Geocode API', href: '/reverse-geocode-api', description: 'Convert coordinates into addresses', isNew: true },
             { name: 'Property Tax Verification', description: 'Property tax records check' },
             { name: 'Electricity Bill Verify', description: 'Electricity bill verification' },
@@ -330,9 +332,9 @@ export default function Bar() {
           name: 'Forgery Detection',
           description: 'Advanced forgery and fraud detection',
           services: [
-            { name: 'Global DB - Negative Media Check', href: '/negative-due-diligence', description: 'Global database screening', isNew: true },
-            { name: 'Advance Forgery Check', href: '/document-forgery-detection', description: 'Advanced forgery detection', isNew: true },
-            { name: 'IP Quality Check', href: '/ip-quality-check', description: 'IP reputation check', isNew: true }
+            { name: 'Global DB - Negative Media Check', href: '/negative-due-diligence', description: 'Global database screening' },
+            { name: 'Advance Forgery Check', href: '/document-forgery-detection', description: 'Advanced forgery detection' },
+            { name: 'IP Quality Check', href: '/ip-quality-check', description: 'IP reputation check' }
           ]
         }
       ]
@@ -358,15 +360,15 @@ export default function Bar() {
           isNew: true,
           services: [
             { name: 'Company & LLP Check', description: 'Company and LLP verification' },
-            { name: 'ROC Director Search', href: '/roc-director-search', description: 'Director DIN & MCA records search', isNew: true },
+            { name: 'ROC Director Search', href: '/roc-director-search', description: 'Director DIN & MCA records search' },
             { name: 'PAN Verify', description: 'Business PAN verification' },
-            { name: 'TAN Verify', href: '/tan-verification', description: 'TAN verification', isNew: true },
+            { name: 'TAN Verify', href: '/tan-verification', description: 'TAN verification' },
             { name: 'TIN Verify', description: 'TIN verification' },
-            { name: 'GSTIN Verify', href: '/gst-verification-api', description: 'GST registration verification', isNew: true },
+            { name: 'GSTIN Verify', href: '/gst-verification-api', description: 'GST registration verification' },
             { name: 'Import / Export Certificate', description: 'Import/export verification' },
-            { name: 'Shop & Establishment', href: '/shop-establishment', description: 'Shop registration verification', isNew: true },
-            { name: 'MSME / Udyam', href: '/msme-udyam-verification', description: 'MSME registration check', isNew: true },
-            { name: 'EPFO Establishment Search', href: '/epfo-establishment-search', description: 'EPFO verification', isNew: true }
+            { name: 'Shop & Establishment', href: '/shop-establishment', description: 'Shop registration verification' },
+            { name: 'MSME / Udyam', href: '/msme-udyam-verification', description: 'MSME registration check' },
+            { name: 'EPFO Establishment Search', href: '/epfo-establishment-search', description: 'EPFO verification' }
           ]
         },
         {
@@ -394,7 +396,7 @@ export default function Bar() {
           description: 'Employment background verification',
           services: [
             { name: 'EPF Employee Name Search', description: 'Search EPF records' },
-            { name: 'EPF UAN Validation', href: '/uan-validation', description: 'Validate UAN number', isNew: true },
+            { name: 'EPF UAN Validation', href: '/uan-validation', description: 'Validate UAN number' },
             { name: 'EPF Records Check', description: 'Check EPF history' },
             { name: 'Single Record - Last Comp', description: 'Last company record' }
           ]
@@ -428,18 +430,18 @@ export default function Bar() {
           name: 'Financial Verification',
           description: 'Financial records and history verification',
           services: [
-            { name: 'Bank Account Verification', href: '/bank-account-verification', description: 'Bank account validation', isNew: true },
-            { name: 'Hybrid Bank Account Verification', href: '/hybrid-bank-account-verification', description: 'Hybrid Bank Account Verification', isNew: true },
+            { name: 'Bank Account Verification', href: '/bank-account-verification', description: 'Bank account validation' },
+            { name: 'Hybrid Bank Account Verification', href: '/hybrid-bank-account-verification', description: 'Hybrid Bank Account Verification' },
             { name: 'Compensation Verification', description: 'Verify via bank statement' },
-            { name: 'IFSC Check', href: '/ifsc-check', description: 'IFSC code verification', isNew: true },
-            { name: 'Income Tax Return - ITR', href: '/itr-verification', description: 'ITR verification', isNew: true },
-            { name: 'ITR Fetch', href: '/itr-fetch', description: 'ITR Fetch', isNew: true },
+            { name: 'IFSC Check', href: '/ifsc-check', description: 'IFSC code verification' },
+            { name: 'Income Tax Return - ITR', href: '/itr-verification', description: 'ITR verification' },
+            { name: 'ITR Fetch', href: '/itr-fetch', description: 'ITR Fetch' },
             { name: 'Credit / CIBIL History', description: 'Credit history check' },
             { name: 'Digital Media Forensic', description: 'Digital forensics' },
             { name: 'Social Media & Reputation', description: 'Social media screening' },
             { name: 'Cheque Verify', description: 'Cheque verification' },
             { name: 'OCR - Intelligent Doc Processing', description: 'Document OCR' },
-            { name: 'Experian Credit Bureau', href: '/experian-credit-bureau', description: 'Experian Business Credit Bureau', isNew: true }
+            { name: 'Experian Credit Bureau', href: '/experian-credit-bureau', description: 'Experian Business Credit Bureau' }
           ]
         }
       ]
@@ -453,10 +455,10 @@ export default function Bar() {
           name: 'Vehicle & Transportation',
           description: 'Automobile verification and Tracking',
           services: [
-            { name: 'Driving Licence (DL)', href: '/driving-licence-verification', description: 'DL verification', isNew: true },
-            { name: 'Vehicle RC Verification', href: '/vehicle-rc-verification', description: 'RC verification', isNew: true },
-            { name: 'Vehicle Reverse RC', href: '/vehicle-reverse-rc', description: 'Vehicle Reverse RC', isNew: true },
-            { name: 'Fast Tag Verification', href: '/fastag-verification', description: 'FASTag verification', isNew: true },
+            { name: 'Driving Licence (DL)', href: '/driving-licence-verification', description: 'DL verification' },
+            { name: 'Vehicle RC Verification', href: '/vehicle-rc-verification', description: 'RC verification' },
+            { name: 'Vehicle Reverse RC', href: '/vehicle-reverse-rc', description: 'Vehicle Reverse RC' },
+            { name: 'Fast Tag Verification', href: '/fastag-verification', description: 'FASTag verification' },
             { name: 'FASTTAG Last Location', description: 'FASTag location tracking' },
           ]
         }
@@ -513,12 +515,12 @@ export default function Bar() {
           description: 'Real-time biometric validation, facial recognition, and liveness check for instant verification.',
           services: []
         },
-        {
-          name: 'e-Onboarding',
-          href: '/e-onboarding',
-          description: 'Streamlined digital candidate onboarding with automated document collection and workflows.',
-          services: []
-        },
+        // {
+        //   name: 'e-Onboarding',
+        //   href: '/e-onboarding',
+        //   description: 'Streamlined digital candidate onboarding with automated document collection and workflows.',
+        //   services: []
+        // },
         {
           name: 'Address verification-Digital & Physical',
           href: '/address-verification',
@@ -666,11 +668,17 @@ export default function Bar() {
   }
 
   const digitalTrustData: ResourceItem[] = [
+    // {
+    //   name: "e-KYC",
+    //   href: "/identity-ekyc",
+    //   icon: FileSignature,
+    //   description: "Seamless Aadhaar & document-based digital onboarding for instant verification.",
+    // },
     {
-      name: "e-KYC",
-      href: "/identity-ekyc",
+      name: 'e-Onboarding',
+      href: '/e-onboarding',
       icon: FileSignature,
-      description: "Seamless Aadhaar & document-based digital onboarding for instant verification.",
+      description: 'Streamlined digital candidate onboarding with automated document collection and workflows.',
     },
     {
       name: "e-Sign Solution",
@@ -699,6 +707,14 @@ export default function Bar() {
   ]
 
   const navigation: NavigationItem[] = [
+    {
+      name: "Home",
+      href: "/",
+      hasDropdown: false,
+      dropDownMenu: [],
+      icon: null,
+      description: null,
+    },
     {
       name: "Services",
       href: "/services",
