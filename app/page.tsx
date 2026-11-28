@@ -1512,10 +1512,10 @@ export default function HomePage() {
                     <div className="bg-[#070d1e]/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-8 items-center">
                             {[
-                                { name: "NIST Framework", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/05/nsit-1.5.png.webp?height=80&width=80&text=NIST" },
-                                { name: "SOC 2 Type II", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/05/aicpa.webp?height=80&width=80&text=SOC2" },
-                                { name: "ISO 27001", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/02/iso.webp?height=80&width=80&text=ISO" },
-                                { name: "GDPR Compliant", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/02/gdpr.webp?height=80&width=80&text=GDPR" },
+                                { name: "NIST Framework", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/05/nsit-1.5.png.webp?height=80&width=80&text=NIST", invert: true },
+                                { name: "SOC 2 Type II", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/05/aicpa.webp?height=80&width=80&text=SOC2", invert: false },
+                                { name: "ISO 27001", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/02/iso.webp?height=80&width=80&text=ISO", invert: false },
+                                { name: "GDPR Compliant", logo: "https://cdn.hyperverge.co/wp-content/uploads/2024/02/gdpr.webp?height=80&width=80&text=GDPR", invert: false },
                             ].map((cert, index) => (
                                 <div key={index} className="text-center group bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-blue-400/30 rounded-2xl p-4 sm:p-5 transition-all">
                                     <div className="mb-3">
@@ -1524,7 +1524,7 @@ export default function HomePage() {
                                             alt={cert.name}
                                             width={80}
                                             height={80}
-                                            className="mx-auto filter brightness-0 invert opacity-75 group-hover:opacity-100 transition-all w-12 h-12 sm:w-16 sm:h-16 object-contain"
+                                            className={`mx-auto transition-all w-12 h-12 sm:w-16 sm:h-16 object-contain ${cert.invert ? "filter brightness-0 invert opacity-75 group-hover:opacity-100" : "opacity-90 group-hover:opacity-100"}`}
                                         />
                                     </div>
                                     <p className="text-xs sm:text-sm font-semibold text-white/80 group-hover:text-[#76bbf8] transition-colors">
