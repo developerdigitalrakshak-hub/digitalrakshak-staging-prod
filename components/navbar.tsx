@@ -1038,8 +1038,8 @@ export default function Bar() {
       <div className="w-full flex justify-center px-3 sm:px-6 pointer-events-auto">
         <div
           className={`w-full transform-gpu transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between ${isScrolled
-            ? 'max-w-[1240px] mt-2 sm:mt-2.5 h-[54px] sm:h-[58px] bg-[#0b0f1d]/90 backdrop-blur-2xl border border-white/[0.12] rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.65)] px-4 sm:px-6 gap-3 xl:gap-6'
-            : 'max-w-[1440px] mt-0 h-16 sm:h-[68px] bg-transparent border border-transparent rounded-none shadow-none px-2 sm:px-4 gap-4 xl:gap-8'
+            ? 'max-w-[1340px] mt-2 sm:mt-2.5 h-[54px] sm:h-[58px] bg-[#0b0f1d]/90 backdrop-blur-2xl border border-white/[0.12] rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.65)] px-4 sm:px-5 2xl:px-6 gap-2 xl:gap-4 2xl:gap-6'
+            : 'max-w-[1440px] mt-0 h-16 sm:h-[68px] bg-transparent border border-transparent rounded-none shadow-none px-2 sm:px-4 gap-3 xl:gap-5 2xl:gap-8'
             }`}
         >
           {/* Left: DigitalRakshak Logo with Eagle Icon & crisp branding - exact staging.digitalrakshak.io style */}
@@ -1076,7 +1076,7 @@ export default function Bar() {
           {/* Center: Navigation Bar with same spacing & text across the unified header */}
           <nav
             ref={navRef}
-            className="hidden xl:flex items-center gap-3.5 xl:gap-5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            className="hidden xl:flex items-center gap-1.5 xl:gap-2 2xl:gap-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
           >
             {navigation.map((item) => (
               <div
@@ -1096,7 +1096,7 @@ export default function Bar() {
                           handleMouseEnter(item.name)
                         }
                       }}
-                      className={`font-medium transition-colors duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center gap-1.5 py-1.5 px-3 text-[14px] xl:text-[14.5px] ${pathname.startsWith(item.href) || activeDropdown === item.name
+                      className={`font-medium transition-colors duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center gap-1.5 py-1.5 px-2.5 2xl:px-3 text-[13.5px] 2xl:text-[14.5px] ${pathname.startsWith(item.href) || activeDropdown === item.name
                         ? 'text-white'
                         : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
                         }`}
@@ -1416,7 +1416,7 @@ export default function Bar() {
                   <Link
                     href={item.href}
                     onClick={() => handleMouseLeave()}
-                    className={`font-medium transition-colors duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center py-1.5 px-3 text-[14px] xl:text-[14.5px] ${pathname === item.href
+                    className={`font-medium transition-colors duration-200 tracking-normal whitespace-nowrap relative group rounded-full flex items-center py-1.5 px-2.5 2xl:px-3 text-[13.5px] 2xl:text-[14.5px] ${pathname === item.href
                       ? 'text-white'
                       : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
                       }`}
@@ -1433,7 +1433,7 @@ export default function Bar() {
           </nav>
 
           {/* Right: Search, Accessibility & Contact US */}
-          <div className="hidden sm:flex items-center gap-2 sm:gap-2.5">
+          <div className="hidden sm:flex shrink-0 items-center gap-1.5 sm:gap-2">
             {/* Search Popover Trigger */}
             <div className="relative" ref={searchRef}>
               <button
@@ -1487,7 +1487,7 @@ export default function Bar() {
             {/* Contact US Button */}
             <button
               onClick={openRegisterModal}
-              className="inline-flex items-center justify-center font-medium text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full shadow-sm cursor-pointer text-[13.5px] xl:text-[14px] px-4 sm:px-5 py-1.5 sm:py-2"
+              className="inline-flex items-center justify-center font-medium text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full shadow-sm cursor-pointer text-[13px] 2xl:text-[14px] px-3.5 sm:px-4 2xl:px-5 py-1.5 sm:py-2"
             >
               Contact us
             </button>
