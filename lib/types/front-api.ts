@@ -39,6 +39,7 @@ export interface InquiryConsent {
 }
 
 export interface InquiryPayload {
+  platform?: "com" | "io"
   type: string
   name: string
   business_email: string
