@@ -1,14 +1,20 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { API_CONFIG, FALLBACK_INQUIRY_OPTIONS, fetchFromFrontApi } from "@/lib/api/config"
 import { InquiryOption } from "@/lib/types/front-api"
 
 export const dynamic = "force-dynamic"
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const { status, data } = await fetchFromFrontApi<InquiryOption[]>(API_CONFIG.ENDPOINTS.INQUIRY_OPTIONS, {
-      method: "GET",
-    })
+    const platform = req.nextUrl.searchParams.get("platform") || "com"
+    const type = req.nextUrl.searchParams.get("type")
+    const query = new URLSearchParams({ platform })
+    if (type) query.set("type", type)
+
+    const { status, data } = await fetchFromFrontApi<InquiryOption[]>(
+      `${API_CONFIG.ENDPOINTS.INQUIRY_OPTIONS}?${query.toString()}`,
+      { method: "GET" }
+    )
 
     if (status === 200 && data.status && Array.isArray(data.data) && data.data.length > 0) {
       return NextResponse.json(data, { status: 200 })

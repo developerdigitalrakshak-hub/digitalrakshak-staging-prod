@@ -22,7 +22,7 @@ export function getFlagEmoji(iso2: string | null | undefined): string {
  * https://api.digitalrakshak.com/api/v1/front/countries
  * https://api.digitalrakshak.com/api/v1/front/inquiry-options
  */
-export function useFrontApiData() {
+export function useFrontApiData(platform: "com" | "io" = "com", inquiryType?: string) {
   const [countries, setCountries] = useState<Country[]>([])
   const [inquiryOptions, setInquiryOptions] = useState<InquiryOption[]>([])
   const [isLoadingCountries, setIsLoadingCountries] = useState(true)
@@ -70,8 +70,23 @@ export function useFrontApiData() {
       }
     }
 
+    loadCountries()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  useEffect(() => {
+    let isMounted = true
+    setIsLoadingOptions(true)
+
     async function loadOptions() {
-      const url = getFullApiUrl(API_ENDPOINTS.INQUIRY_OPTIONS)
+      const params = new URLSearchParams({ platform })
+      if (inquiryType) {
+        params.set("type", inquiryType)
+      }
+      const url = `${getFullApiUrl(API_ENDPOINTS.INQUIRY_OPTIONS)}?${params.toString()}`
       try {
         const res = await fetch(url, {
           method: "GET",
@@ -99,13 +114,12 @@ export function useFrontApiData() {
       }
     }
 
-    loadCountries()
     loadOptions()
 
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [platform, inquiryType])
 
   return {
     countries,
@@ -148,10 +162,10 @@ export async function submitInquiry(payload: InquiryPayload): Promise<{
       }
     }
 
-    if (res.status === 200 && result.status) {
+    if ((res.status === 200 || res.status === 201) && result.status) {
       return {
         success: true,
-        status: 200,
+        status: res.status,
         data: result.data,
         message: result.message || "Inquiry submitted successfully.",
       }

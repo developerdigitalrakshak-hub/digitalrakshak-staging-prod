@@ -190,6 +190,7 @@ function BusinessEntityForm({
     const onSubmit = async (data: BusinessFormValues) => {
         setIsSubmitting(true)
         const payload: InquiryPayload = {
+            platform: "com",
             type: "business",
             name: data.name.trim(),
             business_email: data.email.trim(),
@@ -249,8 +250,8 @@ function BusinessEntityForm({
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-3.5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Name */}
                 <div className="space-y-1">
                     <label htmlFor="bus-name" className="block text-xs font-semibold text-gray-200">
@@ -601,6 +602,7 @@ function ProfessionalForm({
     const onSubmit = async (data: ProfessionalFormValues) => {
         setIsSubmitting(true)
         const payload: InquiryPayload = {
+            platform: "com",
             type: "professional",
             name: data.name.trim(),
             business_email: data.email.trim(),
@@ -656,8 +658,8 @@ function ProfessionalForm({
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-3.5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Name */}
                 <div className="space-y-1">
                     <label htmlFor="prof-name" className="block text-xs font-semibold text-gray-200">
@@ -895,14 +897,14 @@ export default function RegisterModal({
     const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false)
     const [successDetails, setSuccessDetails] = useState<InquirySuccessDetails | null>(null)
 
-    // Dynamic countries and inquiry options
+    // Dynamic countries and inquiry options based on platform ("com") and selected inquiry type
     const {
         countries,
         inquiryOptions,
         isLoadingCountries,
         isLoadingOptions,
         defaultCountryId
-    } = useFrontApiData()
+    } = useFrontApiData("com", accountType)
 
     // Handle ESC key to close
     useEffect(() => {
@@ -944,7 +946,7 @@ export default function RegisterModal({
                 }
             }}
         >
-            <div className="relative w-full max-w-[600px] bg-gradient-to-b from-[#0f1426] via-[#090c17] to-[#060810] border border-white/15 rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.95),0_0_80px_rgba(59,130,246,0.15)] overflow-hidden my-auto animate-in zoom-in-95 duration-200">
+            <div className="relative w-full max-w-[760px] bg-gradient-to-b from-[#0f1426] via-[#090c17] to-[#060810] border border-white/15 rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.95),0_0_80px_rgba(59,130,246,0.15)] overflow-hidden my-auto animate-in zoom-in-95 duration-200">
                 {/* Glowing top line */}
                 <div className="h-1 w-full bg-gradient-to-r from-blue-500 via-[#38bdf8] to-indigo-500" />
 
@@ -958,7 +960,7 @@ export default function RegisterModal({
                 </button>
 
                 {/* Modal Scrollable Body */}
-                <div className="p-5 sm:p-7 max-h-[calc(90vh-2rem)] overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#2a3348_transparent]">
+                <div className="p-6 sm:p-8 max-h-[calc(92vh-2rem)] overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#2a3348_transparent]">
                     {!isSubmittedSuccessfully ? (
                         <>
                             {/* Modal Header */}

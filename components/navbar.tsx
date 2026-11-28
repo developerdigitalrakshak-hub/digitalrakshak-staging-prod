@@ -1022,9 +1022,11 @@ export default function Bar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
-      {/* 1. Full-width top backdrop & subtle bottom border: visible when at the top, smoothly fades out on scroll */}
+      {/* 1. Full-width top backdrop: full header bar at top, subtle gradient mask above floating capsule on scroll */}
       <div
-        className={`absolute inset-x-0 top-0 h-16 sm:h-[68px] bg-[#070b16]/85 backdrop-blur-md border-b border-white/[0.06] transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${isScrolled ? 'opacity-0' : 'opacity-100'
+        className={`absolute inset-x-0 top-0 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
+          ? 'h-8 bg-gradient-to-b from-[#040711] via-[#040711]/80 to-transparent border-b border-transparent'
+          : 'h-16 sm:h-[68px] bg-[#070b16]/85 backdrop-blur-md border-b border-white/[0.06]'
           }`}
       />
 

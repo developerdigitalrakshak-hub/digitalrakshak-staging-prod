@@ -106,10 +106,10 @@ export default function HomePage() {
     }, [nextTestimonial])
 
     const trustedCompanies = [
-        { name: "Infosys", logo: "https://companieslogo.com/img/orig/INFY-bf47e1fb.png?t=1720244492?height=40&width=120&text=Infosys" },
-        { name: "Wipro", logo: "https://companieslogo.com/img/orig/WIT-1453b096.png?t=1739861069?height=40&width=120&text=Wipro" },
-        { name: "HDFC Bank", logo: "https://companieslogo.com/img/orig/HDB-bb6241fe.png?t=1720244492?height=40&width=120&text=HDFC" },
-        { name: "ICICI Bank", logo: "https://companieslogo.com/img/orig/IBN-af38b5c0.png?t=1720244492?height=40&width=120&text=ICICI" },
+        { name: "Infosys", logo: "https://companieslogo.com/img/orig/INFY-bf47e1fb.png?t=1720244492?height=40&width=120&text=Infosys", isWordmark: true },
+        { name: "Wipro", logo: "https://companieslogo.com/img/orig/WIT-1453b096.png?t=1739861069?height=40&width=120&text=Wipro", isWordmark: true },
+        { name: "HDFC Bank", logo: "https://companieslogo.com/img/orig/HDB-bb6241fe.png?t=1720244492?height=40&width=120&text=HDFC", isWordmark: false },
+        { name: "ICICI Bank", logo: "https://companieslogo.com/img/orig/IBN-af38b5c0.png?t=1720244492?height=40&width=120&text=ICICI", isWordmark: false },
     ]
 
     const platformFeatures = [
@@ -322,15 +322,30 @@ export default function HomePage() {
                                     {trustedCompanies.slice(0, 4).map((company, index) => (
                                         <div
                                             key={index}
-                                            className="bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-blue-400/30 rounded-xl p-3 sm:p-4 text-center transition-all flex items-center justify-center min-h-[70px]"
+                                            className="bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-blue-400/30 rounded-xl p-3 sm:p-4 text-center transition-all flex items-center justify-center gap-2.5 min-h-[70px]"
                                         >
-                                            <Image
-                                                src={company.logo || "/placeholder.svg"}
-                                                alt={`${company.name} logo`}
-                                                width={90}
-                                                height={34}
-                                                className="mx-auto filter brightness-0 invert opacity-80 hover:opacity-100 transition-all object-contain max-h-[30px]"
-                                            />
+                                            {company.isWordmark ? (
+                                                <Image
+                                                    src={company.logo || "/placeholder.svg"}
+                                                    alt={`${company.name} logo`}
+                                                    width={90}
+                                                    height={34}
+                                                    className="mx-auto filter brightness-0 invert opacity-85 hover:opacity-100 transition-all object-contain max-h-[30px]"
+                                                />
+                                            ) : (
+                                                <>
+                                                    <Image
+                                                        src={company.logo || "/placeholder.svg"}
+                                                        alt={`${company.name} logo`}
+                                                        width={28}
+                                                        height={28}
+                                                        className="w-7 h-7 object-contain rounded-sm shrink-0"
+                                                    />
+                                                    <span className="text-white/90 font-semibold text-sm tracking-tight whitespace-nowrap">
+                                                        {company.name}
+                                                    </span>
+                                                </>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
